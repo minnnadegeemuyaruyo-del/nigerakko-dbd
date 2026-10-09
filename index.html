@@ -1,6 +1,6 @@
+
 <!DOCTYPE html>
 <html lang="ja">
-<!-- GitHub Pages deployment refresh -->
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,190 +8,498 @@
 <title>逃げラッコ式DbD立ち回り</title>
 
 <style>
+:root {
+  --bg: #f4f5f2;
+  --surface: #ffffff;
+  --text: #292f33;
+  --muted: #687579;
+  --teal: #477f7d;
+  --teal-light: #e7f0ee;
+  --border: #e3e8e5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
-  padding: 0;
-  background: #f5f5f5;
-  color: #333;
-  font-family: sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    -apple-system, BlinkMacSystemFont,
+    "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
   line-height: 1.9;
 }
 
 header {
-  background: #222;
-  color: white;
-  text-align: center;
-  padding: 35px 20px;
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-mark {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: var(--teal-light);
+  border-radius: 14px;
+  font-size: 25px;
 }
 
 header h1 {
   margin: 0;
-  font-size: 30px;
+  font-size: 21px;
+  line-height: 1.5;
+  font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
-main {
-  max-width: 800px;
-  margin: 35px auto;
-  padding: 0 20px;
+.hero {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 68px 28px 44px;
+}
+
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 19px;
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.hero-label::before {
+  content: "";
+  width: 25px;
+  height: 3px;
+  background: var(--teal);
+  border-radius: 5px;
+}
+
+.hero h2 {
+  max-width: 760px;
+  margin: 0 0 24px;
+  font-size: clamp(30px, 5vw, 49px);
+  font-weight: 850;
+  line-height: 1.45;
+  letter-spacing: 0.015em;
+}
+
+.hero h2 span {
+  color: var(--teal);
 }
 
 .content {
-  background: white;
-  padding: 35px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 28px 64px;
 }
 
-h2 {
-  margin-top: 0;
-  margin-bottom: 25px;
+.intro-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 35px 38px;
+  box-shadow: 0 8px 28px rgba(35, 52, 49, 0.04);
+}
+
+.intro-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: var(--teal);
+}
+
+.intro-card h2 {
+  margin: 0 0 22px;
   font-size: 24px;
+  line-height: 1.5;
 }
 
-p {
-  margin: 0 0 25px;
+.intro-card p {
+  margin: 0 0 23px;
+  color: #424c50;
+  overflow-wrap: anywhere;
+}
+
+.intro-card p:last-child {
+  margin-bottom: 0;
 }
 
 .intro {
-  font-size: 18px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text) !important;
 }
 
-.menu-title {
-  margin-top: 40px;
+.menu-section {
+  margin-top: 53px;
+}
+
+.menu-heading {
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.section-number {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  background: var(--teal-light);
+  color: var(--teal);
+  border-radius: 13px;
+  font-size: 17px;
+  font-weight: 850;
+}
+
+.menu-heading h2 {
+  margin: 0;
+  font-size: 23px;
+  line-height: 1.5;
 }
 
 .menu {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 17px;
 }
 
 .menu a {
-  display: block;
-  padding: 18px 20px;
-  background: #f0f0f0;
-  color: #333;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 188px;
+  padding: 23px 21px 19px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  color: var(--text);
   text-decoration: none;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 17px;
+  box-shadow: 0 5px 17px rgba(35, 52, 49, 0.035);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.menu a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--teal);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
 }
 
 .menu a:hover {
-  background: #ddd;
+  transform: translateY(-5px);
+  border-color: #a9c7c2;
+  box-shadow: 0 12px 25px rgba(35, 75, 70, 0.09);
+}
+
+.menu a:hover::before {
+  transform: scaleX(1);
+}
+
+.menu a:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 4px;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.card-number {
+  color: #9aa7a5;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.card-icon {
+  display: grid;
+  place-items: center;
+  width: 39px;
+  height: 39px;
+  background: var(--teal-light);
+  border-radius: 12px;
+  color: var(--teal);
+  font-size: 20px;
+}
+
+.card-title {
+  display: block;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.card-arrow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 14px;
+  color: var(--teal);
+  font-size: 22px;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.menu a:hover .card-arrow {
+  transform: translateX(5px);
 }
 
 footer {
+  padding: 27px 20px;
+  background: #e9eeeb;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
   text-align: center;
-  padding: 30px 20px;
-  color: #777;
-  font-size: 14px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
 }
 
-@media (max-width: 600px) {
-
-  header h1 {
-    font-size: 24px;
-  }
-
-  main {
-    margin: 20px auto;
-    padding: 0 12px;
+@media (max-width: 760px) {
+  .hero {
+    padding: 48px 22px 32px;
   }
 
   .content {
-    padding: 22px;
+    padding: 0 22px 45px;
+  }
+
+  .menu {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .menu a {
+    min-height: 125px;
+    padding: 17px 19px;
+  }
+
+  .card-top {
+    margin-bottom: 10px;
+  }
+
+  .card-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .card-arrow {
+    margin-top: 7px;
+  }
+
+  .intro-card {
+    padding: 27px 25px;
+  }
+
+  .menu-section {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 420px) {
+  .header-inner {
+    padding: 17px 18px;
+    gap: 11px;
+  }
+
+  header h1 {
+    font-size: 17px;
+  }
+
+  .logo-mark {
+    width: 38px;
+    height: 38px;
+    font-size: 22px;
+    border-radius: 12px;
+  }
+
+  .hero {
+    padding: 37px 18px 28px;
+  }
+
+  .hero h2 {
+    font-size: 29px;
+  }
+
+  .content {
+    padding: 0 15px 35px;
+  }
+
+  .intro-card {
+    padding: 23px 20px;
+  }
+
+  .intro-card h2 {
+    font-size: 21px;
   }
 
   .intro {
     font-size: 16px;
   }
 
-  .menu a {
-    font-size: 16px;
+  .menu-heading {
+    gap: 10px;
   }
 
+  .menu-heading h2 {
+    font-size: 20px;
+  }
 }
 
-</style>
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-
-<h1>逃げラッコ式DbD立ち回り</h1>
-
+  <div class="header-inner">
+    <div class="logo-mark" aria-hidden="true">🦦</div>
+    <h1>逃げラッコ式DbD立ち回り</h1>
+  </div>
 </header>
 
+<section class="hero">
+  <div class="hero-label">DEAD BY DAYLIGHT GUIDE</div>
+  <h2>逃げるだけが、<br><span>立ち回りじゃない。</span></h2>
+</section>
 
-<main>
+<main class="content">
 
-<div class="content">
+  <section class="intro-card">
 
+    <h2>こんちわ、ラッコだよ🦦</h2>
 
-<h2>こんちわ、ラッコだよ🦦</h2>
+    <p class="intro">
+    DbDに尋常じゃないくらいハマってるよ。<br>
+    始めて2ヶ月で400時間やっちゃうくらいにはハマってるよ。
+    </p>
 
-<p class="intro">
-DbDに尋常じゃないくらいハマってるよ。<br>
-始めて2ヶ月で400時間やっちゃうくらいにはハマってるよ。
-</p>
+    <p>
+    色んな攻略サイトとか動画とか見たりして研究したりするんだけど、<br>
+    自分が見たいような記事ってなかなか無くってね。<br>
+    思い切って作ってみたよ。
+    </p>
 
+    <p>
+    名付けて「逃げラッコ式DbD立ち回り」
+    </p>
 
-<p>
-色んな攻略サイトとか動画とか見たりして研究したりするんだけど、<br>
-自分が見たいような記事ってなかなか無くってね。<br>
-思い切って作ってみたよ。
-</p>
+    <p>
+    DbDを始めたばかりの初心者の人にわかりやすい立ち回りだから<br>
+    是非読んでほしい。教科書に載ってない内容ばかりだからきっと楽しいよ。
+    </p>
 
+  </section>
 
-<p>
-名付けて「逃げラッコ式DbD立ち回り」
-</p>
+  <section class="menu-section">
 
+    <div class="menu-heading">
+      <div class="section-number" aria-hidden="true">01</div>
+      <h2>じゃあさっそく見たいものを選んでね。</h2>
+    </div>
 
-<p>
-DbDを始めたばかりの初心者の人にわかりやすい立ち回りだから<br>
-是非読んでほしい。教科書に載ってない内容ばかりだからきっと楽しいよ。
-</p>
+    <div class="menu">
 
+      <a href="perks.html">
+        <div>
+          <div class="card-top">
+            <span class="card-number">GUIDE / 01</span>
+            <span class="card-icon" aria-hidden="true">✳</span>
+          </div>
+          <span class="card-title">
+            100時間未満｜オススメのパーク
+          </span>
+        </div>
+        <span class="card-arrow" aria-hidden="true">↗</span>
+      </a>
 
-<h2 class="menu-title">
-じゃあさっそく見たいものを選んでね。
-</h2>
+      <a href="playstyle.html?v=2">
+        <div>
+          <div class="card-top">
+            <span class="card-number">GUIDE / 02</span>
+            <span class="card-icon" aria-hidden="true">⌁</span>
+          </div>
+          <span class="card-title">
+            100時間未満｜オススメの立ち回り
+          </span>
+        </div>
+        <span class="card-arrow" aria-hidden="true">↗</span>
+      </a>
 
+      <a href="fun.html">
+        <div>
+          <div class="card-top">
+            <span class="card-number">GUIDE / 03</span>
+            <span class="card-icon" aria-hidden="true">▷</span>
+          </div>
+          <span class="card-title">
+            100時間未満｜オススメの楽しみ方
+          </span>
+        </div>
+        <span class="card-arrow" aria-hidden="true">↗</span>
+      </a>
 
-<div class="menu">
-
-<a href="perks.html">
-100時間未満｜オススメのパーク
-</a>
-
-<a href="playstyle.html?v=2">
-100時間未満｜オススメの立ち回り
-</a>
-
-<a href="fun.html">
-100時間未満｜オススメの楽しみ方
-</a>
-
-</div>
-
-
-</div>
+    </div>
+  </section>
 
 </main>
 
-
 <footer>
-
-© 逃げラッコ
-
+  © 逃げラッコ
 </footer>
 
-
 </body>
-
 </html>
