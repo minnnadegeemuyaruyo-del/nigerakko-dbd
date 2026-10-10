@@ -316,6 +316,74 @@ main {
 }
 .intro-card h2 { margin-top: 0; }
 .intro-card p { overflow-wrap: anywhere; }
+  
+/* 紹介文と初心者向けメニューを横並びにする */
+.intro-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+  margin-top: 24px;
+}
+
+.intro-layout .intro-card {
+  margin-top: 0;
+}
+
+.beginner-menu {
+  padding: 24px;
+  background: #fffdf8;
+  border: 1px solid #e6ddd0;
+  border-radius: 16px;
+}
+
+.beginner-menu h2 {
+  margin: 0 0 18px;
+  font-size: 22px;
+  line-height: 1.6;
+}
+
+.beginner-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 15px 17px;
+  border: 1px solid #e6ddd0;
+  border-radius: 12px;
+  background: #f8f3e9;
+  text-decoration: none;
+  font-weight: 800;
+  transition: transform .2s, border-color .2s;
+}
+
+.beginner-link:hover {
+  transform: translateY(-2px);
+  border-color: #477f7d;
+}
+
+.beginner-link span:last-child {
+  color: #477f7d;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 760px) {
+  .intro-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .beginner-menu {
+    padding: 20px;
+  }
+
+  .beginner-menu h2 {
+    font-size: 20px;
+  }
+}
+
 .beginner-banner {
   margin-top: 28px;
   padding: 34px 26px;
@@ -457,21 +525,52 @@ a:focus-visible {
 
   </section>
 
+
+<div class="intro-layout">
+
   <section class="intro-card">
     <h2>こんちわ、ラッコだよ🦦</h2>
-    <p><strong>DbDに尋常じゃないくらいハマってるよ。<br>
-    始めて2ヶ月で400時間やっちゃうくらいにはハマってるよ。</strong></p>
+
+    <p><strong>
+      DbDに尋常じゃないくらいハマってるよ。<br>
+      始めて2ヶ月で400時間やっちゃうくらいにはハマってるよ。
+    </strong></p>
+
     <p>
       色んな攻略サイトとか動画とか見たりして研究したりするんだけど、<br>
       自分が見たいような記事ってなかなか無くってね。<br>
       思い切って作ってみたよ。
     </p>
+
     <p>名付けて「逃げラッコ式DbD立ち回り」</p>
+
     <p>
       DbDを始めたばかりの初心者の人にわかりやすい立ち回りだから<br>
       是非読んでほしい。教科書に載ってない内容ばかりだからきっと楽しいよ。
     </p>
   </section>
+
+  <section class="beginner-menu">
+    <h2>🔰 DbDをプレイして100時間未満の人は、まずこれを見よう！</h2>
+
+    <a class="beginner-link" href="perks.html">
+      <span>① おすすめパーク構成</span>
+      <span>↗</span>
+    </a>
+
+    <a class="beginner-link" href="playstyle.html?v=2">
+      <span>② おすすめ立ち回り</span>
+      <span>↗</span>
+    </a>
+
+    <a class="beginner-link" href="fun.html">
+      <span>③ おすすめの楽しみ方</span>
+      <span>↗</span>
+    </a>
+  </section>
+
+</div>
+
   
 <main>
   <section class="guide-grid" aria-label="攻略ガイド">
