@@ -479,6 +479,11 @@ a:focus-visible {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
+  .hero-image-section img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 </style>
 </head>
 
@@ -501,17 +506,11 @@ a:focus-visible {
   </div>
 </header>
 
-<section class="hero">
-  <div class="hero-copy">
-    <h1>
-      <span class="hero-main">できないことは<br>考えるな。</span>
-      <span class="hero-sub">0から始める逃亡生活</span>
-    </h1>
-    <div class="hero-tag">ラッコも実際に使ってるよ</div>
-  </div>
-  <img src="images/rakko-sign.png"
-       alt="貝を持ったラッコ"
-       class="hero-image">
+<section class="hero-image-section">
+  <img
+    src="images/hero-rakko.png"
+    alt="できないことは考えるな。0から始める逃亡生活。ラッコも実際に使ってるよ"
+  >
 </section>
 
 <div class="catchline">
