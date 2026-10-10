@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="できないことは考えるな。0から始める逃亡生活。ラッコが実際に使っているパークや、救助・発電・チェイスなどの立ち回りを初心者向けに紹介します。">
 <title>逃げラッコ式DbD立ち回り｜0から始める逃亡生活</title>
-
 <style>
 :root {
   --bg: #f4f0e7;
@@ -22,8 +21,7 @@ body {
   margin: 0;
   color: var(--text);
   background: var(--bg);
-  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP",
-    "Yu Gothic", Meiryo, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
   line-height: 1.7;
 }
 a { color: inherit; }
@@ -79,55 +77,16 @@ nav a:hover { color: var(--teal); }
   padding: 10px 17px;
   border-radius: 30px;
 }
-.hero {
-  position: relative;
-  min-height: 400px;
-  display: grid;
-  grid-template-columns: 1.05fr .95fr;
-  align-items: center;
-  gap: 12px;
-  padding: 35px max(5%, calc((100% - 1320px) / 2));
+.hero-image-section {
+  width: 100%;
   background: #c9dfe4;
-  overflow: hidden;
 }
-.hero-copy { position: relative; z-index: 1; }
-.hero h1 {
-  margin: 0;
-  font-size: clamp(34px, 4.4vw, 65px);
-  line-height: 1.2;
-  letter-spacing: -.04em;
-  font-weight: 950;
-}
-.hero-main {
-  display: block;
-  color: #302219;
-  text-shadow: 1px 2px 0 rgba(255,255,255,.45);
-}
-.hero-sub {
-  display: block;
-  margin-top: 12px;
-  color: #155e62;
-  font-size: clamp(29px, 3.7vw, 52px);
-  font-weight: 950;
-  line-height: 1.2;
-}
-.hero-tag {
-  display: inline-block;
-  margin-top: 23px;
-  padding: 9px 20px;
-  color: white;
-  background: var(--teal);
-  border-radius: 7px 25px 25px 7px;
-  font-size: clamp(15px, 1.7vw, 22px);
-  font-weight: 800;
-}
-.hero-image {
+.hero-image-section img {
   display: block;
   width: 100%;
-  max-width: 590px;
-  max-height: 400px;
-  object-fit: contain;
-  justify-self: center;
+  max-width: 1024px;
+  height: auto;
+  margin: 0 auto;
 }
 .catchline {
   padding: 17px 20px;
@@ -145,6 +104,60 @@ main {
   max-width: 1440px;
   margin: auto;
   padding: 28px 26px 45px;
+}
+.intro-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+  margin-top: 24px;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 26px;
+}
+.intro-card {
+  margin-top: 0;
+  padding: 24px;
+  background: #fffdf8;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.intro-card h2 { margin-top: 0; }
+.intro-card p { overflow-wrap: anywhere; }
+.beginner-menu {
+  padding: 24px;
+  background: #fffdf8;
+  border: 1px solid #e6ddd0;
+  border-radius: 16px;
+}
+.beginner-menu h2 {
+  margin: 0 0 18px;
+  font-size: 22px;
+  line-height: 1.6;
+}
+.beginner-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 15px 17px;
+  border: 1px solid #e6ddd0;
+  border-radius: 12px;
+  background: #f8f3e9;
+  text-decoration: none;
+  font-weight: 800;
+  transition: transform .2s, border-color .2s;
+}
+.beginner-link:hover {
+  transform: translateY(-2px);
+  border-color: #477f7d;
+}
+.beginner-link span:last-child {
+  color: #477f7d;
+  font-size: 20px;
+  flex-shrink: 0;
 }
 .guide-grid {
   display: grid;
@@ -174,14 +187,6 @@ main {
   height: 100%;
   display: block;
   object-fit: cover;
-}
-.guide-picture .perk-placeholder {
-  height: 100%;
-  display: grid;
-  place-items: center;
-  font-size: 70px;
-  color: #e8e8df;
-  background: radial-gradient(circle at center, #4e6260, #182022);
 }
 .guide-body {
   display: flex;
@@ -224,7 +229,6 @@ main {
 .guide-card:nth-child(2) .guide-button { background: #2756a2; }
 .guide-card:nth-child(3) .guide-button { background: #9e354e; }
 .guide-card:nth-child(4) .guide-button { background: #496e3f; }
-
 .character-section {
   margin-top: 25px;
   padding: 20px;
@@ -307,83 +311,6 @@ main {
   font-size: 12px;
   font-weight: 800;
 }
-.intro-card {
-  margin-top: 28px;
-  padding: 24px;
-  background: #fffdf8;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-}
-.intro-card h2 { margin-top: 0; }
-.intro-card p { overflow-wrap: anywhere; }
-  
-/* 紹介文と初心者向けメニューを横並びにする */
-.intro-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  align-items: stretch;
-  margin-top: 24px;
-}
-
-.intro-layout .intro-card {
-  margin-top: 0;
-}
-
-.beginner-menu {
-  padding: 24px;
-  background: #fffdf8;
-  border: 1px solid #e6ddd0;
-  border-radius: 16px;
-}
-
-.beginner-menu h2 {
-  margin: 0 0 18px;
-  font-size: 22px;
-  line-height: 1.6;
-}
-
-.beginner-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 12px;
-  padding: 15px 17px;
-  border: 1px solid #e6ddd0;
-  border-radius: 12px;
-  background: #f8f3e9;
-  text-decoration: none;
-  font-weight: 800;
-  transition: transform .2s, border-color .2s;
-}
-
-.beginner-link:hover {
-  transform: translateY(-2px);
-  border-color: #477f7d;
-}
-
-.beginner-link span:last-child {
-  color: #477f7d;
-  font-size: 20px;
-  flex-shrink: 0;
-}
-
-@media (max-width: 760px) {
-  .intro-layout {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .beginner-menu {
-    padding: 20px;
-  }
-
-  .beginner-menu h2 {
-    font-size: 20px;
-  }
-}
-
 .beginner-banner {
   margin-top: 28px;
   padding: 34px 26px;
@@ -429,9 +356,17 @@ a:focus-visible {
     overflow-x: auto;
     padding: 5px 0;
   }
-  .hero { padding: 30px 25px; }
   .guide-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .character-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .intro-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0 20px;
+  }
+  .beginner-menu { padding: 20px; }
+  .beginner-menu h2 { font-size: 20px; }
 }
 @media (max-width: 560px) {
   .header-inner { padding: 10px 15px; gap: 8px; }
@@ -440,17 +375,9 @@ a:focus-visible {
   .twitch-link { padding: 7px 11px; font-size: 12px; }
   nav { gap: 18px; }
   nav a { font-size: 12px; }
-  .hero {
-    grid-template-columns: 1fr;
-    padding: 27px 19px 15px;
-    gap: 5px;
-  }
-  .hero h1 { font-size: clamp(33px, 9vw, 46px); }
-  .hero-sub { font-size: clamp(27px, 7vw, 37px); }
-  .hero-image { max-height: 280px; }
-  .hero-tag { margin-top: 15px; }
   .catchline { padding: 14px 10px; line-height: 1.8; }
   main { padding: 18px 13px 30px; }
+  .intro-layout { padding: 0 13px; margin-top: 18px; }
   .guide-grid { gap: 10px; }
   .guide-picture { height: 125px; }
   .guide-body { padding: 0 9px 10px; }
@@ -479,27 +406,8 @@ a:focus-visible {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
- .hero-image-section img {
-  display: block;
-  width: 100%;
-  max-width: 1024px;
-  height: auto;
-  margin: 0 auto;
-}
-
-.hero-image-section {
-  width: 100%;
-  background: #c9dfe4;
-}
-
-@media (max-width: 600px) {
-  .hero-image-section img {
-    max-width: 100%;
-  }
-}
 </style>
 </head>
-
 <body>
 <header>
   <div class="header-inner">
@@ -520,10 +428,8 @@ a:focus-visible {
 </header>
 
 <section class="hero-image-section">
-  <img
-src="images/ChatGPT%20画像%202026年10月10日%2017_41_34.png"
-    alt="できないことは考えるな。0から始める逃亡生活。ラッコも実際に使ってるよ"
-  >
+  <img src="images/ChatGPT%20画像%202026年10月10日%2017_41_34.png"
+       alt="できないことは考えるな。0から始める逃亡生活。ラッコも実際に使ってるよ">
 </section>
 
 <div class="catchline">
@@ -535,27 +441,19 @@ src="images/ChatGPT%20画像%202026年10月10日%2017_41_34.png"
   <span class="dots">…色んな楽しい立ち回りを徹底解説！</span>
 </div>
 
-  </section>
-
-
 <div class="intro-layout">
-
   <section class="intro-card">
     <h2>こんちわ、ラッコだよ🦦</h2>
-
     <p><strong>
       DbDに尋常じゃないくらいハマってるよ。<br>
       始めて2ヶ月で400時間やっちゃうくらいにはハマってるよ。
     </strong></p>
-
     <p>
       色んな攻略サイトとか動画とか見たりして研究したりするんだけど、<br>
       自分が見たいような記事ってなかなか無くってね。<br>
       思い切って作ってみたよ。
     </p>
-
     <p>名付けて「逃げラッコ式DbD立ち回り」</p>
-
     <p>
       DbDを始めたばかりの初心者の人にわかりやすい立ち回りだから<br>
       是非読んでほしい。教科書に載ってない内容ばかりだからきっと楽しいよ。
@@ -564,31 +462,23 @@ src="images/ChatGPT%20画像%202026年10月10日%2017_41_34.png"
 
   <section class="beginner-menu">
     <h2>🔰 DbDをプレイして100時間未満の人は、まずこれを見よう！</h2>
-
     <a class="beginner-link" href="perks.html">
-      <span>① おすすめパーク構成</span>
-      <span>↗</span>
+      <span>① おすすめパーク構成</span><span>↗</span>
     </a>
-
     <a class="beginner-link" href="playstyle.html?v=2">
-      <span>② おすすめ立ち回り</span>
-      <span>↗</span>
+      <span>② おすすめ立ち回り</span><span>↗</span>
     </a>
-
     <a class="beginner-link" href="fun.html">
-      <span>③ おすすめの楽しみ方</span>
-      <span>↗</span>
+      <span>③ おすすめの楽しみ方</span><span>↗</span>
     </a>
   </section>
-
 </div>
 
-  
 <main>
   <section class="guide-grid" aria-label="攻略ガイド">
     <a class="guide-card" href="playstyle.html?v=2">
       <div class="guide-picture">
-        <img src="images/playstyle-rakko.png" alt="救助の立ち回り">
+        <img src="images/rescue-rakko-coming-soon.png" alt="救助ページ準備中">
       </div>
       <div class="guide-body">
         <h2 class="guide-title">救助</h2>
@@ -599,7 +489,7 @@ src="images/ChatGPT%20画像%202026年10月10日%2017_41_34.png"
 
     <a class="guide-card" href="playstyle.html?v=2">
       <div class="guide-picture">
-        <img src="images/playstyle-rakko.png" alt="発電機を回す立ち回り">
+        <img src="images/generator-rakko-coming-soon.png" alt="発電ページ準備中">
       </div>
       <div class="guide-body">
         <h2 class="guide-title">発電</h2>
@@ -610,7 +500,7 @@ src="images/ChatGPT%20画像%202026年10月10日%2017_41_34.png"
 
     <a class="guide-card" href="playstyle.html?v=2">
       <div class="guide-picture">
-        <img src="images/playstyle-rakko.png" alt="チェイスの立ち回り">
+        <img src="images/chase-rakko-coming-soon.png" alt="チェイスページ準備中">
       </div>
       <div class="guide-body">
         <h2 class="guide-title">チェイス</h2>
@@ -636,7 +526,6 @@ src="images/ChatGPT%20画像%202026年10月10日%2017_41_34.png"
       <h2>🦦 キャラクター別パーク構成</h2>
       <a href="perks.html">一覧を見る →</a>
     </div>
-
     <div class="character-grid">
       <a class="character-card" href="perks.html">
         <div class="character-portrait" aria-hidden="true">🦦</div>
@@ -650,7 +539,6 @@ src="images/ChatGPT%20画像%202026年10月10日%2017_41_34.png"
         </div>
         <span class="character-button">ユンジンの構成を見る →</span>
       </a>
-
       <a class="character-card" href="perks.html">
         <div class="character-portrait" aria-hidden="true">⚙</div>
         <h3>ビットリオ</h3>
@@ -663,7 +551,6 @@ src="images/ChatGPT%20画像%202026年10月10日%2017_41_34.png"
         </div>
         <span class="character-button">ビットリオの構成を見る →</span>
       </a>
-
       <a class="character-card" href="perks.html">
         <div class="character-portrait" aria-hidden="true">🏃</div>
         <h3>エレン</h3>
@@ -676,7 +563,6 @@ src="images/ChatGPT%20画像%202026年10月10日%2017_41_34.png"
         </div>
         <span class="character-button">エレンの構成を見る →</span>
       </a>
-
       <a class="character-card" href="perks.html">
         <div class="character-portrait" aria-hidden="true">🛡</div>
         <h3>ドワイト</h3>
@@ -690,6 +576,7 @@ src="images/ChatGPT%20画像%202026年10月10日%2017_41_34.png"
         <span class="character-button">ドワイトの構成を見る →</span>
       </a>
     </div>
+  </section>
 
   <section class="beginner-banner" id="beginner">
     <div class="beginner-message">
@@ -705,4 +592,3 @@ src="images/ChatGPT%20画像%202026年10月10日%2017_41_34.png"
 <footer>© 逃げラッコ</footer>
 </body>
 </html>
-```
