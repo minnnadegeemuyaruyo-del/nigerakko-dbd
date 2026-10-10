@@ -479,10 +479,23 @@ a:focus-visible {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
-  .hero-image-section img {
+ .hero-image-section img {
   display: block;
   width: 100%;
+  max-width: 1024px;
   height: auto;
+  margin: 0 auto;
+}
+
+.hero-image-section {
+  width: 100%;
+  background: #c9dfe4;
+}
+
+@media (max-width: 600px) {
+  .hero-image-section img {
+    max-width: 100%;
+  }
 }
 </style>
 </head>
