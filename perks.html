@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -7,6 +8,29 @@
   <title>おすすめパーク構成｜逃げラッコ式DbD立ち回り</title>
 
   <style>
+    .dwight-intro {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .dwight-photo {
+      width: 88px;
+      height: 88px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 600px) {
+      .dwight-photo {
+        width: 68px;
+        height: 68px;
+      }
+    }
+
     :root {
       --bg: #f4f0e7;
       --surface: #fffdf8;
@@ -367,7 +391,7 @@
     }
   </style>
 </head>
-
+  
 <body>
 
   <header>
@@ -396,9 +420,16 @@
   <main>
     <div class="content-card">
 
-      <p class="intro">
-        <strong>どのキャラから解放したらいいかわからない人</strong>は、まず【ドワイト】を選択してね。
-      </p>
+      <div class="intro dwight-intro">
+        <img
+          src="images/dwight.png"
+          alt="ドワイト"
+          class="dwight-photo"
+        >
+        <div>
+          <strong>どのキャラから解放したらいいかわからない人</strong>は、まず【ドワイト】を選択してね。
+        </div>
+      </div>
 
       <h2 class="section-title">最初のパーク構成</h2>
 
@@ -653,3 +684,4 @@
 
 </body>
 </html>
+
