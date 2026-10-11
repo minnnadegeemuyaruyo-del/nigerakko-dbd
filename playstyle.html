@@ -6,7 +6,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="逃げラッコ式DbD立ち回りガイド。プレイ時間100時間未満の初心者向けに、試合開始から脱出までの立ち回りを紹介。">
   <title>100時間未満｜オススメの立ち回り</title>
+.bond-notice {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 24px 0;
+  padding: 20px;
+  background: #e8f2ef;
+  border: 2px solid #477f7d;
+  border-radius: 16px;
+}
 
+.bond-notice img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.bond-notice-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bond-notice-text span {
+  color: #477f7d;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.bond-notice-text strong {
+  color: #30271f;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .bond-notice {
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .bond-notice img {
+    width: 68px;
+    height: 68px;
+  }
+
+  .bond-notice-text strong {
+    font-size: 17px;
+  }
+}
   <style>
     :root {
       --bg: #f4f0e7;
@@ -413,7 +463,13 @@
   <main>
     <div class="content">
 
-      <p class="intro">パークの中に「絆」は必ず入れてね。</p>
+    <div class="bond-notice">
+  <img src="images/dwight.png" alt="ドワイト">
+  <div class="bond-notice-text">
+    <span>初心者ラッコへの重要ポイント</span>
+    <strong>パークの中に「絆」は必ず入れてね！</strong>
+  </div>
+</div>
 
       <p>パーク構成がわからない人は<strong><a href="perks.html">パーク構成へのリンク</a></strong>を参考にしてね。じゃあいくよ🦦</p>
 
