@@ -231,6 +231,47 @@
       vertical-align: 3px;
     }
 
+    .perk-title {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .perk-owner {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px 4px 4px;
+      background: var(--teal-light);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .perk-owner img {
+      width: 30px;
+      height: 30px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 560px) {
+      .perk-owner {
+        font-size: 11px;
+      }
+
+      .perk-owner img {
+        width: 26px;
+        height: 26px;
+      }
+    }
+
     .effect-label {
       margin: 18px 0 8px;
       color: var(--teal);
@@ -433,12 +474,18 @@
 
       <h2 class="section-title">最初のパーク構成</h2>
 
-      <article class="perk-card">
-        <h3 class="perk-heading">
-          <img src="images/絆.png" alt="" class="perk-icon">
-          <span><span class="perk-number">1</span>絆</span>
-        </h3>
-
+    
+<h3 class="perk-heading">
+  <img src="images/絆.png" alt="" class="perk-icon">
+  <span class="perk-title">
+    <span><span class="perk-number">1</span>絆</span>
+    <span class="perk-owner">
+      <img src="images/dwight.png" alt="">
+      ドワイトの固有パーク
+    </span>
+  </span>
+</h3>
+    
         <p class="effect-label">【効果】</p>
         <p>(20・28・36)メートル以内にいる他の仲間のオーラがあなたに視える。</p>
 
@@ -446,11 +493,17 @@
         <p>味方全員が何をしているかを想像する癖をつけるため。</p>
       </article>
 
-      <article class="perk-card">
-        <h3 class="perk-heading">
-          <img src="images/有能の証明.png" alt="" class="perk-icon">
-          <span><span class="perk-number">2</span>有能の証明</span>
-        </h3>
+     
+<h3 class="perk-heading">
+  <img src="images/有能の証明.png" alt="" class="perk-icon">
+  <span class="perk-title">
+    <span><span class="perk-number">2</span>有能の証明</span>
+    <span class="perk-owner">
+      <img src="images/dwight.png" alt="">
+      ドワイトの固有パーク
+    </span>
+  </span>
+</h3>
 
         <p class="effect-label">【効果】</p>
         <p>
@@ -465,12 +518,16 @@
         </p>
       </article>
 
-      <article class="perk-card">
-        <h3 class="perk-heading">
-          <img src="images/リーダー.png" alt="" class="perk-icon">
-          <span><span class="perk-number">3</span>リーダー</span>
-        </h3>
-
+    <h3 class="perk-heading">
+  <img src="images/リーダー.png" alt="" class="perk-icon">
+  <span class="perk-title">
+    <span><span class="perk-number">3</span>リーダー</span>
+    <span class="perk-owner">
+      <img src="images/dwight.png" alt="">
+      ドワイトの固有パーク
+    </span>
+  </span>
+</h3>
         <p class="effect-label">【効果】</p>
         <p>自分の10メートル以内にいる他の生存者は、次の行動速度が(20・25・30)%上昇する。</p>
         <ul>
@@ -547,11 +604,17 @@
         このパーク構成にするよ。
       </p>
 
-      <article class="perk-card">
-        <h3 class="perk-heading">
-          <img src="images/絆.png" alt="" class="perk-icon">
-          <span><span class="perk-number">1</span>絆</span>
-        </h3>
+      
+<h3 class="perk-heading">
+  <img src="images/絆.png" alt="" class="perk-icon">
+  <span class="perk-title">
+    <span><span class="perk-number">1</span>絆</span>
+    <span class="perk-owner">
+      <img src="images/dwight.png" alt="">
+      ドワイトの固有パーク
+    </span>
+  </span>
+</h3>
 
         <p class="effect-label">【効果】</p>
         <p>(20・28・36)メートル以内にいる他の仲間のオーラがあなたに視える。</p>
@@ -569,13 +632,18 @@
           基本的に味方とは離れて行動することが大事🦦
         </p>
       </article>
-
-      <article class="perk-card">
-        <h3 class="perk-heading">
-          <img src="images/全力疾走.png" alt="" class="perk-icon">
-          <span><span class="perk-number">2</span>全力疾走</span>
-        </h3>
-
+    
+<h3 class="perk-heading">
+  <img src="images/全力疾走.png" alt="" class="perk-icon">
+  <span class="perk-title">
+    <span><span class="perk-number">2</span>全力疾走</span>
+    <span class="perk-owner">
+      <img src="images/meg.png" alt="">
+      メグの固有パーク
+    </span>
+  </span>
+</h3>
+    
         <p class="effect-label">【効果】</p>
         <p>あなたは走り出すと、迅速50%を2秒間得る。</p>
         <p>その後、(60・50・40)秒間疲労状態になる。</p>
@@ -595,11 +663,16 @@
         </p>
       </article>
 
-      <article class="perk-card">
-        <h3 class="perk-heading">
-          <img src="images/警戒.png" alt="" class="perk-icon">
-          <span><span class="perk-number">3</span>警戒</span>
-        </h3>
+<h3 class="perk-heading">
+  <img src="images/警戒.png" alt="" class="perk-icon">
+  <span class="perk-title">
+    <span><span class="perk-number">3</span>警戒</span>
+    <span class="perk-owner">
+      <img src="images/feng-min.png" alt="">
+      フェンミンの固有パーク
+    </span>
+  </span>
+</h3>
 
         <p class="effect-label">【効果】</p>
         <p>
@@ -625,12 +698,17 @@
         </p>
       </article>
 
-      <article class="perk-card">
-        <h3 class="perk-heading">
-          <img src="images/魂の平穏.png" alt="" class="perk-icon">
-          <span><span class="perk-number">4</span>魂の平穏</span>
-        </h3>
-
+<h3 class="perk-heading">
+  <img src="images/魂の平穏.png" alt="" class="perk-icon">
+  <span class="perk-title">
+    <span><span class="perk-number">4</span>魂の平穏</span>
+    <span class="perk-owner">
+      <img src="images/jake.png" alt="">
+      ジェイクの固有パーク
+    </span>
+  </span>
+</h3>
+    
         <p class="effect-label">【効果】</p>
         <p>あなたはカラスを怖がらせず、叫び声を上げない。</p>
         <p>
@@ -648,7 +726,7 @@
         <p>
           全然変えても良いけど、セルフケアとかオポチュニティとか、
           強力なパークを入れてないということにはそれなりの理由があるんだけど、
-          長くなるから<strong>立ち回り</strong>のところで説明するね🦦
+          長くなるから<strong>楽しみ方</strong>のところで説明するね🦦
         </p>
 
         <p class="effect-label">【注意点】</p>
