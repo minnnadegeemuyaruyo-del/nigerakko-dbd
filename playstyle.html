@@ -4,66 +4,180 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="逃げラッコ式DbD立ち回りガイド。プレイ時間100時間未満の初心者向けに、試合開始から脱出までの立ち回りを紹介。">
   <title>100時間未満｜オススメの立ち回り</title>
 
   <style>
+    :root {
+      --bg: #f4f0e7;
+      --surface: #fffdf8;
+      --text: #30271f;
+      --muted: #71685f;
+      --teal: #477f7d;
+      --teal-light: #e7f0ee;
+      --border: #e6ddd0;
+      --hero-blue: #c9dfe4;
+    }
+
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      background: #f2f2f2;
-      color: #222;
+      background: var(--bg);
+      color: var(--text);
       font-family:
         -apple-system,
         BlinkMacSystemFont,
-        "Helvetica Neue",
+        "Noto Sans JP",
         "Yu Gothic",
         "Hiragino Kaku Gothic ProN",
         Meiryo,
         sans-serif;
-      line-height: 1.9;
+      line-height: 1.8;
+    }
+
+    a {
+      color: inherit;
     }
 
     header {
-      background: #111;
-      color: #fff;
-      text-align: center;
-      padding: 28px 20px;
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, .97);
+      border-bottom: 1px solid var(--border);
     }
 
-    header h1 {
+    .header-inner {
+      max-width: 1440px;
+      min-height: 72px;
+      margin: auto;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .brand-icon {
+      font-size: 37px;
+    }
+
+    .brand-name {
+      font-weight: 900;
+      font-size: 19px;
+      line-height: 1.3;
+    }
+
+    .brand-name small {
+      display: block;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(12px, 2vw, 28px);
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    nav a:hover,
+    nav a[aria-current="page"] {
+      color: var(--teal);
+    }
+
+    nav a[aria-current="page"] {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 7px;
+    }
+
+    .page-hero {
+      padding: 40px 20px;
+      text-align: center;
+      background: var(--hero-blue);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: #376c6a;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+    }
+
+    .page-hero h1 {
       margin: 0;
-      font-size: 1.8rem;
-      letter-spacing: 0.03em;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.35;
+      font-weight: 950;
+    }
+
+    .page-hero p {
+      margin: 12px 0 0;
+      font-size: 15px;
+      font-weight: 700;
     }
 
     main {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
+      max-width: 1100px;
+      margin: auto;
+      padding: 30px 24px 50px;
     }
 
     .content {
-      background: #fff;
-      border-radius: 14px;
-      padding: 35px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      padding: 30px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 5px 18px rgba(48, 39, 31, .04);
     }
 
     .intro {
-      font-size: 1.05rem;
-      margin-bottom: 18px;
+      margin: 0 0 18px;
+      padding: 18px 20px;
+      background: #f8f3e9;
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--teal);
+      border-radius: 12px;
+      font-size: 1.02rem;
+    }
+
+    .intro a {
+      color: var(--teal);
+      font-weight: 800;
+      text-underline-offset: 3px;
     }
 
     h2 {
-      margin: 45px 0 24px;
-      padding: 12px 16px;
-      background: #eeeeee;
-      border-left: 6px solid #222;
-      border-radius: 6px;
-      font-size: 1.45rem;
+      margin: 42px 0 22px;
+      padding: 13px 18px;
+      background: var(--teal-light);
+      border-left: 5px solid var(--teal);
+      border-radius: 8px;
+      font-size: clamp(21px, 3vw, 29px);
+      line-height: 1.5;
     }
 
     h2:first-of-type {
@@ -72,15 +186,18 @@
 
     h3 {
       margin: 32px 0 16px;
-      padding: 10px 14px;
-      background: #f7f7f7;
-      border-bottom: 2px solid #ddd;
-      border-radius: 5px;
-      font-size: 1.15rem;
+      padding: 11px 15px;
+      background: #f8f3e9;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--teal);
+      border-radius: 8px;
+      font-size: 1.08rem;
+      line-height: 1.6;
     }
 
     p {
       margin: 0 0 20px;
+      overflow-wrap: anywhere;
     }
 
     ul {
@@ -93,14 +210,20 @@
     }
 
     strong {
-      font-weight: 700;
+      font-weight: 800;
+    }
+
+    .chapter {
+      padding-bottom: 10px;
+      margin-bottom: 20px;
     }
 
     .video-wrap {
       width: 100%;
       margin: 24px 0 30px;
       overflow: hidden;
-      border-radius: 10px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
       background: #000;
     }
 
@@ -115,85 +238,148 @@
 
     .image-placeholder {
       margin: 24px 0;
-      padding: 18px;
-      background: #f8f8f8;
-      border: 2px dashed #ccc;
-      border-radius: 8px;
+      padding: 22px 18px;
+      background: #f8f3e9;
+      border: 2px dashed #c9bfae;
+      border-radius: 12px;
       text-align: center;
-      color: #777;
-      font-size: 0.95rem;
-    }
-
-    .chapter {
-      padding-bottom: 10px;
-      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: .95rem;
     }
 
     .ending {
       margin-top: 35px;
       padding-top: 25px;
-      border-top: 2px solid #ddd;
+      border-top: 1px solid var(--border);
       text-align: center;
       font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--teal);
     }
 
     .back-link {
       display: block;
       width: fit-content;
-      margin: 30px auto 0;
+      margin: 28px auto 0;
       padding: 12px 24px;
-      background: #222;
+      background: var(--teal);
       color: #fff;
       text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
+      border-radius: 30px;
+      font-weight: 800;
+      transition: opacity .2s;
     }
 
     .back-link:hover {
-      opacity: 0.8;
+      opacity: .85;
     }
 
     footer {
       text-align: center;
-      color: #777;
-      font-size: 0.9rem;
-      padding: 30px 20px 40px;
+      color: var(--muted);
+      font-size: .9rem;
+      padding: 22px 20px 30px;
+      background: #e9e2d6;
     }
 
-    @media (max-width: 600px) {
-      header {
-        padding: 22px 16px;
+    a:focus-visible {
+      outline: 3px solid var(--teal);
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 900px) {
+      .header-inner {
+        flex-wrap: wrap;
       }
 
-      header h1 {
-        font-size: 1.45rem;
-      }
-
-      main {
-        margin: 20px auto;
-        padding: 0 12px;
+      nav {
+        width: 100%;
+        overflow-x: auto;
+        padding: 5px 0;
       }
 
       .content {
-        padding: 24px 18px;
-        border-radius: 10px;
+        padding: 24px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header-inner {
+        padding: 10px 15px;
+        gap: 8px;
+      }
+
+      .brand-icon {
+        font-size: 30px;
+      }
+
+      .brand-name {
+        font-size: 16px;
+      }
+
+      nav {
+        gap: 20px;
+      }
+
+      nav a {
+        font-size: 12px;
+      }
+
+      .page-hero {
+        padding: 30px 16px;
+      }
+
+      .page-hero p {
+        font-size: 14px;
+      }
+
+      main {
+        margin: 0 auto;
+        padding: 18px 12px 32px;
+      }
+
+      .content {
+        padding: 18px 14px;
+        border-radius: 13px;
+      }
+
+      .intro {
+        padding: 15px;
+        font-size: .95rem;
       }
 
       h2 {
-        font-size: 1.25rem;
-        margin-top: 35px;
+        margin-top: 32px;
+        padding: 11px 13px;
       }
 
       h3 {
-        font-size: 1.05rem;
+        margin-top: 26px;
+        padding: 10px 12px;
+        font-size: 1rem;
       }
 
       body {
-        font-size: 0.95rem;
+        font-size: .95rem;
+      }
+
+      .video-wrap {
+        margin: 20px 0 25px;
+        border-radius: 9px;
       }
 
       .image-placeholder {
-        padding: 14px 10px;
+        padding: 17px 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .back-link {
+        transition: none;
       }
     }
   </style>
@@ -202,25 +388,44 @@
 <body>
 
   <header>
-    <h1>100時間未満｜オススメの立ち回り</h1>
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-icon" aria-hidden="true">🦦</span>
+        <span class="brand-name">逃げラッコ式<small>DbD立ち回りガイド</small></span>
+      </a>
+
+      <nav aria-label="メインメニュー">
+        <a href="index.html">ホーム</a>
+        <a href="perks.html">パーク紹介</a>
+        <a href="playstyle.html?v=2" aria-current="page">立ち回り講座</a>
+        <a href="index.html#beginner">初心者ガイド</a>
+        <a href="fun.html">楽しみ方</a>
+      </nav>
+    </div>
   </header>
+
+  <section class="page-hero">
+    <p class="eyebrow">DEAD BY DAYLIGHT SURVIVAL GUIDE</p>
+    <h1>100時間未満｜オススメの立ち回り</h1>
+    <p>できないことは考えるな。0から始める逃亡生活 🦦</p>
+  </section>
 
   <main>
     <div class="content">
 
       <p class="intro">パークの中に「絆」は必ず入れてね。</p>
 
-      <p>パーク構成がわからない人は<strong>パーク構成へのリンク</strong>を参考にしてね。じゃあいくよ🦦</p>
+      <p>パーク構成がわからない人は<strong><a href="perks.html">パーク構成へのリンク</a></strong>を参考にしてね。じゃあいくよ🦦</p>
 
       <div class="chapter">
         <h2>① 開始直後の立ち回り</h2>
 
-       <div class="video-wrap">
-  <video controls playsinline preload="auto" muted
-    onloadedmetadata="this.currentTime=0.1">
-    <source src="videos/nigerakko_new_01_blur_names.mp4" type="video/mp4">
-  </video>
-</div>
+        <div class="video-wrap">
+          <video controls playsinline preload="auto" muted
+            onloadedmetadata="this.currentTime=0.1">
+            <source src="videos/nigerakko_new_01_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
 
         <p>まず走って発電機を探す。全力疾走（スプバ）を入れててもまず走る。キラーが何かよくわからんところからよくわからんことしてきてもまず走る。これ「逃げラッコ式🦦」では鉄則。</p>
 
