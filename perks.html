@@ -3,97 +3,187 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>100時間未満｜オススメのパーク</title>
+  <meta name="description" content="DbD初心者向けのおすすめパーク構成。ドワイトから始めるパーク選びと、逃げラッコが実際に使っているパークの目的や注意点を紹介。">
+  <title>おすすめパーク構成｜逃げラッコ式DbD立ち回り</title>
 
   <style>
-    * {
-      box-sizing: border-box;
+    :root {
+      --bg: #f4f0e7;
+      --surface: #fffdf8;
+      --text: #30271f;
+      --muted: #71685f;
+      --teal: #477f7d;
+      --teal-light: #e7f0ee;
+      --border: #e6ddd0;
+      --amber: #e7b86a;
     }
 
-    :root {
-      --bg: #F4F5F2;
-      --surface: #FFFFFF;
-      --text: #292D32;
-      --muted: #687572;
-      --teal: #477F7D;
-      --teal-light: #E7F0EE;
-      --border: #E1E7E3;
-      --amber: #E7B86A;
-    }
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
-      background: var(--bg);
       color: var(--text);
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Helvetica Neue",
-        "Yu Gothic",
-        "Hiragino Kaku Gothic ProN",
-        Meiryo,
-        sans-serif;
-      line-height: 1.9;
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP",
+        "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.8;
     }
 
+    a { color: inherit; }
+
     header {
-      background: var(--surface);
-      color: var(--text);
-      text-align: center;
-      padding: 30px 20px;
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, .97);
       border-bottom: 1px solid var(--border);
     }
 
-    header h1 {
+    .header-inner {
+      max-width: 1440px;
+      min-height: 72px;
+      margin: auto;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .brand-icon { font-size: 37px; }
+
+    .brand-name {
+      font-weight: 900;
+      font-size: 19px;
+      line-height: 1.3;
+    }
+
+    .brand-name small {
+      display: block;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(12px, 2vw, 28px);
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    nav a:hover,
+    nav a[aria-current="page"] {
+      color: var(--teal);
+    }
+
+    nav a[aria-current="page"] {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 7px;
+    }
+
+    .page-hero {
+      padding: 40px 20px;
+      text-align: center;
+      background: #c9dfe4;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: #376c6a;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+    }
+
+    .page-hero h1 {
       margin: 0;
-      font-size: 1.8rem;
-      font-weight: 800;
-      letter-spacing: 0.02em;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.35;
+      font-weight: 950;
+    }
+
+    .page-hero p {
+      margin: 12px 0 0;
+      font-size: 15px;
+      font-weight: 700;
     }
 
     main {
-      max-width: 960px;
-      margin: 36px auto;
-      padding: 0 20px;
+      max-width: 1100px;
+      margin: auto;
+      padding: 30px 24px 50px;
     }
 
-    .content {
+    .content-card {
+      padding: 30px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 18px;
-      padding: 36px;
-      box-shadow: 0 8px 28px rgba(35, 52, 49, 0.05);
+      box-shadow: 0 5px 18px rgba(48, 39, 31, .04);
     }
 
-    h2 {
-      margin: 40px 0 24px;
-      padding: 12px 16px;
+    .intro {
+      margin: 0 0 28px;
+      padding: 18px 20px;
+      background: #f8f3e9;
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--teal);
+      border-radius: 12px;
+      font-size: 16px;
+    }
+
+    .section-title {
+      margin: 42px 0 22px;
+      padding: 13px 18px;
       background: var(--teal-light);
       border-left: 5px solid var(--teal);
       border-radius: 8px;
-      font-size: 1.45rem;
+      font-size: clamp(22px, 3vw, 29px);
       line-height: 1.5;
     }
 
-    h2:first-child {
-      margin-top: 0;
+    .section-title:first-of-type { margin-top: 0; }
+
+    .section-lead {
+      margin: -8px 0 22px;
+      color: var(--muted);
+      font-size: 14px;
     }
 
-    h3 {
-      margin: 30px 0 14px;
-      padding: 10px 14px;
-      background: #F7F8F6;
+    .perk-card {
+      margin: 20px 0;
+      padding: 22px;
+      background: #fff;
       border: 1px solid var(--border);
-      border-radius: 9px;
-      font-size: 1.2rem;
-      line-height: 1.6;
+      border-radius: 15px;
     }
 
-    /* パーク名とアイコン */
     .perk-heading {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 15px;
+      margin: 0 0 18px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border);
+      font-size: 23px;
+      line-height: 1.4;
     }
 
     .perk-icon {
@@ -104,97 +194,159 @@
       flex-shrink: 0;
     }
 
-    p {
-      margin: 0 0 20px;
+    .perk-number {
+      display: inline-grid;
+      place-items: center;
+      width: 29px;
+      height: 29px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: white;
+      font-size: 14px;
+      vertical-align: 3px;
     }
 
-    ul {
-      margin: -5px 0 24px;
+    .effect-label {
+      margin: 18px 0 8px;
+      color: var(--teal);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .perk-card p {
+      margin: 0 0 15px;
+      overflow-wrap: anywhere;
+    }
+
+    .perk-card p:last-child { margin-bottom: 0; }
+
+    .perk-card ul {
+      margin: 0 0 16px;
       padding-left: 1.5em;
     }
 
-    li {
-      margin-bottom: 6px;
-    }
+    .perk-card li { margin-bottom: 6px; }
 
-    strong {
-      font-weight: 800;
-    }
-
-    .intro {
-      font-size: 1.05rem;
-      margin-bottom: 30px;
-      padding: 18px 20px;
-      background: #F7F8F6;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-    }
-
-    .section-note {
-      background: #F7F8F6;
-      border-radius: 10px;
-      padding: 18px 20px;
+    .note-card {
       margin: 24px 0;
+      padding: 20px;
+      background: #f8f3e9;
+      border: 1px solid var(--border);
+      border-radius: 12px;
     }
 
-    .ending {
-      margin-top: 35px;
-      padding: 24px 20px 4px;
-      border-top: 2px solid var(--border);
-      font-size: 1.05rem;
+    .note-card p:last-child { margin-bottom: 0; }
+
+    .next-step {
+      margin-top: 34px;
+      padding: 25px;
+      background: linear-gradient(120deg, #273b3e, #4c675e);
+      border-radius: 15px;
+      color: white;
     }
+
+    .next-step h2 {
+      margin: 0 0 14px;
+      font-size: 23px;
+    }
+
+    .next-step p { margin: 0 0 14px; }
+
+    .next-step p:last-of-type { margin-bottom: 20px; }
+
+    .next-step .next-link {
+      display: inline-block;
+      padding: 11px 19px;
+      color: white;
+      background: #246f78;
+      border: 2px solid #a9d5d1;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 900;
+    }
+
+    .next-step .next-link:hover { opacity: .88; }
 
     .back-link {
       display: block;
       width: fit-content;
-      margin: 30px auto 0;
-      padding: 12px 24px;
+      margin: 28px auto 0;
+      padding: 12px 23px;
+      color: white;
       background: var(--teal);
-      color: #FFFFFF;
+      border-radius: 30px;
       text-decoration: none;
-      border-radius: 10px;
-      font-weight: 800;
-      transition: transform 0.2s ease, opacity 0.2s ease;
+      font-weight: 900;
     }
 
-    .back-link:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-    }
+    .back-link:hover { opacity: .88; }
 
     footer {
-      text-align: center;
+      padding: 22px 20px 30px;
+      background: #e9e2d6;
       color: var(--muted);
-      font-size: 0.9rem;
-      padding: 30px 20px 40px;
+      text-align: center;
+      font-size: 13px;
     }
 
-    @media (max-width: 600px) {
-      header {
-        padding: 22px 16px;
+    a:focus-visible {
+      outline: 3px solid var(--teal);
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 900px) {
+      .header-inner { flex-wrap: wrap; }
+
+      nav {
+        width: 100%;
+        overflow-x: auto;
+        padding: 5px 0;
       }
 
-      header h1 {
-        font-size: 1.45rem;
+      .content-card { padding: 24px; }
+    }
+
+    @media (max-width: 560px) {
+      .header-inner {
+        padding: 10px 15px;
+        gap: 8px;
       }
 
-      main {
-        margin: 20px auto;
-        padding: 0 12px;
+      .brand-icon { font-size: 30px; }
+      .brand-name { font-size: 16px; }
+
+      nav { gap: 20px; }
+      nav a { font-size: 12px; }
+
+      .page-hero { padding: 30px 16px; }
+      .page-hero p { font-size: 14px; }
+
+      main { padding: 18px 12px 32px; }
+
+      .content-card {
+        padding: 18px 13px;
+        border-radius: 13px;
       }
 
-      .content {
-        padding: 24px 18px;
-        border-radius: 12px;
+      .intro {
+        padding: 15px;
+        font-size: 14px;
       }
 
-      h2 {
-        font-size: 1.25rem;
+      .section-title {
         margin-top: 32px;
+        padding: 11px 13px;
       }
 
-      h3 {
-        font-size: 1.1rem;
+      .perk-card {
+        padding: 16px 13px;
+        margin: 15px 0;
+      }
+
+      .perk-heading {
+        gap: 12px;
+        font-size: 20px;
       }
 
       .perk-icon {
@@ -202,9 +354,16 @@
         height: 52px;
       }
 
-      body {
-        font-size: 0.95rem;
-      }
+      .perk-card p,
+      .perk-card li { font-size: 14px; }
+
+      .note-card { padding: 16px; }
+      .next-step { padding: 21px 17px; }
+      .next-step h2 { font-size: 21px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
@@ -212,116 +371,135 @@
 <body>
 
   <header>
-    <h1>100時間未満｜オススメのパーク</h1>
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-icon" aria-hidden="true">🦦</span>
+        <span class="brand-name">逃げラッコ式<small>DbD立ち回りガイド</small></span>
+      </a>
+
+      <nav aria-label="メインメニュー">
+        <a href="index.html">ホーム</a>
+        <a href="perks.html" aria-current="page">パーク紹介</a>
+        <a href="playstyle.html?v=2">立ち回り講座</a>
+        <a href="index.html#beginner">初心者ガイド</a>
+        <a href="fun.html">楽しみ方</a>
+      </nav>
+    </div>
   </header>
 
+  <section class="page-hero">
+    <p class="eyebrow">DEAD BY DAYLIGHT SURVIVAL GUIDE</p>
+    <h1>おすすめパーク構成</h1>
+    <p>できないことは考えるな。0から始める逃亡生活 🦦</p>
+  </section>
+
   <main>
-    <div class="content">
+    <div class="content-card">
 
       <p class="intro">
         <strong>どのキャラから解放したらいいかわからない人</strong>は、まず【ドワイト】を選択してね。
       </p>
 
-      <h2>最初のパーク構成</h2>
+      <h2 class="section-title">最初のパーク構成</h2>
 
-      <h3 class="perk-heading">
-        <img src="images/絆.png" alt="" class="perk-icon">
-        <span>絆</span>
-      </h3>
+      <article class="perk-card">
+        <h3 class="perk-heading">
+          <img src="images/絆.png" alt="" class="perk-icon">
+          <span><span class="perk-number">1</span>絆</span>
+        </h3>
 
-      <p>
-        【効果】(20・28・36)メートル以内にいる他の仲間のオーラがあなたに視える。
-      </p>
+        <p class="effect-label">【効果】</p>
+        <p>(20・28・36)メートル以内にいる他の仲間のオーラがあなたに視える。</p>
 
-      <p>
-        【このパークの目的】<br>
-        味方全員が何をしているかを想像する癖をつけるため。
-      </p>
+        <p class="effect-label">【このパークの目的】</p>
+        <p>味方全員が何をしているかを想像する癖をつけるため。</p>
+      </article>
 
-      <h3 class="perk-heading">
-        <img src="images/有能の証明.png" alt="" class="perk-icon">
-        <span>有能の証明</span>
-      </h3>
+      <article class="perk-card">
+        <h3 class="perk-heading">
+          <img src="images/有能の証明.png" alt="" class="perk-icon">
+          <span><span class="perk-number">2</span>有能の証明</span>
+        </h3>
 
-      <p>
-        【効果】<br>
-        自分の4メートル以内では、範囲内にいる他の生存者1人につき、
-        全ての生存者の修理速度が(6・8・10)%上昇する。
-      </p>
+        <p class="effect-label">【効果】</p>
+        <p>
+          自分の4メートル以内では、範囲内にいる他の生存者1人につき、
+          全ての生存者の修理速度が(6・8・10)%上昇する。
+        </p>
 
-      <p>
-        【このパークの目的】<br>
-        ドワイトの固有パークだからすぐ使えるからってだけ。
-        でも発電機を回す速度が上がるから普通に強いよ。
-      </p>
+        <p class="effect-label">【このパークの目的】</p>
+        <p>
+          ドワイトの固有パークだからすぐ使えるからってだけ。
+          でも発電機を回す速度が上がるから普通に強いよ。
+        </p>
+      </article>
 
-      <h3 class="perk-heading">
-        <img src="images/リーダー.png" alt="" class="perk-icon">
-        <span>リーダー</span>
-      </h3>
+      <article class="perk-card">
+        <h3 class="perk-heading">
+          <img src="images/リーダー.png" alt="" class="perk-icon">
+          <span><span class="perk-number">3</span>リーダー</span>
+        </h3>
 
-      <p>
-        【効果】<br>
-        自分の10メートル以内にいる他の生存者は：
-      </p>
+        <p class="effect-label">【効果】</p>
+        <p>自分の10メートル以内にいる他の生存者は、次の行動速度が(20・25・30)%上昇する。</p>
+        <ul>
+          <li>トーテムを浄化する。</li>
+          <li>脱出ゲートを開ける。</li>
+          <li>治療を受ける。</li>
+          <li>フックを破壊する。</li>
+          <li>フックから救助する。</li>
+          <li>チェストを開錠する。</li>
+        </ul>
+        <p>この効果は、生存者が範囲から出たあと15秒間持続する。</p>
 
-      <ul>
-        <li>トーテムを浄化する速度が(20・25・30)%上昇する。</li>
-        <li>治療の速度が(20・25・30)%上昇する。</li>
-        <li>脱出ゲートを開ける速度が(20・25・30)%上昇する。</li>
-        <li>フック破壊の速度が(20・25・30)%上昇する。</li>
-        <li>フックから救助する速度が(20・25・30)%上昇する。</li>
-        <li>チェストを開錠する速度が(20・25・30)%上昇する。</li>
-      </ul>
+        <p class="effect-label">【このパークの目的】</p>
+        <p>
+          これもドワイトの固有パークだからすぐ使えるからってだけ。
+          ただ、味方が自分を回復してくれるスピードが上がるから、
+          味方の足を引っ張るリスクが軽減するよ。
+        </p>
 
-      <p>
-        この効果は、生存者が範囲から出たあと20秒間持続する。
-      </p>
+        <p>
+          初心者だから足を引っ張るのはしょうがないよ。
+          だからせめてこれで軽減してあげよう🦦
+        </p>
+      </article>
 
-      <p>
-        【このパークの目的】<br>
-        これもドワイトの固有パークだからすぐ使えるからってだけ。
-        ただ、味方が自分を回復してくれるスピードが上がるから、
-        味方の足を引っ張るリスクが軽減するよ。
-      </p>
+      <article class="perk-card">
+        <h3 class="perk-heading">
+          <img src="images/血族.png" alt="" class="perk-icon">
+          <span><span class="perk-number">4</span>血族</span>
+        </h3>
 
-      <p>
-        初心者だから足を引っ張るのはしょうがないよ。
-        だからせめてこれで軽減してあげよう🦦
-      </p>
+        <p class="effect-label">【効果】</p>
+        <p>
+          あなたがフックに吊るされているとき、生存者全員にお互いのオーラが視える。
+          殺人鬼がフックの(14・15・16)メートル以内にいるとき、
+          殺人鬼のオーラが生存者全員に視える。
+        </p>
 
-      <h3 class="perk-heading">
-        <img src="images/血族.png" alt="" class="perk-icon">
-        <span>血族</span>
-      </h3>
+        <p>
+          自分以外の生存者がフックに吊るされているとき、
+          他の生存者のオーラがあなたに視える。
+          殺人鬼がフックに吊るされた生存者の(14・15・16)メートル以内にいるとき、
+          殺人鬼のオーラがあなたに視える。
+        </p>
 
-      <p>
-        【効果】<br>
-        あなたがフックに吊るされているとき、生存者全員にお互いのオーラが視える。
-        殺人鬼が(8・12・16)メートル以内にいるとき、殺人鬼のオーラが生存者全員に視える。
-      </p>
+        <p class="effect-label">【このパークの目的】</p>
+        <p>
+          これは初めから全キャラ共通で解放されてるパークだから入れてるよ。
+          でも自分が使っても味方からしてもこれを入れてるとすごくありがたいパークなんだ。
+        </p>
 
-      <p>
-        自分以外の生存者がフックに吊るされているとき、
-        他の生存者のオーラがあなたに視える。
-        殺人鬼がフックに吊るされた生存者の(8・12・16)メートル以内にいるとき、
-        殺人鬼のオーラがあなたに視える。
-      </p>
+        <p>
+          これがあると味方が吊られた後にキラーの動向を確認してから、
+          <strong>安全に動きやすくなる</strong>よ。
+          逆に自分が吊られた場合は、味方にその効果がつくんだよ。
+          とっても助かるよね🦦
+        </p>
+      </article>
 
-      <p>
-        【このパークの目的】<br>
-        これは初めから全キャラ共通で解放されてるパークだから入れてるよ。
-        でも自分が使っても味方からしてもこれを入れてるとすごくありがたいパークなんだ。
-      </p>
-
-      <p>
-        これがあると味方が吊られた後にキラーの動向を確認してから、
-        <strong>安全に動きやすくなる</strong>よ。
-        逆に自分が吊られた場合は、味方にその効果がつくんだよ。
-        とっても助かるよね🦦
-      </p>
-
-      <h2>次に解放するキャラクター</h2>
+      <h2 class="section-title">次に解放するキャラクター</h2>
 
       <p>
         BP（ブラッドポイント）が100万ポイント貯まるまでは、
@@ -338,141 +516,140 @@
         このパーク構成にするよ。
       </p>
 
-      <h3 class="perk-heading">
-        <img src="images/絆.png" alt="" class="perk-icon">
-        <span>絆</span>
-      </h3>
+      <article class="perk-card">
+        <h3 class="perk-heading">
+          <img src="images/絆.png" alt="" class="perk-icon">
+          <span><span class="perk-number">1</span>絆</span>
+        </h3>
 
-      <p>
-        【効果】(20・28・36)メートル以内にいる他の仲間のオーラがあなたに視える。
-      </p>
+        <p class="effect-label">【効果】</p>
+        <p>(20・28・36)メートル以内にいる他の仲間のオーラがあなたに視える。</p>
 
-      <p>
-        【このパークの目的】<br>
-        これを使えば味方が近くでチェイスしてる、発電してる、セルフケアしてるが一目瞭然だよ。
-        その都度判断して行動しよう🦦
-      </p>
+        <p class="effect-label">【このパークの目的】</p>
+        <p>
+          これを使えば味方が近くでチェイスしてる、発電してる、セルフケアしてるが一目瞭然だよ。
+          その都度判断して行動しよう🦦
+        </p>
 
-      <p>
-        【注意点】<br>
-        味方が発電機を回しているから一緒に回そう、回復してるから手伝ってあげよう等の行動は
-        まとめて襲われるリスクになったり、通電までが遅くなる原因になり得るから注意だよ。
-        基本的に味方とは離れて行動することが大事🦦
-      </p>
+        <p class="effect-label">【注意点】</p>
+        <p>
+          味方が発電機を回しているから一緒に回そう、回復してるから手伝ってあげよう等の行動は
+          まとめて襲われるリスクになったり、通電までが遅くなる原因になり得るから注意だよ。
+          基本的に味方とは離れて行動することが大事🦦
+        </p>
+      </article>
 
-      <h3 class="perk-heading">
-        <img src="images/全力疾走.png" alt="" class="perk-icon">
-        <span>全力疾走</span>
-      </h3>
+      <article class="perk-card">
+        <h3 class="perk-heading">
+          <img src="images/全力疾走.png" alt="" class="perk-icon">
+          <span><span class="perk-number">2</span>全力疾走</span>
+        </h3>
 
-      <p>
-        【効果】<br>
-        あなたは走り出すと：
-      </p>
+        <p class="effect-label">【効果】</p>
+        <p>あなたは走り出すと、迅速50%を2秒間得る。</p>
+        <p>その後、(60・50・40)秒間疲労状態になる。</p>
 
-      <ul>
-        <li>50%の迅速を2秒間得る。</li>
-        <li>(60・50・40)秒間疲労状態になる。</li>
-      </ul>
+        <p class="effect-label">【このパークの目的】</p>
+        <p>
+          自分が発電機を回している時にキラーが向かってきたら逃げるために使うよ。
+          それ以外のために使うことはほとんどないと思って良いよ。
+          大丈夫、その使い方が強いんだ🦦
+        </p>
 
-      <p>
-        【このパークの目的】<br>
-        自分が発電機を回している時にキラーが向かってきたら逃げるために使うよ。
-        それ以外のために使うことはほとんどないと思って良いよ。
-        大丈夫、その使い方が強いんだ🦦
-      </p>
+        <p class="effect-label">【注意点】</p>
+        <p>
+          疲労になることを避けて歩き移動する必要はないよ。
+          発電機を回している間に疲労は回復するから。
+          今回はあくまでキラーが来たときに発電機から素早く離れるためのパークという認識でいよう🦦
+        </p>
+      </article>
 
-      <p>
-        【注意点】<br>
-        疲労になることを避けて歩き移動する必要はないよ。
-        発電機を回している間に疲労は回復するから。
-        今回はあくまでキラーが来たときに発電機から素早く離れるためのパークという認識でいよう🦦
-      </p>
+      <article class="perk-card">
+        <h3 class="perk-heading">
+          <img src="images/警戒.png" alt="" class="perk-icon">
+          <span><span class="perk-number">3</span>警戒</span>
+        </h3>
 
-      <h3 class="perk-heading">
-        <img src="images/警戒.png" alt="" class="perk-icon">
-        <span>警戒</span>
-      </h3>
+        <p class="effect-label">【効果】</p>
+        <p>
+          殺人鬼が破壊可能な壁やパレットを破壊するか、発電機にダメージを与えたとき：
+        </p>
+        <ul>
+          <li>通知音が聞こえる。</li>
+          <li>殺人鬼のオーラが(3・4・5)秒間視える。</li>
+        </ul>
 
-      <p>
-        【効果】<br>
-        殺人鬼が破壊可能な壁やパレットを破壊するか発電機にダメージを与えたとき：
-      </p>
+        <p class="effect-label">【このパークの目的】</p>
+        <p>
+          キラーが発電機を破壊した時にすぐに分かるよ。
+          発電機を壊されたということは味方が既に回していたということ。
+          だから自分の手が空いてるならできるだけその発電機を引き継いであげよう。
+          それしてくれるとすごい助かるなあ🦦
+        </p>
 
-      <ul>
-        <li>通知音が聞こえる。</li>
-        <li>殺人鬼のオーラが(3・4・5)秒間視える。</li>
-      </ul>
+        <p class="effect-label">【注意点】</p>
+        <p>
+          キラーから安全に隠れるため、自分の生存率を上げるために使うわけじゃないよ。
+          ビクビクして隠密ばっかりするような立ち回りにはならないように気をつけよう🦦
+        </p>
+      </article>
 
-      <p>
-        【このパークの目的】<br>
-        キラーが発電機を破壊した時にすぐに分かるよ。
-        発電機を壊されたということは味方が既に回していたということ。
-        だから自分の手が空いてるならできるだけその発電機を引き継いであげよう。
-        それしてくれるとすごい助かるなあ🦦
-      </p>
+      <article class="perk-card">
+        <h3 class="perk-heading">
+          <img src="images/魂の平穏.png" alt="" class="perk-icon">
+          <span><span class="perk-number">4</span>魂の平穏</span>
+        </h3>
 
-      <p>
-        【注意点】<br>
-        キラーから安全に隠れるため、自分の生存率を上げるために使うわけじゃないよ。
-        ビクビクして隠密ばっかりするような立ち回りにはならないように気をつけよう🦦
-      </p>
+        <p class="effect-label">【効果】</p>
+        <p>あなたはカラスを怖がらせず、叫び声を上げない。</p>
+        <p>
+          チェストを開錠する音やトーテムを浄化または清める音がしなくなり、
+          その速度が(8・9・10)%上昇する。
+        </p>
 
-      <h3 class="perk-heading">
-        <img src="images/魂の平穏.png" alt="" class="perk-icon">
-        <span>魂の平穏</span>
-      </h3>
+        <p class="effect-label">【このパークの目的】</p>
+        <p>
+          叫び声を上げないからキラーに場所を特定するリスクを減らすことができるよ。
+          まあ正直言うと初期から使えるキャラで、ラッコが色々考えた結果
+          消去法でこのパークが無難だなと思ったから選んだって感じ。
+        </p>
 
-      <p>
-        【効果】<br>
-        あなたはカラスを怖がらせず、叫び声を上げない。
-      </p>
+        <p>
+          全然変えても良いけど、セルフケアとかオポチュニティとか、
+          強力なパークを入れてないということにはそれなりの理由があるんだけど、
+          長くなるから<strong>立ち回り</strong>のところで説明するね🦦
+        </p>
 
-      <p>
-        チェストを開放する音やトーテムを浄化または清める音がしなくなるが、
-        その速度が(40・35・30)%低下する。
-      </p>
+        <p class="effect-label">【注意点】</p>
+        <p>
+          キラー側が叫ばせるパークを使ってなかったら完全に腐るパークってとこくらい。
+          でも逆に言えばキラーが叫ばせるパークを使っているなら、
+          そのパークを腐らせることができるからね。
+          ラッコはけっこう好きだよ🦦
+        </p>
+      </article>
 
-      <p>
-        【このパークの目的】<br>
-        叫び声を上げないからキラーに場所を特定するリスクを減らすことができるよ。
-        まあ正直言うと初期から使えるキャラで、ラッコが色々考えた結果
-        消去法でこのパークが無難だなと思ったから選んだって感じ。
-      </p>
-
-      <p>
-        全然変えても良いけど、セルフケアとかオポチュニティとか、
-        強力なパークを入れてないということにはそれなりの理由があるんだけど、
-        長くなるから<strong>立ち回り</strong>のところで説明するね🦦
-      </p>
-
-      <p>
-        【注意点】<br>
-        キラー側が叫ばせるパークを使ってなかったら完全に腐るパークってとこくらい。
-        でも逆に言えばキラーが叫ばせるパークを使っているなら、
-        そのパークを腐らせることができるからね。
-        ラッコはけっこう好きだよ🦦
-      </p>
-
-      <p>
-        〜
-      </p>
-
-      <div class="ending">
+      <div class="note-card">
         <p>
           プレイ時間が100時間未満の人はこれでやっていくよ。
-          使い方は<strong>立ち回りのリンク</strong>で説明するよ🦦
+          使い方は<strong>立ち回り</strong>のところで説明するよ🦦
         </p>
       </div>
 
+      <section class="next-step">
+        <h2>次は立ち回りを見てみよう！</h2>
+        <p>
+          パークを装備したら、次は試合中の動き方を覚えていこう。
+          パークを活かすための立ち回りは、こちらで説明するよ🦦
+        </p>
+        <a class="next-link" href="playstyle.html?v=2">おすすめ立ち回りを見る →</a>
+      </section>
     </div>
 
-    <a class="back-link" href="index.html">トップページへ戻る</a>
+    <a class="back-link" href="index.html">← トップページへ戻る</a>
   </main>
 
-  <footer>
-    逃げラッコ式DbD立ち回り 🦦
-  </footer>
+  <footer>逃げラッコ式DbD立ち回り 🦦</footer>
 
 </body>
 </html>
