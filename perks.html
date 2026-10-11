@@ -8,29 +8,6 @@
   <title>おすすめパーク構成｜逃げラッコ式DbD立ち回り</title>
 
   <style>
-    .dwight-intro {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .dwight-photo {
-      width: 88px;
-      height: 88px;
-      object-fit: cover;
-      object-position: center top;
-      border-radius: 12px;
-      border: 2px solid var(--border);
-      flex-shrink: 0;
-    }
-
-    @media (max-width: 600px) {
-      .dwight-photo {
-        width: 68px;
-        height: 68px;
-      }
-    }
-
     :root {
       --bg: #f4f0e7;
       --surface: #fffdf8;
@@ -43,7 +20,6 @@
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -173,6 +149,52 @@
       font-size: 16px;
     }
 
+    .dwight-intro {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .dwight-photo {
+      width: 88px;
+      height: 88px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .unlock-intro {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .unlock-portraits {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .unlock-portraits img {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+    }
+
+    .unlock-text p {
+      margin: 0 0 10px;
+    }
+
+    .unlock-text p:last-child {
+      margin-bottom: 0;
+    }
+
     .section-title {
       margin: 42px 0 22px;
       padding: 13px 18px;
@@ -261,17 +283,6 @@
       flex-shrink: 0;
     }
 
-    @media (max-width: 560px) {
-      .perk-owner {
-        font-size: 11px;
-      }
-
-      .perk-owner img {
-        width: 26px;
-        height: 26px;
-      }
-    }
-
     .effect-label {
       margin: 18px 0 8px;
       color: var(--teal);
@@ -317,7 +328,6 @@
     }
 
     .next-step p { margin: 0 0 14px; }
-
     .next-step p:last-of-type { margin-bottom: 20px; }
 
     .next-step .next-link {
@@ -372,6 +382,27 @@
       .content-card { padding: 24px; }
     }
 
+    @media (max-width: 600px) {
+      .dwight-photo {
+        width: 68px;
+        height: 68px;
+      }
+
+      .unlock-intro {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .unlock-portraits {
+        flex-wrap: wrap;
+      }
+
+      .unlock-portraits img {
+        width: 56px;
+        height: 56px;
+      }
+    }
+
     @media (max-width: 560px) {
       .header-inner {
         padding: 10px 15px;
@@ -380,7 +411,6 @@
 
       .brand-icon { font-size: 30px; }
       .brand-name { font-size: 16px; }
-
       nav { gap: 20px; }
       nav a { font-size: 12px; }
 
@@ -419,6 +449,15 @@
         height: 52px;
       }
 
+      .perk-owner {
+        font-size: 11px;
+      }
+
+      .perk-owner img {
+        width: 26px;
+        height: 26px;
+      }
+
       .perk-card p,
       .perk-card li { font-size: 14px; }
 
@@ -432,7 +471,7 @@
     }
   </style>
 </head>
-  
+
 <body>
 
   <header>
@@ -474,18 +513,18 @@
 
       <h2 class="section-title">最初のパーク構成</h2>
 
-    
-<h3 class="perk-heading">
-  <img src="images/絆.png" alt="" class="perk-icon">
-  <span class="perk-title">
-    <span><span class="perk-number">1</span>絆</span>
-    <span class="perk-owner">
-      <img src="images/dwight.png" alt="">
-      ドワイトの固有パーク
-    </span>
-  </span>
-</h3>
-    
+      <article class="perk-card">
+        <h3 class="perk-heading">
+          <img src="images/絆.png" alt="" class="perk-icon">
+          <span class="perk-title">
+            <span><span class="perk-number">1</span>絆</span>
+            <span class="perk-owner">
+              <img src="images/dwight.png" alt="">
+              ドワイトの固有パーク
+            </span>
+          </span>
+        </h3>
+
         <p class="effect-label">【効果】</p>
         <p>(20・28・36)メートル以内にいる他の仲間のオーラがあなたに視える。</p>
 
@@ -493,17 +532,17 @@
         <p>味方全員が何をしているかを想像する癖をつけるため。</p>
       </article>
 
-     
-<h3 class="perk-heading">
-  <img src="images/有能の証明.png" alt="" class="perk-icon">
-  <span class="perk-title">
-    <span><span class="perk-number">2</span>有能の証明</span>
-    <span class="perk-owner">
-      <img src="images/dwight.png" alt="">
-      ドワイトの固有パーク
-    </span>
-  </span>
-</h3>
+      <article class="perk-card">
+        <h3 class="perk-heading">
+          <img src="images/有能の証明.png" alt="" class="perk-icon">
+          <span class="perk-title">
+            <span><span class="perk-number">2</span>有能の証明</span>
+            <span class="perk-owner">
+              <img src="images/dwight.png" alt="">
+              ドワイトの固有パーク
+            </span>
+          </span>
+        </h3>
 
         <p class="effect-label">【効果】</p>
         <p>
@@ -518,16 +557,18 @@
         </p>
       </article>
 
-    <h3 class="perk-heading">
-  <img src="images/リーダー.png" alt="" class="perk-icon">
-  <span class="perk-title">
-    <span><span class="perk-number">3</span>リーダー</span>
-    <span class="perk-owner">
-      <img src="images/dwight.png" alt="">
-      ドワイトの固有パーク
-    </span>
-  </span>
-</h3>
+      <article class="perk-card">
+        <h3 class="perk-heading">
+          <img src="images/リーダー.png" alt="" class="perk-icon">
+          <span class="perk-title">
+            <span><span class="perk-number">3</span>リーダー</span>
+            <span class="perk-owner">
+              <img src="images/dwight.png" alt="">
+              ドワイトの固有パーク
+            </span>
+          </span>
+        </h3>
+
         <p class="effect-label">【効果】</p>
         <p>自分の10メートル以内にいる他の生存者は、次の行動速度が(20・25・30)%上昇する。</p>
         <ul>
@@ -589,55 +630,40 @@
 
       <h2 class="section-title">次に解放するキャラクター</h2>
 
-    
-<div class="intro dwight-intro">
-  <img
-    src="images/meg.png"
-    alt="メグ"
-    class="dwight-photo"
-  >
-  <div>
-    BP（ブラッドポイント）が100万ポイント貯まるまでは、
-    しばらくこの構成を使っていくよ。
-  </div>
-</div>
+      <div class="intro unlock-intro">
+        <div class="unlock-portraits">
+          <img src="images/meg.png" alt="メグ">
+          <img src="images/feng-min.png" alt="フェンミン">
+          <img src="images/jake.png" alt="ジェイク">
+        </div>
 
-<div class="intro dwight-intro">
-  <img
-    src="images/feng-min.png"
-    alt="フェンミン"
-    class="dwight-photo"
-  >
-  <div>
-    BPが100万溜まったら次はメグ、その次はフェンミン、その次はジェイクの順番に解放するよ。
-    解放したら使いたいキャラクターに、次に説明していくパークを一個ずつ装備させよう🦦
-  </div>
-</div>
+        <div class="unlock-text">
+          <p>
+            BP（ブラッドポイント）が100万ポイント貯まるまでは、
+            しばらくこの構成を使っていくよ。
+          </p>
+          <p>
+            BPが100万溜まったら次はメグ、その次はフェンミン、その次はジェイクの順番に解放するよ。
+            解放したら使いたいキャラクターに、次に説明していくパークを一個ずつ装備させよう🦦
+          </p>
+          <p>
+            <strong>ドワイト、メグ、フェンミン、ジェイク</strong>を解放した人は、
+            このパーク構成にするよ。
+          </p>
+        </div>
+      </div>
 
-<div class="intro dwight-intro">
-  <img
-    src="images/jake.png"
-    alt="ジェイク"
-    class="dwight-photo"
-  >
-  <div>
-    <strong>ドワイト、メグ、フェンミン、ジェイク</strong>を解放した人は、
-    このパーク構成にするよ。
-  </div>
-</div>
-
-
-      
-<h3 class="perk-heading">
-  <img src="images/絆.png" alt="" class="perk-icon">
-  <span class="perk-title">
-    <span><span class="perk-number">1</span>絆</span>
-    <span class="perk-owner">
-      <img src="images/dwight.png" alt="">
-      ドワイトの固有パーク
-    </span>
-  </span>
-</h3>
+      <article class="perk-card">
+        <h3 class="perk-heading">
+          <img src="images/絆.png" alt="" class="perk-icon">
+          <span class="perk-title">
+            <span><span class="perk-number">1</span>絆</span>
+            <span class="perk-owner">
+              <img src="images/dwight.png" alt="">
+              ドワイトの固有パーク
+            </span>
+          </span>
+        </h3>
 
         <p class="effect-label">【効果】</p>
         <p>(20・28・36)メートル以内にいる他の仲間のオーラがあなたに視える。</p>
@@ -655,18 +681,19 @@
           基本的に味方とは離れて行動することが大事🦦
         </p>
       </article>
-    
-<h3 class="perk-heading">
-  <img src="images/全力疾走.png" alt="" class="perk-icon">
-  <span class="perk-title">
-    <span><span class="perk-number">2</span>全力疾走</span>
-    <span class="perk-owner">
-      <img src="images/meg.png" alt="">
-      メグの固有パーク
-    </span>
-  </span>
-</h3>
-    
+
+      <article class="perk-card">
+        <h3 class="perk-heading">
+          <img src="images/全力疾走.png" alt="" class="perk-icon">
+          <span class="perk-title">
+            <span><span class="perk-number">2</span>全力疾走</span>
+            <span class="perk-owner">
+              <img src="images/meg.png" alt="">
+              メグの固有パーク
+            </span>
+          </span>
+        </h3>
+
         <p class="effect-label">【効果】</p>
         <p>あなたは走り出すと、迅速50%を2秒間得る。</p>
         <p>その後、(60・50・40)秒間疲労状態になる。</p>
@@ -686,16 +713,17 @@
         </p>
       </article>
 
-<h3 class="perk-heading">
-  <img src="images/警戒.png" alt="" class="perk-icon">
-  <span class="perk-title">
-    <span><span class="perk-number">3</span>警戒</span>
-    <span class="perk-owner">
-      <img src="images/feng-min.png" alt="">
-      フェンミンの固有パーク
-    </span>
-  </span>
-</h3>
+      <article class="perk-card">
+        <h3 class="perk-heading">
+          <img src="images/警戒.png" alt="" class="perk-icon">
+          <span class="perk-title">
+            <span><span class="perk-number">3</span>警戒</span>
+            <span class="perk-owner">
+              <img src="images/feng-min.png" alt="">
+              フェンミンの固有パーク
+            </span>
+          </span>
+        </h3>
 
         <p class="effect-label">【効果】</p>
         <p>
@@ -721,17 +749,18 @@
         </p>
       </article>
 
-<h3 class="perk-heading">
-  <img src="images/魂の平穏.png" alt="" class="perk-icon">
-  <span class="perk-title">
-    <span><span class="perk-number">4</span>魂の平穏</span>
-    <span class="perk-owner">
-      <img src="images/jake.png" alt="">
-      ジェイクの固有パーク
-    </span>
-  </span>
-</h3>
-    
+      <article class="perk-card">
+        <h3 class="perk-heading">
+          <img src="images/魂の平穏.png" alt="" class="perk-icon">
+          <span class="perk-title">
+            <span><span class="perk-number">4</span>魂の平穏</span>
+            <span class="perk-owner">
+              <img src="images/jake.png" alt="">
+              ジェイクの固有パーク
+            </span>
+          </span>
+        </h3>
+
         <p class="effect-label">【効果】</p>
         <p>あなたはカラスを怖がらせず、叫び声を上げない。</p>
         <p>
@@ -785,4 +814,3 @@
 
 </body>
 </html>
-
