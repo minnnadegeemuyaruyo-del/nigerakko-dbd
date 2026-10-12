@@ -211,23 +211,42 @@
       letter-spacing: .04em;
     }
 
-    /* 8章の目次 */
+    /* 目次エリア：手描きイラストをゆるく見せる */
     .chapter-toc {
       margin: 26px 0 34px;
-      padding: 22px;
-      background: #f8f3e9;
+      padding: 20px;
+      background: #fbf7ef;
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 16px;
     }
 
-    .chapter-toc h2,
-    .chapter-toc h2:first-of-type {
+    .toc-illustration {
+      text-align: center;
+      margin: -4px auto 12px;
+    }
+
+    .toc-illustration img {
+      display: block;
+      width: 100%;
+      max-width: 540px;
+      height: auto;
+      margin: 0 auto;
+      border-radius: 8px;
+    }
+
+    .toc-heading {
       margin: 0 0 14px;
-      padding: 0;
-      background: none;
-      border: 0;
-      border-radius: 0;
+      text-align: center;
       font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .toc-subtitle {
+      margin: -8px 0 18px;
+      text-align: center;
+      font-size: .86rem;
+      color: var(--muted);
     }
 
     .chapter-toc-list {
@@ -249,7 +268,7 @@
       padding: 10px 12px;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 9px;
       color: var(--text);
       font-size: .92rem;
       font-weight: 700;
@@ -470,7 +489,15 @@
       }
 
       .chapter-toc {
-        padding: 16px 12px;
+        padding: 14px 12px;
+      }
+
+      .toc-illustration {
+        margin-bottom: 8px;
+      }
+
+      .toc-heading {
+        font-size: 1.1rem;
       }
 
       .chapter-toc-list {
@@ -538,10 +565,7 @@
         scroll-behavior: auto;
       }
 
-      .back-link {
-        transition: none;
-      }
-
+      .back-link,
       .chapter-toc-list a {
         transition: none;
       }
@@ -587,7 +611,14 @@
       <p>パーク構成がわからない人は<strong><a href="perks.html">パーク構成へのリンク</a></strong>を参考にしてね。じゃあいくよ🦦</p>
 
       <nav class="chapter-toc" aria-label="立ち回り講座の目次">
-        <h2>📖 立ち回り講座 目次</h2>
+
+        <div class="toc-illustration">
+          <img src="images/mokuji.png" alt="看板から顔を出している手描きのラッコと「目次」の文字">
+        </div>
+
+        <h2 class="toc-heading">📖 立ち回り講座 目次</h2>
+        <p class="toc-subtitle">読みたいところを押してね 🦦</p>
+
         <ol class="chapter-toc-list">
           <li><a href="#chapter-1">① 開始直後の立ち回り</a></li>
           <li><a href="#chapter-2">② 発電機を回してる途中の立ち回り</a></li>
