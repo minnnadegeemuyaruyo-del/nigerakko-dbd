@@ -234,14 +234,6 @@
       border-radius: 8px;
     }
 
-    .toc-heading {
-      margin: 0 0 14px;
-      text-align: center;
-      font-size: 1.2rem;
-      font-weight: 900;
-      color: var(--text);
-    }
-
     .toc-subtitle {
       margin: -8px 0 18px;
       text-align: center;
@@ -283,32 +275,31 @@
       color: var(--teal);
     }
 
-    .chapter {
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-      scroll-margin-top: 20px;
-    }
-
-    /* 各章タイトルのラッコイラスト */
+    /* 各章タイトル：文字は左、イラストは右 */
     .chapter-title {
       display: flex;
       align-items: center;
-      gap: 16px;
-    }
-
-    .chapter-title img {
-      display: block;
-      width: 104px;
-      height: 76px;
-      object-fit: contain;
-      flex-shrink: 0;
-      background: #fffdf8;
-      border-radius: 8px;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 112px;
+      padding: 12px 16px;
     }
 
     .chapter-title span {
       display: block;
+      flex: 1;
       min-width: 0;
+    }
+
+    .chapter-title img {
+      display: block;
+      order: 2;
+      width: 142px;
+      height: 94px;
+      object-fit: contain;
+      flex-shrink: 0;
+      background: transparent;
+      border-radius: 8px;
     }
 
     /* ページ最下部の脱出おめでとうイラスト */
@@ -324,6 +315,12 @@
       height: auto;
       margin: 0 auto;
       border-radius: 10px;
+    }
+
+    .chapter {
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      scroll-margin-top: 20px;
     }
 
     .intro {
@@ -415,8 +412,8 @@
     }
 
     .ending {
-      margin-top: 35px;
-      padding-top: 25px;
+      margin-top: 18px;
+      padding-top: 12px;
       border-top: 1px solid var(--border);
       text-align: center;
       font-size: 1.05rem;
@@ -533,10 +530,6 @@
         margin-bottom: 8px;
       }
 
-      .toc-heading {
-        font-size: 1.1rem;
-      }
-
       .chapter-toc-list {
         grid-template-columns: 1fr;
         gap: 8px;
@@ -548,11 +541,13 @@
 
       .chapter-title {
         gap: 10px;
+        min-height: 96px;
+        padding: 10px 12px;
       }
 
       .chapter-title img {
-        width: 76px;
-        height: 62px;
+        width: 112px;
+        height: 78px;
       }
 
       .congrats-illustration {
@@ -610,12 +605,14 @@
       }
 
       .chapter-title {
-        gap: 8px;
+        gap: 7px;
+        min-height: 86px;
+        padding: 9px 10px;
       }
 
       .chapter-title img {
-        width: 62px;
-        height: 54px;
+        width: 88px;
+        height: 66px;
       }
     }
 
@@ -675,7 +672,6 @@
           <img src="images/mokuji.png" alt="看板から顔を出している手描きのラッコと「目次」の文字">
         </div>
 
-        <h2 class="toc-heading">📖 立ち回り講座 目次</h2>
         <p class="toc-subtitle">読みたいところを押してね 🦦</p>
 
         <ol class="chapter-toc-list">
@@ -863,12 +859,12 @@
         <p>脱出おめでとう🦦</p>
       </div>
 
-      <div class="ending">
-        逃げラッコ式DbD立ち回り 🦦
-      </div>
-
       <div class="congrats-illustration">
         <img src="images/dasshutsu_omedetou.png" alt="脱出おめでとう！と喜ぶラッコたち" loading="lazy">
+      </div>
+
+      <div class="ending">
+        逃げラッコ式DbD立ち回り 🦦
       </div>
 
     </div>
