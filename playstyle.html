@@ -211,7 +211,7 @@
       letter-spacing: .04em;
     }
 
-    /* 目次エリア：手描きイラストをゆるく見せる */
+    /* 目次エリア */
     .chapter-toc {
       margin: 26px 0 34px;
       padding: 20px;
@@ -287,6 +287,43 @@
       padding-bottom: 10px;
       margin-bottom: 20px;
       scroll-margin-top: 20px;
+    }
+
+    /* 各章タイトルのラッコイラスト */
+    .chapter-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .chapter-title img {
+      display: block;
+      width: 104px;
+      height: 76px;
+      object-fit: contain;
+      flex-shrink: 0;
+      background: #fffdf8;
+      border-radius: 8px;
+    }
+
+    .chapter-title span {
+      display: block;
+      min-width: 0;
+    }
+
+    /* ページ最下部の脱出おめでとうイラスト */
+    .congrats-illustration {
+      margin: 34px auto 8px;
+      text-align: center;
+    }
+
+    .congrats-illustration img {
+      display: block;
+      width: 100%;
+      max-width: 760px;
+      height: auto;
+      margin: 0 auto;
+      border-radius: 10px;
     }
 
     .intro {
@@ -509,6 +546,19 @@
         padding: 11px 12px;
       }
 
+      .chapter-title {
+        gap: 10px;
+      }
+
+      .chapter-title img {
+        width: 76px;
+        height: 62px;
+      }
+
+      .congrats-illustration {
+        margin-top: 26px;
+      }
+
       .chapter-tip {
         padding: 10px 12px;
         font-size: .94rem;
@@ -557,6 +607,15 @@
 
       .bond-notice-text strong {
         font-size: 17px;
+      }
+
+      .chapter-title {
+        gap: 8px;
+      }
+
+      .chapter-title img {
+        width: 62px;
+        height: 54px;
       }
     }
 
@@ -632,7 +691,7 @@
       </nav>
 
       <div class="chapter">
-        <h2 id="chapter-1">① 開始直後の立ち回り</h2>
+        <h2 id="chapter-1" class="chapter-title"><img src="images/01_kaishi.png" alt="" loading="lazy"><span>① 開始直後の立ち回り</span></h2>
         <div class="chapter-tip"><span>今回のポイント</span>まず走って発電機を探そう！</div>
 
         <div class="video-wrap">
@@ -654,7 +713,7 @@
       </div>
 
       <div class="chapter">
-        <h2 id="chapter-2">② 発電機を回してる途中の立ち回り</h2>
+        <h2 id="chapter-2" class="chapter-title"><img src="images/02_hatsudenki.png" alt="" loading="lazy"><span>② 発電機を回してる途中の立ち回り</span></h2>
         <div class="chapter-tip"><span>今回のポイント</span>味方の動きを確認しながら発電しよう！</div>
 
         <div class="video-wrap">
@@ -679,7 +738,7 @@
       </div>
 
       <div class="chapter">
-        <h2 id="chapter-3">③ キラーから逃げる時の立ち回り</h2>
+        <h2 id="chapter-3" class="chapter-title"><img src="images/03_chase.png" alt="" loading="lazy"><span>③ キラーから逃げる時の立ち回り</span></h2>
         <div class="chapter-tip"><span>今回のポイント</span>とにかくまっすぐ逃げよう！</div>
 
         <div class="video-wrap">
@@ -704,7 +763,7 @@
       </div>
 
       <div class="chapter">
-        <h2 id="chapter-4">④ 味方に救助してもらった後の立ち回り</h2>
+        <h2 id="chapter-4" class="chapter-title"><img src="images/04_rescue.png" alt="" loading="lazy"><span>④ 味方に救助してもらった後の立ち回り</span></h2>
         <div class="chapter-tip"><span>今回のポイント</span>まずは安全な場所に逃げよう！</div>
 
         <div class="video-wrap">
@@ -733,7 +792,7 @@
       </div>
 
       <div class="chapter">
-        <h2 id="chapter-5">⑤ 味方が吊られてしまった時の立ち回り</h2>
+        <h2 id="chapter-5" class="chapter-title"><img src="images/05_soshu.png" alt="" loading="lazy"><span>⑤ 味方が吊られてしまった時の立ち回り</span></h2>
         <div class="chapter-tip"><span>今回のポイント</span>味方の状況を見て救助を判断しよう！</div>
 
         <p>ここはとっても大事！パターン化して、単純に考えよう🦦</p>
@@ -756,7 +815,7 @@
       </div>
 
       <div class="chapter">
-        <h2 id="chapter-6">⑥ 発電機が5台上がった時の立ち回り</h2>
+        <h2 id="chapter-6" class="chapter-title"><img src="images/06_tsuden.png" alt="" loading="lazy"><span>⑥ 発電機が5台上がった時の立ち回り</span></h2>
         <div class="chapter-tip"><span>今回のポイント</span>ゲートを開けて逃げ道を確保しよう！</div>
 
         <div class="image-placeholder">〈通電した時の画像〉</div>
@@ -773,7 +832,7 @@
       </div>
 
       <div class="chapter">
-        <h2 id="chapter-7">⑦ ゲート解放後の立ち回り</h2>
+        <h2 id="chapter-7" class="chapter-title"><img src="images/07_gate.png" alt="" loading="lazy"><span>⑦ ゲート解放後の立ち回り</span></h2>
         <div class="chapter-tip"><span>今回のポイント</span>逃げられるなら逃げちゃっていい！</div>
 
         <p>逃げれる状況になったらもう逃げちゃって良いよ。ここまで行けば自分の功績、逃げたって良いんだよ。実際に命がかかってたら…まあ逃げるよね🦦</p>
@@ -788,7 +847,7 @@
       </div>
 
       <div class="chapter">
-        <h2 id="chapter-8">⑧ 無事に脱出したら</h2>
+        <h2 id="chapter-8" class="chapter-title"><img src="images/08_dasshutsu.png" alt="" loading="lazy"><span>⑧ 無事に脱出したら</span></h2>
         <div class="chapter-tip"><span>今回のポイント</span>味方やキラーのパークを見てみよう！</div>
 
         <p>味方やキラーの使っていたパークを見てみよう。</p>
@@ -806,6 +865,10 @@
 
       <div class="ending">
         逃げラッコ式DbD立ち回り 🦦
+      </div>
+
+      <div class="congrats-illustration">
+        <img src="images/dasshutsu_omedetou.png" alt="脱出おめでとう！と喜ぶラッコたち" loading="lazy">
       </div>
 
     </div>
