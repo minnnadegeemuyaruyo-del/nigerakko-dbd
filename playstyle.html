@@ -88,25 +88,25 @@
       text-align: center;
     }
 
-    nav {
+    header nav {
       display: flex;
       align-items: center;
       gap: clamp(12px, 2vw, 28px);
     }
 
-    nav a {
+    header nav a {
       text-decoration: none;
       font-size: 13px;
       font-weight: 700;
       white-space: nowrap;
     }
 
-    nav a:hover,
-    nav a[aria-current="page"] {
+    header nav a:hover,
+    header nav a[aria-current="page"] {
       color: var(--teal);
     }
 
-    nav a[aria-current="page"] {
+    header nav a[aria-current="page"] {
       text-decoration: underline;
       text-decoration-thickness: 2px;
       text-underline-offset: 7px;
@@ -154,7 +154,7 @@
       box-shadow: 0 5px 18px rgba(48, 39, 31, .04);
     }
 
-    /* 「絆は必ず入れてね！」の重要カード */
+    /* 絆の重要カード */
     .bond-notice {
       display: flex;
       align-items: center;
@@ -187,6 +187,87 @@
       font-size: clamp(21px, 2.7vw, 29px);
       font-weight: 900;
       line-height: 1.55;
+    }
+
+    /* 各章の要点 */
+    .chapter-tip {
+      margin: -8px 0 22px;
+      padding: 10px 15px;
+      background: var(--teal-light);
+      border-left: 4px solid var(--teal);
+      border-radius: 8px;
+      color: #376c6a;
+      font-weight: 800;
+      font-size: .98rem;
+      line-height: 1.6;
+    }
+
+    .chapter-tip span {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--muted);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+
+    /* 8章の目次 */
+    .chapter-toc {
+      margin: 26px 0 34px;
+      padding: 22px;
+      background: #f8f3e9;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .chapter-toc h2,
+    .chapter-toc h2:first-of-type {
+      margin: 0 0 14px;
+      padding: 0;
+      background: none;
+      border: 0;
+      border-radius: 0;
+      font-size: 1.2rem;
+    }
+
+    .chapter-toc-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .chapter-toc-list li {
+      margin: 0;
+    }
+
+    .chapter-toc-list a {
+      display: block;
+      height: 100%;
+      padding: 10px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: .92rem;
+      font-weight: 700;
+      line-height: 1.5;
+      text-decoration: none;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+
+    .chapter-toc-list a:hover {
+      background: var(--teal-light);
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    .chapter {
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      scroll-margin-top: 20px;
     }
 
     .intro {
@@ -246,11 +327,6 @@
 
     strong {
       font-weight: 800;
-    }
-
-    .chapter {
-      padding-bottom: 10px;
-      margin-bottom: 20px;
     }
 
     .video-wrap {
@@ -327,7 +403,7 @@
         flex-wrap: wrap;
       }
 
-      nav {
+      header nav {
         width: 100%;
         overflow-x: auto;
         padding: 5px 0;
@@ -352,11 +428,11 @@
         font-size: 16px;
       }
 
-      nav {
+      header nav {
         gap: 20px;
       }
 
-      nav a {
+      header nav a {
         font-size: 12px;
       }
 
@@ -391,6 +467,24 @@
 
       .bond-notice-text strong {
         font-size: 19px;
+      }
+
+      .chapter-toc {
+        padding: 16px 12px;
+      }
+
+      .chapter-toc-list {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .chapter-toc-list a {
+        padding: 11px 12px;
+      }
+
+      .chapter-tip {
+        padding: 10px 12px;
+        font-size: .94rem;
       }
 
       .intro {
@@ -447,6 +541,10 @@
       .back-link {
         transition: none;
       }
+
+      .chapter-toc-list a {
+        transition: none;
+      }
     }
   </style>
 </head>
@@ -488,8 +586,23 @@
 
       <p>パーク構成がわからない人は<strong><a href="perks.html">パーク構成へのリンク</a></strong>を参考にしてね。じゃあいくよ🦦</p>
 
+      <nav class="chapter-toc" aria-label="立ち回り講座の目次">
+        <h2>📖 立ち回り講座 目次</h2>
+        <ol class="chapter-toc-list">
+          <li><a href="#chapter-1">① 開始直後の立ち回り</a></li>
+          <li><a href="#chapter-2">② 発電機を回してる途中の立ち回り</a></li>
+          <li><a href="#chapter-3">③ キラーから逃げる時の立ち回り</a></li>
+          <li><a href="#chapter-4">④ 味方に救助してもらった後の立ち回り</a></li>
+          <li><a href="#chapter-5">⑤ 味方が吊られてしまった時の立ち回り</a></li>
+          <li><a href="#chapter-6">⑥ 発電機が5台上がった時の立ち回り</a></li>
+          <li><a href="#chapter-7">⑦ ゲート解放後の立ち回り</a></li>
+          <li><a href="#chapter-8">⑧ 無事に脱出したら</a></li>
+        </ol>
+      </nav>
+
       <div class="chapter">
-        <h2>① 開始直後の立ち回り</h2>
+        <h2 id="chapter-1">① 開始直後の立ち回り</h2>
+        <div class="chapter-tip"><span>今回のポイント</span>まず走って発電機を探そう！</div>
 
         <div class="video-wrap">
           <video controls playsinline preload="auto" muted
@@ -510,7 +623,8 @@
       </div>
 
       <div class="chapter">
-        <h2>② 発電機を回してる途中の立ち回り</h2>
+        <h2 id="chapter-2">② 発電機を回してる途中の立ち回り</h2>
+        <div class="chapter-tip"><span>今回のポイント</span>味方の動きを確認しながら発電しよう！</div>
 
         <div class="video-wrap">
           <video controls playsinline preload="metadata">
@@ -534,7 +648,8 @@
       </div>
 
       <div class="chapter">
-        <h2>③ キラーから逃げる時の立ち回り</h2>
+        <h2 id="chapter-3">③ キラーから逃げる時の立ち回り</h2>
+        <div class="chapter-tip"><span>今回のポイント</span>とにかくまっすぐ逃げよう！</div>
 
         <div class="video-wrap">
           <video controls playsinline preload="metadata">
@@ -558,7 +673,8 @@
       </div>
 
       <div class="chapter">
-        <h2>④ 味方に救助してもらった後の立ち回り</h2>
+        <h2 id="chapter-4">④ 味方に救助してもらった後の立ち回り</h2>
+        <div class="chapter-tip"><span>今回のポイント</span>まずは安全な場所に逃げよう！</div>
 
         <div class="video-wrap">
           <video controls playsinline preload="metadata">
@@ -586,7 +702,8 @@
       </div>
 
       <div class="chapter">
-        <h2>⑤ 味方が吊られてしまった時の立ち回り</h2>
+        <h2 id="chapter-5">⑤ 味方が吊られてしまった時の立ち回り</h2>
+        <div class="chapter-tip"><span>今回のポイント</span>味方の状況を見て救助を判断しよう！</div>
 
         <p>ここはとっても大事！パターン化して、単純に考えよう🦦</p>
 
@@ -608,7 +725,8 @@
       </div>
 
       <div class="chapter">
-        <h2>⑥ 発電機が5台上がった時の立ち回り</h2>
+        <h2 id="chapter-6">⑥ 発電機が5台上がった時の立ち回り</h2>
+        <div class="chapter-tip"><span>今回のポイント</span>ゲートを開けて逃げ道を確保しよう！</div>
 
         <div class="image-placeholder">〈通電した時の画像〉</div>
 
@@ -624,7 +742,8 @@
       </div>
 
       <div class="chapter">
-        <h2>⑦ ゲート解放後の立ち回り</h2>
+        <h2 id="chapter-7">⑦ ゲート解放後の立ち回り</h2>
+        <div class="chapter-tip"><span>今回のポイント</span>逃げられるなら逃げちゃっていい！</div>
 
         <p>逃げれる状況になったらもう逃げちゃって良いよ。ここまで行けば自分の功績、逃げたって良いんだよ。実際に命がかかってたら…まあ逃げるよね🦦</p>
 
@@ -638,7 +757,8 @@
       </div>
 
       <div class="chapter">
-        <h2>⑧ 無事に脱出したら</h2>
+        <h2 id="chapter-8">⑧ 無事に脱出したら</h2>
+        <div class="chapter-tip"><span>今回のポイント</span>味方やキラーのパークを見てみよう！</div>
 
         <p>味方やキラーの使っていたパークを見てみよう。</p>
 
