@@ -73,7 +73,8 @@ header {
 nav {
   display: flex;
   align-items: center;
-  gap: clamp(12px, 2vw, 28px);
+  gap: clamp(10px, 1.5vw, 22px);
+  flex-wrap: wrap;
 }
 
 nav a {
@@ -85,11 +86,28 @@ nav a {
 
 nav a:hover { color: var(--teal); }
 
+.discord-link {
+  background: #5865F2;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 30px;
+}
+
+.discord-link:hover {
+  color: white;
+  opacity: .9;
+}
+
 .twitch-link {
   background: #302b2a;
   color: white;
-  padding: 10px 17px;
+  padding: 10px 14px;
   border-radius: 30px;
+}
+
+.twitch-link:hover {
+  color: white;
+  opacity: .9;
 }
 
 .hero-image-section {
@@ -130,17 +148,15 @@ main {
   grid-template-columns: 1fr 1fr;
   gap: 24px;
   align-items: stretch;
-  margin-top: 24px;
+  margin: 24px auto 0;
   max-width: 1440px;
-  margin-left: auto;
-  margin-right: auto;
   padding: 0 26px;
 }
 
 .intro-card {
   margin-top: 0;
   padding: 24px;
-  background: #fffdf8;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
 }
@@ -150,8 +166,8 @@ main {
 
 .beginner-menu {
   padding: 24px;
-  background: #fffdf8;
-  border: 1px solid #e6ddd0;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 16px;
 }
 
@@ -168,7 +184,7 @@ main {
   gap: 12px;
   margin-top: 12px;
   padding: 15px 17px;
-  border: 1px solid #e6ddd0;
+  border: 1px solid var(--border);
   border-radius: 12px;
   background: #f8f3e9;
   text-decoration: none;
@@ -178,11 +194,11 @@ main {
 
 .beginner-link:hover {
   transform: translateY(-2px);
-  border-color: #477f7d;
+  border-color: var(--teal);
 }
 
 .beginner-link span:last-child {
-  color: #477f7d;
+  color: var(--teal);
   font-size: 20px;
   flex-shrink: 0;
 }
@@ -204,6 +220,10 @@ main {
   text-decoration: none;
   box-shadow: 0 5px 13px #30271f1c;
   transition: transform .18s;
+}
+
+.guide-card:hover {
+  transform: translateY(-3px);
 }
 
 .guide-picture {
@@ -235,7 +255,7 @@ main {
   font-size: clamp(22px, 2.3vw, 34px);
   font-weight: 950;
   line-height: 1.4;
-  background: #477f7d;
+  background: var(--teal);
   transform: rotate(-2deg);
 }
 
@@ -258,13 +278,23 @@ main {
   text-align: center;
   font-size: 13px;
   font-weight: 800;
-  background: #477f7d;
+  background: var(--teal);
 }
 
 .guide-card:nth-child(1) .guide-button { background: #a94335; }
 .guide-card:nth-child(2) .guide-button { background: #2756a2; }
 .guide-card:nth-child(3) .guide-button { background: #9e354e; }
 .guide-card:nth-child(4) .guide-button { background: #496e3f; }
+
+.perk-placeholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: #b7d6ad;
+  font-size: 70px;
+  background: linear-gradient(145deg, #35513b, #15241a);
+}
 
 footer {
   padding: 20px;
@@ -285,10 +315,13 @@ a:focus-visible {
   nav {
     width: 100%;
     overflow-x: auto;
+    flex-wrap: nowrap;
     padding: 5px 0;
   }
 
-  .guide-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .guide-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 760px) {
@@ -303,12 +336,25 @@ a:focus-visible {
 }
 
 @media (max-width: 560px) {
-  .header-inner { padding: 10px 15px; gap: 8px; }
+  .header-inner {
+    padding: 10px 15px;
+    gap: 8px;
+  }
+
   .brand-icon { font-size: 30px; }
   .brand-name { font-size: 16px; }
-  .twitch-link { padding: 7px 11px; font-size: 12px; }
-  nav { gap: 18px; }
+
+  nav {
+    gap: 15px;
+  }
+
   nav a { font-size: 12px; }
+
+  .discord-link,
+  .twitch-link {
+    padding: 7px 10px;
+    font-size: 12px;
+  }
 
   .catchline {
     padding: 14px 10px;
@@ -347,8 +393,11 @@ a:focus-visible {
 
     <nav aria-label="メインメニュー">
       <a href="index.html">ホーム</a>
-      <a href="perks.html">パーク紹介</a>
-      <a href="playstyle.html?v=2">立ち回り講座</a>
+      <a href="diary.html">ラッコの日記</a>
+      <a href="https://discord.gg/SP9GnQDS5f"
+         class="discord-link"
+         target="_blank"
+         rel="noopener noreferrer">Discordに参加 ↗</a>
       <a href="https://www.twitch.tv/rakkowww"
          class="twitch-link"
          target="_blank"
