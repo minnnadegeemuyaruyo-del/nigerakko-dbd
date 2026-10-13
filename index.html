@@ -266,36 +266,6 @@ main {
 .guide-card:nth-child(3) .guide-button { background: #9e354e; }
 .guide-card:nth-child(4) .guide-button { background: #496e3f; }
 
-.beginner-banner {
-  margin-top: 28px;
-  padding: 34px 26px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  color: white;
-  background: linear-gradient(120deg, #273b3e, #4c675e);
-  border-radius: 14px;
-}
-
-.beginner-message {
-  max-width: 330px;
-  font-size: 19px;
-  font-weight: 800;
-}
-
-.beginner-button {
-  display: inline-block;
-  padding: 13px 25px;
-  border: 2px solid #a9d5d1;
-  border-radius: 35px;
-  color: white;
-  text-decoration: none;
-  font-size: 19px;
-  font-weight: 900;
-  background: #246f78;
-}
-
 footer {
   padding: 20px;
   text-align: center;
@@ -358,19 +328,6 @@ a:focus-visible {
   .guide-title { font-size: clamp(20px, 5vw, 27px); }
   .guide-body p { font-size: 12px; }
   .guide-button { font-size: 11px; }
-
-  .beginner-banner {
-    flex-direction: column;
-    gap: 16px;
-    padding: 24px 15px;
-  }
-
-  .beginner-message {
-    font-size: 16px;
-    text-align: center;
-  }
-
-  .beginner-button { font-size: 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -383,19 +340,19 @@ a:focus-visible {
 <body>
 <header>
   <div class="header-inner">
-    <a class="brand">
+    <a class="brand" href="index.html">
       <span class="brand-icon" aria-hidden="true">🦦</span>
       <span class="brand-name">逃げラッコ式<small>DbD立ち回りガイド</small></span>
     </a>
 
     <nav aria-label="メインメニュー">
-      <a>ホーム</a>
-      <a>キャラクター</a>
-      <a>パーク紹介</a>
-      <a>立ち回り講座</a>
-      <a>初心者ガイド</a>
-      <a>ブログ</a>
-      <a class="twitch-link">Twitchで配信中 ↗</a>
+      <a href="index.html">ホーム</a>
+      <a href="perks.html">パーク紹介</a>
+      <a href="playstyle.html?v=2">立ち回り講座</a>
+      <a href="https://www.twitch.tv/rakkowww"
+         class="twitch-link"
+         target="_blank"
+         rel="noopener noreferrer">Twitchで配信中 ↗</a>
     </nav>
   </div>
 </header>
@@ -449,7 +406,7 @@ a:focus-visible {
 
 <main>
   <section class="guide-grid" aria-label="攻略ガイド">
-    <a class="guide-card">
+    <a class="guide-card" href="rescue.html">
       <div class="guide-picture">
         <img src="images/rescue-rakko-coming-soon.png" alt="救助ページ準備中">
       </div>
@@ -460,7 +417,7 @@ a:focus-visible {
       </div>
     </a>
 
-    <a class="guide-card">
+    <a class="guide-card" href="generator.html">
       <div class="guide-picture">
         <img src="images/generator-rakko-coming-soon.png" alt="発電ページ準備中">
       </div>
@@ -471,7 +428,7 @@ a:focus-visible {
       </div>
     </a>
 
-    <a class="guide-card">
+    <a class="guide-card" href="chase.html">
       <div class="guide-picture">
         <img src="images/chase-rakko-coming-soon.png" alt="チェイスページ準備中">
       </div>
@@ -482,7 +439,7 @@ a:focus-visible {
       </div>
     </a>
 
-    <a class="guide-card">
+    <a class="guide-card" href="perks.html">
       <div class="guide-picture">
         <div class="perk-placeholder" aria-hidden="true">✦</div>
       </div>
@@ -492,16 +449,6 @@ a:focus-visible {
         <span class="guide-button">パーク構成を見る →</span>
       </div>
     </a>
-  </section>
-
-  <section class="beginner-banner" id="beginner">
-    <div class="beginner-message">
-      DbDをもっと楽しく、<br>
-      自分のペースで。<br>
-      ラッコと一緒に、<br>
-      逃亡生活をはじめよう！
-    </div>
-    <a class="beginner-button">📖 初心者ガイドを見る →</a>
   </section>
 </main>
 
