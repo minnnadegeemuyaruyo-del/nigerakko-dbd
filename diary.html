@@ -1,0 +1,370 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="逃げラッコのサイト制作日記やDiscordサーバー運営の日々を記録するページです。">
+<title>ラッコの日記｜逃げラッコ式DbD立ち回り</title>
+
+<style>
+:root {
+  --bg: #f4f0e7;
+  --surface: #fffdf8;
+  --text: #30271f;
+  --muted: #71685f;
+  --teal: #477f7d;
+  --border: #e6ddd0;
+  --hero-blue: #c9dfe4;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  line-height: 1.9;
+}
+
+a { color: inherit; }
+
+header {
+  background: rgba(255,255,255,.97);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  max-width: 1440px;
+  min-height: 72px;
+  margin: auto;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brand-icon { font-size: 37px; }
+
+.brand-name {
+  font-weight: 900;
+  font-size: 19px;
+  line-height: 1.3;
+}
+
+.brand-name small {
+  display: block;
+  font-size: 12px;
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1.5vw, 22px);
+  flex-wrap: wrap;
+}
+
+nav a {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+nav a:hover { color: var(--teal); }
+
+nav a.current {
+  color: var(--teal);
+}
+
+.discord-link {
+  background: #5865F2;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 30px;
+}
+
+.discord-link:hover {
+  color: white;
+  opacity: .9;
+}
+
+.twitch-link {
+  background: #302b2a;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 30px;
+}
+
+.twitch-link:hover {
+  color: white;
+  opacity: .9;
+}
+
+.hero {
+  padding: 48px 20px;
+  text-align: center;
+  background: var(--hero-blue);
+}
+
+.hero-inner {
+  max-width: 760px;
+  margin: auto;
+}
+
+.hero-label {
+  margin: 0 0 8px;
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(30px, 5vw, 46px);
+  line-height: 1.4;
+}
+
+.hero p {
+  margin: 12px 0 0;
+  color: #4f625f;
+}
+
+main {
+  max-width: 900px;
+  margin: auto;
+  padding: 36px 22px 60px;
+}
+
+.intro-card,
+.diary-entry {
+  padding: 26px;
+  margin-bottom: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.intro-card h2 {
+  margin-top: 0;
+  line-height: 1.5;
+}
+
+.intro-card p:last-child { margin-bottom: 0; }
+
+.section-title {
+  margin: 38px 0 18px;
+  font-size: 24px;
+  line-height: 1.5;
+}
+
+.category-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 3px 12px;
+  border-radius: 20px;
+  background: #e4efeb;
+  color: #356865;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.category-label.server {
+  background: #eee6f6;
+  color: #71508d;
+}
+
+.entry-date {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.entry-title {
+  margin: 0 0 14px;
+  font-size: 22px;
+  line-height: 1.6;
+}
+
+.entry-body {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.entry-body p:first-child { margin-top: 0; }
+.entry-body p:last-child { margin-bottom: 0; }
+
+.draft-note {
+  margin: 18px 0 0;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--teal);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.back-link:hover { text-decoration: underline; }
+
+footer {
+  padding: 20px;
+  text-align: center;
+  background: #e9e2d6;
+  color: #6e6255;
+  font-size: 13px;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .header-inner { flex-wrap: wrap; }
+
+  nav {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding: 5px 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .header-inner {
+    padding: 10px 15px;
+    gap: 8px;
+  }
+
+  .brand-icon { font-size: 30px; }
+  .brand-name { font-size: 16px; }
+
+  nav { gap: 15px; }
+  nav a { font-size: 12px; }
+
+  .discord-link,
+  .twitch-link {
+    padding: 7px 10px;
+    font-size: 12px;
+  }
+
+  .hero { padding: 38px 18px; }
+
+  main { padding: 24px 15px 42px; }
+
+  .intro-card,
+  .diary-entry {
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  .entry-title { font-size: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-icon" aria-hidden="true">🦦</span>
+      <span class="brand-name">逃げラッコ式<small>DbD立ち回りガイド</small></span>
+    </a>
+
+    <nav aria-label="メインメニュー">
+      <a href="index.html">ホーム</a>
+      <a href="diary.html" class="current">ラッコの日記</a>
+      <a href="https://discord.gg/SP9GnQDS5f"
+         class="discord-link"
+         target="_blank"
+         rel="noopener noreferrer">Discordに参加 ↗</a>
+      <a href="https://www.twitch.tv/rakkowww"
+         class="twitch-link"
+         target="_blank"
+         rel="noopener noreferrer">Twitchで配信中 ↗</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-label">RAKKO'S DIARY</p>
+    <h1>ラッコの日記 🦦</h1>
+    <p>サイト制作も、サーバー運営も。ラッコの日々を記録していく場所。</p>
+  </div>
+</section>
+
+<main>
+  <section class="intro-card">
+    <h2>ここはラッコの日記帳。</h2>
+    <p>
+      逃げラッコのサイトができていく記録や、
+      Discordサーバーで起きた出来事を残していくよ。
+    </p>
+    <p>
+      サイト制作のことも、サーバー運営のことも、
+      ラッコ自身の言葉で少しずつ書いていく場所だよ。
+    </p>
+  </section>
+
+  <h2 class="section-title">日記一覧</h2>
+
+  <article class="diary-entry" id="site-diary">
+    <span class="category-label">サイト制作日記</span>
+    <time class="entry-date">日付未設定</time>
+    <h3 class="entry-title">サイト制作</h3>
+
+    <div class="entry-body">
+      <p>ここにラッコが書いたサイト制作の日記を掲載するよ。</p>
+    </div>
+
+    <p class="draft-note">
+      ※ 日付と本文は、ラッコが決めてから入れよう。
+    </p>
+  </article>
+
+  <article class="diary-entry" id="server-diary">
+    <span class="category-label server">サーバー運営日記</span>
+    <time class="entry-date">日付未設定</time>
+    <h3 class="entry-title">Discordサーバーの日記</h3>
+
+    <div class="entry-body">
+      <p>ここにラッコが書いたサーバー運営の日記を掲載するよ。</p>
+    </div>
+
+    <p class="draft-note">
+      ※ 出来事や運営について考えたことを、ラッコの言葉で残していこう。
+    </p>
+  </article>
+
+  <a class="back-link" href="index.html">← ホームに戻る</a>
+</main>
+
+<footer>© 逃げラッコ</footer>
+</body>
+</html>
