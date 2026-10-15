@@ -733,8 +733,12 @@ a:focus-visible {
 
 <script>
 
-const SUPABASE_URL = https://goxuhivbgaextkhyobmw.supabase.co;
-const SUPABASE_PUBLISHABLE_KEY = sb_publishable_81GtdIt16_VTgJq4bV3RNw_MoA7ZuPV;
+const SUPABASE_URL =
+  "https://goxuhivbgaextkhyobmw.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_81GtdIt16_VTgJq4bV3RNw_MoA7ZuPV";
+
 
 const supabaseClient = supabase.createClient(
   SUPABASE_URL,
@@ -746,76 +750,105 @@ const supabaseClient = supabase.createClient(
 // HTML要素
 // -----------------------------
 
-const emailInput = document.getElementById("email");
-const loginButton = document.getElementById("login-button");
-const loginMessage = document.getElementById("login-message");
+const emailInput =
+  document.getElementById("email");
 
-const loginSection = document.getElementById("login-section");
-const commentSection = document.getElementById("comment-section");
+const loginButton =
+  document.getElementById("login-button");
 
-const commentForm = document.getElementById("comment-form");
-const commentText = document.getElementById("comment-text");
-const commentMessage = document.getElementById("comment-message");
+const loginMessage =
+  document.getElementById("login-message");
 
-const userStatus = document.getElementById("user-status");
-const commentsContainer = document.getElementById("comments-container");
+const loginSection =
+  document.getElementById("login-section");
+
+const commentSection =
+  document.getElementById("comment-section");
+
+const commentForm =
+  document.getElementById("comment-form");
+
+const commentText =
+  document.getElementById("comment-text");
+
+const commentMessage =
+  document.getElementById("comment-message");
+
+const userStatus =
+  document.getElementById("user-status");
+
+const commentsContainer =
+  document.getElementById("comments-container");
 
 
 // -----------------------------
 // ログインメール送信
 // -----------------------------
 
-loginButton.addEventListener("click", async () => {
+loginButton.addEventListener(
+  "click",
+  async () => {
 
-  const email = emailInput.value.trim();
-
-  if (!email) {
-    loginMessage.textContent =
-      "メールアドレスを入力してください。";
-
-    return;
-  }
-
-  loginButton.disabled = true;
-
-  loginMessage.textContent =
-    "ログインメールを送信しています……";
+    const email =
+      emailInput.value.trim();
 
 
-  const { error } =
-    await supabaseClient.auth.signInWithOtp({
+    if (!email) {
 
-      email: email,
+      loginMessage.textContent =
+        "メールアドレスを入力してください。";
 
-      options: {
+      return;
 
-        emailRedirectTo:
-          window.location.href
-
-      }
-
-    });
+    }
 
 
-  if (error) {
+    loginButton.disabled = true;
 
-    console.error(error);
 
     loginMessage.textContent =
-      "メールを送信できませんでした。Supabaseの設定を確認してください。";
+      "ログインメールを送信しています……";
+
+
+    const {
+      error
+    } =
+      await supabaseClient.auth.signInWithOtp({
+
+        email: email,
+
+        options: {
+
+          emailRedirectTo:
+            "https://minnnadegeemuyaruyo-del.github.io/nigerakko-dbd/diary.html"
+
+        }
+
+      });
+
+
+    if (error) {
+
+      console.error(error);
+
+      loginMessage.textContent =
+        "メールを送信できませんでした。Supabaseの設定を確認してください。";
+
+      loginButton.disabled = false;
+
+      return;
+
+    }
+
+
+    loginMessage.textContent =
+      "ログインメールを送りました。メールを確認してください。";
+
 
     loginButton.disabled = false;
 
-    return;
   }
-
-
-  loginMessage.textContent =
-    "ログインメールを送りました。メールを確認してください。";
-
-  loginButton.disabled = false;
-
-});
+);
 
 
 // -----------------------------
@@ -828,23 +861,29 @@ async function updateLoginState() {
     data: {
       session
     }
-  } = await supabaseClient.auth.getSession();
+  } =
+    await supabaseClient.auth.getSession();
 
 
   if (session) {
 
-    loginSection.style.display = "none";
+    loginSection.style.display =
+      "none";
 
-    commentSection.style.display = "block";
+    commentSection.style.display =
+      "block";
 
     userStatus.textContent =
-      session.user.email + " でログイン中";
+      session.user.email +
+      " でログイン中";
 
   } else {
 
-    loginSection.style.display = "block";
+    loginSection.style.display =
+      "block";
 
-    commentSection.style.display = "none";
+    commentSection.style.display =
+      "none";
 
   }
 
@@ -877,15 +916,16 @@ async function loadComments() {
   const {
     data,
     error
-  } = await supabaseClient
+  } =
+    await supabaseClient
 
-    .from("diary_comments")
+      .from("diary_comments")
 
-    .select("*")
+      .select("*")
 
-    .order("created_at", {
-      ascending: false
-    });
+      .order("created_at", {
+        ascending: false
+      });
 
 
   if (error) {
@@ -910,52 +950,59 @@ async function loadComments() {
   }
 
 
-  commentsContainer.innerHTML = "";
+  commentsContainer.innerHTML =
+    "";
 
 
-  data.forEach(comment => {
+  data.forEach(
+    comment => {
 
-    const item =
-      document.createElement("article");
-
-    item.className =
-      "comment-item";
+      const item =
+        document.createElement("article");
 
 
-    const date =
-      document.createElement("time");
-
-    date.className =
-      "comment-date";
+      item.className =
+        "comment-item";
 
 
-    if (comment.created_at) {
+      const date =
+        document.createElement("time");
 
-      date.textContent =
-        new Date(comment.created_at)
-          .toLocaleString("ja-JP");
+
+      date.className =
+        "comment-date";
+
+
+      if (comment.created_at) {
+
+        date.textContent =
+          new Date(
+            comment.created_at
+          ).toLocaleString("ja-JP");
+
+      }
+
+
+      const text =
+        document.createElement("p");
+
+
+      text.className =
+        "comment-text";
+
+
+      text.textContent =
+        comment.comment || "";
+
+
+      item.appendChild(date);
+
+      item.appendChild(text);
+
+      commentsContainer.appendChild(item);
 
     }
-
-
-    const text =
-      document.createElement("p");
-
-    text.className =
-      "comment-text";
-
-
-    text.textContent =
-      comment.comment || "";
-
-
-    item.appendChild(date);
-
-    item.appendChild(text);
-
-    commentsContainer.appendChild(item);
-
-  });
+  );
 
 }
 
@@ -1035,7 +1082,9 @@ commentForm.addEventListener(
     }
 
 
-    commentText.value = "";
+    commentText.value =
+      "";
+
 
     commentMessage.textContent =
       "コメントしました！";
