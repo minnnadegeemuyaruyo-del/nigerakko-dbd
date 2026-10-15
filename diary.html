@@ -29,13 +29,7 @@ body {
   margin: 0;
   color: var(--text);
   background: var(--bg);
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Noto Sans JP",
-    "Yu Gothic",
-    Meiryo,
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
   line-height: 1.9;
 }
 
@@ -167,7 +161,7 @@ main {
 
 .intro-card,
 .diary-entry,
-.comment-card {
+.comments-card {
   padding: 26px;
   margin-bottom: 24px;
   background: var(--surface);
@@ -252,74 +246,56 @@ main {
   text-decoration: underline;
 }
 
-/* コメント */
+/* コメント欄 */
 
-.comment-card h2 {
+.comments-card h2 {
   margin-top: 0;
-  line-height: 1.5;
+  margin-bottom: 8px;
 }
 
-.comment-description {
+.comments-description {
+  margin-top: 0;
   color: var(--muted);
   font-size: 14px;
 }
 
 .login-box {
-  margin-top: 20px;
-  padding: 18px;
-  background: #f3eee5;
+  padding: 20px;
+  margin-top: 18px;
+  background: #f0eee8;
   border-radius: 14px;
 }
 
 .login-box h3 {
   margin-top: 0;
   margin-bottom: 8px;
-  font-size: 17px;
 }
 
-.form-group {
-  margin-bottom: 14px;
+.login-box p {
+  margin-top: 0;
+  color: var(--muted);
+  font-size: 14px;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.form-group input,
-.form-group textarea {
+.email-input {
   width: 100%;
-  padding: 11px 13px;
+  padding: 13px 15px;
   border: 1px solid var(--border);
   border-radius: 10px;
   background: white;
-  color: var(--text);
   font: inherit;
-}
-
-.form-group textarea {
-  min-height: 110px;
-  resize: vertical;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: 2px solid var(--teal);
-  outline-offset: 1px;
+  margin-bottom: 10px;
 }
 
 .button {
-  display: inline-block;
   border: 0;
-  border-radius: 30px;
-  padding: 10px 18px;
+  padding: 11px 18px;
+  border-radius: 25px;
   background: var(--teal);
   color: white;
-  font: inherit;
   font-weight: 800;
   cursor: pointer;
+  font: inherit;
 }
 
 .button:hover {
@@ -327,41 +303,41 @@ main {
 }
 
 .button.secondary {
-  background: #777067;
+  background: #777;
 }
 
-.button:disabled {
-  opacity: .5;
-  cursor: not-allowed;
-}
-
-.status-message {
-  margin-top: 12px;
-  font-size: 13px;
-  color: var(--muted);
+.login-message {
+  margin: 12px 0 0;
+  font-size: 14px;
 }
 
 .comment-form {
-  display: none;
-  margin-top: 20px;
+  margin-top: 18px;
 }
 
-.comment-form.visible {
-  display: block;
+.comment-textarea {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  padding: 13px 15px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: white;
+  font: inherit;
+  line-height: 1.7;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .user-status {
-  display: none;
-  margin-top: 12px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: #e4efeb;
-  color: #356865;
+  color: var(--muted);
   font-size: 13px;
-}
-
-.user-status.visible {
-  display: block;
 }
 
 .comments-list {
@@ -381,29 +357,26 @@ main {
   border-top: 0;
 }
 
-.comment-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 6px;
-}
-
-.comment-name {
-  font-weight: 900;
-}
-
 .comment-date {
+  display: block;
   color: var(--muted);
   font-size: 12px;
+  margin-bottom: 4px;
 }
 
-.comment-body {
-  overflow-wrap: anywhere;
+.comment-text {
+  margin: 0;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
-.no-comments {
+.loading {
   color: var(--muted);
+  font-size: 14px;
+}
+
+.error-message {
+  color: #a24d4d;
   font-size: 14px;
 }
 
@@ -415,10 +388,7 @@ footer {
   font-size: 13px;
 }
 
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
+a:focus-visible {
   outline: 3px solid var(--teal);
   outline-offset: 3px;
 }
@@ -474,17 +444,13 @@ textarea:focus-visible {
 
   .intro-card,
   .diary-entry,
-  .comment-card {
+  .comments-card {
     padding: 20px;
     border-radius: 15px;
   }
 
   .entry-title {
     font-size: 20px;
-  }
-
-  .comment-header {
-    display: block;
   }
 }
 
@@ -516,19 +482,17 @@ textarea:focus-visible {
         ラッコの日記
       </a>
 
-      <a
-        href="https://discord.gg/SP9GnQDS5f"
-        class="discord-link"
-        target="_blank"
-        rel="noopener noreferrer">
+      <a href="https://discord.gg/SP9GnQDS5f"
+         class="discord-link"
+         target="_blank"
+         rel="noopener noreferrer">
         Discordに参加 ↗
       </a>
 
-      <a
-        href="https://www.twitch.tv/rakkowww"
-        class="twitch-link"
-        target="_blank"
-        rel="noopener noreferrer">
+      <a href="https://www.twitch.tv/rakkowww"
+         class="twitch-link"
+         target="_blank"
+         rel="noopener noreferrer">
         Twitchで配信中 ↗
       </a>
     </nav>
@@ -538,12 +502,9 @@ textarea:focus-visible {
 
 
 <section class="hero">
-
   <div class="hero-inner">
 
-    <p class="hero-label">
-      RAKKO'S DIARY
-    </p>
+    <p class="hero-label">RAKKO'S DIARY</p>
 
     <h1>
       ラッコの日記 🦦
@@ -555,7 +516,6 @@ textarea:focus-visible {
     </p>
 
   </div>
-
 </section>
 
 
@@ -637,29 +597,30 @@ textarea:focus-visible {
     </div>
 
     <p class="draft-note">
-      ※ 出来事や運営について考えたことを、
-      ラッコの言葉で残していこう。
+      ※ 出来事や運営について考えたことを、ラッコの言葉で残していこう。
     </p>
 
   </article>
 
 
+  <!-- ========================= -->
   <!-- コメント欄 -->
+  <!-- ========================= -->
 
-  <section class="comment-card" id="comments">
+  <section class="comments-card">
 
     <h2>
       💬 コメント欄
     </h2>
 
-    <p class="comment-description">
+    <p class="comments-description">
       この日記について、自由にコメントしてね。
     </p>
 
 
     <!-- ログイン前 -->
 
-    <div class="login-box" id="loginBox">
+    <div id="login-section" class="login-box">
 
       <h3>
         コメントするにはログイン
@@ -670,36 +631,25 @@ textarea:focus-visible {
         ログイン用のメールが届きます。
       </p>
 
-
-      <div class="form-group">
-
-        <label for="loginEmail">
-          メールアドレス
-        </label>
-
-        <input
-          type="email"
-          id="loginEmail"
-          placeholder="example@example.com"
-          autocomplete="email">
-
-      </div>
-
+      <input
+        id="email"
+        class="email-input"
+        type="email"
+        placeholder="example@example.com"
+        autocomplete="email"
+      >
 
       <button
-        type="button"
+        id="login-button"
         class="button"
-        id="loginButton">
-
+        type="button">
         ログインメールを送る
-
       </button>
 
-
-      <div
-        class="status-message"
-        id="loginStatus">
-      </div>
+      <p
+        id="login-message"
+        class="login-message">
+      </p>
 
     </div>
 
@@ -707,69 +657,39 @@ textarea:focus-visible {
     <!-- ログイン後 -->
 
     <div
-      class="user-status"
-      id="userStatus">
-    </div>
+      id="comment-section"
+      style="display:none;">
 
-
-    <div
-      class="comment-form"
-      id="commentForm">
-
-      <div class="form-group">
-
-        <label for="displayName">
-          表示名
-        </label>
-
-        <input
-          type="text"
-          id="displayName"
-          maxlength="30"
-          placeholder="ラッコ">
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="commentBody">
-          コメント
-        </label>
+      <form id="comment-form" class="comment-form">
 
         <textarea
-          id="commentBody"
+          id="comment-text"
+          class="comment-textarea"
+          placeholder="コメントを書いてね。"
           maxlength="1000"
-          placeholder="コメントを書いてね"></textarea>
+          required></textarea>
 
-      </div>
+        <div class="comment-actions">
 
+          <span
+            id="user-status"
+            class="user-status">
+          </span>
 
-      <button
-        type="button"
-        class="button"
-        id="commentButton">
+          <button
+            class="button"
+            type="submit">
+            コメントする
+          </button>
 
-        コメントを投稿
+        </div>
 
-      </button>
+      </form>
 
-
-      <button
-        type="button"
-        class="button secondary"
-        id="logoutButton"
-        style="margin-left:8px;">
-
-        ログアウト
-
-      </button>
-
-
-      <div
-        class="status-message"
-        id="commentStatus">
-      </div>
+      <p
+        id="comment-message"
+        class="login-message">
+      </p>
 
     </div>
 
@@ -782,9 +702,9 @@ textarea:focus-visible {
         みんなのコメント
       </h3>
 
-      <div id="commentsList">
+      <div id="comments-container">
 
-        <p class="no-comments">
+        <p class="loading">
           コメントを読み込んでいます……
         </p>
 
@@ -795,12 +715,8 @@ textarea:focus-visible {
   </section>
 
 
-  <a
-    class="back-link"
-    href="index.html">
-
+  <a class="back-link" href="index.html">
     ← ホームに戻る
-
   </a>
 
 </main>
@@ -815,117 +731,186 @@ textarea:focus-visible {
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <script>
 
-/* ============================================
-   Supabase設定
-   ============================================ */
+const SUPABASE_URL = https://goxuhivbgaextkhyobmw.supabase.co;
+const SUPABASE_PUBLISHABLE_KEY = sb_publishable_81GtdIt16_VTgJq4bV3RNw_MoA7ZuPV;
 
-const SUPABASE_URL =
-  "https://goxuhivbgaextkhyobwm.supabase.co";
-
-
-const SUPABASE_PUBLISHABLE_KEY =
-  sb_publishable_81GtdIt16_VTgJq4bV3RNw_MoA7ZuPV
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
 
 
-const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
+// -----------------------------
+// HTML要素
+// -----------------------------
+
+const emailInput = document.getElementById("email");
+const loginButton = document.getElementById("login-button");
+const loginMessage = document.getElementById("login-message");
+
+const loginSection = document.getElementById("login-section");
+const commentSection = document.getElementById("comment-section");
+
+const commentForm = document.getElementById("comment-form");
+const commentText = document.getElementById("comment-text");
+const commentMessage = document.getElementById("comment-message");
+
+const userStatus = document.getElementById("user-status");
+const commentsContainer = document.getElementById("comments-container");
 
 
-/* ============================================
-   要素取得
-   ============================================ */
+// -----------------------------
+// ログインメール送信
+// -----------------------------
 
-const loginBox =
-  document.getElementById("loginBox");
+loginButton.addEventListener("click", async () => {
 
-const loginEmail =
-  document.getElementById("loginEmail");
+  const email = emailInput.value.trim();
 
-const loginButton =
-  document.getElementById("loginButton");
+  if (!email) {
+    loginMessage.textContent =
+      "メールアドレスを入力してください。";
 
-const loginStatus =
-  document.getElementById("loginStatus");
+    return;
+  }
 
-const userStatus =
-  document.getElementById("userStatus");
+  loginButton.disabled = true;
 
-const commentForm =
-  document.getElementById("commentForm");
-
-const displayName =
-  document.getElementById("displayName");
-
-const commentBody =
-  document.getElementById("commentBody");
-
-const commentButton =
-  document.getElementById("commentButton");
-
-const logoutButton =
-  document.getElementById("logoutButton");
-
-const commentStatus =
-  document.getElementById("commentStatus");
-
-const commentsList =
-  document.getElementById("commentsList");
+  loginMessage.textContent =
+    "ログインメールを送信しています……";
 
 
-/* ============================================
-   コメント読み込み
-   ============================================ */
+  const { error } =
+    await supabaseClient.auth.signInWithOtp({
 
-async function loadComments() {
+      email: email,
 
-  commentsList.innerHTML =
-    '<p class="no-comments">コメントを読み込んでいます……</p>';
+      options: {
 
+        emailRedirectTo:
+          window.location.href
 
-  const { data, error } =
-    await supabaseClient
+      }
 
-      .from("diary_comments")
-
-      .select(
-        "id, display_name, body, created_at"
-      )
-
-      .order(
-        "created_at",
-        {
-          ascending: true
-        }
-      );
+    });
 
 
   if (error) {
 
     console.error(error);
 
-    commentsList.innerHTML =
-      '<p class="no-comments">コメントを読み込めませんでした。</p>';
+    loginMessage.textContent =
+      "メールを送信できませんでした。Supabaseの設定を確認してください。";
+
+    loginButton.disabled = false;
 
     return;
+  }
+
+
+  loginMessage.textContent =
+    "ログインメールを送りました。メールを確認してください。";
+
+  loginButton.disabled = false;
+
+});
+
+
+// -----------------------------
+// ログイン状態確認
+// -----------------------------
+
+async function updateLoginState() {
+
+  const {
+    data: {
+      session
+    }
+  } = await supabaseClient.auth.getSession();
+
+
+  if (session) {
+
+    loginSection.style.display = "none";
+
+    commentSection.style.display = "block";
+
+    userStatus.textContent =
+      session.user.email + " でログイン中";
+
+  } else {
+
+    loginSection.style.display = "block";
+
+    commentSection.style.display = "none";
+
+  }
+
+}
+
+
+// -----------------------------
+// 認証状態が変わったら更新
+// -----------------------------
+
+supabaseClient.auth.onAuthStateChange(
+  async () => {
+
+    await updateLoginState();
+
+  }
+);
+
+
+// -----------------------------
+// コメント読み込み
+// -----------------------------
+
+async function loadComments() {
+
+  commentsContainer.innerHTML =
+    '<p class="loading">コメントを読み込んでいます……</p>';
+
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+
+    .from("diary_comments")
+
+    .select("*")
+
+    .order("created_at", {
+      ascending: false
+    });
+
+
+  if (error) {
+
+    console.error(error);
+
+    commentsContainer.innerHTML =
+      '<p class="error-message">コメントを読み込めませんでした。</p>';
+
+    return;
+
   }
 
 
   if (!data || data.length === 0) {
 
-    commentsList.innerHTML =
-      '<p class="no-comments">まだコメントはありません。最初のコメントを書いてみよう！</p>';
+    commentsContainer.innerHTML =
+      '<p class="loading">まだコメントはありません。</p>';
 
     return;
+
   }
 
 
-  commentsList.innerHTML = "";
+  commentsContainer.innerHTML = "";
 
 
   data.forEach(comment => {
@@ -937,23 +922,6 @@ async function loadComments() {
       "comment-item";
 
 
-    const header =
-      document.createElement("div");
-
-    header.className =
-      "comment-header";
-
-
-    const name =
-      document.createElement("span");
-
-    name.className =
-      "comment-name";
-
-    name.textContent =
-      comment.display_name || "名無しのラッコ";
-
-
     const date =
       document.createElement("time");
 
@@ -963,183 +931,63 @@ async function loadComments() {
 
     if (comment.created_at) {
 
-      const dateObject =
-        new Date(comment.created_at);
-
-
       date.textContent =
-        dateObject.toLocaleString(
-          "ja-JP",
-          {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit"
-          }
-        );
+        new Date(comment.created_at)
+          .toLocaleString("ja-JP");
+
     }
 
 
-    header.appendChild(name);
+    const text =
+      document.createElement("p");
 
-    header.appendChild(date);
-
-
-    const body =
-      document.createElement("div");
-
-    body.className =
-      "comment-body";
-
-    body.textContent =
-      comment.body || "";
+    text.className =
+      "comment-text";
 
 
-    item.appendChild(header);
+    text.textContent =
+      comment.comment || "";
 
-    item.appendChild(body);
 
+    item.appendChild(date);
 
-    commentsList.appendChild(item);
+    item.appendChild(text);
+
+    commentsContainer.appendChild(item);
 
   });
 
 }
 
 
-/* ============================================
-   ログイン状態の表示
-   ============================================ */
+// -----------------------------
+// コメント投稿
+// -----------------------------
 
-async function updateAuthUI() {
+commentForm.addEventListener(
+  "submit",
+  async (event) => {
 
-  const {
-    data: {
-      user
-    }
-  } =
-    await supabaseClient.auth.getUser();
+    event.preventDefault();
 
 
-  if (user) {
-
-    loginBox.style.display =
-      "none";
+    const text =
+      commentText.value.trim();
 
 
-    commentForm.classList.add(
-      "visible"
-    );
+    if (!text) {
 
-
-    userStatus.classList.add(
-      "visible"
-    );
-
-
-    userStatus.textContent =
-      "ログイン中：" + user.email;
-
-
-  } else {
-
-    loginBox.style.display =
-      "block";
-
-
-    commentForm.classList.remove(
-      "visible"
-    );
-
-
-    userStatus.classList.remove(
-      "visible"
-    );
-
-  }
-
-}
-
-
-/* ============================================
-   ログインメール送信
-   ============================================ */
-
-loginButton.addEventListener(
-  "click",
-  async () => {
-
-    const email =
-      loginEmail.value.trim();
-
-
-    if (!email) {
-
-      loginStatus.textContent =
-        "メールアドレスを入力してね。";
+      commentMessage.textContent =
+        "コメントを入力してください。";
 
       return;
+
     }
 
 
-    loginButton.disabled =
-      true;
+    commentMessage.textContent =
+      "コメントを投稿しています……";
 
-
-    loginStatus.textContent =
-      "ログインメールを送っています……";
-
-
-    const {
-      error
-    } =
-      await supabaseClient.auth.signInWithOtp({
-
-        email: email,
-
-        options: {
-
-          emailRedirectTo:
-            window.location.href
-
-        }
-
-      });
-
-
-    if (error) {
-
-      console.error(error);
-
-      loginStatus.textContent =
-        "ログインメールを送れませんでした。";
-
-      loginButton.disabled =
-        false;
-
-      return;
-    }
-
-
-    loginStatus.textContent =
-      "ログイン用のメールを送ったよ！メールを確認してね。";
-
-
-    loginButton.disabled =
-      false;
-
-  }
-);
-
-
-/* ============================================
-   コメント投稿
-   ============================================ */
-
-commentButton.addEventListener(
-  "click",
-  async () => {
 
     const {
       data: {
@@ -1151,45 +999,12 @@ commentButton.addEventListener(
 
     if (!user) {
 
-      commentStatus.textContent =
-        "先にログインしてね。";
+      commentMessage.textContent =
+        "ログインが必要です。";
 
       return;
+
     }
-
-
-    const name =
-      displayName.value.trim();
-
-
-    const body =
-      commentBody.value.trim();
-
-
-    if (!name) {
-
-      commentStatus.textContent =
-        "表示名を入力してね。";
-
-      return;
-    }
-
-
-    if (!body) {
-
-      commentStatus.textContent =
-        "コメントを書いてね。";
-
-      return;
-    }
-
-
-    commentButton.disabled =
-      true;
-
-
-    commentStatus.textContent =
-      "コメントを投稿しています……";
 
 
     const {
@@ -1201,11 +1016,9 @@ commentButton.addEventListener(
 
         .insert({
 
-          display_name: name,
+          user_id: user.id,
 
-          body: body,
-
-          user_id: user.id
+          comment: text
 
         });
 
@@ -1214,26 +1027,18 @@ commentButton.addEventListener(
 
       console.error(error);
 
-      commentStatus.textContent =
+      commentMessage.textContent =
         "コメントを投稿できませんでした。";
 
-      commentButton.disabled =
-        false;
-
       return;
+
     }
 
 
-    commentBody.value =
-      "";
+    commentText.value = "";
 
-
-    commentStatus.textContent =
-      "コメントを投稿したよ！";
-
-
-    commentButton.disabled =
-      false;
+    commentMessage.textContent =
+      "コメントしました！";
 
 
     await loadComments();
@@ -1242,49 +1047,13 @@ commentButton.addEventListener(
 );
 
 
-/* ============================================
-   ログアウト
-   ============================================ */
+// -----------------------------
+// 初期処理
+// -----------------------------
 
-logoutButton.addEventListener(
-  "click",
-  async () => {
+updateLoginState();
 
-    await supabaseClient.auth.signOut();
-
-    await updateAuthUI();
-
-  }
-);
-
-
-/* ============================================
-   認証状態の変化を監視
-   ============================================ */
-
-supabaseClient.auth.onAuthStateChange(
-  async () => {
-
-    await updateAuthUI();
-
-  }
-);
-
-
-/* ============================================
-   初期処理
-   ============================================ */
-
-async function initialize() {
-
-  await updateAuthUI();
-
-  await loadComments();
-
-}
-
-
-initialize();
+loadComments();
 
 </script>
 
