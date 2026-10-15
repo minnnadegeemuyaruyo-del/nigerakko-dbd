@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -18,19 +17,31 @@
   --hero-blue: #c9dfe4;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
   color: var(--text);
   background: var(--bg);
-  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Noto Sans JP",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
   line-height: 1.9;
 }
 
-a { color: inherit; }
+a {
+  color: inherit;
+}
 
 header {
   background: rgba(255,255,255,.97);
@@ -56,7 +67,9 @@ header {
   flex-shrink: 0;
 }
 
-.brand-icon { font-size: 37px; }
+.brand-icon {
+  font-size: 37px;
+}
 
 .brand-name {
   font-weight: 900;
@@ -84,7 +97,9 @@ nav a {
   white-space: nowrap;
 }
 
-nav a:hover { color: var(--teal); }
+nav a:hover {
+  color: var(--teal);
+}
 
 nav a.current {
   color: var(--teal);
@@ -151,7 +166,8 @@ main {
 }
 
 .intro-card,
-.diary-entry {
+.diary-entry,
+.comment-card {
   padding: 26px;
   margin-bottom: 24px;
   background: var(--surface);
@@ -164,7 +180,9 @@ main {
   line-height: 1.5;
 }
 
-.intro-card p:last-child { margin-bottom: 0; }
+.intro-card p:last-child {
+  margin-bottom: 0;
+}
 
 .section-title {
   margin: 38px 0 18px;
@@ -206,8 +224,13 @@ main {
   white-space: pre-wrap;
 }
 
-.entry-body p:first-child { margin-top: 0; }
-.entry-body p:last-child { margin-bottom: 0; }
+.entry-body p:first-child {
+  margin-top: 0;
+}
+
+.entry-body p:last-child {
+  margin-bottom: 0;
+}
 
 .draft-note {
   margin: 18px 0 0;
@@ -225,7 +248,164 @@ main {
   text-decoration: none;
 }
 
-.back-link:hover { text-decoration: underline; }
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* コメント */
+
+.comment-card h2 {
+  margin-top: 0;
+  line-height: 1.5;
+}
+
+.comment-description {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.login-box {
+  margin-top: 20px;
+  padding: 18px;
+  background: #f3eee5;
+  border-radius: 14px;
+}
+
+.login-box h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 17px;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  color: var(--text);
+  font: inherit;
+}
+
+.form-group textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: 2px solid var(--teal);
+  outline-offset: 1px;
+}
+
+.button {
+  display: inline-block;
+  border: 0;
+  border-radius: 30px;
+  padding: 10px 18px;
+  background: var(--teal);
+  color: white;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: .9;
+}
+
+.button.secondary {
+  background: #777067;
+}
+
+.button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.status-message {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.comment-form {
+  display: none;
+  margin-top: 20px;
+}
+
+.comment-form.visible {
+  display: block;
+}
+
+.user-status {
+  display: none;
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #e4efeb;
+  color: #356865;
+  font-size: 13px;
+}
+
+.user-status.visible {
+  display: block;
+}
+
+.comments-list {
+  margin-top: 28px;
+}
+
+.comments-list h3 {
+  margin-bottom: 14px;
+}
+
+.comment-item {
+  padding: 16px 0;
+  border-top: 1px solid var(--border);
+}
+
+.comment-item:first-child {
+  border-top: 0;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.comment-name {
+  font-weight: 900;
+}
+
+.comment-date {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.comment-body {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.no-comments {
+  color: var(--muted);
+  font-size: 14px;
+}
 
 footer {
   padding: 20px;
@@ -235,13 +415,18 @@ footer {
   font-size: 13px;
 }
 
-a:focus-visible {
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
   outline: 3px solid var(--teal);
   outline-offset: 3px;
 }
 
 @media (max-width: 900px) {
-  .header-inner { flex-wrap: wrap; }
+  .header-inner {
+    flex-wrap: wrap;
+  }
 
   nav {
     width: 100%;
@@ -257,11 +442,21 @@ a:focus-visible {
     gap: 8px;
   }
 
-  .brand-icon { font-size: 30px; }
-  .brand-name { font-size: 16px; }
+  .brand-icon {
+    font-size: 30px;
+  }
 
-  nav { gap: 15px; }
-  nav a { font-size: 12px; }
+  .brand-name {
+    font-size: 16px;
+  }
+
+  nav {
+    gap: 15px;
+  }
+
+  nav a {
+    font-size: 12px;
+  }
 
   .discord-link,
   .twitch-link {
@@ -269,102 +464,829 @@ a:focus-visible {
     font-size: 12px;
   }
 
-  .hero { padding: 38px 18px; }
+  .hero {
+    padding: 38px 18px;
+  }
 
-  main { padding: 24px 15px 42px; }
+  main {
+    padding: 24px 15px 42px;
+  }
 
   .intro-card,
-  .diary-entry {
+  .diary-entry,
+  .comment-card {
     padding: 20px;
     border-radius: 15px;
   }
 
-  .entry-title { font-size: 20px; }
+  .entry-title {
+    font-size: 20px;
+  }
+
+  .comment-header {
+    display: block;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  html {
+    scroll-behavior: auto;
+  }
 }
 </style>
 </head>
 
 <body>
+
 <header>
   <div class="header-inner">
+
     <a class="brand" href="index.html">
       <span class="brand-icon" aria-hidden="true">🦦</span>
-      <span class="brand-name">逃げラッコ式<small>DbD立ち回りガイド</small></span>
+      <span class="brand-name">
+        逃げラッコ式
+        <small>DbD立ち回りガイド</small>
+      </span>
     </a>
 
     <nav aria-label="メインメニュー">
       <a href="index.html">ホーム</a>
-      <a href="diary.html" class="current">ラッコの日記</a>
-      <a href="https://discord.gg/SP9GnQDS5f"
-         class="discord-link"
-         target="_blank"
-         rel="noopener noreferrer">Discordに参加 ↗</a>
-      <a href="https://www.twitch.tv/rakkowww"
-         class="twitch-link"
-         target="_blank"
-         rel="noopener noreferrer">Twitchで配信中 ↗</a>
+
+      <a href="diary.html" class="current">
+        ラッコの日記
+      </a>
+
+      <a
+        href="https://discord.gg/SP9GnQDS5f"
+        class="discord-link"
+        target="_blank"
+        rel="noopener noreferrer">
+        Discordに参加 ↗
+      </a>
+
+      <a
+        href="https://www.twitch.tv/rakkowww"
+        class="twitch-link"
+        target="_blank"
+        rel="noopener noreferrer">
+        Twitchで配信中 ↗
+      </a>
     </nav>
+
   </div>
 </header>
 
+
 <section class="hero">
+
   <div class="hero-inner">
-    <p class="hero-label">RAKKO'S DIARY</p>
-    <h1>ラッコの日記 🦦</h1>
-    <p>サイト制作も、サーバー運営も。ラッコの日々を記録していく場所。</p>
+
+    <p class="hero-label">
+      RAKKO'S DIARY
+    </p>
+
+    <h1>
+      ラッコの日記 🦦
+    </h1>
+
+    <p>
+      サイト制作も、サーバー運営も。
+      ラッコの日々を記録していく場所。
+    </p>
+
   </div>
+
 </section>
 
+
 <main>
+
   <section class="intro-card">
-    <h2>ここはラッコの日記帳。</h2>
+
+    <h2>
+      ここはラッコの日記帳。
+    </h2>
+
     <p>
       逃げラッコのサイトができていく記録や、
       Discordサーバーで起きた出来事を残していくよ。
     </p>
+
     <p>
       サイト制作のことも、サーバー運営のことも、
       ラッコ自身の言葉で少しずつ書いていく場所だよ。
     </p>
+
   </section>
 
-  <h2 class="section-title">日記一覧</h2>
+
+  <h2 class="section-title">
+    日記一覧
+  </h2>
+
 
   <article class="diary-entry" id="site-diary">
-    <span class="category-label">サイト制作日記</span>
-    <time class="entry-date">日付未設定</time>
-    <h3 class="entry-title">サイト制作</h3>
+
+    <span class="category-label">
+      サイト制作日記
+    </span>
+
+    <time class="entry-date">
+      日付未設定
+    </time>
+
+    <h3 class="entry-title">
+      サイト制作
+    </h3>
 
     <div class="entry-body">
-      <p>ここにラッコが書いたサイト制作の日記を掲載するよ。</p>
+
+      <p>
+        ここにラッコが書いたサイト制作の日記を掲載するよ。
+      </p>
+
     </div>
 
     <p class="draft-note">
       ※ 日付と本文は、ラッコが決めてから入れよう。
     </p>
+
   </article>
 
+
   <article class="diary-entry" id="server-diary">
-    <span class="category-label server">サーバー運営日記</span>
-    <time class="entry-date">日付未設定</time>
-    <h3 class="entry-title">Discordサーバーの日記</h3>
+
+    <span class="category-label server">
+      サーバー運営日記
+    </span>
+
+    <time class="entry-date">
+      日付未設定
+    </time>
+
+    <h3 class="entry-title">
+      Discordサーバーの日記
+    </h3>
 
     <div class="entry-body">
-      <p>ここにラッコが書いたサーバー運営の日記を掲載するよ。</p>
+
+      <p>
+        ここにラッコが書いたサーバー運営の日記を掲載するよ。
+      </p>
+
     </div>
 
     <p class="draft-note">
-      ※ 出来事や運営について考えたことを、ラッコの言葉で残していこう。
+      ※ 出来事や運営について考えたことを、
+      ラッコの言葉で残していこう。
     </p>
+
   </article>
 
-  <a class="back-link" href="index.html">← ホームに戻る</a>
+
+  <!-- コメント欄 -->
+
+  <section class="comment-card" id="comments">
+
+    <h2>
+      💬 コメント欄
+    </h2>
+
+    <p class="comment-description">
+      この日記について、自由にコメントしてね。
+    </p>
+
+
+    <!-- ログイン前 -->
+
+    <div class="login-box" id="loginBox">
+
+      <h3>
+        コメントするにはログイン
+      </h3>
+
+      <p>
+        メールアドレスを入力すると、
+        ログイン用のメールが届きます。
+      </p>
+
+
+      <div class="form-group">
+
+        <label for="loginEmail">
+          メールアドレス
+        </label>
+
+        <input
+          type="email"
+          id="loginEmail"
+          placeholder="example@example.com"
+          autocomplete="email">
+
+      </div>
+
+
+      <button
+        type="button"
+        class="button"
+        id="loginButton">
+
+        ログインメールを送る
+
+      </button>
+
+
+      <div
+        class="status-message"
+        id="loginStatus">
+      </div>
+
+    </div>
+
+
+    <!-- ログイン後 -->
+
+    <div
+      class="user-status"
+      id="userStatus">
+    </div>
+
+
+    <div
+      class="comment-form"
+      id="commentForm">
+
+      <div class="form-group">
+
+        <label for="displayName">
+          表示名
+        </label>
+
+        <input
+          type="text"
+          id="displayName"
+          maxlength="30"
+          placeholder="ラッコ">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="commentBody">
+          コメント
+        </label>
+
+        <textarea
+          id="commentBody"
+          maxlength="1000"
+          placeholder="コメントを書いてね"></textarea>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="button"
+        id="commentButton">
+
+        コメントを投稿
+
+      </button>
+
+
+      <button
+        type="button"
+        class="button secondary"
+        id="logoutButton"
+        style="margin-left:8px;">
+
+        ログアウト
+
+      </button>
+
+
+      <div
+        class="status-message"
+        id="commentStatus">
+      </div>
+
+    </div>
+
+
+    <!-- コメント一覧 -->
+
+    <div class="comments-list">
+
+      <h3>
+        みんなのコメント
+      </h3>
+
+      <div id="commentsList">
+
+        <p class="no-comments">
+          コメントを読み込んでいます……
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <a
+    class="back-link"
+    href="index.html">
+
+    ← ホームに戻る
+
+  </a>
+
 </main>
 
-<footer>© 逃げラッコ</footer>
+
+<footer>
+  © 逃げラッコ
+</footer>
+
+
+<!-- Supabase -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+/* ============================================
+   Supabase設定
+   ============================================ */
+
+const SUPABASE_URL =
+  "https://goxuhivbgaextkhyobwm.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+  sb_publishable_81GtdIt16_VTgJq4bV3RNw_MoA7ZuPV
+
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+/* ============================================
+   要素取得
+   ============================================ */
+
+const loginBox =
+  document.getElementById("loginBox");
+
+const loginEmail =
+  document.getElementById("loginEmail");
+
+const loginButton =
+  document.getElementById("loginButton");
+
+const loginStatus =
+  document.getElementById("loginStatus");
+
+const userStatus =
+  document.getElementById("userStatus");
+
+const commentForm =
+  document.getElementById("commentForm");
+
+const displayName =
+  document.getElementById("displayName");
+
+const commentBody =
+  document.getElementById("commentBody");
+
+const commentButton =
+  document.getElementById("commentButton");
+
+const logoutButton =
+  document.getElementById("logoutButton");
+
+const commentStatus =
+  document.getElementById("commentStatus");
+
+const commentsList =
+  document.getElementById("commentsList");
+
+
+/* ============================================
+   コメント読み込み
+   ============================================ */
+
+async function loadComments() {
+
+  commentsList.innerHTML =
+    '<p class="no-comments">コメントを読み込んでいます……</p>';
+
+
+  const { data, error } =
+    await supabaseClient
+
+      .from("diary_comments")
+
+      .select(
+        "id, display_name, body, created_at"
+      )
+
+      .order(
+        "created_at",
+        {
+          ascending: true
+        }
+      );
+
+
+  if (error) {
+
+    console.error(error);
+
+    commentsList.innerHTML =
+      '<p class="no-comments">コメントを読み込めませんでした。</p>';
+
+    return;
+  }
+
+
+  if (!data || data.length === 0) {
+
+    commentsList.innerHTML =
+      '<p class="no-comments">まだコメントはありません。最初のコメントを書いてみよう！</p>';
+
+    return;
+  }
+
+
+  commentsList.innerHTML = "";
+
+
+  data.forEach(comment => {
+
+    const item =
+      document.createElement("article");
+
+    item.className =
+      "comment-item";
+
+
+    const header =
+      document.createElement("div");
+
+    header.className =
+      "comment-header";
+
+
+    const name =
+      document.createElement("span");
+
+    name.className =
+      "comment-name";
+
+    name.textContent =
+      comment.display_name || "名無しのラッコ";
+
+
+    const date =
+      document.createElement("time");
+
+    date.className =
+      "comment-date";
+
+
+    if (comment.created_at) {
+
+      const dateObject =
+        new Date(comment.created_at);
+
+
+      date.textContent =
+        dateObject.toLocaleString(
+          "ja-JP",
+          {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit"
+          }
+        );
+    }
+
+
+    header.appendChild(name);
+
+    header.appendChild(date);
+
+
+    const body =
+      document.createElement("div");
+
+    body.className =
+      "comment-body";
+
+    body.textContent =
+      comment.body || "";
+
+
+    item.appendChild(header);
+
+    item.appendChild(body);
+
+
+    commentsList.appendChild(item);
+
+  });
+
+}
+
+
+/* ============================================
+   ログイン状態の表示
+   ============================================ */
+
+async function updateAuthUI() {
+
+  const {
+    data: {
+      user
+    }
+  } =
+    await supabaseClient.auth.getUser();
+
+
+  if (user) {
+
+    loginBox.style.display =
+      "none";
+
+
+    commentForm.classList.add(
+      "visible"
+    );
+
+
+    userStatus.classList.add(
+      "visible"
+    );
+
+
+    userStatus.textContent =
+      "ログイン中：" + user.email;
+
+
+  } else {
+
+    loginBox.style.display =
+      "block";
+
+
+    commentForm.classList.remove(
+      "visible"
+    );
+
+
+    userStatus.classList.remove(
+      "visible"
+    );
+
+  }
+
+}
+
+
+/* ============================================
+   ログインメール送信
+   ============================================ */
+
+loginButton.addEventListener(
+  "click",
+  async () => {
+
+    const email =
+      loginEmail.value.trim();
+
+
+    if (!email) {
+
+      loginStatus.textContent =
+        "メールアドレスを入力してね。";
+
+      return;
+    }
+
+
+    loginButton.disabled =
+      true;
+
+
+    loginStatus.textContent =
+      "ログインメールを送っています……";
+
+
+    const {
+      error
+    } =
+      await supabaseClient.auth.signInWithOtp({
+
+        email: email,
+
+        options: {
+
+          emailRedirectTo:
+            window.location.href
+
+        }
+
+      });
+
+
+    if (error) {
+
+      console.error(error);
+
+      loginStatus.textContent =
+        "ログインメールを送れませんでした。";
+
+      loginButton.disabled =
+        false;
+
+      return;
+    }
+
+
+    loginStatus.textContent =
+      "ログイン用のメールを送ったよ！メールを確認してね。";
+
+
+    loginButton.disabled =
+      false;
+
+  }
+);
+
+
+/* ============================================
+   コメント投稿
+   ============================================ */
+
+commentButton.addEventListener(
+  "click",
+  async () => {
+
+    const {
+      data: {
+        user
+      }
+    } =
+      await supabaseClient.auth.getUser();
+
+
+    if (!user) {
+
+      commentStatus.textContent =
+        "先にログインしてね。";
+
+      return;
+    }
+
+
+    const name =
+      displayName.value.trim();
+
+
+    const body =
+      commentBody.value.trim();
+
+
+    if (!name) {
+
+      commentStatus.textContent =
+        "表示名を入力してね。";
+
+      return;
+    }
+
+
+    if (!body) {
+
+      commentStatus.textContent =
+        "コメントを書いてね。";
+
+      return;
+    }
+
+
+    commentButton.disabled =
+      true;
+
+
+    commentStatus.textContent =
+      "コメントを投稿しています……";
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+
+        .from("diary_comments")
+
+        .insert({
+
+          display_name: name,
+
+          body: body,
+
+          user_id: user.id
+
+        });
+
+
+    if (error) {
+
+      console.error(error);
+
+      commentStatus.textContent =
+        "コメントを投稿できませんでした。";
+
+      commentButton.disabled =
+        false;
+
+      return;
+    }
+
+
+    commentBody.value =
+      "";
+
+
+    commentStatus.textContent =
+      "コメントを投稿したよ！";
+
+
+    commentButton.disabled =
+      false;
+
+
+    await loadComments();
+
+  }
+);
+
+
+/* ============================================
+   ログアウト
+   ============================================ */
+
+logoutButton.addEventListener(
+  "click",
+  async () => {
+
+    await supabaseClient.auth.signOut();
+
+    await updateAuthUI();
+
+  }
+);
+
+
+/* ============================================
+   認証状態の変化を監視
+   ============================================ */
+
+supabaseClient.auth.onAuthStateChange(
+  async () => {
+
+    await updateAuthUI();
+
+  }
+);
+
+
+/* ============================================
+   初期処理
+   ============================================ */
+
+async function initialize() {
+
+  await updateAuthUI();
+
+  await loadComments();
+
+}
+
+
+initialize();
+
+</script>
+
 </body>
 </html>
