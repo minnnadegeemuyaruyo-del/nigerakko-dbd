@@ -1,48 +1,124 @@
 const SUPABASE_URL =
-  "https://goxuhivbgaextkhyobwm.supabase.co";
+  "https://goxuhivbgaextkhyobmw.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-  "今使っているPublishable Keyをそのまま入れる";
-
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
+  "sb_publishable_81GtdIt16_VTgJq4bV3RNw_MoA7ZuPV";
 
 
-/* =========================
-   コメント機能
-   ========================= */
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+// ============================================
+// 要素取得
+// ============================================
+
+const loginSection =
+  document.getElementById("login-section");
+
+const commentSection =
+  document.getElementById("comment-section");
 
 const commentForm =
-  document.getElementById("commentForm");
+  document.getElementById("comment-form");
 
-const displayName =
-  document.getElementById("displayName");
+const commentText =
+  document.getElementById("comment-text");
 
-const commentBody =
-  document.getElementById("commentBody");
+const commentMessage =
+  document.getElementById("comment-message");
 
-const commentButton =
-  document.getElementById("commentButton");
-
-const commentStatus =
-  document.getElementById("commentStatus");
-
-const commentsList =
-  document.getElementById("commentsList");
+const commentsContainer =
+  document.getElementById("comments-container");
 
 
-/* =========================
-   コメント一覧を読み込む
-   ========================= */
+// ============================================
+// メールログイン部分を
+// 「表示名＋コメント」に変更
+// ============================================
+
+if (loginSection) {
+
+  loginSection.innerHTML = `
+    <h3>
+      コメントを書く
+    </h3>
+
+    <p>
+      メールアドレスの登録は必要ありません。
+      表示名とコメントを入力して、そのまま投稿できます。
+    </p>
+
+    <input
+      id="display-name"
+      class="email-input"
+      type="text"
+      placeholder="表示名（例：ラッコ）"
+      maxlength="50"
+      autocomplete="nickname"
+    >
+
+    <p
+      id="anonymous-message"
+      class="login-message">
+    </p>
+  `;
+
+}
+
+
+// ============================================
+// 表示名入力欄
+// ============================================
+
+const displayNameInput =
+  document.getElementById("display-name");
+
+const anonymousMessage =
+  document.getElementById("anonymous-message");
+
+
+// ============================================
+// コメント投稿欄を表示
+// ============================================
+
+if (commentSection) {
+
+  commentSection.style.display =
+    "block";
+
+}
+
+
+// ============================================
+// 旧ログイン関連表示を消す
+// ============================================
+
+if (loginSection) {
+
+  loginSection.style.display =
+    "block";
+
+}
+
+
+// ============================================
+// コメント読み込み
+// ============================================
 
 async function loadComments() {
 
-  commentsList.innerHTML =
-    '<p class="no-comments">コメントを読み込んでいます……</p>';
+  commentsContainer.innerHTML =
+    '<p class="loading">コメントを読み込んでいます……</p>';
 
-  const { data, error } =
+
+  const {
+    data,
+    error
+  } =
     await supabaseClient
       .from("diary_comments")
       .select(
@@ -51,9 +127,10 @@ async function loadComments() {
       .order(
         "created_at",
         {
-          ascending: true
+          ascending: false
         }
       );
+
 
   if (error) {
 
@@ -62,8 +139,8 @@ async function loadComments() {
       error
     );
 
-    commentsList.innerHTML =
-      '<p class="no-comments">コメントを読み込めませんでした。</p>';
+    commentsContainer.innerHTML =
+      '<p class="error-message">コメントを読み込めませんでした。</p>';
 
     return;
   }
@@ -71,161 +148,236 @@ async function loadComments() {
 
   if (!data || data.length === 0) {
 
-    commentsList.innerHTML =
-      '<p class="no-comments">まだコメントはありません。最初のコメントを書いてみよう！</p>';
+    commentsContainer.innerHTML =
+      '<p class="loading">まだコメントはありません。最初のコメントを書いてみよう！</p>';
 
     return;
   }
 
 
-  commentsList.innerHTML = "";
+  commentsContainer.innerHTML =
+    "";
 
 
-  data.forEach(comment => {
+  data.forEach(
+    comment => {
 
-    const article =
-      document.createElement("article");
+      // -----------------------------
+      // コメント全体
+      // -----------------------------
 
-    article.className =
-      "comment-item";
+      const item =
+        document.createElement("article");
 
-
-    /* 名前・日時 */
-
-    const header =
-      document.createElement("div");
-
-    header.className =
-      "comment-header";
+      item.className =
+        "comment-item";
 
 
-    const name =
-      document.createElement("span");
+      // -----------------------------
+      // ヘッダー
+      // -----------------------------
 
-    name.className =
-      "comment-name";
+      const header =
+        document.createElement("div");
 
-    name.textContent =
-      comment.display_name ||
-      "名無しのラッコ";
+      header.style.display =
+        "flex";
+
+      header.style.justifyContent =
+        "space-between";
+
+      header.style.alignItems =
+        "center";
+
+      header.style.gap =
+        "10px";
 
 
-    const date =
-      document.createElement("time");
+      // -----------------------------
+      // 表示名
+      // -----------------------------
 
-    date.className =
-      "comment-date";
+      const name =
+        document.createElement("strong");
+
+      name.className =
+        "comment-name";
+
+      name.textContent =
+        comment.display_name ||
+        "名無しのラッコ";
 
 
-    if (comment.created_at) {
+      // -----------------------------
+      // 投稿日時
+      // -----------------------------
 
-      const createdAt =
-        new Date(
-          comment.created_at
-        );
+      const date =
+        document.createElement("time");
 
-      date.textContent =
-        createdAt.toLocaleString(
-          "ja-JP",
-          {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit"
-          }
-        );
+      date.className =
+        "comment-date";
+
+
+      if (comment.created_at) {
+
+        const dateObject =
+          new Date(
+            comment.created_at
+          );
+
+
+        date.textContent =
+          dateObject.toLocaleString(
+            "ja-JP",
+            {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit"
+            }
+          );
+
+      }
+
+
+      // -----------------------------
+      // ヘッダーに追加
+      // -----------------------------
+
+      header.appendChild(
+        name
+      );
+
+      header.appendChild(
+        date
+      );
+
+
+      // -----------------------------
+      // コメント本文
+      // -----------------------------
+
+      const body =
+        document.createElement("div");
+
+      body.className =
+        "comment-text";
+
+      body.textContent =
+        comment.body ||
+        "";
+
+
+      // -----------------------------
+      // 表示
+      // -----------------------------
+
+      item.appendChild(
+        header
+      );
+
+      item.appendChild(
+        body
+      );
+
+      commentsContainer.appendChild(
+        item
+      );
+
     }
-
-
-    header.appendChild(name);
-    header.appendChild(date);
-
-
-    /* コメント本文 */
-
-    const body =
-      document.createElement("div");
-
-    body.className =
-      "comment-body";
-
-    body.textContent =
-      comment.body || "";
-
-
-    article.appendChild(header);
-    article.appendChild(body);
-
-    commentsList.appendChild(article);
-
-  });
+  );
 
 }
 
 
-/* =========================
-   コメント投稿
-   ========================= */
+// ============================================
+// コメント投稿
+// ============================================
 
 commentForm.addEventListener(
   "submit",
-  async function(event) {
+  async (event) => {
 
     event.preventDefault();
 
 
-    const name =
-      displayName.value.trim();
+    const displayName =
+      displayNameInput.value.trim();
 
     const body =
-      commentBody.value.trim();
+      commentText.value.trim();
 
 
-    /* 名前チェック */
+    // -----------------------------
+    // 表示名チェック
+    // -----------------------------
 
-    if (!name) {
+    if (!displayName) {
 
-      commentStatus.textContent =
+      anonymousMessage.textContent =
         "表示名を入力してください。";
 
-      displayName.focus();
+      displayNameInput.focus();
 
       return;
     }
 
 
-    /* コメントチェック */
+    // -----------------------------
+    // コメントチェック
+    // -----------------------------
 
     if (!body) {
 
-      commentStatus.textContent =
+      commentMessage.textContent =
         "コメントを入力してください。";
 
-      commentBody.focus();
+      commentText.focus();
 
       return;
     }
 
 
-    commentButton.disabled =
-      true;
+    // -----------------------------
+    // 投稿中
+    // -----------------------------
 
-    commentStatus.textContent =
+    const submitButton =
+      commentForm.querySelector(
+        'button[type="submit"]'
+      );
+
+
+    if (submitButton) {
+
+      submitButton.disabled =
+        true;
+
+    }
+
+
+    anonymousMessage.textContent =
+      "";
+
+    commentMessage.textContent =
       "コメントを投稿しています……";
 
 
-    /* =========================
-       Supabaseへ匿名投稿
-       ========================= */
+    // -----------------------------
+    // Supabaseへ投稿
+    // -----------------------------
 
-    const { error } =
+    const {
+      error
+    } =
       await supabaseClient
         .from("diary_comments")
         .insert({
 
           display_name:
-            name,
+            displayName,
 
           body:
             body
@@ -233,7 +385,9 @@ commentForm.addEventListener(
         });
 
 
-    /* エラー */
+    // -----------------------------
+    // エラー
+    // -----------------------------
 
     if (error) {
 
@@ -242,30 +396,47 @@ commentForm.addEventListener(
         error
       );
 
-      commentStatus.textContent =
+
+      commentMessage.textContent =
         "コメントを投稿できませんでした。";
 
-      commentButton.disabled =
-        false;
+
+      if (submitButton) {
+
+        submitButton.disabled =
+          false;
+
+      }
+
 
       return;
     }
 
 
-    /* 投稿成功 */
+    // -----------------------------
+    // 成功
+    // -----------------------------
 
-    displayName.value = "";
-    commentBody.value = "";
+    displayNameInput.value =
+      "";
 
-    commentStatus.textContent =
-      "コメントを投稿しました！";
-
-
-    commentButton.disabled =
-      false;
+    commentText.value =
+      "";
 
 
-    /* コメント一覧を更新 */
+    commentMessage.textContent =
+      "コメントしました！";
+
+
+    if (submitButton) {
+
+      submitButton.disabled =
+        false;
+
+    }
+
+
+    // 最新コメントを再読み込み
 
     await loadComments();
 
@@ -273,8 +444,8 @@ commentForm.addEventListener(
 );
 
 
-/* =========================
-   初回読み込み
-   ========================= */
+// ============================================
+// 初期処理
+// ============================================
 
 loadComments();
