@@ -333,7 +333,7 @@ main {
 .comment-actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 10px;
   margin-top: 10px;
 }
@@ -663,7 +663,7 @@ a:focus-visible {
     </p>
 
 
-    <!-- 表示名 -->
+    <!-- 表示名＋コメント投稿 -->
 
     <div id="login-section" class="login-box">
 
@@ -671,10 +671,6 @@ a:focus-visible {
         コメントを書く
       </h3>
 
-      <p>
-        メールアドレスの登録は必要ありません。
-        表示名とコメントを入力して、そのまま投稿できます。
-      </p>
 
       <input
         id="display-name"
@@ -682,21 +678,9 @@ a:focus-visible {
         type="text"
         placeholder="表示名（例：ラッコ）"
         maxlength="50"
-        autocomplete="nickname"
+        autocomplete="off"
       >
 
-      <p
-        id="anonymous-message"
-        class="login-message">
-      </p>
-
-    </div>
-
-
-    <!-- コメント投稿 -->
-
-    <div
-      id="comment-section">
 
       <form
         id="comment-form"
@@ -712,12 +696,6 @@ a:focus-visible {
 
         <div class="comment-actions">
 
-          <span
-            id="user-status"
-            class="user-status">
-            匿名でコメントできます
-          </span>
-
           <button
             class="button"
             type="submit">
@@ -727,6 +705,12 @@ a:focus-visible {
         </div>
 
       </form>
+
+
+      <p
+        id="anonymous-message"
+        class="login-message">
+      </p>
 
 
       <p
@@ -1058,7 +1042,7 @@ commentForm.addEventListener(
 
     if (!displayName) {
 
-      anonymousMessage.textContent =
+      commentMessage.textContent =
         "表示名を入力してください。";
 
 
@@ -1104,10 +1088,6 @@ commentForm.addEventListener(
         true;
 
     }
-
-
-    anonymousMessage.textContent =
-      "";
 
 
     commentMessage.textContent =
