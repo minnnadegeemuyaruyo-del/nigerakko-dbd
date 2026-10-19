@@ -246,7 +246,10 @@ main {
   text-decoration: underline;
 }
 
-/* コメント欄 */
+
+/* ============================================
+   コメント欄
+============================================ */
 
 .comments-card h2 {
   margin-top: 0;
@@ -357,11 +360,22 @@ main {
   border-top: 0;
 }
 
+.comment-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.comment-name {
+  font-weight: 800;
+}
+
 .comment-date {
-  display: block;
   color: var(--muted);
   font-size: 12px;
-  margin-bottom: 4px;
+  white-space: nowrap;
 }
 
 .comment-text {
@@ -394,6 +408,7 @@ a:focus-visible {
 }
 
 @media (max-width: 900px) {
+
   .header-inner {
     flex-wrap: wrap;
   }
@@ -404,9 +419,11 @@ a:focus-visible {
     flex-wrap: nowrap;
     padding: 5px 0;
   }
+
 }
 
 @media (max-width: 560px) {
+
   .header-inner {
     padding: 10px 15px;
     gap: 8px;
@@ -452,12 +469,21 @@ a:focus-visible {
   .entry-title {
     font-size: 20px;
   }
+
+  .comment-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
+  }
+
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   html {
     scroll-behavior: auto;
   }
+
 }
 </style>
 </head>
@@ -465,46 +491,63 @@ a:focus-visible {
 <body>
 
 <header>
+
   <div class="header-inner">
 
     <a class="brand" href="index.html">
-      <span class="brand-icon" aria-hidden="true">🦦</span>
+
+      <span class="brand-icon" aria-hidden="true">
+        🦦
+      </span>
+
       <span class="brand-name">
         逃げラッコ式
         <small>DbD立ち回りガイド</small>
       </span>
+
     </a>
 
+
     <nav aria-label="メインメニュー">
-      <a href="index.html">ホーム</a>
+
+      <a href="index.html">
+        ホーム
+      </a>
 
       <a href="diary.html" class="current">
         ラッコの日記
       </a>
 
-      <a href="https://discord.gg/SP9GnQDS5f"
-         class="discord-link"
-         target="_blank"
-         rel="noopener noreferrer">
+      <a
+        href="https://discord.gg/SP9GnQDS5f"
+        class="discord-link"
+        target="_blank"
+        rel="noopener noreferrer">
         Discordに参加 ↗
       </a>
 
-      <a href="https://www.twitch.tv/rakkowww"
-         class="twitch-link"
-         target="_blank"
-         rel="noopener noreferrer">
+      <a
+        href="https://www.twitch.tv/rakkowww"
+        class="twitch-link"
+        target="_blank"
+        rel="noopener noreferrer">
         Twitchで配信中 ↗
       </a>
+
     </nav>
 
   </div>
+
 </header>
 
 
 <section class="hero">
+
   <div class="hero-inner">
 
-    <p class="hero-label">RAKKO'S DIARY</p>
+    <p class="hero-label">
+      RAKKO'S DIARY
+    </p>
 
     <h1>
       ラッコの日記 🦦
@@ -516,10 +559,12 @@ a:focus-visible {
     </p>
 
   </div>
+
 </section>
 
 
 <main>
+
 
   <section class="intro-card">
 
@@ -618,49 +663,44 @@ a:focus-visible {
     </p>
 
 
-    <!-- ログイン前 -->
+    <!-- 表示名 -->
 
     <div id="login-section" class="login-box">
 
       <h3>
-        コメントするにはログイン
+        コメントを書く
       </h3>
 
       <p>
-        メールアドレスを入力すると、
-        ログイン用のメールが届きます。
+        メールアドレスの登録は必要ありません。
+        表示名とコメントを入力して、そのまま投稿できます。
       </p>
 
       <input
-        id="email"
+        id="display-name"
         class="email-input"
-        type="email"
-        placeholder="example@example.com"
-        autocomplete="email"
+        type="text"
+        placeholder="表示名（例：ラッコ）"
+        maxlength="50"
+        autocomplete="nickname"
       >
 
-      <button
-        id="login-button"
-        class="button"
-        type="button">
-        ログインメールを送る
-      </button>
-
       <p
-        id="login-message"
+        id="anonymous-message"
         class="login-message">
       </p>
 
     </div>
 
 
-    <!-- ログイン後 -->
+    <!-- コメント投稿 -->
 
     <div
-      id="comment-section"
-      style="display:none;">
+      id="comment-section">
 
-      <form id="comment-form" class="comment-form">
+      <form
+        id="comment-form"
+        class="comment-form">
 
         <textarea
           id="comment-text"
@@ -669,11 +709,13 @@ a:focus-visible {
           maxlength="1000"
           required></textarea>
 
+
         <div class="comment-actions">
 
           <span
             id="user-status"
             class="user-status">
+            匿名でコメントできます
           </span>
 
           <button
@@ -685,6 +727,7 @@ a:focus-visible {
         </div>
 
       </form>
+
 
       <p
         id="comment-message"
@@ -715,7 +758,9 @@ a:focus-visible {
   </section>
 
 
-  <a class="back-link" href="index.html">
+  <a
+    class="back-link"
+    href="index.html">
     ← ホームに戻る
   </a>
 
@@ -736,176 +781,65 @@ a:focus-visible {
 const SUPABASE_URL =
   "https://goxuhivbgaextkhyobmw.supabase.co";
 
+
 const SUPABASE_PUBLISHABLE_KEY =
   "sb_publishable_81GtdIt16_VTgJq4bV3RNw_MoA7ZuPV";
 
 
-const supabaseClient = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
 
-// -----------------------------
-// HTML要素
-// -----------------------------
+// ============================================
+// 要素取得
+// ============================================
 
-const emailInput =
-  document.getElementById("email");
+const displayNameInput =
+  document.getElementById("display-name");
 
-const loginButton =
-  document.getElementById("login-button");
 
-const loginMessage =
-  document.getElementById("login-message");
+const anonymousMessage =
+  document.getElementById("anonymous-message");
 
-const loginSection =
-  document.getElementById("login-section");
 
 const commentSection =
   document.getElementById("comment-section");
 
+
 const commentForm =
   document.getElementById("comment-form");
+
 
 const commentText =
   document.getElementById("comment-text");
 
+
 const commentMessage =
   document.getElementById("comment-message");
 
-const userStatus =
-  document.getElementById("user-status");
 
 const commentsContainer =
   document.getElementById("comments-container");
 
 
-// -----------------------------
-// ログインメール送信
-// -----------------------------
+// ============================================
+// コメント投稿欄を表示
+// ============================================
 
-loginButton.addEventListener(
-  "click",
-  async () => {
+if (commentSection) {
 
-    const email =
-      emailInput.value.trim();
-
-
-    if (!email) {
-
-      loginMessage.textContent =
-        "メールアドレスを入力してください。";
-
-      return;
-
-    }
-
-
-    loginButton.disabled = true;
-
-
-    loginMessage.textContent =
-      "ログインメールを送信しています……";
-
-
-    const {
-      error
-    } =
-      await supabaseClient.auth.signInWithOtp({
-
-        email: email,
-
-        options: {
-
-          emailRedirectTo:
-            "https://minnnadegeemuyaruyo-del.github.io/nigerakko-dbd/diary.html"
-
-        }
-
-      });
-
-
-    if (error) {
-
-      console.error(error);
-
-      loginMessage.textContent =
-        "メールを送信できませんでした。Supabaseの設定を確認してください。";
-
-      loginButton.disabled = false;
-
-      return;
-
-    }
-
-
-    loginMessage.textContent =
-      "ログインメールを送りました。メールを確認してください。";
-
-
-    loginButton.disabled = false;
-
-  }
-);
-
-
-// -----------------------------
-// ログイン状態確認
-// -----------------------------
-
-async function updateLoginState() {
-
-  const {
-    data: {
-      session
-    }
-  } =
-    await supabaseClient.auth.getSession();
-
-
-  if (session) {
-
-    loginSection.style.display =
-      "none";
-
-    commentSection.style.display =
-      "block";
-
-    userStatus.textContent =
-      session.user.email +
-      " でログイン中";
-
-  } else {
-
-    loginSection.style.display =
-      "block";
-
-    commentSection.style.display =
-      "none";
-
-  }
+  commentSection.style.display =
+    "block";
 
 }
 
 
-// -----------------------------
-// 認証状態が変わったら更新
-// -----------------------------
-
-supabaseClient.auth.onAuthStateChange(
-  async () => {
-
-    await updateLoginState();
-
-  }
-);
-
-
-// -----------------------------
+// ============================================
 // コメント読み込み
-// -----------------------------
+// ============================================
 
 async function loadComments() {
 
@@ -921,16 +855,29 @@ async function loadComments() {
 
       .from("diary_comments")
 
-      .select("*")
+      .select(
+        "id, display_name, body, created_at"
+      )
 
-      .order("created_at", {
-        ascending: false
-      });
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      );
 
+
+  // ------------------------------------------
+  // エラー
+  // ------------------------------------------
 
   if (error) {
 
-    console.error(error);
+    console.error(
+      "コメント取得エラー:",
+      error
+    );
+
 
     commentsContainer.innerHTML =
       '<p class="error-message">コメントを読み込めませんでした。</p>';
@@ -940,15 +887,23 @@ async function loadComments() {
   }
 
 
+  // ------------------------------------------
+  // コメントなし
+  // ------------------------------------------
+
   if (!data || data.length === 0) {
 
     commentsContainer.innerHTML =
-      '<p class="loading">まだコメントはありません。</p>';
+      '<p class="loading">まだコメントはありません。最初のコメントを書いてみよう！</p>';
 
     return;
 
   }
 
+
+  // ------------------------------------------
+  // コメント表示
+  // ------------------------------------------
 
   commentsContainer.innerHTML =
     "";
@@ -957,6 +912,8 @@ async function loadComments() {
   data.forEach(
     comment => {
 
+      // コメント全体
+
       const item =
         document.createElement("article");
 
@@ -964,6 +921,33 @@ async function loadComments() {
       item.className =
         "comment-item";
 
+
+      // ヘッダー
+
+      const header =
+        document.createElement("div");
+
+
+      header.className =
+        "comment-header";
+
+
+      // 表示名
+
+      const name =
+        document.createElement("strong");
+
+
+      name.className =
+        "comment-name";
+
+
+      name.textContent =
+        comment.display_name ||
+        "名無しのラッコ";
+
+
+      // 投稿日時
 
       const date =
         document.createElement("time");
@@ -975,31 +959,69 @@ async function loadComments() {
 
       if (comment.created_at) {
 
-        date.textContent =
+        const dateObject =
           new Date(
             comment.created_at
-          ).toLocaleString("ja-JP");
+          );
+
+
+        date.textContent =
+          dateObject.toLocaleString(
+            "ja-JP",
+            {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit"
+            }
+          );
 
       }
 
 
-      const text =
+      // ヘッダーに追加
+
+      header.appendChild(
+        name
+      );
+
+
+      header.appendChild(
+        date
+      );
+
+
+      // コメント本文
+
+      const body =
         document.createElement("p");
 
 
-      text.className =
+      body.className =
         "comment-text";
 
 
-      text.textContent =
-        comment.comment || "";
+      body.textContent =
+        comment.body ||
+        "";
 
 
-      item.appendChild(date);
+      // 表示
 
-      item.appendChild(text);
+      item.appendChild(
+        header
+      );
 
-      commentsContainer.appendChild(item);
+
+      item.appendChild(
+        body
+      );
+
+
+      commentsContainer.appendChild(
+        item
+      );
 
     }
   );
@@ -1007,9 +1029,9 @@ async function loadComments() {
 }
 
 
-// -----------------------------
+// ============================================
 // コメント投稿
-// -----------------------------
+// ============================================
 
 commentForm.addEventListener(
   "submit",
@@ -1018,41 +1040,83 @@ commentForm.addEventListener(
     event.preventDefault();
 
 
-    const text =
+    // ------------------------------------------
+    // 入力内容取得
+    // ------------------------------------------
+
+    const displayName =
+      displayNameInput.value.trim();
+
+
+    const body =
       commentText.value.trim();
 
 
-    if (!text) {
+    // ------------------------------------------
+    // 表示名チェック
+    // ------------------------------------------
 
-      commentMessage.textContent =
-        "コメントを入力してください。";
+    if (!displayName) {
+
+      anonymousMessage.textContent =
+        "表示名を入力してください。";
+
+
+      displayNameInput.focus();
+
 
       return;
 
     }
+
+
+    // ------------------------------------------
+    // コメントチェック
+    // ------------------------------------------
+
+    if (!body) {
+
+      commentMessage.textContent =
+        "コメントを入力してください。";
+
+
+      commentText.focus();
+
+
+      return;
+
+    }
+
+
+    // ------------------------------------------
+    // 投稿ボタン
+    // ------------------------------------------
+
+    const submitButton =
+      commentForm.querySelector(
+        'button[type="submit"]'
+      );
+
+
+    if (submitButton) {
+
+      submitButton.disabled =
+        true;
+
+    }
+
+
+    anonymousMessage.textContent =
+      "";
 
 
     commentMessage.textContent =
       "コメントを投稿しています……";
 
 
-    const {
-      data: {
-        user
-      }
-    } =
-      await supabaseClient.auth.getUser();
-
-
-    if (!user) {
-
-      commentMessage.textContent =
-        "ログインが必要です。";
-
-      return;
-
-    }
-
+    // ------------------------------------------
+    // Supabaseへ投稿
+    // ------------------------------------------
 
     const {
       error
@@ -1063,23 +1127,50 @@ commentForm.addEventListener(
 
         .insert({
 
-          user_id: user.id,
+          display_name:
+            displayName,
 
-          comment: text
+          body:
+            body
 
         });
 
 
+    // ------------------------------------------
+    // エラー
+    // ------------------------------------------
+
     if (error) {
 
-      console.error(error);
+      console.error(
+        "コメント投稿エラー:",
+        error
+      );
+
 
       commentMessage.textContent =
         "コメントを投稿できませんでした。";
 
+
+      if (submitButton) {
+
+        submitButton.disabled =
+          false;
+
+      }
+
+
       return;
 
     }
+
+
+    // ------------------------------------------
+    // 成功
+    // ------------------------------------------
+
+    displayNameInput.value =
+      "";
 
 
     commentText.value =
@@ -1090,17 +1181,25 @@ commentForm.addEventListener(
       "コメントしました！";
 
 
+    if (submitButton) {
+
+      submitButton.disabled =
+        false;
+
+    }
+
+
+    // 最新コメントを再読み込み
+
     await loadComments();
 
   }
 );
 
 
-// -----------------------------
+// ============================================
 // 初期処理
-// -----------------------------
-
-updateLoginState();
+// ============================================
 
 loadComments();
 
