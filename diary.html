@@ -1,3 +1,738 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="逃げラッコのサイト制作日記やDiscordサーバー運営の日々を記録するページです。">
+<title>ラッコの日記｜逃げラッコ式DbD立ち回り</title>
+
+<style>
+:root {
+  --bg: #f4f0e7;
+  --surface: #fffdf8;
+  --text: #30271f;
+  --muted: #71685f;
+  --teal: #477f7d;
+  --border: #e6ddd0;
+  --hero-blue: #c9dfe4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  line-height: 1.9;
+}
+
+a {
+  color: inherit;
+}
+
+header {
+  background: rgba(255,255,255,.97);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  max-width: 1440px;
+  min-height: 72px;
+  margin: auto;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brand-icon {
+  font-size: 37px;
+}
+
+.brand-name {
+  font-weight: 900;
+  font-size: 19px;
+  line-height: 1.3;
+}
+
+.brand-name small {
+  display: block;
+  font-size: 12px;
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1.5vw, 22px);
+  flex-wrap: wrap;
+}
+
+nav a {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+nav a:hover {
+  color: var(--teal);
+}
+
+nav a.current {
+  color: var(--teal);
+}
+
+.discord-link {
+  background: #5865F2;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 30px;
+}
+
+.discord-link:hover {
+  color: white;
+  opacity: .9;
+}
+
+.twitch-link {
+  background: #302b2a;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 30px;
+}
+
+.twitch-link:hover {
+  color: white;
+  opacity: .9;
+}
+
+.hero {
+  padding: 48px 20px;
+  text-align: center;
+  background: var(--hero-blue);
+}
+
+.hero-inner {
+  max-width: 760px;
+  margin: auto;
+}
+
+.hero-label {
+  margin: 0 0 8px;
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(30px, 5vw, 46px);
+  line-height: 1.4;
+}
+
+.hero p {
+  margin: 12px 0 0;
+  color: #4f625f;
+}
+
+main {
+  max-width: 900px;
+  margin: auto;
+  padding: 36px 22px 60px;
+}
+
+.intro-card,
+.diary-entry,
+.comments-card {
+  padding: 26px;
+  margin-bottom: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.intro-card h2 {
+  margin-top: 0;
+  line-height: 1.5;
+}
+
+.intro-card p:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
+  margin: 38px 0 18px;
+  font-size: 24px;
+  line-height: 1.5;
+}
+
+.category-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 3px 12px;
+  border-radius: 20px;
+  background: #e4efeb;
+  color: #356865;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.category-label.server {
+  background: #eee6f6;
+  color: #71508d;
+}
+
+.entry-date {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.entry-title {
+  margin: 0 0 14px;
+  font-size: 22px;
+  line-height: 1.6;
+}
+
+.entry-body {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.entry-body p:first-child {
+  margin-top: 0;
+}
+
+.entry-body p:last-child {
+  margin-bottom: 0;
+}
+
+.draft-note {
+  margin: 18px 0 0;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--teal);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* コメント欄 */
+
+.comments-card h2 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.comments-description {
+  margin-top: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.login-box {
+  padding: 20px;
+  margin-top: 18px;
+  background: #f0eee8;
+  border-radius: 14px;
+}
+
+.login-box h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.login-box p {
+  margin-top: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.email-input {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  font: inherit;
+  margin-bottom: 10px;
+}
+
+.button {
+  border: 0;
+  padding: 11px 18px;
+  border-radius: 25px;
+  background: var(--teal);
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  font: inherit;
+}
+
+.button:hover {
+  opacity: .9;
+}
+
+.button.secondary {
+  background: #777;
+}
+
+.login-message {
+  margin: 12px 0 0;
+  font-size: 14px;
+}
+
+.comment-form {
+  margin-top: 18px;
+}
+
+.comment-textarea {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  padding: 13px 15px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: white;
+  font: inherit;
+  line-height: 1.7;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.user-status {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.comments-list {
+  margin-top: 28px;
+}
+
+.comments-list h3 {
+  margin-bottom: 14px;
+}
+
+.comment-item {
+  padding: 16px 0;
+  border-top: 1px solid var(--border);
+}
+
+.comment-item:first-child {
+  border-top: 0;
+}
+
+.comment-date {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.comment-text {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.loading {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.error-message {
+  color: #a24d4d;
+  font-size: 14px;
+}
+
+footer {
+  padding: 20px;
+  text-align: center;
+  background: #e9e2d6;
+  color: #6e6255;
+  font-size: 13px;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
+  nav {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding: 5px 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .header-inner {
+    padding: 10px 15px;
+    gap: 8px;
+  }
+
+  .brand-icon {
+    font-size: 30px;
+  }
+
+  .brand-name {
+    font-size: 16px;
+  }
+
+  nav {
+    gap: 15px;
+  }
+
+  nav a {
+    font-size: 12px;
+  }
+
+  .discord-link,
+  .twitch-link {
+    padding: 7px 10px;
+    font-size: 12px;
+  }
+
+  .hero {
+    padding: 38px 18px;
+  }
+
+  main {
+    padding: 24px 15px 42px;
+  }
+
+  .intro-card,
+  .diary-entry,
+  .comments-card {
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  .entry-title {
+    font-size: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+
+    <a class="brand" href="index.html">
+      <span class="brand-icon" aria-hidden="true">🦦</span>
+      <span class="brand-name">
+        逃げラッコ式
+        <small>DbD立ち回りガイド</small>
+      </span>
+    </a>
+
+    <nav aria-label="メインメニュー">
+      <a href="index.html">ホーム</a>
+
+      <a href="diary.html" class="current">
+        ラッコの日記
+      </a>
+
+      <a href="https://discord.gg/SP9GnQDS5f"
+         class="discord-link"
+         target="_blank"
+         rel="noopener noreferrer">
+        Discordに参加 ↗
+      </a>
+
+      <a href="https://www.twitch.tv/rakkowww"
+         class="twitch-link"
+         target="_blank"
+         rel="noopener noreferrer">
+        Twitchで配信中 ↗
+      </a>
+    </nav>
+
+  </div>
+</header>
+
+
+<section class="hero">
+  <div class="hero-inner">
+
+    <p class="hero-label">RAKKO'S DIARY</p>
+
+    <h1>
+      ラッコの日記 🦦
+    </h1>
+
+    <p>
+      サイト制作も、サーバー運営も。
+      ラッコの日々を記録していく場所。
+    </p>
+
+  </div>
+</section>
+
+
+<main>
+
+  <section class="intro-card">
+
+    <h2>
+      ここはラッコの日記帳。
+    </h2>
+
+    <p>
+      逃げラッコのサイトができていく記録や、
+      Discordサーバーで起きた出来事を残していくよ。
+    </p>
+
+    <p>
+      サイト制作のことも、サーバー運営のことも、
+      ラッコ自身の言葉で少しずつ書いていく場所だよ。
+    </p>
+
+  </section>
+
+
+  <h2 class="section-title">
+    日記一覧
+  </h2>
+
+
+  <article class="diary-entry" id="site-diary">
+
+    <span class="category-label">
+      サイト制作日記
+    </span>
+
+    <time class="entry-date">
+      日付未設定
+    </time>
+
+    <h3 class="entry-title">
+      サイト制作
+    </h3>
+
+    <div class="entry-body">
+
+      <p>
+        ここにラッコが書いたサイト制作の日記を掲載するよ。
+      </p>
+
+    </div>
+
+    <p class="draft-note">
+      ※ 日付と本文は、ラッコが決めてから入れよう。
+    </p>
+
+  </article>
+
+
+  <article class="diary-entry" id="server-diary">
+
+    <span class="category-label server">
+      サーバー運営日記
+    </span>
+
+    <time class="entry-date">
+      日付未設定
+    </time>
+
+    <h3 class="entry-title">
+      Discordサーバーの日記
+    </h3>
+
+    <div class="entry-body">
+
+      <p>
+        ここにラッコが書いたサーバー運営の日記を掲載するよ。
+      </p>
+
+    </div>
+
+    <p class="draft-note">
+      ※ 出来事や運営について考えたことを、ラッコの言葉で残していこう。
+    </p>
+
+  </article>
+
+
+  <!-- ========================= -->
+  <!-- コメント欄 -->
+  <!-- ========================= -->
+
+  <section class="comments-card">
+
+    <h2>
+      💬 コメント欄
+    </h2>
+
+    <p class="comments-description">
+      この日記について、自由にコメントしてね。
+    </p>
+
+
+    <!-- ログイン前 -->
+
+    <div id="login-section" class="login-box">
+
+      <h3>
+        コメントするにはログイン
+      </h3>
+
+      <p>
+        メールアドレスを入力すると、
+        ログイン用のメールが届きます。
+      </p>
+
+      <input
+        id="email"
+        class="email-input"
+        type="email"
+        placeholder="example@example.com"
+        autocomplete="email"
+      >
+
+      <button
+        id="login-button"
+        class="button"
+        type="button">
+        ログインメールを送る
+      </button>
+
+      <p
+        id="login-message"
+        class="login-message">
+      </p>
+
+    </div>
+
+
+    <!-- ログイン後 -->
+
+    <div
+      id="comment-section"
+      style="display:none;">
+
+      <form id="comment-form" class="comment-form">
+
+        <textarea
+          id="comment-text"
+          class="comment-textarea"
+          placeholder="コメントを書いてね。"
+          maxlength="1000"
+          required></textarea>
+
+        <div class="comment-actions">
+
+          <span
+            id="user-status"
+            class="user-status">
+          </span>
+
+          <button
+            class="button"
+            type="submit">
+            コメントする
+          </button>
+
+        </div>
+
+      </form>
+
+      <p
+        id="comment-message"
+        class="login-message">
+      </p>
+
+    </div>
+
+
+    <!-- コメント一覧 -->
+
+    <div class="comments-list">
+
+      <h3>
+        みんなのコメント
+      </h3>
+
+      <div id="comments-container">
+
+        <p class="loading">
+          コメントを読み込んでいます……
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <a class="back-link" href="index.html">
+    ← ホームに戻る
+  </a>
+
+</main>
+
+
+<footer>
+  © 逃げラッコ
+</footer>
+
+
+<!-- Supabase -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
 const SUPABASE_URL =
   "https://goxuhivbgaextkhyobmw.supabase.co";
 
@@ -5,16 +740,24 @@ const SUPABASE_PUBLISHABLE_KEY =
   "sb_publishable_81GtdIt16_VTgJq4bV3RNw_MoA7ZuPV";
 
 
-const supabaseClient =
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
 
 
-// ============================================
-// 要素取得
-// ============================================
+// -----------------------------
+// HTML要素
+// -----------------------------
+
+const emailInput =
+  document.getElementById("email");
+
+const loginButton =
+  document.getElementById("login-button");
+
+const loginMessage =
+  document.getElementById("login-message");
 
 const loginSection =
   document.getElementById("login-section");
@@ -31,83 +774,138 @@ const commentText =
 const commentMessage =
   document.getElementById("comment-message");
 
+const userStatus =
+  document.getElementById("user-status");
+
 const commentsContainer =
   document.getElementById("comments-container");
 
 
-// ============================================
-// メールログイン部分を
-// 「表示名＋コメント」に変更
-// ============================================
+// -----------------------------
+// ログインメール送信
+// -----------------------------
 
-if (loginSection) {
+loginButton.addEventListener(
+  "click",
+  async () => {
 
-  loginSection.innerHTML = `
-    <h3>
-      コメントを書く
-    </h3>
+    const email =
+      emailInput.value.trim();
 
-    <p>
-      メールアドレスの登録は必要ありません。
-      表示名とコメントを入力して、そのまま投稿できます。
-    </p>
 
-    <input
-      id="display-name"
-      class="email-input"
-      type="text"
-      placeholder="表示名（例：ラッコ）"
-      maxlength="50"
-      autocomplete="nickname"
-    >
+    if (!email) {
 
-    <p
-      id="anonymous-message"
-      class="login-message">
-    </p>
-  `;
+      loginMessage.textContent =
+        "メールアドレスを入力してください。";
+
+      return;
+
+    }
+
+
+    loginButton.disabled = true;
+
+
+    loginMessage.textContent =
+      "ログインメールを送信しています……";
+
+
+    const {
+      error
+    } =
+      await supabaseClient.auth.signInWithOtp({
+
+        email: email,
+
+        options: {
+
+          emailRedirectTo:
+            "https://minnnadegeemuyaruyo-del.github.io/nigerakko-dbd/diary.html"
+
+        }
+
+      });
+
+
+    if (error) {
+
+      console.error(error);
+
+      loginMessage.textContent =
+        "メールを送信できませんでした。Supabaseの設定を確認してください。";
+
+      loginButton.disabled = false;
+
+      return;
+
+    }
+
+
+    loginMessage.textContent =
+      "ログインメールを送りました。メールを確認してください。";
+
+
+    loginButton.disabled = false;
+
+  }
+);
+
+
+// -----------------------------
+// ログイン状態確認
+// -----------------------------
+
+async function updateLoginState() {
+
+  const {
+    data: {
+      session
+    }
+  } =
+    await supabaseClient.auth.getSession();
+
+
+  if (session) {
+
+    loginSection.style.display =
+      "none";
+
+    commentSection.style.display =
+      "block";
+
+    userStatus.textContent =
+      session.user.email +
+      " でログイン中";
+
+  } else {
+
+    loginSection.style.display =
+      "block";
+
+    commentSection.style.display =
+      "none";
+
+  }
 
 }
 
 
-// ============================================
-// 表示名入力欄
-// ============================================
+// -----------------------------
+// 認証状態が変わったら更新
+// -----------------------------
 
-const displayNameInput =
-  document.getElementById("display-name");
+supabaseClient.auth.onAuthStateChange(
+  async () => {
 
-const anonymousMessage =
-  document.getElementById("anonymous-message");
+    await updateLoginState();
 
-
-// ============================================
-// コメント投稿欄を表示
-// ============================================
-
-if (commentSection) {
-
-  commentSection.style.display =
-    "block";
-
-}
+  }
+);
 
 
-// ============================================
-// 旧ログイン関連表示を消す
-// ============================================
-
-if (loginSection) {
-
-  loginSection.style.display =
-    "block";
-
-}
-
-
-// ============================================
+// -----------------------------
 // コメント読み込み
-// ============================================
+// -----------------------------
 
 async function loadComments() {
 
@@ -120,38 +918,35 @@ async function loadComments() {
     error
   } =
     await supabaseClient
+
       .from("diary_comments")
-      .select(
-        "id, display_name, body, created_at"
-      )
-      .order(
-        "created_at",
-        {
-          ascending: false
-        }
-      );
+
+      .select("*")
+
+      .order("created_at", {
+        ascending: false
+      });
 
 
   if (error) {
 
-    console.error(
-      "コメント取得エラー:",
-      error
-    );
+    console.error(error);
 
     commentsContainer.innerHTML =
       '<p class="error-message">コメントを読み込めませんでした。</p>';
 
     return;
+
   }
 
 
   if (!data || data.length === 0) {
 
     commentsContainer.innerHTML =
-      '<p class="loading">まだコメントはありません。最初のコメントを書いてみよう！</p>';
+      '<p class="loading">まだコメントはありません。</p>';
 
     return;
+
   }
 
 
@@ -162,58 +957,17 @@ async function loadComments() {
   data.forEach(
     comment => {
 
-      // -----------------------------
-      // コメント全体
-      // -----------------------------
-
       const item =
         document.createElement("article");
+
 
       item.className =
         "comment-item";
 
 
-      // -----------------------------
-      // ヘッダー
-      // -----------------------------
-
-      const header =
-        document.createElement("div");
-
-      header.style.display =
-        "flex";
-
-      header.style.justifyContent =
-        "space-between";
-
-      header.style.alignItems =
-        "center";
-
-      header.style.gap =
-        "10px";
-
-
-      // -----------------------------
-      // 表示名
-      // -----------------------------
-
-      const name =
-        document.createElement("strong");
-
-      name.className =
-        "comment-name";
-
-      name.textContent =
-        comment.display_name ||
-        "名無しのラッコ";
-
-
-      // -----------------------------
-      // 投稿日時
-      // -----------------------------
-
       const date =
         document.createElement("time");
+
 
       date.className =
         "comment-date";
@@ -221,70 +975,31 @@ async function loadComments() {
 
       if (comment.created_at) {
 
-        const dateObject =
+        date.textContent =
           new Date(
             comment.created_at
-          );
-
-
-        date.textContent =
-          dateObject.toLocaleString(
-            "ja-JP",
-            {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-              hour: "2-digit",
-              minute: "2-digit"
-            }
-          );
+          ).toLocaleString("ja-JP");
 
       }
 
 
-      // -----------------------------
-      // ヘッダーに追加
-      // -----------------------------
-
-      header.appendChild(
-        name
-      );
-
-      header.appendChild(
-        date
-      );
+      const text =
+        document.createElement("p");
 
 
-      // -----------------------------
-      // コメント本文
-      // -----------------------------
-
-      const body =
-        document.createElement("div");
-
-      body.className =
+      text.className =
         "comment-text";
 
-      body.textContent =
-        comment.body ||
-        "";
+
+      text.textContent =
+        comment.comment || "";
 
 
-      // -----------------------------
-      // 表示
-      // -----------------------------
+      item.appendChild(date);
 
-      item.appendChild(
-        header
-      );
+      item.appendChild(text);
 
-      item.appendChild(
-        body
-      );
-
-      commentsContainer.appendChild(
-        item
-      );
+      commentsContainer.appendChild(item);
 
     }
   );
@@ -292,9 +1007,9 @@ async function loadComments() {
 }
 
 
-// ============================================
+// -----------------------------
 // コメント投稿
-// ============================================
+// -----------------------------
 
 commentForm.addEventListener(
   "submit",
@@ -303,122 +1018,69 @@ commentForm.addEventListener(
     event.preventDefault();
 
 
-    const displayName =
-      displayNameInput.value.trim();
-
-    const body =
+    const text =
       commentText.value.trim();
 
 
-    // -----------------------------
-    // 表示名チェック
-    // -----------------------------
-
-    if (!displayName) {
-
-      anonymousMessage.textContent =
-        "表示名を入力してください。";
-
-      displayNameInput.focus();
-
-      return;
-    }
-
-
-    // -----------------------------
-    // コメントチェック
-    // -----------------------------
-
-    if (!body) {
+    if (!text) {
 
       commentMessage.textContent =
         "コメントを入力してください。";
 
-      commentText.focus();
-
       return;
-    }
-
-
-    // -----------------------------
-    // 投稿中
-    // -----------------------------
-
-    const submitButton =
-      commentForm.querySelector(
-        'button[type="submit"]'
-      );
-
-
-    if (submitButton) {
-
-      submitButton.disabled =
-        true;
 
     }
 
-
-    anonymousMessage.textContent =
-      "";
 
     commentMessage.textContent =
       "コメントを投稿しています……";
 
 
-    // -----------------------------
-    // Supabaseへ投稿
-    // -----------------------------
+    const {
+      data: {
+        user
+      }
+    } =
+      await supabaseClient.auth.getUser();
+
+
+    if (!user) {
+
+      commentMessage.textContent =
+        "ログインが必要です。";
+
+      return;
+
+    }
+
 
     const {
       error
     } =
       await supabaseClient
+
         .from("diary_comments")
+
         .insert({
 
-          display_name:
-            displayName,
+          user_id: user.id,
 
-          body:
-            body
+          comment: text
 
         });
 
 
-    // -----------------------------
-    // エラー
-    // -----------------------------
-
     if (error) {
 
-      console.error(
-        "コメント投稿エラー:",
-        error
-      );
-
+      console.error(error);
 
       commentMessage.textContent =
         "コメントを投稿できませんでした。";
 
-
-      if (submitButton) {
-
-        submitButton.disabled =
-          false;
-
-      }
-
-
       return;
+
     }
 
-
-    // -----------------------------
-    // 成功
-    // -----------------------------
-
-    displayNameInput.value =
-      "";
 
     commentText.value =
       "";
@@ -428,24 +1090,21 @@ commentForm.addEventListener(
       "コメントしました！";
 
 
-    if (submitButton) {
-
-      submitButton.disabled =
-        false;
-
-    }
-
-
-    // 最新コメントを再読み込み
-
     await loadComments();
 
   }
 );
 
 
-// ============================================
+// -----------------------------
 // 初期処理
-// ============================================
+// -----------------------------
+
+updateLoginState();
 
 loadComments();
+
+</script>
+
+</body>
+</html>
