@@ -1,9 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="逃げラッコ式DbDの楽しみ方。初心者でも気楽に遊べる、他力本願スタイルの楽しみ方を紹介。">
 
   <title>DbDの楽しみ方｜逃げラッコ式</title>
 
@@ -188,7 +189,6 @@
       font-weight: 900;
     }
 
-    /* 追加した画像のデザイン */
     .fun-image {
       margin: 24px auto 32px;
       text-align: center;
@@ -213,6 +213,153 @@
 
     .content p:last-child {
       margin-bottom: 0;
+    }
+
+    /* =========================
+       コメント欄
+       ========================= */
+
+    .comments-section {
+      margin-top: 42px;
+      padding: 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 5px 18px rgba(48, 39, 31, .04);
+    }
+
+    .comments-title {
+      margin: 0 0 8px;
+      padding: 0 0 12px;
+      border-bottom: 3px solid var(--teal);
+      font-size: clamp(22px, 3vw, 28px);
+      line-height: 1.5;
+    }
+
+    .comments-lead {
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .comment-form {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f8f3e9;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .comment-form label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: .9rem;
+      font-weight: 800;
+    }
+
+    .comment-form input,
+    .comment-form textarea {
+      width: 100%;
+      padding: 11px 13px;
+      border: 1px solid #d7cdbf;
+      border-radius: 9px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+      outline: none;
+    }
+
+    .comment-form input:focus,
+    .comment-form textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(71, 127, 125, .12);
+    }
+
+    .comment-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .comment-field {
+      margin-bottom: 16px;
+    }
+
+    .comment-submit {
+      display: inline-block;
+      padding: 11px 22px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--teal);
+      color: #fff;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: opacity .2s, transform .2s;
+    }
+
+    .comment-submit:hover {
+      opacity: .88;
+      transform: translateY(-1px);
+    }
+
+    .comment-submit:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .comment-message {
+      min-height: 1.6em;
+      margin: 10px 0 0;
+      font-size: .88rem;
+      font-weight: 700;
+    }
+
+    .comments-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .comment-empty {
+      padding: 24px;
+      border: 1px dashed #c9bfae;
+      border-radius: 12px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .92rem;
+    }
+
+    .comment-item {
+      padding: 18px;
+      background: #fbf7ef;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .comment-meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .comment-name {
+      font-weight: 900;
+      color: var(--teal);
+    }
+
+    .comment-date {
+      color: var(--muted);
+      font-size: .78rem;
+      white-space: nowrap;
+    }
+
+    .comment-body {
+      margin: 0;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      line-height: 1.8;
     }
 
     .back-link {
@@ -241,6 +388,14 @@
       color: var(--muted);
       font-size: 13px;
       text-align: center;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid var(--teal);
+      outline-offset: 3px;
     }
 
     @media (max-width: 760px) {
@@ -295,6 +450,21 @@
 
       .fun-image img {
         border-radius: 12px;
+      }
+
+      .comments-section {
+        margin-top: 30px;
+        padding: 20px 16px;
+      }
+
+      .comment-form {
+        padding: 16px;
+      }
+
+      .comment-meta {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 2px;
       }
     }
 
@@ -472,12 +642,346 @@
 
     </div>
 
+
+    <!-- =========================
+         コメント欄
+         ========================= -->
+
+    <section class="comments-section" aria-labelledby="comments-title">
+
+      <h2 id="comments-title" class="comments-title">
+        コメント 🦦
+      </h2>
+
+      <p class="comments-lead">
+        「逃げラッコ式」をやってみた感想や、質問などを書いていってね。<br>
+        ※投稿後、確認してから表示されます。
+      </p>
+
+      <form id="comment-form" class="comment-form">
+
+        <div class="comment-field">
+          <label for="comment-name">名前</label>
+          <input
+            id="comment-name"
+            name="name"
+            type="text"
+            maxlength="30"
+            placeholder="名無しのラッコ"
+            autocomplete="nickname">
+        </div>
+
+        <div class="comment-field">
+          <label for="comment-body">コメント</label>
+          <textarea
+            id="comment-body"
+            name="body"
+            maxlength="1000"
+            placeholder="感想や質問を書いてね🦦"
+            required></textarea>
+        </div>
+
+        <button
+          id="comment-submit"
+          class="comment-submit"
+          type="submit">
+          コメントを投稿する
+        </button>
+
+        <p
+          id="comment-message"
+          class="comment-message"
+          aria-live="polite">
+        </p>
+
+      </form>
+
+      <div
+        id="comments-list"
+        class="comments-list"
+        aria-live="polite">
+        <div class="comment-empty">
+          コメントを読み込んでいます……
+        </div>
+      </div>
+
+    </section>
+
+
     <a class="back-link" href="index.html">トップページへ戻る</a>
+
   </main>
 
   <footer>
     逃げラッコ式DbD立ち回り 🦦
   </footer>
+
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    /* ==========================================
+       Supabase コメント機能
+       ========================================== */
+
+    const SUPABASE_URL =
+      "https://goxuhivbgaextkhyobmw.supabase.co";
+
+    /*
+      ↓↓↓ ここだけ、前に使ったPublishable Keyを入れる ↓↓↓
+    */
+    const SUPABASE_PUBLISHABLE_KEY =
+      "ここに前と同じPublishable Key";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+    /* このページ専用の識別子 */
+    const PAGE_SLUG = "fun";
+
+
+    /* ==========================================
+       HTML要素
+       ========================================== */
+
+    const commentForm =
+      document.getElementById("comment-form");
+
+    const commentName =
+      document.getElementById("comment-name");
+
+    const commentBody =
+      document.getElementById("comment-body");
+
+    const commentSubmit =
+      document.getElementById("comment-submit");
+
+    const commentMessage =
+      document.getElementById("comment-message");
+
+    const commentsList =
+      document.getElementById("comments-list");
+
+
+    /* ==========================================
+       コメント読み込み
+       ========================================== */
+
+    async function loadComments() {
+
+      commentsList.innerHTML = `
+        <div class="comment-empty">
+          コメントを読み込んでいます……
+        </div>
+      `;
+
+      const { data, error } = await supabaseClient
+        .from("diary_comments")
+        .select("id, display_name, body, created_at")
+        .eq("page_slug", PAGE_SLUG)
+        .eq("approved", true)
+        .order("created_at", {
+          ascending: false
+        });
+
+      if (error) {
+
+        console.error("コメント読み込みエラー:", error);
+
+        commentsList.innerHTML = `
+          <div class="comment-empty">
+            コメントを読み込めませんでした。
+          </div>
+        `;
+
+        return;
+      }
+
+
+      /* コメントがまだない場合 */
+
+      if (!data || data.length === 0) {
+
+        commentsList.innerHTML = `
+          <div class="comment-empty">
+            まだコメントはありません。<br>
+            最初のコメントをどうぞ🦦
+          </div>
+        `;
+
+        return;
+      }
+
+
+      /* コメント表示 */
+
+      commentsList.innerHTML = "";
+
+      data.forEach(comment => {
+
+        const item =
+          document.createElement("article");
+
+        item.className = "comment-item";
+
+
+        const meta =
+          document.createElement("div");
+
+        meta.className = "comment-meta";
+
+
+        const name =
+          document.createElement("div");
+
+        name.className = "comment-name";
+
+        name.textContent =
+          comment.display_name || "名無しのラッコ";
+
+
+        const date =
+          document.createElement("time");
+
+        date.className = "comment-date";
+
+        const commentDate =
+          new Date(comment.created_at);
+
+        date.textContent =
+          commentDate.toLocaleString(
+            "ja-JP",
+            {
+              year: "numeric",
+              month: "numeric",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            }
+          );
+
+
+        meta.appendChild(name);
+        meta.appendChild(date);
+
+
+        const body =
+          document.createElement("p");
+
+        body.className = "comment-body";
+
+        /*
+          textContentを使用しているので、
+          HTMLタグなどを入力されても
+          そのまま文字として表示される。
+        */
+        body.textContent =
+          comment.body;
+
+
+        item.appendChild(meta);
+        item.appendChild(body);
+
+        commentsList.appendChild(item);
+
+      });
+    }
+
+
+    /* ==========================================
+       コメント投稿
+       ========================================== */
+
+    commentForm.addEventListener(
+      "submit",
+      async function(event) {
+
+        event.preventDefault();
+
+
+        const displayName =
+          commentName.value.trim() ||
+          "名無しのラッコ";
+
+        const body =
+          commentBody.value.trim();
+
+
+        /* 空コメント防止 */
+
+        if (!body) {
+
+          commentMessage.textContent =
+            "コメントを入力してね🦦";
+
+          return;
+        }
+
+
+        /* 送信中 */
+
+        commentSubmit.disabled = true;
+
+        commentMessage.textContent =
+          "コメントを送信しています……";
+
+
+        const { error } =
+          await supabaseClient
+            .from("diary_comments")
+            .insert([
+              {
+                display_name: displayName,
+                body: body,
+                approved: false,
+                page_slug: PAGE_SLUG
+              }
+            ]);
+
+
+        /* エラー */
+
+        if (error) {
+
+          console.error(
+            "コメント送信エラー:",
+            error
+          );
+
+          commentMessage.textContent =
+            "コメントを送信できませんでした。もう一度試してみてね。";
+
+          commentSubmit.disabled = false;
+
+          return;
+        }
+
+
+        /* 成功 */
+
+        commentName.value = "";
+        commentBody.value = "";
+
+        commentMessage.textContent =
+          "コメントを送信しました！確認後に表示されます🦦";
+
+        commentSubmit.disabled = false;
+
+      }
+    );
+
+
+    /* ==========================================
+       ページ読み込み時にコメント取得
+       ========================================== */
+
+    loadComments();
+
+  </script>
 
 </body>
 </html>
