@@ -33,7 +33,8 @@ h1 {
 }
 
 h2 {
-  margin-top: 40px;
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 
 .panel {
@@ -44,7 +45,9 @@ h2 {
   margin-bottom: 20px;
 }
 
-input {
+input,
+select,
+textarea {
   width: 100%;
   padding: 12px;
   margin-bottom: 10px;
@@ -52,6 +55,21 @@ input {
   border-radius: 8px;
   box-sizing: border-box;
   font: inherit;
+  background: #fff;
+  color: #30271f;
+}
+
+textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #477f7d;
+  box-shadow: 0 0 0 3px rgba(71, 127, 125, .12);
 }
 
 button {
@@ -101,6 +119,17 @@ button:disabled {
   font-size: 12px;
 }
 
+.comment-page {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e7f0ee;
+  color: #477f7d;
+  font-size: 11px;
+  font-weight: 800;
+}
+
 .comment-body {
   margin: 8px 0 12px;
   white-space: pre-wrap;
@@ -119,6 +148,26 @@ button:disabled {
 
 .error {
   color: #a24d4d;
+}
+
+.admin-comment-form {
+  margin-top: 10px;
+}
+
+.form-field {
+  margin-bottom: 16px;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 800;
+}
+
+.form-note {
+  margin: 0 0 18px;
+  color: #71685f;
+  font-size: 13px;
 }
 
 #admin-panel {
@@ -176,6 +225,88 @@ button:disabled {
   <section
     id="admin-panel">
 
+
+    <!-- ========================= -->
+    <!-- 管理人コメント -->
+    <!-- ========================= -->
+
+    <div class="panel">
+
+      <h2>🦦 管理人コメント</h2>
+
+      <p class="form-note">
+        管理人としてコメントを投稿できます。投稿したコメントは最初から承認済みになります。
+      </p>
+
+      <form
+        id="admin-comment-form"
+        class="admin-comment-form">
+
+        <div class="form-field">
+
+          <label for="admin-comment-page">
+            投稿先ページ
+          </label>
+
+          <select id="admin-comment-page">
+
+            <option value="fun">
+              DbDの楽しみ方
+            </option>
+
+            <option value="playstyle">
+              立ち回り講座
+            </option>
+
+            <option value="perks">
+              パーク紹介
+            </option>
+
+            <option value="beginner">
+              初心者ガイド
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="admin-comment-body">
+            コメント
+          </label>
+
+          <textarea
+            id="admin-comment-body"
+            maxlength="1000"
+            placeholder="管理人コメントを書いてね🦦"
+            required></textarea>
+
+        </div>
+
+
+        <button
+          id="admin-comment-submit"
+          type="submit">
+          管理人コメントを投稿する
+        </button>
+
+
+        <p
+          id="admin-comment-message"
+          class="message">
+        </p>
+
+      </form>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- ログアウト -->
+    <!-- ========================= -->
+
     <div class="panel">
 
       <button
@@ -183,6 +314,15 @@ button:disabled {
         class="logout">
         ログアウト
       </button>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- 未承認コメント -->
+    <!-- ========================= -->
+
+    <div class="panel">
 
       <h2>未承認コメント</h2>
 
@@ -197,6 +337,10 @@ button:disabled {
     </div>
 
 
+    <!-- ========================= -->
+    <!-- 承認済みコメント -->
+    <!-- ========================= -->
+
     <div class="panel">
 
       <h2>承認済みコメント</h2>
@@ -210,6 +354,7 @@ button:disabled {
       </div>
 
     </div>
+
 
   </section>
 
@@ -236,6 +381,35 @@ const supabaseClient =
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
   );
+
+
+// ============================================
+// 管理人UID
+// ============================================
+
+const ADMIN_USER_ID =
+  "394936fc-0cdf-4129-bf3c-070d3441f4bf";
+
+
+// ============================================
+// ページ名
+// ============================================
+
+const PAGE_NAMES = {
+
+  fun:
+    "DbDの楽しみ方",
+
+  playstyle:
+    "立ち回り講座",
+
+  perks:
+    "パーク紹介",
+
+  beginner:
+    "初心者ガイド"
+
+};
 
 
 // ============================================
@@ -268,6 +442,32 @@ const pendingComments =
 
 const approvedComments =
   document.getElementById("approved-comments");
+
+
+const adminCommentForm =
+  document.getElementById(
+    "admin-comment-form"
+  );
+
+const adminCommentPage =
+  document.getElementById(
+    "admin-comment-page"
+  );
+
+const adminCommentBody =
+  document.getElementById(
+    "admin-comment-body"
+  );
+
+const adminCommentSubmit =
+  document.getElementById(
+    "admin-comment-submit"
+  );
+
+const adminCommentMessage =
+  document.getElementById(
+    "admin-comment-message"
+  );
 
 
 // ============================================
@@ -354,8 +554,7 @@ async function checkAdmin() {
   // 管理人UID確認
 
   if (
-    user.id !==
-    "394936fc-0cdf-4129-bf3c-070d3441f4bf"
+    user.id !== ADMIN_USER_ID
   ) {
 
     await supabaseClient.auth.signOut();
@@ -407,7 +606,7 @@ async function loadComments() {
       .from("diary_comments")
 
       .select(
-        "id, display_name, body, approved, created_at"
+        "id, display_name, body, approved, created_at, page_slug"
       )
 
       .order(
@@ -502,6 +701,10 @@ function renderComments(
         "comment";
 
 
+      // ==============================
+      // 名前
+      // ==============================
+
       const name =
         document.createElement("div");
 
@@ -512,6 +715,10 @@ function renderComments(
         comment.display_name ||
         "名無しのラッコ";
 
+
+      // ==============================
+      // 日付
+      // ==============================
 
       const date =
         document.createElement("span");
@@ -544,6 +751,34 @@ function renderComments(
       );
 
 
+      // ==============================
+      // 投稿先ページ
+      // ==============================
+
+      const page =
+        document.createElement("span");
+
+      page.className =
+        "comment-page";
+
+
+      page.textContent =
+        PAGE_NAMES[
+          comment.page_slug
+        ] ||
+        comment.page_slug ||
+        "ページ不明";
+
+
+      name.appendChild(
+        page
+      );
+
+
+      // ==============================
+      // 本文
+      // ==============================
+
       const body =
         document.createElement("div");
 
@@ -554,12 +789,18 @@ function renderComments(
         comment.body || "";
 
 
+      // ==============================
+      // ボタン
+      // ==============================
+
       const actions =
         document.createElement("div");
 
       actions.className =
         "actions";
 
+
+      // 未承認なら承認ボタン
 
       if (!isApproved) {
 
@@ -569,6 +810,7 @@ function renderComments(
         approveButton.textContent =
           "承認";
 
+
         approveButton.addEventListener(
           "click",
           () => approveComment(
@@ -576,12 +818,15 @@ function renderComments(
           )
         );
 
+
         actions.appendChild(
           approveButton
         );
 
       }
 
+
+      // 削除ボタン
 
       const deleteButton =
         document.createElement("button");
@@ -592,6 +837,7 @@ function renderComments(
       deleteButton.className =
         "delete";
 
+
       deleteButton.addEventListener(
         "click",
         () => deleteComment(
@@ -599,10 +845,15 @@ function renderComments(
         )
       );
 
+
       actions.appendChild(
         deleteButton
       );
 
+
+      // ==============================
+      // DOMへ追加
+      // ==============================
 
       item.appendChild(
         name
@@ -625,6 +876,130 @@ function renderComments(
   );
 
 }
+
+
+// ============================================
+// 管理人コメント投稿
+// ============================================
+
+adminCommentForm.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+
+    const pageSlug =
+      adminCommentPage.value;
+
+
+    const body =
+      adminCommentBody.value.trim();
+
+
+    // 空コメント防止
+
+    if (!body) {
+
+      adminCommentMessage.textContent =
+        "コメントを入力してね🦦";
+
+      return;
+    }
+
+
+    // 送信中
+
+    adminCommentSubmit.disabled =
+      true;
+
+    adminCommentMessage.textContent =
+      "コメントを投稿しています……";
+
+
+    const {
+      data: {
+        user
+      }
+    } =
+      await supabaseClient.auth.getUser();
+
+
+    if (!user) {
+
+      adminCommentMessage.textContent =
+        "ログインが切れています。もう一度ログインしてね。";
+
+      adminCommentSubmit.disabled =
+        false;
+
+      return;
+    }
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+
+        .from("diary_comments")
+
+        .insert([
+
+          {
+
+            display_name:
+              "管理人",
+
+            body:
+              body,
+
+            approved:
+              true,
+
+            page_slug:
+              pageSlug
+
+          }
+
+        ]);
+
+
+    // エラー
+
+    if (error) {
+
+      console.error(
+        "管理人コメント投稿エラー:",
+        error
+      );
+
+      adminCommentMessage.textContent =
+        "コメントを投稿できませんでした。";
+
+      adminCommentSubmit.disabled =
+        false;
+
+      return;
+    }
+
+
+    // 成功
+
+    adminCommentBody.value =
+      "";
+
+    adminCommentMessage.textContent =
+      "管理人コメントを投稿しました！🦦";
+
+    adminCommentSubmit.disabled =
+      false;
+
+
+    await loadComments();
+
+  }
+);
 
 
 // ============================================
