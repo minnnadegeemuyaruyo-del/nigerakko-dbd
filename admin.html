@@ -45,7 +45,6 @@ h2 {
   margin-bottom: 20px;
 }
 
-input,
 textarea {
   width: 100%;
   padding: 12px;
@@ -56,14 +55,9 @@ textarea {
   font: inherit;
   background: #fff;
   color: #30271f;
-}
-
-textarea {
-  min-height: 120px;
   resize: vertical;
 }
 
-input:focus,
 textarea:focus {
   outline: none;
   border-color: #477f7d;
@@ -144,83 +138,35 @@ button:disabled {
   flex-wrap: wrap;
 }
 
+.reply-form {
+  margin-top: 14px;
+  padding: 16px;
+  background: #f7f3eb;
+  border: 1px solid #e6ddd0;
+  border-radius: 12px;
+}
+
+.reply-form textarea {
+  min-height: 100px;
+}
+
+.reply-title {
+  margin-bottom: 8px;
+  font-weight: 800;
+}
+
+.reply-message {
+  margin: 4px 0 0;
+  color: #71685f;
+  font-size: 13px;
+}
+
 .message {
   color: #71685f;
 }
 
 .error {
   color: #a24d4d;
-}
-
-
-/* ============================= */
-/* 返信 */
-/* ============================= */
-
-.reply-form {
-  display: none;
-  margin-top: 15px;
-  padding: 16px;
-  background: #f5f1e9;
-  border-radius: 12px;
-}
-
-.reply-form.open {
-  display: block;
-}
-
-.reply-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 800;
-}
-
-.reply-form textarea {
-  background: #fffdf8;
-  margin-bottom: 8px;
-}
-
-.reply-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-
-/* ============================= */
-/* 返信表示 */
-/* ============================= */
-
-.replies {
-  margin-top: 15px;
-  margin-left: 24px;
-  padding-left: 18px;
-  border-left: 3px solid #e6ddd0;
-}
-
-.reply {
-  padding: 12px 0;
-}
-
-.reply-name {
-  font-weight: 800;
-}
-
-.reply-name::before {
-  content: "↳ ";
-  color: #477f7d;
-}
-
-.reply-date {
-  margin-left: 10px;
-  color: #71685f;
-  font-size: 12px;
-}
-
-.reply-body {
-  margin-top: 5px;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
 }
 
 #admin-panel {
@@ -251,12 +197,14 @@ button:disabled {
     <input
       id="email"
       type="email"
-      placeholder="メールアドレス">
+      placeholder="メールアドレス"
+      style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #d8cec0; border-radius:8px; box-sizing:border-box; font:inherit;">
 
     <input
       id="password"
       type="password"
-      placeholder="パスワード">
+      placeholder="パスワード"
+      style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #d8cec0; border-radius:8px; box-sizing:border-box; font:inherit;">
 
     <button
       id="login-button">
@@ -437,15 +385,15 @@ loginButton.addEventListener(
     const {
       error
     } =
-      await supabaseClient.auth.signInWithPassword({
+    await supabaseClient.auth.signInWithPassword({
 
-        email:
-          emailInput.value.trim(),
+      email:
+        emailInput.value.trim(),
 
-        password:
-          passwordInput.value
+      password:
+        passwordInput.value
 
-      });
+    });
 
 
     if (error) {
@@ -486,7 +434,7 @@ async function checkAdmin() {
       user
     }
   } =
-    await supabaseClient.auth.getUser();
+  await supabaseClient.auth.getUser();
 
 
   if (!user) {
@@ -551,20 +499,20 @@ async function loadComments() {
     data,
     error
   } =
-    await supabaseClient
+  await supabaseClient
 
-      .from("diary_comments")
+    .from("diary_comments")
 
-      .select(
-        "id, display_name, body, approved, created_at, page_slug, parent_id"
-      )
+    .select(
+      "id, display_name, body, approved, created_at, page_slug, parent_id"
+    )
 
-      .order(
-        "created_at",
-        {
-          ascending: false
-        }
-      );
+    .order(
+      "created_at",
+      {
+        ascending: false
+      }
+    );
 
 
   if (error) {
@@ -588,16 +536,14 @@ async function loadComments() {
   const pending =
     data.filter(
       comment =>
-        comment.approved === false &&
-        !comment.parent_id
+        comment.approved === false
     );
 
 
   const approved =
     data.filter(
       comment =>
-        comment.approved === true &&
-        !comment.parent_id
+        comment.approved === true
     );
 
 
@@ -649,6 +595,17 @@ function renderComments(
   comments.forEach(
     comment => {
 
+      // ========================================
+      // 返信コメントは一覧のメイン表示から除外
+      // ========================================
+
+      if (comment.parent_id !== null) {
+
+        return;
+
+      }
+
+
       const item =
         document.createElement("div");
 
@@ -656,9 +613,9 @@ function renderComments(
         "comment";
 
 
-      // ==============================
+      // ========================================
       // 名前
-      // ==============================
+      // ========================================
 
       const name =
         document.createElement("div");
@@ -671,9 +628,9 @@ function renderComments(
         "名無しのラッコ";
 
 
-      // ==============================
+      // ========================================
       // 日付
-      // ==============================
+      // ========================================
 
       const date =
         document.createElement("span");
@@ -706,9 +663,9 @@ function renderComments(
       );
 
 
-      // ==============================
+      // ========================================
       // 投稿先ページ
-      // ==============================
+      // ========================================
 
       const page =
         document.createElement("span");
@@ -730,9 +687,9 @@ function renderComments(
       );
 
 
-      // ==============================
+      // ========================================
       // 本文
-      // ==============================
+      // ========================================
 
       const body =
         document.createElement("div");
@@ -744,9 +701,9 @@ function renderComments(
         comment.body || "";
 
 
-      // ==============================
+      // ========================================
       // ボタン
-      // ==============================
+      // ========================================
 
       const actions =
         document.createElement("div");
@@ -781,165 +738,30 @@ function renderComments(
       }
 
 
-      // ==============================
       // 返信ボタン
-      // ==============================
 
-      if (isApproved) {
+      const replyButton =
+        document.createElement("button");
 
-        const replyButton =
-          document.createElement("button");
-
-        replyButton.textContent =
-          "返信";
+      replyButton.textContent =
+        "返信";
 
 
-        actions.appendChild(
-          replyButton
-        );
+      replyButton.addEventListener(
+        "click",
+        () => toggleReplyForm(
+          item,
+          comment
+        )
+      );
 
 
-        // ==============================
-        // 返信フォーム
-        // ==============================
-
-        const replyForm =
-          document.createElement("div");
-
-        replyForm.className =
-          "reply-form";
+      actions.appendChild(
+        replyButton
+      );
 
 
-        const replyLabel =
-          document.createElement("label");
-
-        replyLabel.className =
-          "reply-label";
-
-        replyLabel.textContent =
-          "🦦 管理人として返信";
-
-
-        const replyTextarea =
-          document.createElement("textarea");
-
-        replyTextarea.maxLength =
-          1000;
-
-        replyTextarea.placeholder =
-          "返信を書いてね🦦";
-
-
-        const replyActions =
-          document.createElement("div");
-
-        replyActions.className =
-          "reply-actions";
-
-
-        const replySubmit =
-          document.createElement("button");
-
-        replySubmit.textContent =
-          "返信する";
-
-
-        const replyCancel =
-          document.createElement("button");
-
-        replyCancel.textContent =
-          "キャンセル";
-
-        replyCancel.className =
-          "cancel";
-
-
-        replyActions.appendChild(
-          replySubmit
-        );
-
-        replyActions.appendChild(
-          replyCancel
-        );
-
-
-        replyForm.appendChild(
-          replyLabel
-        );
-
-        replyForm.appendChild(
-          replyTextarea
-        );
-
-        replyForm.appendChild(
-          replyActions
-        );
-
-
-        // 返信ボタン
-
-        replyButton.addEventListener(
-          "click",
-          () => {
-
-            replyForm.classList.toggle(
-              "open"
-            );
-
-            if (
-              replyForm.classList.contains(
-                "open"
-              )
-            ) {
-
-              replyTextarea.focus();
-
-            }
-
-          }
-        );
-
-
-        // キャンセル
-
-        replyCancel.addEventListener(
-          "click",
-          () => {
-
-            replyTextarea.value =
-              "";
-
-            replyForm.classList.remove(
-              "open"
-            );
-
-          }
-        );
-
-
-        // 返信送信
-
-        replySubmit.addEventListener(
-          "click",
-          () => replyComment(
-            comment,
-            replyTextarea,
-            replySubmit,
-            replyForm
-          )
-        );
-
-
-        item.appendChild(
-          replyForm
-        );
-
-      }
-
-
-      // ==============================
       // 削除ボタン
-      // ==============================
 
       const deleteButton =
         document.createElement("button");
@@ -964,9 +786,9 @@ function renderComments(
       );
 
 
-      // ==============================
+      // ========================================
       // DOMへ追加
-      // ==============================
+      // ========================================
 
       item.appendChild(
         name
@@ -981,146 +803,31 @@ function renderComments(
       );
 
 
-      // ==============================
-      // 返信一覧
-      // ==============================
+      // ========================================
+      // 既存の返信を表示
+      // ========================================
 
       const replies =
         allComments.filter(
           reply =>
-            reply.parent_id === comment.id &&
-            reply.approved === true
+            reply.parent_id === comment.id
         );
 
 
-      if (
-        replies.length > 0
-      ) {
+      replies.forEach(
+        reply => {
 
-        const repliesContainer =
-          document.createElement("div");
-
-        repliesContainer.className =
-          "replies";
-
-
-        replies.forEach(
-          reply => {
-
-            const replyItem =
-              document.createElement("div");
-
-            replyItem.className =
-              "reply";
-
-
-            const replyName =
-              document.createElement("div");
-
-            replyName.className =
-              "reply-name";
-
-            replyName.textContent =
-              reply.display_name ||
-              "管理人";
-
-
-            const replyDate =
-              document.createElement("span");
-
-            replyDate.className =
-              "reply-date";
-
-
-            if (reply.created_at) {
-
-              replyDate.textContent =
-                new Date(
-                  reply.created_at
-                ).toLocaleString(
-                  "ja-JP",
-                  {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit",
-                    hour: "2-digit",
-                    minute: "2-digit"
-                  }
-                );
-
-            }
-
-
-            replyName.appendChild(
-              replyDate
+          const replyElement =
+            createReplyElement(
+              reply
             );
 
+          item.appendChild(
+            replyElement
+          );
 
-            const replyBody =
-              document.createElement("div");
-
-            replyBody.className =
-              "reply-body";
-
-            replyBody.textContent =
-              reply.body || "";
-
-
-            const replyDelete =
-              document.createElement("button");
-
-            replyDelete.textContent =
-              "返信を削除";
-
-            replyDelete.className =
-              "delete";
-
-
-            replyDelete.addEventListener(
-              "click",
-              () => deleteComment(
-                reply.id
-              )
-            );
-
-
-            const replyActions =
-              document.createElement("div");
-
-            replyActions.className =
-              "actions";
-
-            replyActions.appendChild(
-              replyDelete
-            );
-
-
-            replyItem.appendChild(
-              replyName
-            );
-
-            replyItem.appendChild(
-              replyBody
-            );
-
-            replyItem.appendChild(
-              replyActions
-            );
-
-
-            repliesContainer.appendChild(
-              replyItem
-            );
-
-          }
-        );
-
-
-        item.appendChild(
-          repliesContainer
-        );
-
-      }
+        }
+      );
 
 
       container.appendChild(
@@ -1134,14 +841,247 @@ function renderComments(
 
 
 // ============================================
-// 管理人返信
+// 返信表示
 // ============================================
 
-async function replyComment(
+function createReplyElement(
+  reply
+) {
+
+  const replyElement =
+    document.createElement("div");
+
+  replyElement.className =
+    "reply-form";
+
+
+  const title =
+    document.createElement("div");
+
+  title.className =
+    "reply-title";
+
+  title.textContent =
+    "🦦 管理人の返信";
+
+
+  const body =
+    document.createElement("div");
+
+  body.className =
+    "comment-body";
+
+  body.textContent =
+    reply.body || "";
+
+
+  const date =
+    document.createElement("div");
+
+  date.className =
+    "comment-date";
+
+  if (reply.created_at) {
+
+    date.textContent =
+      new Date(
+        reply.created_at
+      ).toLocaleString(
+        "ja-JP",
+        {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit"
+        }
+      );
+
+  }
+
+
+  const deleteButton =
+    document.createElement("button");
+
+  deleteButton.textContent =
+    "返信を削除";
+
+  deleteButton.className =
+    "delete";
+
+
+  deleteButton.addEventListener(
+    "click",
+    () => deleteComment(
+      reply.id
+    )
+  );
+
+
+  replyElement.appendChild(
+    title
+  );
+
+  replyElement.appendChild(
+    body
+  );
+
+  replyElement.appendChild(
+    date
+  );
+
+  replyElement.appendChild(
+    document.createElement("br")
+  );
+
+  replyElement.appendChild(
+    deleteButton
+  );
+
+
+  return replyElement;
+
+}
+
+
+// ============================================
+// 返信フォーム表示
+// ============================================
+
+function toggleReplyForm(
+  item,
+  comment
+) {
+
+  const existing =
+    item.querySelector(
+      ".reply-editor"
+    );
+
+
+  if (existing) {
+
+    existing.remove();
+
+    return;
+
+  }
+
+
+  const form =
+    document.createElement("div");
+
+  form.className =
+    "reply-form reply-editor";
+
+
+  const title =
+    document.createElement("div");
+
+  title.className =
+    "reply-title";
+
+  title.textContent =
+    "🦦 管理人として返信";
+
+
+  const textarea =
+    document.createElement("textarea");
+
+  textarea.maxLength =
+    1000;
+
+  textarea.placeholder =
+    "このコメントへの返信を書いてね🦦";
+
+
+  const sendButton =
+    document.createElement("button");
+
+  sendButton.textContent =
+    "返信を送信";
+
+
+  const cancelButton =
+    document.createElement("button");
+
+  cancelButton.textContent =
+    "キャンセル";
+
+  cancelButton.className =
+    "cancel";
+
+
+  const message =
+    document.createElement("p");
+
+  message.className =
+    "reply-message";
+
+
+  sendButton.addEventListener(
+    "click",
+    () => sendReply(
+      comment,
+      textarea,
+      sendButton,
+      cancelButton,
+      message
+    )
+  );
+
+
+  cancelButton.addEventListener(
+    "click",
+    () => {
+
+      form.remove();
+
+    }
+  );
+
+
+  form.appendChild(
+    title
+  );
+
+  form.appendChild(
+    textarea
+  );
+
+  form.appendChild(
+    sendButton
+  );
+
+  form.appendChild(
+    cancelButton
+  );
+
+  form.appendChild(
+    message
+  );
+
+
+  item.appendChild(
+    form
+  );
+
+
+  textarea.focus();
+
+}
+
+
+// ============================================
+// 返信送信
+// ============================================
+
+async function sendReply(
   comment,
   textarea,
-  submitButton,
-  replyForm
+  sendButton,
+  cancelButton,
+  message
 ) {
 
   const body =
@@ -1150,19 +1090,22 @@ async function replyComment(
 
   if (!body) {
 
-    alert(
-      "返信内容を入力してね🦦"
-    );
+    message.textContent =
+      "返信を入力してね🦦";
 
     return;
+
   }
 
 
-  submitButton.disabled =
+  sendButton.disabled =
     true;
 
-  submitButton.textContent =
-    "返信中……";
+  cancelButton.disabled =
+    true;
+
+  message.textContent =
+    "返信を投稿しています……";
 
 
   const {
@@ -1170,54 +1113,54 @@ async function replyComment(
       user
     }
   } =
-    await supabaseClient.auth.getUser();
+  await supabaseClient.auth.getUser();
 
 
   if (!user) {
 
-    alert(
-      "ログインが切れています。"
-    );
+    message.textContent =
+      "ログインが切れています。";
 
-    submitButton.disabled =
+    sendButton.disabled =
       false;
 
-    submitButton.textContent =
-      "返信する";
+    cancelButton.disabled =
+      false;
 
     return;
+
   }
 
 
   const {
     error
   } =
-    await supabaseClient
+  await supabaseClient
 
-      .from("diary_comments")
+    .from("diary_comments")
 
-      .insert([
+    .insert([
 
-        {
+      {
 
-          display_name:
-            "管理人",
+        display_name:
+          "管理人",
 
-          body:
-            body,
+        body:
+          body,
 
-          approved:
-            true,
+        approved:
+          true,
 
-          page_slug:
-            comment.page_slug,
+        page_slug:
+          comment.page_slug,
 
-          parent_id:
-            comment.id
+        parent_id:
+          comment.id
 
-        }
+      }
 
-      ]);
+    ]);
 
 
   if (error) {
@@ -1227,32 +1170,22 @@ async function replyComment(
       error
     );
 
-    alert(
-      "返信を投稿できませんでした。"
-    );
+    message.textContent =
+      "返信を投稿できませんでした。";
 
-    submitButton.disabled =
+    sendButton.disabled =
       false;
 
-    submitButton.textContent =
-      "返信する";
+    cancelButton.disabled =
+      false;
 
     return;
+
   }
 
 
-  textarea.value =
-    "";
-
-  replyForm.classList.remove(
-    "open"
-  );
-
-  submitButton.disabled =
-    false;
-
-  submitButton.textContent =
-    "返信する";
+  message.textContent =
+    "返信しました！🦦";
 
 
   await loadComments();
@@ -1271,21 +1204,21 @@ async function approveComment(
   const {
     error
   } =
-    await supabaseClient
+  await supabaseClient
 
-      .from("diary_comments")
+    .from("diary_comments")
 
-      .update({
+    .update({
 
-        approved:
-          true
+      approved:
+        true
 
-      })
+    })
 
-      .eq(
-        "id",
-        id
-      );
+    .eq(
+      "id",
+      id
+    );
 
 
   if (error) {
@@ -1300,6 +1233,7 @@ async function approveComment(
     );
 
     return;
+
   }
 
 
@@ -1332,16 +1266,16 @@ async function deleteComment(
   const {
     error
   } =
-    await supabaseClient
+  await supabaseClient
 
-      .from("diary_comments")
+    .from("diary_comments")
 
-      .delete()
+    .delete()
 
-      .eq(
-        "id",
-        id
-      );
+    .eq(
+      "id",
+      id
+    );
 
 
   if (error) {
@@ -1356,6 +1290,7 @@ async function deleteComment(
     );
 
     return;
+
   }
 
 
