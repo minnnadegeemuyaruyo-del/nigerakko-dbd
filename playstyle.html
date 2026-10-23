@@ -1,16 +1,18 @@
-```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <meta name="description" content="逃げラッコ式DbD立ち回りガイド。プレイ時間100時間未満の初心者向けに、試合開始から脱出までの立ち回りを紹介。">
+
   <title>100時間未満｜オススメの立ち回り</title>
 
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
+
     :root {
       --bg: #f4f0e7;
       --surface: #fffdf8;
@@ -419,7 +421,10 @@
       color: var(--teal);
     }
 
+    /* ========================= */
     /* コメント欄 */
+    /* ========================= */
+
     .comments-section {
       margin-top: 50px;
       padding-top: 36px;
@@ -517,6 +522,14 @@
       border-radius: 12px;
     }
 
+    /* 返信コメント */
+
+    .comment-item.reply {
+      margin-left: 38px;
+      background: #f8f5ef;
+      border-left: 5px solid var(--teal);
+    }
+
     .comment-meta {
       display: flex;
       align-items: baseline;
@@ -530,6 +543,10 @@
       color: var(--teal);
     }
 
+    .comment-name.admin {
+      color: #a06a38;
+    }
+
     .comment-date {
       flex-shrink: 0;
       color: var(--muted);
@@ -540,6 +557,17 @@
       margin: 0;
       white-space: pre-wrap;
       overflow-wrap: anywhere;
+    }
+
+    .reply-label {
+      display: inline-block;
+      margin-left: 7px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--teal-light);
+      color: var(--teal);
+      font-size: .72rem;
+      font-weight: 800;
     }
 
     .comment-empty {
@@ -582,6 +610,7 @@
     }
 
     @media (max-width: 900px) {
+
       .header-inner {
         flex-wrap: wrap;
       }
@@ -595,9 +624,11 @@
       .content {
         padding: 24px;
       }
+
     }
 
     @media (max-width: 600px) {
+
       .header-inner {
         padding: 10px 15px;
         gap: 8px;
@@ -727,9 +758,15 @@
         flex-direction: column;
         gap: 2px;
       }
+
+      .comment-item.reply {
+        margin-left: 14px;
+      }
+
     }
 
     @media (max-width: 380px) {
+
       .bond-notice {
         gap: 10px;
         padding: 12px;
@@ -754,9 +791,11 @@
         width: 88px;
         height: 66px;
       }
+
     }
 
     @media (prefers-reduced-motion: reduce) {
+
       html {
         scroll-behavior: auto;
       }
@@ -766,405 +805,901 @@
       .comment-submit {
         transition: none;
       }
+
     }
+
   </style>
 </head>
+
 
 <body>
 
   <header>
+
     <div class="header-inner">
+
       <a class="brand" href="index.html">
-        <span class="brand-icon" aria-hidden="true">🦦</span>
-        <span class="brand-name">逃げラッコ式<small>DbD立ち回りガイド</small></span>
+
+        <span
+          class="brand-icon"
+          aria-hidden="true">
+          🦦
+        </span>
+
+        <span class="brand-name">
+          逃げラッコ式
+          <small>DbD立ち回りガイド</small>
+        </span>
+
       </a>
 
+
       <nav aria-label="メインメニュー">
-        <a href="index.html">ホーム</a>
-        <a href="perks.html">パーク紹介</a>
-        <a href="playstyle.html?v=2" aria-current="page">立ち回り講座</a>
-        <a href="index.html#beginner">初心者ガイド</a>
-        <a href="fun.html">楽しみ方</a>
+
+        <a href="index.html">
+          ホーム
+        </a>
+
+        <a href="perks.html">
+          パーク紹介
+        </a>
+
+        <a
+          href="playstyle.html?v=2"
+          aria-current="page">
+          立ち回り講座
+        </a>
+
+        <a href="index.html#beginner">
+          初心者ガイド
+        </a>
+
+        <a href="fun.html">
+          楽しみ方
+        </a>
+
       </nav>
+
     </div>
+
   </header>
 
+
   <section class="page-hero">
-    <p class="eyebrow">DEAD BY DAYLIGHT SURVIVAL GUIDE</p>
-    <h1>100時間未満｜オススメの立ち回り</h1>
-    <p>できないことは考えるな。0から始める逃亡生活 🦦</p>
+
+    <p class="eyebrow">
+      DEAD BY DAYLIGHT SURVIVAL GUIDE
+    </p>
+
+    <h1>
+      100時間未満｜オススメの立ち回り
+    </h1>
+
+    <p>
+      できないことは考えるな。0から始める逃亡生活 🦦
+    </p>
+
   </section>
 
+
   <main>
+
     <div class="content">
 
+
       <div class="bond-notice">
-        <img src="images/dwight.png" alt="ドワイト">
+
+        <img
+          src="images/dwight.png"
+          alt="ドワイト">
+
         <div class="bond-notice-text">
-          <strong>パークの中に「絆」は必ず入れてね！</strong>
+
+          <strong>
+            パークの中に「絆」は必ず入れてね！
+          </strong>
+
         </div>
+
       </div>
 
+
       <p>
+
         パーク構成がわからない人は
-        <strong><a href="perks.html">パーク構成へのリンク</a></strong>
+
+        <strong>
+          <a href="perks.html">
+            パーク構成へのリンク
+          </a>
+        </strong>
+
         を参考にしてね。じゃあいくよ🦦
+
       </p>
 
-      <nav class="chapter-toc" aria-label="立ち回り講座の目次">
+
+      <nav
+        class="chapter-toc"
+        aria-label="立ち回り講座の目次">
 
         <div class="toc-illustration">
-          <img src="images/mokuji.png" alt="看板から顔を出している手描きのラッコと「目次」の文字">
+
+          <img
+            src="images/mokuji.png"
+            alt="看板から顔を出している手描きのラッコと「目次」の文字">
+
         </div>
 
-        <p class="toc-subtitle">読みたいところを押してね 🦦</p>
+
+        <p class="toc-subtitle">
+          読みたいところを押してね 🦦
+        </p>
+
 
         <ol class="chapter-toc-list">
-          <li><a href="#chapter-1">① 開始直後の立ち回り</a></li>
-          <li><a href="#chapter-2">② 発電機を回してる途中の立ち回り</a></li>
-          <li><a href="#chapter-3">③ キラーから逃げる時の立ち回り</a></li>
-          <li><a href="#chapter-4">④ 味方に救助してもらった後の立ち回り</a></li>
-          <li><a href="#chapter-5">⑤ 味方が吊られてしまった時の立ち回り</a></li>
-          <li><a href="#chapter-6">⑥ 発電機が5台上がった時の立ち回り</a></li>
-          <li><a href="#chapter-7">⑦ ゲート解放後の立ち回り</a></li>
-          <li><a href="#chapter-8">⑧ 無事に脱出したら</a></li>
+
+          <li>
+            <a href="#chapter-1">
+              ① 開始直後の立ち回り
+            </a>
+          </li>
+
+          <li>
+            <a href="#chapter-2">
+              ② 発電機を回してる途中の立ち回り
+            </a>
+          </li>
+
+          <li>
+            <a href="#chapter-3">
+              ③ キラーから逃げる時の立ち回り
+            </a>
+          </li>
+
+          <li>
+            <a href="#chapter-4">
+              ④ 味方に救助してもらった後の立ち回り
+            </a>
+          </li>
+
+          <li>
+            <a href="#chapter-5">
+              ⑤ 味方が吊られてしまった時の立ち回り
+            </a>
+          </li>
+
+          <li>
+            <a href="#chapter-6">
+              ⑥ 発電機が5台上がった時の立ち回り
+            </a>
+          </li>
+
+          <li>
+            <a href="#chapter-7">
+              ⑦ ゲート解放後の立ち回り
+            </a>
+          </li>
+
+          <li>
+            <a href="#chapter-8">
+              ⑧ 無事に脱出したら
+            </a>
+          </li>
+
         </ol>
+
       </nav>
 
+
       <div class="chapter">
-        <h2 id="chapter-1" class="chapter-title">
-          <img src="images/01_kaishi.png" alt="" loading="lazy">
-          <span>① 開始直後の立ち回り</span>
+
+        <h2
+          id="chapter-1"
+          class="chapter-title">
+
+          <img
+            src="images/01_kaishi.png"
+            alt=""
+            loading="lazy">
+
+          <span>
+            ① 開始直後の立ち回り
+          </span>
+
         </h2>
 
+
         <div class="chapter-tip">
-          <span>今回のポイント</span>
+
+          <span>
+            今回のポイント
+          </span>
+
           まず走って発電機を探そう！
+
         </div>
+
 
         <div class="video-wrap">
-          <video controls playsinline preload="auto" muted onloadedmetadata="this.currentTime=0.1">
-            <source src="videos/nigerakko_new_01_blur_names.mp4" type="video/mp4">
+
+          <video
+            controls
+            playsinline
+            preload="auto"
+            muted
+            onloadedmetadata="this.currentTime=0.1">
+
+            <source
+              src="videos/nigerakko_new_01_blur_names.mp4"
+              type="video/mp4">
+
           </video>
+
         </div>
 
+
         <p>
+
           まず走って発電機を探す。全力疾走（スプバ）を入れててもまず走る。
           キラーが何かよくわからんところからよくわからんことしてきてもまず走る。
           これ「逃げラッコ式🦦」では鉄則。
+
         </p>
 
+
         <p>
+
           このとき絆で近くの味方の動きを確認して、できるだけ自分は個別行動になるのが望ましいけど、
           味方がついてきたり、同じ発電機を回そうとしてくるなら気にせず一緒に発電機を回そう。
           それはそれで速いからね。とにかく目についた発電機に張りつこう🦦
+
         </p>
 
+
         <p>
+
           <strong>【注意点】</strong>
+
           明らかにマップの中央だと思われる場所には走らない！
           中央がどこかわからないってんならしょうがないけど、
           自分がマップの端っこにいるってわかったら端っこ沿いに走るのが良いよ！
+
         </p>
 
+
         <p>
+
           なんかでっかい建築物があるなら真ん中らへんかもって思っても良いよ。
           俺もそんな感覚でやってるからね🦦
+
         </p>
 
-        <p>（違う場合ももちろんあるよ。でもそこまで頑張って覚えなくて良いよ。）</p>
-      </div>
-
-      <div class="chapter">
-        <h2 id="chapter-2" class="chapter-title">
-          <img src="images/02_hatsudenki.png" alt="" loading="lazy">
-          <span>② 発電機を回してる途中の立ち回り</span>
-        </h2>
-
-        <div class="chapter-tip">
-          <span>今回のポイント</span>
-          味方の動きを確認しながら発電しよう！
-        </div>
-
-        <div class="video-wrap">
-          <video controls playsinline preload="metadata">
-            <source src="videos/1a11be20ccf56-master_playlist_blur_names.mp4" type="video/mp4">
-          </video>
-        </div>
 
         <p>
+          （違う場合ももちろんあるよ。でもそこまで頑張って覚えなくて良いよ。）
+        </p>
+
+      </div>
+
+
+      <div class="chapter">
+
+        <h2
+          id="chapter-2"
+          class="chapter-title">
+
+          <img
+            src="images/02_hatsudenki.png"
+            alt=""
+            loading="lazy">
+
+          <span>
+            ② 発電機を回してる途中の立ち回り
+          </span>
+
+        </h2>
+
+
+        <div class="chapter-tip">
+
+          <span>
+            今回のポイント
+          </span>
+
+          味方の動きを確認しながら発電しよう！
+
+        </div>
+
+
+        <div class="video-wrap">
+
+          <video
+            controls
+            playsinline
+            preload="metadata">
+
+            <source
+              src="videos/1a11be20ccf56-master_playlist_blur_names.mp4"
+              type="video/mp4">
+
+          </video>
+
+        </div>
+
+
+        <p>
+
           絆のオーラで見える範囲の人の行動を見てあの人何してるかなーってぼけーっと考えてみよう。
           発電機を回してたり、トーテムを撫で撫でしてたりしてたりしたら左のアイコンで答え合わせできるぞ🦦
+
         </p>
 
-        <div class="image-placeholder">〈心音がしてる時の画像〉</div>
+
+        <div class="image-placeholder">
+          〈心音がしてる時の画像〉
+        </div>
+
 
         <p>
+
           キラーの心音が聞こえてきたら、まだ発電機から手は離さずに、周囲の様子と味方のアイコンをチラチラ見よう。
           味方のアイコンがぴこぴこ動いていたらその人がチェイス中だから気にせず発電を続行だ。
+
         </p>
 
+
         <div class="video-wrap">
-          <video controls playsinline preload="metadata">
-            <source src="videos/nigerakko_dbd_video_05_blur_names.mp4" type="video/mp4">
+
+          <video
+            controls
+            playsinline
+            preload="metadata">
+
+            <source
+              src="videos/nigerakko_dbd_video_05_blur_names.mp4"
+              type="video/mp4">
+
           </video>
+
         </div>
 
-        <p>キラーがこっちに来るのが確認できたら速やかに逃げる！全力疾走（スプバ）があったら爆速だ。</p>
+
+        <p>
+          キラーがこっちに来るのが確認できたら速やかに逃げる！全力疾走（スプバ）があったら爆速だ。
+        </p>
+
       </div>
 
+
       <div class="chapter">
-        <h2 id="chapter-3" class="chapter-title">
-          <img src="images/03_chase.png" alt="" loading="lazy">
-          <span>③ キラーから逃げる時の立ち回り</span>
+
+        <h2
+          id="chapter-3"
+          class="chapter-title">
+
+          <img
+            src="images/03_chase.png"
+            alt=""
+            loading="lazy">
+
+          <span>
+            ③ キラーから逃げる時の立ち回り
+          </span>
+
         </h2>
 
+
         <div class="chapter-tip">
-          <span>今回のポイント</span>
+
+          <span>
+            今回のポイント
+          </span>
+
           とにかくまっすぐ逃げよう！
+
         </div>
+
 
         <div class="video-wrap">
-          <video controls playsinline preload="metadata">
-            <source src="videos/nigerakko_new_02_blur_names.mp4" type="video/mp4">
+
+          <video
+            controls
+            playsinline
+            preload="metadata">
+
+            <source
+              src="videos/nigerakko_new_02_blur_names.mp4"
+              type="video/mp4">
+
           </video>
+
         </div>
 
-        <p>
-          「逃げラッコ式」では長時間チェイスはしようとしないよ。
-          とにかくまっすぐ逃げるんだ。無傷のときは１回だけキラーに背中を押してもらえるよ。
-        </p>
 
         <p>
+
+          「逃げラッコ式」では長時間チェイスはしようとしないよ。
+          とにかくまっすぐ逃げるんだ。無傷のときは１回だけキラーに背中を押してもらえるよ。
+
+        </p>
+
+
+        <p>
+
           ※キラーからもらう１発目の攻撃は攻撃と思わない。
           攻撃をくらったら「背中押してくれてありがとう！」って言ってみよう。
           それが「逃げラッコ式」だよ🦦
+
         </p>
 
+
         <div class="video-wrap">
-          <video controls playsinline preload="metadata">
-            <source src="videos/nigerakko_new_03_blur_names.mp4" type="video/mp4">
+
+          <video
+            controls
+            playsinline
+            preload="metadata">
+
+            <source
+              src="videos/nigerakko_new_03_blur_names.mp4"
+              type="video/mp4">
+
           </video>
+
         </div>
 
+
         <p>
+
           自分がチェイスしてから吊られるまでの間、何が起きたか振り返ってみよう。
           残りの発電機がいつの間にか減っている、吊られていた味方が復帰している、
           負傷してた味方が回復している、味方が遠くで全員発電作業に取り掛かっている…
+
         </p>
 
-        <p>それが自分の成果だよ。あとは気長に救助が来るのを待とう🦦</p>
-      </div>
-
-      <div class="chapter">
-        <h2 id="chapter-4" class="chapter-title">
-          <img src="images/04_rescue.png" alt="" loading="lazy">
-          <span>④ 味方に救助してもらった後の立ち回り</span>
-        </h2>
-
-        <div class="chapter-tip">
-          <span>今回のポイント</span>
-          まずは安全な場所に逃げよう！
-        </div>
-
-        <div class="video-wrap">
-          <video controls playsinline preload="metadata">
-            <source src="videos/nigerakko_dbd_video_06_blur_names.mp4" type="video/mp4">
-          </video>
-        </div>
 
         <p>
+          それが自分の成果だよ。あとは気長に救助が来るのを待とう🦦
+        </p>
+
+      </div>
+
+
+      <div class="chapter">
+
+        <h2
+          id="chapter-4"
+          class="chapter-title">
+
+          <img
+            src="images/04_rescue.png"
+            alt=""
+            loading="lazy">
+
+          <span>
+            ④ 味方に救助してもらった後の立ち回り
+          </span>
+
+        </h2>
+
+
+        <div class="chapter-tip">
+
+          <span>
+            今回のポイント
+          </span>
+
+          まずは安全な場所に逃げよう！
+
+        </div>
+
+
+        <div class="video-wrap">
+
+          <video
+            controls
+            playsinline
+            preload="metadata">
+
+            <source
+              src="videos/nigerakko_dbd_video_06_blur_names.mp4"
+              type="video/mp4">
+
+          </video>
+
+        </div>
+
+
+        <p>
+
           救助されたら回復のことは一旦考えない。
           10秒間逃げる痕跡が消えるんだ。この10秒でとりあえず安全そうな場所に逃げ込もう。
           ちょっとした隠密ってやつだよ。
+
         </p>
 
+
         <div class="video-wrap">
-          <video controls playsinline preload="metadata">
-            <source src="videos/nigerakko_dbd_video_07_blur_names.mp4" type="video/mp4">
+
+          <video
+            controls
+            playsinline
+            preload="metadata">
+
+            <source
+              src="videos/nigerakko_dbd_video_07_blur_names.mp4"
+              type="video/mp4">
+
           </video>
+
         </div>
 
+
         <p>
+
           動かずにじっと絆で味方の様子を見てみよう。
           安全そうに発電機を回している味方がいたらその人のところに行ってあげるのが良いと思うよ、
           回復してもらえるかもしれないしね🦦
+
         </p>
 
+
         <div class="video-wrap">
-          <video controls playsinline preload="metadata">
-            <source src="videos/nigerakko_dbd_video_08_blur_names.mp4" type="video/mp4">
+
+          <video
+            controls
+            playsinline
+            preload="metadata">
+
+            <source
+              src="videos/nigerakko_dbd_video_08_blur_names.mp4"
+              type="video/mp4">
+
           </video>
+
         </div>
 
+
         <p>
+
           警戒を入れてる人はキラーが発電機を破壊したりした時に通知が来てオーラが見えるよ。
           そこの発電機を引き継いであげることを頭の片隅に入れておこう。
           誰かのチェイスが始まったらそこの発電機を回しに行くチャンスだよ🦦
+
         </p>
+
       </div>
 
+
       <div class="chapter">
-        <h2 id="chapter-5" class="chapter-title">
-          <img src="images/05_soshu.png" alt="" loading="lazy">
-          <span>⑤ 味方が吊られてしまった時の立ち回り</span>
+
+        <h2
+          id="chapter-5"
+          class="chapter-title">
+
+          <img
+            src="images/05_soshu.png"
+            alt=""
+            loading="lazy">
+
+          <span>
+            ⑤ 味方が吊られてしまった時の立ち回り
+          </span>
+
         </h2>
 
+
         <div class="chapter-tip">
-          <span>今回のポイント</span>
+
+          <span>
+            今回のポイント
+          </span>
+
           味方の状況を見て救助を判断しよう！
+
         </div>
 
-        <p>ここはとっても大事！パターン化して、単純に考えよう🦦</p>
-
-        <h3>【自分が救助に行くパターン】</h3>
-
-        <ul>
-          <li>味方2人が別々の発電機を回している時</li>
-          <li>味方1人が発電機、味方1人がチェイスしている時</li>
-          <li>味方2人が2吊りでリーチの時（けっこうピンチ）</li>
-        </ul>
-
-        <p><strong>全部左のアイコンを見ればわかるよ</strong></p>
 
         <p>
+          ここはとっても大事！パターン化して、単純に考えよう🦦
+        </p>
+
+
+        <h3>
+          【自分が救助に行くパターン】
+        </h3>
+
+
+        <ul>
+
+          <li>
+            味方2人が別々の発電機を回している時
+          </li>
+
+          <li>
+            味方1人が発電機、味方1人がチェイスしている時
+          </li>
+
+          <li>
+            味方2人が2吊りでリーチの時（けっこうピンチ）
+          </li>
+
+        </ul>
+
+
+        <p>
+          <strong>全部左のアイコンを見ればわかるよ</strong>
+        </p>
+
+
+        <p>
+
           救助したあとは味方が走ったら味方とは反対方向に走る。
           味方がその場でしゃがんだら回復してあげる
           （キラーが近づいてきたら見捨てて逃げようね🦦）
+
         </p>
 
-        <h3>【自分が救助に行かないパターン】</h3>
+
+        <h3>
+          【自分が救助に行かないパターン】
+        </h3>
+
 
         <p>
+
           上のどれにも当てはまらない時。その時は全部他の人に任せよう。
           救助に時間がかかって2吊に入ってしまった時は
           「薄情な味方だなぁ」って他人事に思っとくよ、これが「逃げラッコ式」🦦
+
         </p>
+
       </div>
 
+
       <div class="chapter">
-        <h2 id="chapter-6" class="chapter-title">
-          <img src="images/06_tsuden.png" alt="" loading="lazy">
-          <span>⑥ 発電機が5台上がった時の立ち回り</span>
+
+        <h2
+          id="chapter-6"
+          class="chapter-title">
+
+          <img
+            src="images/06_tsuden.png"
+            alt=""
+            loading="lazy">
+
+          <span>
+            ⑥ 発電機が5台上がった時の立ち回り
+          </span>
+
         </h2>
 
+
         <div class="chapter-tip">
-          <span>今回のポイント</span>
+
+          <span>
+            今回のポイント
+          </span>
+
           ゲートを開けて逃げ道を確保しよう！
+
         </div>
 
-        <div class="image-placeholder">〈通電した時の画像〉</div>
+
+        <div class="image-placeholder">
+          〈通電した時の画像〉
+        </div>
+
 
         <p>
+
           2箇所あるゲートの位置を確認して、近い方にまっすぐ最短距離を走っていくよ。
           ただしそっちのゲートにキラーがいる時は反対のゲートに向かおう。
+
         </p>
 
+
         <p>
+
           レバーを入れたら上げ切っちゃおう。
           ここで寸止めしたりとか、敢えて半分で止めるとか色気付いたことはしない。
           逃げ道を確保するのが最優先事項だよ！
+
         </p>
 
-        <div class="image-placeholder">〈味方がレバーを入れてる時の画像〉</div>
 
-        <p>
-          味方が先にレバーを入れてる時は、近くの岩陰とかに隠れてじっと待っておこう。
-          キラーが来て味方が離れてしまった時は自分がすかさず引き継いで、ゲートを開けてしまおう。
-        </p>
-
-        <p>さあ脱出は目前だ🦦</p>
-      </div>
-
-      <div class="chapter">
-        <h2 id="chapter-7" class="chapter-title">
-          <img src="images/07_gate.png" alt="" loading="lazy">
-          <span>⑦ ゲート解放後の立ち回り</span>
-        </h2>
-
-        <div class="chapter-tip">
-          <span>今回のポイント</span>
-          逃げられるなら逃げちゃっていい！
+        <div class="image-placeholder">
+          〈味方がレバーを入れてる時の画像〉
         </div>
 
+
         <p>
+
+          味方が先にレバーを入れてる時は、近くの岩陰とかに隠れてじっと待っておこう。
+          キラーが来て味方が離れてしまった時は自分がすかさず引き継いで、ゲートを開けてしまおう。
+
+        </p>
+
+
+        <p>
+          さあ脱出は目前だ🦦
+        </p>
+
+      </div>
+
+
+      <div class="chapter">
+
+        <h2
+          id="chapter-7"
+          class="chapter-title">
+
+          <img
+            src="images/07_gate.png"
+            alt=""
+            loading="lazy">
+
+          <span>
+            ⑦ ゲート解放後の立ち回り
+          </span>
+
+        </h2>
+
+
+        <div class="chapter-tip">
+
+          <span>
+            今回のポイント
+          </span>
+
+          逃げられるなら逃げちゃっていい！
+
+        </div>
+
+
+        <p>
+
           逃げれる状況になったらもう逃げちゃって良いよ。
           ここまで行けば自分の功績、逃げたって良いんだよ。
           実際に命がかかってたら…まあ逃げるよね🦦
+
         </p>
 
-        <div class="image-placeholder">〈可哀想な味方がいた時の画像〉</div>
+
+        <div class="image-placeholder">
+          〈可哀想な味方がいた時の画像〉
+        </div>
+
 
         <p>
+
           ここからはオマケだけど、逃げ遅れた可哀想の味方がいた時は、
           自分が代わりに死ぬ覚悟があるなら助けてあげても良いよ。
           無傷なら肉壁になってあげるとか、ゲート内に負傷した味方がいるなら回復してあげるとか、
           色々してあげたらいいよ。
+
         </p>
 
+
         <p>
+
           これは別に「逃げラッコ式」とは違うから、好きに判断してやったら良いよ。
+
         </p>
 
+
         <p>
+
           でもね、キラーのパークには「誰も死から逃れられない（ノーワン）」や
           「血の番人」っていう恐ろしいパークがあるんだ。
           今は知らなくても別に良いけど、とりあえずヤバいから
           ゲートが開いたらすぐに逃げることをオススメするよ🦦
+
         </p>
+
       </div>
 
+
       <div class="chapter">
-        <h2 id="chapter-8" class="chapter-title">
-          <img src="images/08_dasshutsu.png" alt="" loading="lazy">
-          <span>⑧ 無事に脱出したら</span>
+
+        <h2
+          id="chapter-8"
+          class="chapter-title">
+
+          <img
+            src="images/08_dasshutsu.png"
+            alt=""
+            loading="lazy">
+
+          <span>
+            ⑧ 無事に脱出したら
+          </span>
+
         </h2>
 
+
         <div class="chapter-tip">
-          <span>今回のポイント</span>
+
+          <span>
+            今回のポイント
+          </span>
+
           味方やキラーのパークを見てみよう！
+
         </div>
 
-        <p>味方やキラーの使っていたパークを見てみよう。</p>
 
         <p>
+          味方やキラーの使っていたパークを見てみよう。
+        </p>
+
+
+        <p>
+
           「へえー、こんなパークがあるんだ」<br>
           「なんかこのパーク使ってるキラー多いなあ」<br>
           「あ、あの時のあれはこれかあ」
+
         </p>
+
 
         <p>
+
           とか、漠然とそんなこと考えながら感傷に浸ろう。
           一番ホッとできる時間だからね。
+
         </p>
 
-        <p>脱出おめでとう🦦</p>
+
+        <p>
+          脱出おめでとう🦦
+        </p>
+
       </div>
 
+
       <div class="congrats-illustration">
+
         <img
           src="images/dasshutsu_omedetou.png"
           alt="脱出おめでとう！と喜ぶラッコたち"
-          loading="lazy"
-        >
+          loading="lazy">
+
       </div>
+
 
       <div class="ending">
         逃げラッコ式DbD立ち回り 🦦
       </div>
 
-      <!-- コメント欄 -->
-      <section class="comments-section" aria-labelledby="comments-title">
 
-        <h2 id="comments-title">💬 コメント</h2>
+      <!-- ========================= -->
+      <!-- コメント欄 -->
+      <!-- ========================= -->
+
+      <section
+        class="comments-section"
+        aria-labelledby="comments-title">
+
+        <h2 id="comments-title">
+          💬 コメント
+        </h2>
+
 
         <p class="comments-lead">
           このページを読んだ感想や、実際にやってみた感想を書いてね🦦
         </p>
 
-        <form id="comment-form" class="comment-form">
 
-          <label for="comment-name">名前</label>
+        <form
+          id="comment-form"
+          class="comment-form">
+
+          <label for="comment-name">
+            名前
+          </label>
+
           <input
             id="comment-name"
             name="name"
@@ -1174,7 +1709,11 @@
             required
           >
 
-          <label for="comment-body">コメント</label>
+
+          <label for="comment-body">
+            コメント
+          </label>
+
           <textarea
             id="comment-body"
             name="comment"
@@ -1183,158 +1722,660 @@
             required
           ></textarea>
 
-          <button id="comment-submit" class="comment-submit" type="submit">
+
+          <button
+            id="comment-submit"
+            class="comment-submit"
+            type="submit">
+
             コメントを投稿する
+
           </button>
 
-          <p id="comment-status" class="comment-status" aria-live="polite"></p>
+
+          <p
+            id="comment-status"
+            class="comment-status"
+            aria-live="polite">
+          </p>
+
         </form>
 
-        <div id="comment-list" class="comment-list">
-          <div class="comment-empty">コメントを読み込んでいます……🦦</div>
+
+        <div
+          id="comment-list"
+          class="comment-list">
+
+          <div class="comment-empty">
+            コメントを読み込んでいます……🦦
+          </div>
+
         </div>
 
       </section>
 
     </div>
 
-    <a class="back-link" href="index.html">トップページへ戻る</a>
+
+    <a
+      class="back-link"
+      href="index.html">
+
+      トップページへ戻る
+
+    </a>
+
   </main>
+
 
   <footer>
     逃げラッコ式DbD立ち回り 🦦
   </footer>
 
+
   <script>
-    const SUPABASE_URL = "https://goxuhivbgaextkhyobmw.supabase.co";
+
+    const SUPABASE_URL =
+      "https://goxuhivbgaextkhyobmw.supabase.co";
+
 
     // Supabase Dashboard の Publishable key
+
     const SUPABASE_PUBLISHABLE_KEY =
       "sb_publishable_81GtdIt16_VTgJq4bV3RNw_MoA7ZuPV";
 
-    const PAGE_SLUG = "playstyle";
 
-    const supabaseClient = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
-    );
+    // このページの識別子
 
-    const commentForm = document.getElementById("comment-form");
-    const commentName = document.getElementById("comment-name");
-    const commentBody = document.getElementById("comment-body");
-    const commentSubmit = document.getElementById("comment-submit");
-    const commentStatus = document.getElementById("comment-status");
-    const commentList = document.getElementById("comment-list");
+    const PAGE_SLUG =
+      "playstyle";
 
-    function escapeHtml(value) {
-      const div = document.createElement("div");
-      div.textContent = value ?? "";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+
+    // ============================================
+    // 要素取得
+    // ============================================
+
+    const commentForm =
+      document.getElementById(
+        "comment-form"
+      );
+
+
+    const commentName =
+      document.getElementById(
+        "comment-name"
+      );
+
+
+    const commentBody =
+      document.getElementById(
+        "comment-body"
+      );
+
+
+    const commentSubmit =
+      document.getElementById(
+        "comment-submit"
+      );
+
+
+    const commentStatus =
+      document.getElementById(
+        "comment-status"
+      );
+
+
+    const commentList =
+      document.getElementById(
+        "comment-list"
+      );
+
+
+    // ============================================
+    // HTMLエスケープ
+    // ============================================
+
+    function escapeHtml(
+      value
+    ) {
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.textContent =
+        value ?? "";
+
+
       return div.innerHTML;
+
     }
 
-    function formatDate(value) {
-      const date = new Date(value);
 
-      if (Number.isNaN(date.getTime())) {
+    // ============================================
+    // 日付
+    // ============================================
+
+    function formatDate(
+      value
+    ) {
+
+      const date =
+        new Date(
+          value
+        );
+
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+
         return "";
+
       }
 
-      return date.toLocaleString("ja-JP", {
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit"
-      });
+
+      return date.toLocaleString(
+        "ja-JP",
+        {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }
+      );
+
     }
 
+
+    // ============================================
+    // コメント読み込み
+    // ============================================
+
     async function loadComments() {
+
       commentList.innerHTML =
         '<div class="comment-empty">コメントを読み込んでいます……🦦</div>';
 
-      const { data, error } = await supabaseClient
-        .from("diary_comments")
-        .select("display_name, body, created_at")
-        .eq("page_slug", PAGE_SLUG)
-        .eq("approved", true)
-        .order("created_at", { ascending: false });
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+
+          .from("diary_comments")
+
+          .select(
+            "id, parent_id, display_name, body, created_at"
+          )
+
+          .eq(
+            "page_slug",
+            PAGE_SLUG
+          )
+
+          .eq(
+            "approved",
+            true
+          )
+
+          .order(
+            "created_at",
+            {
+              ascending: true
+            }
+          );
+
 
       if (error) {
-        console.error("コメント読み込みエラー:", error);
+
+        console.error(
+          "コメント読み込みエラー:",
+          error
+        );
+
 
         commentList.innerHTML =
           '<div class="comment-empty">コメントを読み込めませんでした。</div>';
 
+
         return;
+
       }
 
-      if (!data || data.length === 0) {
+
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
         commentList.innerHTML =
           '<div class="comment-empty">まだコメントはありません。最初のコメントを書いてね🦦</div>';
 
+
         return;
+
       }
 
-      commentList.innerHTML = data.map(comment => `
-        <article class="comment-item">
-          <div class="comment-meta">
-            <span class="comment-name">${escapeHtml(comment.display_name)}</span>
-            <time class="comment-date" datetime="${escapeHtml(comment.created_at)}">
-              ${escapeHtml(formatDate(comment.created_at))}
-            </time>
-          </div>
 
-          <p class="comment-body">${escapeHtml(comment.body)}</p>
-        </article>
-      `).join("");
+      // ============================================
+      // コメントを親子関係に整理
+      // ============================================
+
+      const commentMap =
+        new Map();
+
+
+      data.forEach(
+        comment => {
+
+          commentMap.set(
+            String(comment.id),
+            {
+              ...comment,
+              replies: []
+            }
+          );
+
+        }
+      );
+
+
+      const rootComments =
+        [];
+
+
+      data.forEach(
+        comment => {
+
+          const current =
+            commentMap.get(
+              String(comment.id)
+            );
+
+
+          // parent_id がある場合は返信
+
+          if (
+            comment.parent_id !== null &&
+            comment.parent_id !== undefined
+          ) {
+
+            const parent =
+              commentMap.get(
+                String(comment.parent_id)
+              );
+
+
+            if (parent) {
+
+              parent.replies.push(
+                current
+              );
+
+            } else {
+
+              // 親が見つからない場合は
+              // 通常コメントとして表示
+
+              rootComments.push(
+                current
+              );
+
+            }
+
+          } else {
+
+            rootComments.push(
+              current
+            );
+
+          }
+
+        }
+      );
+
+
+      // ============================================
+      // 表示
+      // ============================================
+
+      commentList.innerHTML =
+        "";
+
+
+      rootComments.forEach(
+        comment => {
+
+          renderComment(
+            commentList,
+            comment,
+            false
+          );
+
+        }
+      );
+
     }
 
-    commentForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
 
-      const name = commentName.value.trim();
-      const body = commentBody.value.trim();
+    // ============================================
+    // コメント1件を表示
+    // ============================================
 
-      if (!name || !body) {
-        commentStatus.textContent = "名前とコメントを入力してね🦦";
-        return;
+    function renderComment(
+      container,
+      comment,
+      isReply
+    ) {
+
+      const article =
+        document.createElement(
+          "article"
+        );
+
+
+      article.className =
+        "comment-item";
+
+
+      if (isReply) {
+
+        article.classList.add(
+          "reply"
+        );
+
       }
 
-      commentSubmit.disabled = true;
-      commentStatus.textContent = "送信中……🦦";
 
-      const { error } = await supabaseClient
-        .from("diary_comments")
-        .insert([
-          {
-            page_slug: PAGE_SLUG,
-            display_name: name,
-            body: body,
-            approved: false
+      // ============================================
+      // 名前・日付
+      // ============================================
+
+      const meta =
+        document.createElement(
+          "div"
+        );
+
+
+      meta.className =
+        "comment-meta";
+
+
+      const name =
+        document.createElement(
+          "span"
+        );
+
+
+      name.className =
+        "comment-name";
+
+
+      // 管理人なら少しだけ見た目を変える
+
+      if (
+        comment.display_name ===
+        "管理人"
+      ) {
+
+        name.classList.add(
+          "admin"
+        );
+
+      }
+
+
+      name.textContent =
+        comment.display_name ||
+        "名無しのラッコ";
+
+
+      // 返信ラベル
+
+      if (isReply) {
+
+        const replyLabel =
+          document.createElement(
+            "span"
+          );
+
+
+        replyLabel.className =
+          "reply-label";
+
+
+        replyLabel.textContent =
+          "返信";
+
+
+        name.appendChild(
+          replyLabel
+        );
+
+      }
+
+
+      const date =
+        document.createElement(
+          "time"
+        );
+
+
+      date.className =
+        "comment-date";
+
+
+      date.dateTime =
+        comment.created_at || "";
+
+
+      date.textContent =
+        formatDate(
+          comment.created_at
+        );
+
+
+      meta.appendChild(
+        name
+      );
+
+
+      meta.appendChild(
+        date
+      );
+
+
+      // ============================================
+      // 本文
+      // ============================================
+
+      const body =
+        document.createElement(
+          "p"
+        );
+
+
+      body.className =
+        "comment-body";
+
+
+      body.textContent =
+        comment.body || "";
+
+
+      // ============================================
+      // DOMへ追加
+      // ============================================
+
+      article.appendChild(
+        meta
+      );
+
+
+      article.appendChild(
+        body
+      );
+
+
+      container.appendChild(
+        article
+      );
+
+
+      // ============================================
+      // 子コメント（返信）
+      // ============================================
+
+      if (
+        comment.replies &&
+        comment.replies.length > 0
+      ) {
+
+        comment.replies.forEach(
+          reply => {
+
+            renderComment(
+              container,
+              reply,
+              true
+            );
+
           }
-        ]);
+        );
 
-      if (error) {
-        console.error("コメント送信エラー:", error);
+      }
+
+    }
+
+
+    // ============================================
+    // コメント投稿
+    // ============================================
+
+    commentForm.addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+
+        const name =
+          commentName.value.trim();
+
+
+        const body =
+          commentBody.value.trim();
+
+
+        if (
+          !name ||
+          !body
+        ) {
+
+          commentStatus.textContent =
+            "名前とコメントを入力してね🦦";
+
+
+          return;
+
+        }
+
+
+        commentSubmit.disabled =
+          true;
+
 
         commentStatus.textContent =
-          "コメントを送信できませんでした。もう一度試してね。";
+          "送信中……🦦";
 
-        commentSubmit.disabled = false;
-        return;
+
+        const {
+          error
+        } =
+          await supabaseClient
+
+            .from("diary_comments")
+
+            .insert([
+
+              {
+
+                page_slug:
+                  PAGE_SLUG,
+
+                display_name:
+                  name,
+
+                body:
+                  body,
+
+                approved:
+                  false,
+
+                parent_id:
+                  null
+
+              }
+
+            ]);
+
+
+        if (error) {
+
+          console.error(
+            "コメント送信エラー:",
+            error
+          );
+
+
+          commentStatus.textContent =
+            "コメントを送信できませんでした。もう一度試してね。";
+
+
+          commentSubmit.disabled =
+            false;
+
+
+          return;
+
+        }
+
+
+        commentForm.reset();
+
+
+        commentStatus.textContent =
+          "コメントを送信しました！承認されると表示されます🦦";
+
+
+        commentSubmit.disabled =
+          false;
+
       }
+    );
 
-      commentForm.reset();
 
-      commentStatus.textContent =
-        "コメントを送信しました！承認されると表示されます🦦";
-
-      commentSubmit.disabled = false;
-    });
+    // ============================================
+    // 初期処理
+    // ============================================
 
     loadComments();
+
   </script>
 
 </body>
 </html>
-```
