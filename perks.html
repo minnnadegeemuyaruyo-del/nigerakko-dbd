@@ -457,17 +457,28 @@
       font-size: 14px;
     }
 
-    .public-comment {
-      padding: 18px 0;
-      border-top: 1px solid var(--border);
+    .comments-list {
+      display: grid;
+      gap: 14px;
     }
 
-    .public-comment.reply {
-      margin-left: 38px;
-      padding-left: 18px;
-      border-left: 4px solid var(--teal);
-      background: #f8f5ef;
-      border-radius: 0 10px 10px 0;
+    .comment-empty {
+      padding: 20px;
+      border: 1px dashed #c9dcd9;
+      border-radius: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .comment-thread {
+      padding: 18px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .public-comment {
+      padding: 0;
     }
 
     .public-comment-name {
@@ -577,6 +588,81 @@
       margin-left: 8px;
       color: var(--muted);
       font-size: 12px;
+    }
+
+    .thread-replies {
+      margin-top: 14px;
+      padding-top: 2px;
+      border-top: 1px solid var(--border);
+    }
+
+    .thread-replies summary {
+      padding: 9px 2px 8px;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .thread-replies summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .thread-replies summary::before {
+      content: "＋ ";
+    }
+
+    .thread-replies[open] summary::before {
+      content: "− ";
+    }
+
+    .reply-list {
+      display: grid;
+      gap: 0;
+    }
+
+    .reply-list .public-comment {
+      padding: 14px 0 14px 18px;
+      border-left: 3px solid #d8e7e4;
+    }
+
+    .reply-list .public-comment + .public-comment {
+      border-top: 1px solid var(--border);
+    }
+
+    .older-comments {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #f8f3e9;
+      overflow: hidden;
+    }
+
+    .older-comments summary {
+      padding: 13px 16px;
+      color: var(--teal);
+      font-weight: 900;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .older-comments summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .older-comments summary::after {
+      content: "＋";
+      float: right;
+    }
+
+    .older-comments[open] summary::after {
+      content: "−";
+    }
+
+    .older-comments-list {
+      display: grid;
+      gap: 14px;
+      padding: 0 14px 14px;
     }
 
     footer {
@@ -746,8 +832,8 @@
         </span>
       </a>
 
-
       <nav aria-label="メインメニュー">
+
         <a href="index.html">ホーム</a>
 
         <a
@@ -767,6 +853,7 @@
         <a href="fun.html">
           楽しみ方
         </a>
+
       </nav>
 
     </div>
@@ -843,6 +930,7 @@
               >
 
               ドワイトの固有パーク
+
             </span>
 
           </span>
@@ -895,6 +983,7 @@
               >
 
               ドワイトの固有パーク
+
             </span>
 
           </span>
@@ -949,6 +1038,7 @@
               >
 
               ドワイトの固有パーク
+
             </span>
 
           </span>
@@ -1139,6 +1229,7 @@
               >
 
               ドワイトの固有パーク
+
             </span>
 
           </span>
@@ -1203,6 +1294,7 @@
               >
 
               メグの固有パーク
+
             </span>
 
           </span>
@@ -1272,6 +1364,7 @@
               >
 
               フェンミンの固有パーク
+
             </span>
 
           </span>
@@ -1343,6 +1436,7 @@
               >
 
               ジェイクの固有パーク
+
             </span>
 
           </span>
@@ -1570,28 +1664,20 @@
         '<p class="comment-message">コメントを読み込んでいます……</p>';
 
 
-      const {
-        data,
-        error
-      } =
+      const { data, error } =
         await supabaseClient
-
           .from("diary_comments")
-
           .select(
             "id, display_name, body, created_at, parent_id"
           )
-
           .eq(
             "page_slug",
             PAGE_SLUG
           )
-
           .eq(
             "approved",
             true
           )
-
           .order(
             "created_at",
             {
@@ -1634,145 +1720,283 @@
 
 
       /*
-       * 親コメントと返信を分ける。
+       * 親コメントと返信をまとめる。
        * parent_id が入っているコメントは、
-       * その parent_id と同じ id のコメントの直下に表示する。
+       * その parent_id と同じ id のコメントへの返信として扱う。
+       */
+
+      const childrenMap = {};
+
+
+      data.forEach(
+        comment => {
+
+          const parentId =
+            comment.parent_id ||
+            "root";
+
+
+          if (
+            !childrenMap[parentId]
+          ) {
+
+            childrenMap[parentId] =
+              [];
+
+          }
+
+
+          childrenMap[parentId].push(
+            comment
+          );
+
+        }
+      );
+
+
+      /*
+       * 新しい親コメントを上から3件表示。
+       * それより古い親コメントは折りたたむ。
        */
 
       const parentComments =
-        data.filter(
-          comment =>
-            !comment.parent_id
-        );
-
-
-      const repliesByParent =
-        {};
-
-
-      data
-        .filter(
-          comment =>
-            comment.parent_id
-        )
-        .forEach(
-          reply => {
-
-            if (
-              !repliesByParent[
-                reply.parent_id
-              ]
-            ) {
-
-              repliesByParent[
-                reply.parent_id
-              ] = [];
-
-            }
-
-
-            repliesByParent[
-              reply.parent_id
-            ].push(
-              reply
-            );
-
-          }
-        );
-
-
-      /*
-       * 新しい親コメントから表示し、
-       * その直下に返信をぶら下げる。
-       */
-
-      parentComments
-        .sort(
+        [
+          ...(childrenMap.root || [])
+        ].sort(
           (a, b) =>
             new Date(b.created_at) -
             new Date(a.created_at)
-        )
-        .forEach(
-          comment => {
+        );
+
+
+      const latestParents =
+        parentComments.slice(0, 3);
+
+
+      const olderParents =
+        parentComments.slice(3);
+
+
+      /*
+       * 返信を折りたたみ表示する。
+       * 返信の返信が存在しても、
+       * 右方向へ無限にずれていかないよう、
+       * 同じ返信エリアの中にまとめる。
+       */
+
+      function createReplyDetails(
+        parentId
+      ) {
+
+        const replies =
+          [
+            ...(childrenMap[parentId] || [])
+          ].sort(
+            (a, b) =>
+              new Date(a.created_at) -
+              new Date(b.created_at)
+          );
+
+
+        if (
+          replies.length === 0
+        ) {
+
+          return null;
+
+        }
+
+
+        const details =
+          document.createElement(
+            "details"
+          );
+
+        details.className =
+          "thread-replies";
+
+
+        const summary =
+          document.createElement(
+            "summary"
+          );
+
+        summary.textContent =
+          `返信を見る（${replies.length}件）`;
+
+
+        const replyList =
+          document.createElement(
+            "div"
+          );
+
+        replyList.className =
+          "reply-list";
+
+
+        replies.forEach(
+          reply => {
 
             const item =
               createCommentElement(
-                comment,
-                false
+                reply
               );
 
 
-            commentsList.appendChild(
+            replyList.appendChild(
               item
             );
-
-
-            const replies =
-              repliesByParent[
-                comment.id
-              ] || [];
-
-
-            replies
-              .sort(
-                (a, b) =>
-                  new Date(a.created_at) -
-                  new Date(b.created_at)
-              )
-              .forEach(
-                reply => {
-
-                  const replyItem =
-                    createCommentElement(
-                      reply,
-                      true
-                    );
-
-
-                  commentsList.appendChild(
-                    replyItem
-                  );
-
-                }
-              );
 
           }
         );
 
 
+        details.appendChild(
+          summary
+        );
+
+        details.appendChild(
+          replyList
+        );
+
+
+        return details;
+
+      }
+
+
       /*
-       * 万一、親が存在しない返信があった場合も
-       * コメント自体を消さない。
+       * 親コメント1件を、
+       * 「親コメント＋返信」の1つの枠として作成。
        */
 
-      const parentIds =
-        new Set(
-          parentComments.map(
-            comment => comment.id
+      function createThread(
+        comment
+      ) {
+
+        const thread =
+          document.createElement(
+            "article"
+          );
+
+
+        thread.className =
+          "comment-thread";
+
+
+        thread.appendChild(
+          createCommentElement(
+            comment
           )
         );
 
 
-      data
-        .filter(
-          comment =>
-            comment.parent_id &&
-            !parentIds.has(
-              comment.parent_id
+        const replyDetails =
+          createReplyDetails(
+            comment.id
+          );
+
+
+        if (
+          replyDetails
+        ) {
+
+          thread.appendChild(
+            replyDetails
+          );
+
+        }
+
+
+        return thread;
+
+      }
+
+
+      /*
+       * 最新3件を表示。
+       */
+
+      latestParents.forEach(
+        comment => {
+
+          commentsList.appendChild(
+            createThread(
+              comment
             )
-        )
-        .forEach(
+          );
+
+        }
+      );
+
+
+      /*
+       * 4件目以降の親コメントは、
+       * 「過去のコメントを見る」にまとめる。
+       */
+
+      if (
+        olderParents.length > 0
+      ) {
+
+        const details =
+          document.createElement(
+            "details"
+          );
+
+
+        details.className =
+          "older-comments";
+
+
+        const summary =
+          document.createElement(
+            "summary"
+          );
+
+
+        summary.textContent =
+          `過去のコメントを見る（${olderParents.length}件）`;
+
+
+        const olderList =
+          document.createElement(
+            "div"
+          );
+
+
+        olderList.className =
+          "older-comments-list";
+
+
+        olderParents.forEach(
           comment => {
 
-            commentsList.appendChild(
-              createCommentElement(
-                comment,
-                true
+            olderList.appendChild(
+              createThread(
+                comment
               )
             );
 
           }
         );
+
+
+        details.appendChild(
+          summary
+        );
+
+
+        details.appendChild(
+          olderList
+        );
+
+
+        commentsList.appendChild(
+          details
+        );
+
+      }
 
     }
 
@@ -1782,8 +2006,7 @@
     // =========================
 
     function createCommentElement(
-      comment,
-      isReply
+      comment
     ) {
 
       const item =
@@ -1794,15 +2017,6 @@
 
       item.className =
         "public-comment";
-
-
-      if (isReply) {
-
-        item.classList.add(
-          "reply"
-        );
-
-      }
 
 
       // =========================
@@ -1910,7 +2124,8 @@
 
 
       body.textContent =
-        comment.body || "";
+        comment.body ||
+        "";
 
 
       item.appendChild(
@@ -1923,218 +2138,190 @@
       );
 
 
+      // =========================
+      // 返信ボタン
+      // =========================
+
       /*
-       * 親コメントだけ返信ボタンを付ける。
-       * 返信そのものは parent_id を持つので、
-       * 管理人から「らこ」への返信も同じ親の直下に表示される。
+       * 親コメントだけでなく、
+       * 返信コメントや管理人コメントにも
+       * 返信ボタンを表示する。
+       *
+       * parent_id は「このコメントへの返信先」を示すため、
+       * 返信先がどのコメントでも同じ仕組みで登録できる。
        */
 
-      if (!isReply || displayName === "管理人") {
-
-        const actions =
-          document.createElement(
-            "div"
-          );
-
-
-        actions.className =
-          "comment-actions";
-
-
-        const replyButton =
-          document.createElement(
-            "button"
-          );
-
-
-        replyButton.type =
-          "button";
-
-
-        replyButton.className =
-          "reply-button";
-
-
-        replyButton.textContent =
-          "↩ 返信";
-
-
-        actions.appendChild(
-          replyButton
+      const actions =
+        document.createElement(
+          "div"
         );
 
 
-        item.appendChild(
-          actions
+      actions.className =
+        "comment-actions";
+
+
+      const replyButton =
+        document.createElement(
+          "button"
         );
 
 
-        // =========================
-        // 返信フォーム
-        // =========================
-
-        const replyForm =
-          document.createElement(
-            "form"
-          );
+      replyButton.type =
+        "button";
 
 
-        replyForm.className =
-          "reply-form";
+      replyButton.className =
+        "reply-button";
 
 
-        const replyName =
-          document.createElement(
-            "input"
-          );
+      replyButton.textContent =
+        "↩ 返信";
 
 
-        replyName.type =
-          "text";
+      actions.appendChild(
+        replyButton
+      );
 
 
-        replyName.maxLength =
-          30;
+      item.appendChild(
+        actions
+      );
 
 
-        replyName.placeholder =
-          "名前（任意）";
+      // =========================
+      // 返信フォーム
+      // =========================
 
-
-        replyForm.appendChild(
-          replyName
+      const replyForm =
+        document.createElement(
+          "form"
         );
 
 
-        const replyBody =
-          document.createElement(
-            "textarea"
-          );
+      replyForm.className =
+        "reply-form";
 
 
-        replyBody.maxLength =
-          500;
-
-
-        replyBody.placeholder =
-          `${displayName}さんへの返信を書いてね🦦`;
-
-
-        replyForm.appendChild(
-          replyBody
+      const replyName =
+        document.createElement(
+          "input"
         );
 
 
-        const replySubmit =
-          document.createElement(
-            "button"
-          );
+      replyName.type =
+        "text";
 
 
-        replySubmit.type =
-          "submit";
+      replyName.maxLength =
+        30;
 
 
-        replySubmit.textContent =
-          "返信を送信";
+      replyName.placeholder =
+        "名前（任意）";
 
 
-        replyForm.appendChild(
-          replySubmit
+      replyForm.appendChild(
+        replyName
+      );
+
+
+      const replyBody =
+        document.createElement(
+          "textarea"
         );
 
 
-        const replyCancel =
-          document.createElement(
-            "button"
-          );
+      replyBody.maxLength =
+        500;
 
 
-        replyCancel.type =
-          "button";
+      replyBody.placeholder =
+        `${displayName}さんへの返信を書いてね🦦`;
 
 
-        replyCancel.className =
-          "reply-cancel";
+      replyForm.appendChild(
+        replyBody
+      );
 
 
-        replyCancel.textContent =
-          "閉じる";
-
-
-        replyForm.appendChild(
-          replyCancel
+      const replySubmit =
+        document.createElement(
+          "button"
         );
 
 
-        const replyStatus =
-          document.createElement(
-            "span"
-          );
+      replySubmit.type =
+        "submit";
 
 
-        replyStatus.className =
-          "reply-status";
+      replySubmit.textContent =
+        "返信を送信";
 
 
-        replyForm.appendChild(
-          replyStatus
+      replyForm.appendChild(
+        replySubmit
+      );
+
+
+      const replyCancel =
+        document.createElement(
+          "button"
         );
 
 
-        item.appendChild(
-          replyForm
+      replyCancel.type =
+        "button";
+
+
+      replyCancel.className =
+        "reply-cancel";
+
+
+      replyCancel.textContent =
+        "閉じる";
+
+
+      replyForm.appendChild(
+        replyCancel
+      );
+
+
+      const replyStatus =
+        document.createElement(
+          "span"
         );
 
 
-        // =========================
-        // 返信フォーム開閉
-        // =========================
-
-        replyButton.addEventListener(
-          "click",
-          () => {
-
-            const isOpen =
-              replyForm.classList.contains(
-                "is-open"
-              );
+      replyStatus.className =
+        "reply-status";
 
 
-            if (isOpen) {
-
-              replyForm.classList.remove(
-                "is-open"
-              );
+      replyForm.appendChild(
+        replyStatus
+      );
 
 
-              replyButton.textContent =
-                "↩ 返信";
+      item.appendChild(
+        replyForm
+      );
 
 
-              return;
+      // =========================
+      // 返信フォーム開閉
+      // =========================
 
-            }
+      replyButton.addEventListener(
+        "click",
+        () => {
 
-
-            replyForm.classList.add(
+          const isOpen =
+            replyForm.classList.contains(
               "is-open"
             );
 
 
-            replyButton.textContent =
-              "↩ 返信を閉じる";
-
-
-            replyName.focus();
-
-          }
-        );
-
-
-        replyCancel.addEventListener(
-          "click",
-          () => {
+          if (isOpen) {
 
             replyForm.classList.remove(
               "is-open"
@@ -2145,118 +2332,128 @@
               "↩ 返信";
 
 
-            replyStatus.textContent =
-              "";
+            return;
 
           }
-        );
 
 
-        // =========================
-        // 返信送信
-        // =========================
-
-        replyForm.addEventListener(
-          "submit",
-          async event => {
-
-            event.preventDefault();
+          replyForm.classList.add(
+            "is-open"
+          );
 
 
-            const name =
-              replyName.value.trim();
+          replyButton.textContent =
+            "↩ 返信を閉じる";
 
 
-            const body =
-              replyBody.value.trim();
+          replyName.focus();
+
+        }
+      );
 
 
-            if (!body) {
+      replyCancel.addEventListener(
+        "click",
+        () => {
 
-              replyStatus.textContent =
-                "返信を入力してね🦦";
-
-
-              return;
-
-            }
+          replyForm.classList.remove(
+            "is-open"
+          );
 
 
-            replySubmit.disabled =
-              true;
+          replyButton.textContent =
+            "↩ 返信";
 
 
-            replyCancel.disabled =
-              true;
+          replyStatus.textContent =
+            "";
 
+        }
+      );
+
+
+      // =========================
+      // 返信送信
+      // =========================
+
+      replyForm.addEventListener(
+        "submit",
+        async event => {
+
+          event.preventDefault();
+
+
+          const name =
+            replyName.value.trim();
+
+
+          const body =
+            replyBody.value.trim();
+
+
+          if (!body) {
 
             replyStatus.textContent =
-              "送信しています……";
+              "返信を入力してね🦦";
 
 
-            const {
+            return;
+
+          }
+
+
+          replySubmit.disabled =
+            true;
+
+
+          replyCancel.disabled =
+            true;
+
+
+          replyStatus.textContent =
+            "送信しています……";
+
+
+          const {
+            error
+          } =
+            await supabaseClient
+
+              .from(
+                "diary_comments"
+              )
+
+              .insert({
+
+                display_name:
+                  name ||
+                  "名無しのラッコ",
+
+                body:
+                  body,
+
+                approved:
+                  false,
+
+                page_slug:
+                  PAGE_SLUG,
+
+                parent_id:
+                  comment.id
+
+              });
+
+
+          if (error) {
+
+            console.error(
+              "返信送信エラー:",
               error
-            } =
-              await supabaseClient
-
-                .from("diary_comments")
-
-                .insert({
-
-                  display_name:
-                    name ||
-                    "名無しのラッコ",
-
-                  body:
-                    body,
-
-                  approved:
-                    false,
-
-                  page_slug:
-                    PAGE_SLUG,
-
-                  parent_id:
-                    comment.id
-
-                });
-
-
-            if (error) {
-
-              console.error(
-                "返信送信エラー:",
-                error
-              );
-
-
-              replyStatus.textContent =
-                "返信を送信できませんでした。";
-
-
-              replySubmit.disabled =
-                false;
-
-
-              replyCancel.disabled =
-                false;
-
-
-              return;
-
-            }
-
-
-            replyName.value =
-              "";
-
-
-            replyBody.value =
-              "";
+            );
 
 
             replyStatus.textContent =
-              "返信を送信しました！承認されると表示されます🦦";
+              "返信を送信できませんでした。";
 
 
             replySubmit.disabled =
@@ -2266,10 +2463,33 @@
             replyCancel.disabled =
               false;
 
-          }
-        );
 
-      }
+            return;
+
+          }
+
+
+          replyName.value =
+            "";
+
+
+          replyBody.value =
+            "";
+
+
+          replyStatus.textContent =
+            "返信を送信しました！承認されると表示されます🦦";
+
+
+          replySubmit.disabled =
+            false;
+
+
+          replyCancel.disabled =
+            false;
+
+        }
+      );
 
 
       return item;
