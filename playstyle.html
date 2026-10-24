@@ -2,226 +2,544 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-@@ -6,6 +7,9 @@
-<meta name="description" content="逃げラッコ式DbD立ち回りガイド。プレイ時間100時間未満の初心者向けに、試合開始から脱出までの立ち回りを紹介。">
-<title>100時間未満｜オススメの立ち回り</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="逃げラッコ式DbD立ち回りガイド。プレイ時間100時間未満の初心者向けに、試合開始から脱出までの立ち回りを紹介。">
+  <title>100時間未満｜オススメの立ち回り</title>
 
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<style>
-:root {
---bg: #f4f0e7;
-@@ -153,7 +157,6 @@
-box-shadow: 0 5px 18px rgba(48, 39, 31, .04);
-}
+  <style>
+    :root {
+      --bg: #f4f0e7;
+      --surface: #fffdf8;
+      --text: #30271f;
+      --muted: #71685f;
+      --teal: #477f7d;
+      --teal-light: #e7f0ee;
+      --border: #e6ddd0;
+      --hero-blue: #c9dfe4;
+    }
 
-    /* 絆の重要カード */
-.bond-notice {
-display: flex;
-align-items: center;
-@@ -188,7 +191,6 @@
-line-height: 1.55;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-    /* 各章の要点 */
-.chapter-tip {
-margin: -8px 0 22px;
-padding: 10px 15px;
-@@ -210,7 +212,6 @@
-letter-spacing: .04em;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-    /* 目次エリア */
-.chapter-toc {
-margin: 26px 0 34px;
-padding: 20px;
-@@ -274,7 +275,6 @@
-color: var(--teal);
-}
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Noto Sans JP",
+        "Yu Gothic",
+        "Hiragino Kaku Gothic ProN",
+        Meiryo,
+        sans-serif;
+      line-height: 1.8;
+    }
 
-    /* 各章タイトル：文字は左、イラストは右 */
-.chapter-title {
-display: flex;
-align-items: center;
-@@ -301,7 +301,6 @@
-border-radius: 8px;
-}
+    a {
+      color: inherit;
+    }
 
-    /* ページ最下部の脱出おめでとうイラスト */
-.congrats-illustration {
-margin: 34px auto 8px;
-text-align: center;
-@@ -420,28 +419,19 @@
-color: var(--teal);
-}
+    header {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, .97);
+      border-bottom: 1px solid var(--border);
+    }
 
-    /* =========================
-       コメント欄
-       ========================= */
+    .header-inner {
+      max-width: 1440px;
+      min-height: 72px;
+      margin: auto;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
 
-    /* コメント欄 */
-.comments-section {
-      margin-top: 46px;
-      padding-top: 34px;
-      margin-top: 50px;
-      padding-top: 36px;
-border-top: 2px solid var(--border);
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
 
-    .comments-title {
+    .brand-icon {
+      font-size: 37px;
+    }
+
+    .brand-name {
+      font-weight: 900;
+      font-size: 19px;
+      line-height: 1.3;
+    }
+
+    .brand-name small {
+      display: block;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    header nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(12px, 2vw, 28px);
+    }
+
+    header nav a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    header nav a:hover,
+    header nav a[aria-current="page"] {
+      color: var(--teal);
+    }
+
+    header nav a[aria-current="page"] {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 7px;
+    }
+
+    .page-hero {
+      padding: 40px 20px;
+      text-align: center;
+      background: var(--hero-blue);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
       margin: 0 0 8px;
+      color: #376c6a;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+    }
+
+    .page-hero h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.35;
+      font-weight: 950;
+    }
+
+    .page-hero p {
+      margin: 12px 0 0;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 30px 24px 50px;
+    }
+
+    .content {
+      padding: 30px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 5px 18px rgba(48, 39, 31, .04);
+    }
+
+    .bond-notice {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin: 0 0 24px;
+      padding: 22px 26px;
+      background: linear-gradient(135deg, #e8f2ef 0%, #dcebea 100%);
+      border: 2px solid var(--teal);
+      border-left: 9px solid var(--teal);
+      border-radius: 16px;
+      box-shadow: 0 5px 14px rgba(48, 39, 31, .09);
+    }
+
+    .bond-notice img {
+      display: block;
+      width: 112px;
+      height: 112px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .bond-notice-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .bond-notice-text strong {
+      display: block;
+      color: #30271f;
+      font-size: clamp(21px, 2.7vw, 29px);
+      font-weight: 900;
+      line-height: 1.55;
+    }
+
+    .chapter-tip {
+      margin: -8px 0 22px;
+      padding: 10px 15px;
+      background: var(--teal-light);
+      border-left: 4px solid var(--teal);
+      border-radius: 8px;
+      color: #376c6a;
+      font-weight: 800;
+      font-size: .98rem;
+      line-height: 1.6;
+    }
+
+    .chapter-tip span {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--muted);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+
+    .chapter-toc {
+      margin: 26px 0 34px;
+      padding: 20px;
+      background: #fbf7ef;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .toc-illustration {
+      text-align: center;
+      margin: -4px auto 12px;
+    }
+
+    .toc-illustration img {
+      display: block;
+      width: 100%;
+      max-width: 540px;
+      height: auto;
+      margin: 0 auto;
+      border-radius: 8px;
+    }
+
+    .toc-subtitle {
+      margin: -8px 0 18px;
+      text-align: center;
+      font-size: .86rem;
+      color: var(--muted);
+    }
+
+    .chapter-toc-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .chapter-toc-list li {
+      margin: 0;
+    }
+
+    .chapter-toc-list a {
+      display: block;
+      height: 100%;
+      padding: 10px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--text);
+      font-size: .92rem;
+      font-weight: 700;
+      line-height: 1.5;
+      text-decoration: none;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+
+    .chapter-toc-list a:hover {
+      background: var(--teal-light);
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    .chapter-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 112px;
+      padding: 12px 16px;
+    }
+
+    .chapter-title span {
+      display: block;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .chapter-title img {
+      display: block;
+      order: 2;
+      width: 142px;
+      height: 94px;
+      object-fit: contain;
+      flex-shrink: 0;
+      background: transparent;
+      border-radius: 8px;
+    }
+
+    .congrats-illustration {
+      margin: 34px auto 8px;
+      text-align: center;
+    }
+
+    .congrats-illustration img {
+      display: block;
+      width: 100%;
+      max-width: 760px;
+      height: auto;
+      margin: 0 auto;
+      border-radius: 10px;
+    }
+
+    .chapter {
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      scroll-margin-top: 20px;
+    }
+
+    .intro {
+      margin: 0 0 18px;
+      padding: 18px 20px;
+      background: #f8f3e9;
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--teal);
+      border-radius: 12px;
+      font-size: 1.02rem;
+    }
+
+    .intro a {
+      color: var(--teal);
+      font-weight: 800;
+      text-underline-offset: 3px;
+    }
+
+    h2 {
+      margin: 42px 0 22px;
       padding: 13px 18px;
       background: var(--teal-light);
       border-left: 5px solid var(--teal);
       border-radius: 8px;
       font-size: clamp(21px, 3vw, 29px);
       line-height: 1.5;
-    .comments-section h2 {
-      margin-top: 0;
-}
-
-.comments-lead {
-      margin: 0 0 22px;
-      margin-bottom: 22px;
-color: var(--muted);
-font-size: .95rem;
-}
-@@ -451,25 +441,25 @@
-background: #f8f3e9;
-border: 1px solid var(--border);
-border-radius: 14px;
-      margin-bottom: 28px;
-}
-
-.comment-form label {
-display: block;
-margin-bottom: 7px;
-      font-size: .9rem;
-font-weight: 800;
-      font-size: .92rem;
-}
-
-.comment-form input,
-.comment-form textarea {
-display: block;
-width: 100%;
-      padding: 11px 13px;
-      border: 1px solid #d6cbbb;
-      border-radius: 8px;
-      background: #fffdf8;
-      margin-bottom: 16px;
-      padding: 12px 14px;
-      background: #fff;
-color: var(--text);
-      border: 1px solid #d7ccbd;
-      border-radius: 9px;
-font: inherit;
-outline: none;
-}
-@@ -485,14 +475,9 @@
-resize: vertical;
-}
-
-    .comment-field {
-      margin-bottom: 16px;
     }
 
-.comment-submit {
-display: inline-block;
-      margin-top: 4px;
-      padding: 11px 22px;
-      padding: 11px 24px;
-border: 0;
-border-radius: 24px;
-background: var(--teal);
-@@ -509,63 +494,32 @@
+    h2:first-of-type {
+      margin-top: 30px;
+    }
 
-.comment-submit:disabled {
-opacity: .55;
-      cursor: wait;
-      cursor: not-allowed;
-}
-
-    .comment-note {
-    .comment-status {
-      min-height: 1.6em;
-margin: 12px 0 0;
-color: var(--muted);
-      font-size: .82rem;
+    h3 {
+      margin: 32px 0 16px;
+      padding: 11px 15px;
+      background: #f8f3e9;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--teal);
+      border-radius: 8px;
+      font-size: 1.08rem;
       line-height: 1.6;
     }
 
-    .comment-status {
-      display: none;
-      margin-top: 12px;
-      padding: 10px 13px;
-      border-radius: 8px;
-font-size: .9rem;
-      font-weight: 700;
+    p {
+      margin: 0 0 20px;
+      overflow-wrap: anywhere;
     }
 
-    .comment-status.show {
+    ul {
+      margin: -5px 0 24px;
+      padding-left: 1.5em;
+    }
+
+    li {
+      margin-bottom: 7px;
+    }
+
+    strong {
+      font-weight: 800;
+    }
+
+    .video-wrap {
+      width: 100%;
+      margin: 24px 0 30px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #000;
+    }
+
+    .video-wrap video {
       display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      background: #000;
     }
 
-    .comment-status.success {
-      background: #e7f0ee;
-      color: #376c6a;
-    }
-
-    .comment-status.error {
-      background: #f7e8e5;
-      color: #9a4037;
-}
-
-.comment-list {
-display: grid;
-gap: 14px;
-      margin-top: 28px;
-}
-
-    .comment-empty {
-      padding: 20px;
+    .image-placeholder {
+      margin: 24px 0;
+      padding: 22px 18px;
+      background: #f8f3e9;
+      border: 2px dashed #c9bfae;
+      border-radius: 12px;
       text-align: center;
       color: var(--muted);
-      background: #fbf7ef;
+      font-size: .95rem;
+    }
+
+    .ending {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--teal);
+    }
+
+    /* コメント欄 */
+    .comments-section {
+      margin-top: 50px;
+      padding-top: 36px;
+      border-top: 2px solid var(--border);
+    }
+
+    .comments-section h2 {
+      margin-top: 0;
+    }
+
+    .comments-lead {
+      margin-bottom: 22px;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .comment-form {
+      padding: 22px;
+      background: #f8f3e9;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .comment-form label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 800;
+      font-size: .92rem;
+    }
+
+    .comment-form input,
+    .comment-form textarea {
+      display: block;
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 12px 14px;
+      background: #fff;
+      color: var(--text);
+      border: 1px solid #d7ccbd;
+      border-radius: 9px;
+      font: inherit;
+      outline: none;
+    }
+
+    .comment-form input:focus,
+    .comment-form textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(71, 127, 125, .12);
+    }
+
+    .comment-form textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .comment-submit {
+      display: inline-block;
+      padding: 11px 24px;
+      border: 0;
+      border-radius: 24px;
+      background: var(--teal);
+      color: #fff;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: opacity .2s;
+    }
+
+    .comment-submit:hover {
+      opacity: .85;
+    }
+
+    .comment-submit:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    .comment-status {
+      min-height: 1.6em;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .comment-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .comment-item {
+      padding: 18px 20px;
+      background: #fff;
       border: 1px solid var(--border);
       border-radius: 12px;
     }
 
-    .comment-card {
-      padding: 17px 18px;
-      background: #fbf7ef;
-    .comment-item {
-      padding: 18px 20px;
-      background: #fff;
-border: 1px solid var(--border);
-border-radius: 12px;
-}
-
-.comment-meta {
-display: flex;
-      align-items: center;
+    .comment-meta {
+      display: flex;
       align-items: baseline;
-justify-content: space-between;
-gap: 12px;
-margin-bottom: 8px;
-@@ -577,16 +531,24 @@
-}
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
 
-.comment-date {
+    .comment-name {
+      font-weight: 900;
+      color: var(--teal);
+    }
+
+    .comment-date {
       flex-shrink: 0;
-color: var(--muted);
-font-size: .78rem;
-      white-space: nowrap;
-}
+      color: var(--muted);
+      font-size: .78rem;
+    }
 
-.comment-body {
-margin: 0;
-white-space: pre-wrap;
-overflow-wrap: anywhere;
-      line-height: 1.75;
+    .comment-body {
+      margin: 0;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
     }
 
     .comment-empty {
@@ -231,39 +549,289 @@ overflow-wrap: anywhere;
       border-radius: 12px;
       color: var(--muted);
       text-align: center;
-}
+    }
 
-.back-link {
-@@ -765,10 +727,6 @@
-flex-direction: column;
-gap: 2px;
-}
+    .back-link {
+      display: block;
+      width: fit-content;
+      margin: 28px auto 0;
+      padding: 12px 24px;
+      background: var(--teal);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 800;
+      transition: opacity .2s;
+    }
 
-      .comment-date {
-        font-size: .74rem;
+    .back-link:hover {
+      opacity: .85;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: .9rem;
+      padding: 22px 20px 30px;
+      background: #e9e2d6;
+    }
+
+    a:focus-visible {
+      outline: 3px solid var(--teal);
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 900px) {
+      .header-inner {
+        flex-wrap: wrap;
       }
-}
 
-@media (max-width: 380px) {
-@@ -847,7 +805,11 @@ <h1>100時間未満｜オススメの立ち回り</h1>
-</div>
-</div>
+      header nav {
+        width: 100%;
+        overflow-x: auto;
+        padding: 5px 0;
+      }
 
-      <p>パーク構成がわからない人は<strong><a href="perks.html">パーク構成へのリンク</a></strong>を参考にしてね。じゃあいくよ🦦</p>
+      .content {
+        padding: 24px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header-inner {
+        padding: 10px 15px;
+        gap: 8px;
+      }
+
+      .brand-icon {
+        font-size: 30px;
+      }
+
+      .brand-name {
+        font-size: 16px;
+      }
+
+      header nav {
+        gap: 20px;
+      }
+
+      header nav a {
+        font-size: 12px;
+      }
+
+      .page-hero {
+        padding: 30px 16px;
+      }
+
+      .page-hero p {
+        font-size: 14px;
+      }
+
+      main {
+        margin: 0 auto;
+        padding: 18px 12px 32px;
+      }
+
+      .content {
+        padding: 18px 14px;
+        border-radius: 13px;
+      }
+
+      .bond-notice {
+        gap: 14px;
+        padding: 16px;
+        border-left-width: 6px;
+      }
+
+      .bond-notice img {
+        width: 82px;
+        height: 82px;
+      }
+
+      .bond-notice-text strong {
+        font-size: 19px;
+      }
+
+      .chapter-toc {
+        padding: 14px 12px;
+      }
+
+      .toc-illustration {
+        margin-bottom: 8px;
+      }
+
+      .chapter-toc-list {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .chapter-toc-list a {
+        padding: 11px 12px;
+      }
+
+      .chapter-title {
+        gap: 10px;
+        min-height: 96px;
+        padding: 10px 12px;
+      }
+
+      .chapter-title img {
+        width: 112px;
+        height: 78px;
+      }
+
+      .congrats-illustration {
+        margin-top: 26px;
+      }
+
+      .chapter-tip {
+        padding: 10px 12px;
+        font-size: .94rem;
+      }
+
+      .intro {
+        padding: 15px;
+        font-size: .95rem;
+      }
+
+      h2 {
+        margin-top: 32px;
+        padding: 11px 13px;
+      }
+
+      h3 {
+        margin-top: 26px;
+        padding: 10px 12px;
+        font-size: 1rem;
+      }
+
+      body {
+        font-size: .95rem;
+      }
+
+      .video-wrap {
+        margin: 20px 0 25px;
+        border-radius: 9px;
+      }
+
+      .image-placeholder {
+        padding: 17px 12px;
+      }
+
+      .comment-form {
+        padding: 16px;
+      }
+
+      .comment-meta {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 2px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .bond-notice {
+        gap: 10px;
+        padding: 12px;
+      }
+
+      .bond-notice img {
+        width: 68px;
+        height: 68px;
+      }
+
+      .bond-notice-text strong {
+        font-size: 17px;
+      }
+
+      .chapter-title {
+        gap: 7px;
+        min-height: 86px;
+        padding: 9px 10px;
+      }
+
+      .chapter-title img {
+        width: 88px;
+        height: 66px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .back-link,
+      .chapter-toc-list a,
+      .comment-submit {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-icon" aria-hidden="true">🦦</span>
+        <span class="brand-name">逃げラッコ式<small>DbD立ち回りガイド</small></span>
+      </a>
+
+      <nav aria-label="メインメニュー">
+        <a href="index.html">ホーム</a>
+        <a href="perks.html">パーク紹介</a>
+        <a href="playstyle.html?v=2" aria-current="page">立ち回り講座</a>
+        <a href="index.html#beginner">初心者ガイド</a>
+        <a href="fun.html">楽しみ方</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <p class="eyebrow">DEAD BY DAYLIGHT SURVIVAL GUIDE</p>
+    <h1>100時間未満｜オススメの立ち回り</h1>
+    <p>できないことは考えるな。0から始める逃亡生活 🦦</p>
+  </section>
+
+  <main>
+    <div class="content">
+
+      <div class="bond-notice">
+        <img src="images/dwight.png" alt="ドワイト">
+        <div class="bond-notice-text">
+          <strong>パークの中に「絆」は必ず入れてね！</strong>
+        </div>
+      </div>
+
       <p>
         パーク構成がわからない人は
         <strong><a href="perks.html">パーク構成へのリンク</a></strong>
         を参考にしてね。じゃあいくよ🦦
       </p>
 
-<nav class="chapter-toc" aria-label="立ち回り講座の目次">
+      <nav class="chapter-toc" aria-label="立ち回り講座の目次">
 
-@@ -870,42 +832,77 @@ <h1>100時間未満｜オススメの立ち回り</h1>
-</nav>
+        <div class="toc-illustration">
+          <img src="images/mokuji.png" alt="看板から顔を出している手描きのラッコと「目次」の文字">
+        </div>
 
-<div class="chapter">
-        <h2 id="chapter-1" class="chapter-title"><img src="images/01_kaishi.png" alt="" loading="lazy"><span>① 開始直後の立ち回り</span></h2>
-        <div class="chapter-tip"><span>今回のポイント</span>まず走って発電機を探そう！</div>
+        <p class="toc-subtitle">読みたいところを押してね 🦦</p>
+
+        <ol class="chapter-toc-list">
+          <li><a href="#chapter-1">① 開始直後の立ち回り</a></li>
+          <li><a href="#chapter-2">② 発電機を回してる途中の立ち回り</a></li>
+          <li><a href="#chapter-3">③ キラーから逃げる時の立ち回り</a></li>
+          <li><a href="#chapter-4">④ 味方に救助してもらった後の立ち回り</a></li>
+          <li><a href="#chapter-5">⑤ 味方が吊られてしまった時の立ち回り</a></li>
+          <li><a href="#chapter-6">⑥ 発電機が5台上がった時の立ち回り</a></li>
+          <li><a href="#chapter-7">⑦ ゲート解放後の立ち回り</a></li>
+          <li><a href="#chapter-8">⑧ 無事に脱出したら</a></li>
+        </ol>
+      </nav>
+
+      <div class="chapter">
         <h2 id="chapter-1" class="chapter-title">
           <img src="images/01_kaishi.png" alt="" loading="lazy">
           <span>① 開始直後の立ち回り</span>
@@ -274,29 +842,24 @@ gap: 2px;
           まず走って発電機を探そう！
         </div>
 
-<div class="video-wrap">
-          <video controls playsinline preload="auto" muted
-            onloadedmetadata="this.currentTime=0.1">
+        <div class="video-wrap">
           <video controls playsinline preload="auto" muted onloadedmetadata="this.currentTime=0.1">
-<source src="videos/nigerakko_new_01_blur_names.mp4" type="video/mp4">
-</video>
-</div>
+            <source src="videos/nigerakko_new_01_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
 
-        <p>まず走って発電機を探す。全力疾走（スプバ）を入れててもまず走る。キラーが何かよくわからんところからよくわからんことしてきてもまず走る。これ「逃げラッコ式🦦」では鉄則。</p>
         <p>
           まず走って発電機を探す。全力疾走（スプバ）を入れててもまず走る。
           キラーが何かよくわからんところからよくわからんことしてきてもまず走る。
           これ「逃げラッコ式🦦」では鉄則。
         </p>
 
-        <p>このとき絆で近くの味方の動きを確認して、できるだけ自分は個別行動になるのが望ましいけど、味方がついてきたり、同じ発電機を回そうとしてくるなら気にせず一緒に発電機を回そう。それはそれで速いからね。とにかく目についた発電機に張りつこう🦦</p>
         <p>
           このとき絆で近くの味方の動きを確認して、できるだけ自分は個別行動になるのが望ましいけど、
           味方がついてきたり、同じ発電機を回そうとしてくるなら気にせず一緒に発電機を回そう。
           それはそれで速いからね。とにかく目についた発電機に張りつこう🦦
         </p>
 
-        <p><strong>【注意点】</strong>明らかにマップの中央だと思われる場所には走らない！中央がどこかわからないってんならしょうがないけど、自分がマップの端っこにいるってわかったら端っこ沿いに走るのが良いよ！</p>
         <p>
           <strong>【注意点】</strong>
           明らかにマップの中央だと思われる場所には走らない！
@@ -304,18 +867,15 @@ gap: 2px;
           自分がマップの端っこにいるってわかったら端っこ沿いに走るのが良いよ！
         </p>
 
-        <p>なんかでっかい建築物があるなら真ん中らへんかもって思っても良いよ。俺もそんな感覚でやってるからね🦦</p>
         <p>
           なんかでっかい建築物があるなら真ん中らへんかもって思っても良いよ。
           俺もそんな感覚でやってるからね🦦
         </p>
 
-<p>（違う場合ももちろんあるよ。でもそこまで頑張って覚えなくて良いよ。）</p>
-</div>
+        <p>（違う場合ももちろんあるよ。でもそこまで頑張って覚えなくて良いよ。）</p>
+      </div>
 
-<div class="chapter">
-        <h2 id="chapter-2" class="chapter-title"><img src="images/02_hatsudenki.png" alt="" loading="lazy"><span>② 発電機を回してる途中の立ち回り</span></h2>
-        <div class="chapter-tip"><span>今回のポイント</span>味方の動きを確認しながら発電しよう！</div>
+      <div class="chapter">
         <h2 id="chapter-2" class="chapter-title">
           <img src="images/02_hatsudenki.png" alt="" loading="lazy">
           <span>② 発電機を回してる途中の立ち回り</span>
@@ -326,34 +886,34 @@ gap: 2px;
           味方の動きを確認しながら発電しよう！
         </div>
 
-<div class="video-wrap">
-<video controls playsinline preload="metadata">
-<source src="videos/1a11be20ccf56-master_playlist_blur_names.mp4" type="video/mp4">
-</video>
-</div>
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="videos/1a11be20ccf56-master_playlist_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
 
-        <p>絆のオーラで見える範囲の人の行動を見てあの人何してるかなーってぼけーっと考えてみよう。発電機を回してたり、トーテムを撫で撫でしてたりしてたりしたら左のアイコンで答え合わせできるぞ🦦</p>
         <p>
           絆のオーラで見える範囲の人の行動を見てあの人何してるかなーってぼけーっと考えてみよう。
           発電機を回してたり、トーテムを撫で撫でしてたりしてたりしたら左のアイコンで答え合わせできるぞ🦦
         </p>
 
-<div class="image-placeholder">〈心音がしてる時の画像〉</div>
+        <div class="image-placeholder">〈心音がしてる時の画像〉</div>
 
-        <p>キラーの心音が聞こえてきたら、まだ発電機から手は離さずに、周囲の様子と味方のアイコンをチラチラ見よう。味方のアイコンがぴこぴこ動いていたらその人がチェイス中だから気にせず発電を続行だ。</p>
         <p>
           キラーの心音が聞こえてきたら、まだ発電機から手は離さずに、周囲の様子と味方のアイコンをチラチラ見よう。
           味方のアイコンがぴこぴこ動いていたらその人がチェイス中だから気にせず発電を続行だ。
         </p>
 
-<div class="video-wrap">
-<video controls playsinline preload="metadata">
-@@ -917,62 +914,106 @@ <h2 id="chapter-2" class="chapter-title"><img src="images/02_hatsudenki.png" alt
-</div>
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="videos/nigerakko_dbd_video_05_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
 
-<div class="chapter">
-        <h2 id="chapter-3" class="chapter-title"><img src="images/03_chase.png" alt="" loading="lazy"><span>③ キラーから逃げる時の立ち回り</span></h2>
-        <div class="chapter-tip"><span>今回のポイント</span>とにかくまっすぐ逃げよう！</div>
+        <p>キラーがこっちに来るのが確認できたら速やかに逃げる！全力疾走（スプバ）があったら爆速だ。</p>
+      </div>
+
+      <div class="chapter">
         <h2 id="chapter-3" class="chapter-title">
           <img src="images/03_chase.png" alt="" loading="lazy">
           <span>③ キラーから逃げる時の立ち回り</span>
@@ -364,44 +924,39 @@ gap: 2px;
           とにかくまっすぐ逃げよう！
         </div>
 
-<div class="video-wrap">
-<video controls playsinline preload="metadata">
-<source src="videos/nigerakko_new_02_blur_names.mp4" type="video/mp4">
-</video>
-</div>
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="videos/nigerakko_new_02_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
 
-        <p>「逃げラッコ式」では長時間チェイスはしようとしないよ。とにかくまっすぐ逃げるんだ。無傷のときは１回だけキラーに背中を押してもらえるよ。</p>
         <p>
           「逃げラッコ式」では長時間チェイスはしようとしないよ。
           とにかくまっすぐ逃げるんだ。無傷のときは１回だけキラーに背中を押してもらえるよ。
         </p>
 
-        <p>※キラーからもらう１発目の攻撃は攻撃と思わない。攻撃をくらったら「背中押してくれてありがとう！」って言ってみよう。それが「逃げラッコ式」だよ🦦</p>
         <p>
           ※キラーからもらう１発目の攻撃は攻撃と思わない。
           攻撃をくらったら「背中押してくれてありがとう！」って言ってみよう。
           それが「逃げラッコ式」だよ🦦
         </p>
 
-<div class="video-wrap">
-<video controls playsinline preload="metadata">
-<source src="videos/nigerakko_new_03_blur_names.mp4" type="video/mp4">
-</video>
-</div>
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="videos/nigerakko_new_03_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
 
-        <p>自分がチェイスしてから吊られるまでの間、何が起きたか振り返ってみよう。残りの発電機がいつの間にか減っている、吊られていた味方が復帰している、負傷してた味方が回復している、味方が遠くで全員発電作業に取り掛かっている…</p>
         <p>
           自分がチェイスしてから吊られるまでの間、何が起きたか振り返ってみよう。
           残りの発電機がいつの間にか減っている、吊られていた味方が復帰している、
           負傷してた味方が回復している、味方が遠くで全員発電作業に取り掛かっている…
         </p>
 
-<p>それが自分の成果だよ。あとは気長に救助が来るのを待とう🦦</p>
-</div>
+        <p>それが自分の成果だよ。あとは気長に救助が来るのを待とう🦦</p>
+      </div>
 
-<div class="chapter">
-        <h2 id="chapter-4" class="chapter-title"><img src="images/04_rescue.png" alt="" loading="lazy"><span>④ 味方に救助してもらった後の立ち回り</span></h2>
-        <div class="chapter-tip"><span>今回のポイント</span>まずは安全な場所に逃げよう！</div>
+      <div class="chapter">
         <h2 id="chapter-4" class="chapter-title">
           <img src="images/04_rescue.png" alt="" loading="lazy">
           <span>④ 味方に救助してもらった後の立ち回り</span>
@@ -412,49 +967,44 @@ gap: 2px;
           まずは安全な場所に逃げよう！
         </div>
 
-<div class="video-wrap">
-<video controls playsinline preload="metadata">
-<source src="videos/nigerakko_dbd_video_06_blur_names.mp4" type="video/mp4">
-</video>
-</div>
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="videos/nigerakko_dbd_video_06_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
 
-        <p>救助されたら回復のことは一旦考えない。10秒間逃げる痕跡が消えるんだ。この10秒でとりあえず安全そうな場所に逃げ込もう。ちょっとした隠密ってやつだよ。</p>
         <p>
           救助されたら回復のことは一旦考えない。
           10秒間逃げる痕跡が消えるんだ。この10秒でとりあえず安全そうな場所に逃げ込もう。
           ちょっとした隠密ってやつだよ。
         </p>
 
-<div class="video-wrap">
-<video controls playsinline preload="metadata">
-<source src="videos/nigerakko_dbd_video_07_blur_names.mp4" type="video/mp4">
-</video>
-</div>
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="videos/nigerakko_dbd_video_07_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
 
-        <p>動かずにじっと絆で味方の様子を見てみよう。安全そうに発電機を回している味方がいたらその人のところに行ってあげるのが良いと思うよ、回復してもらえるかもしれないしね🦦</p>
         <p>
           動かずにじっと絆で味方の様子を見てみよう。
           安全そうに発電機を回している味方がいたらその人のところに行ってあげるのが良いと思うよ、
           回復してもらえるかもしれないしね🦦
         </p>
 
-<div class="video-wrap">
-<video controls playsinline preload="metadata">
-<source src="videos/nigerakko_dbd_video_08_blur_names.mp4" type="video/mp4">
-</video>
-</div>
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="videos/nigerakko_dbd_video_08_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
 
-        <p>警戒を入れてる人はキラーが発電機を破壊したりした時に通知が来てオーラが見えるよ。そこの発電機を引き継いであげることを頭の片隅に入れておこう。誰かのチェイスが始まったらそこの発電機を回しに行くチャンスだよ🦦</p>
         <p>
           警戒を入れてる人はキラーが発電機を破壊したりした時に通知が来てオーラが見えるよ。
           そこの発電機を引き継いであげることを頭の片隅に入れておこう。
           誰かのチェイスが始まったらそこの発電機を回しに行くチャンスだよ🦦
         </p>
-</div>
+      </div>
 
-<div class="chapter">
-        <h2 id="chapter-5" class="chapter-title"><img src="images/05_soshu.png" alt="" loading="lazy"><span>⑤ 味方が吊られてしまった時の立ち回り</span></h2>
-        <div class="chapter-tip"><span>今回のポイント</span>味方の状況を見て救助を判断しよう！</div>
+      <div class="chapter">
         <h2 id="chapter-5" class="chapter-title">
           <img src="images/05_soshu.png" alt="" loading="lazy">
           <span>⑤ 味方が吊られてしまった時の立ち回り</span>
@@ -465,32 +1015,34 @@ gap: 2px;
           味方の状況を見て救助を判断しよう！
         </div>
 
-<p>ここはとっても大事！パターン化して、単純に考えよう🦦</p>
+        <p>ここはとっても大事！パターン化して、単純に考えよう🦦</p>
 
-@@ -986,48 +1027,103 @@ <h3>【自分が救助に行くパターン】</h3>
+        <h3>【自分が救助に行くパターン】</h3>
 
-<p><strong>全部左のアイコンを見ればわかるよ</strong></p>
+        <ul>
+          <li>味方2人が別々の発電機を回している時</li>
+          <li>味方1人が発電機、味方1人がチェイスしている時</li>
+          <li>味方2人が2吊りでリーチの時（けっこうピンチ）</li>
+        </ul>
 
-        <p>救助したあとは味方が走ったら味方とは反対方向に走る。味方がその場でしゃがんだら回復してあげる（キラーが近づいてきたら見捨てて逃げようね🦦）</p>
+        <p><strong>全部左のアイコンを見ればわかるよ</strong></p>
+
         <p>
           救助したあとは味方が走ったら味方とは反対方向に走る。
           味方がその場でしゃがんだら回復してあげる
           （キラーが近づいてきたら見捨てて逃げようね🦦）
         </p>
 
-<h3>【自分が救助に行かないパターン】</h3>
+        <h3>【自分が救助に行かないパターン】</h3>
 
-        <p>上のどれにも当てはまらない時。その時は全部他の人に任せよう。救助に時間がかかって2吊に入ってしまった時は「薄情な味方だなぁ」って他人事に思っとくよ、これが「逃げラッコ式」🦦</p>
         <p>
           上のどれにも当てはまらない時。その時は全部他の人に任せよう。
           救助に時間がかかって2吊に入ってしまった時は
           「薄情な味方だなぁ」って他人事に思っとくよ、これが「逃げラッコ式」🦦
         </p>
-</div>
+      </div>
 
-<div class="chapter">
-        <h2 id="chapter-6" class="chapter-title"><img src="images/06_tsuden.png" alt="" loading="lazy"><span>⑥ 発電機が5台上がった時の立ち回り</span></h2>
-        <div class="chapter-tip"><span>今回のポイント</span>ゲートを開けて逃げ道を確保しよう！</div>
+      <div class="chapter">
         <h2 id="chapter-6" class="chapter-title">
           <img src="images/06_tsuden.png" alt="" loading="lazy">
           <span>⑥ 発電機が5台上がった時の立ち回り</span>
@@ -501,35 +1053,30 @@ gap: 2px;
           ゲートを開けて逃げ道を確保しよう！
         </div>
 
-<div class="image-placeholder">〈通電した時の画像〉</div>
+        <div class="image-placeholder">〈通電した時の画像〉</div>
 
-        <p>2箇所あるゲートの位置を確認して、近い方にまっすぐ最短距離を走っていくよ。ただしそっちのゲートにキラーがいる時は反対のゲートに向かおう。</p>
         <p>
           2箇所あるゲートの位置を確認して、近い方にまっすぐ最短距離を走っていくよ。
           ただしそっちのゲートにキラーがいる時は反対のゲートに向かおう。
         </p>
 
-        <p>レバーを入れたら上げ切っちゃおう。ここで寸止めしたりとか、敢えて半分で止めるとか色気付いたことはしない。逃げ道を確保するのが最優先事項だよ！</p>
         <p>
           レバーを入れたら上げ切っちゃおう。
           ここで寸止めしたりとか、敢えて半分で止めるとか色気付いたことはしない。
           逃げ道を確保するのが最優先事項だよ！
         </p>
 
-<div class="image-placeholder">〈味方がレバーを入れてる時の画像〉</div>
+        <div class="image-placeholder">〈味方がレバーを入れてる時の画像〉</div>
 
-        <p>味方が先にレバーを入れてる時は、近くの岩陰とかに隠れてじっと待っておこう。キラーが来て味方が離れてしまった時は自分がすかさず引き継いで、ゲートを開けてしまおう。</p>
         <p>
           味方が先にレバーを入れてる時は、近くの岩陰とかに隠れてじっと待っておこう。
           キラーが来て味方が離れてしまった時は自分がすかさず引き継いで、ゲートを開けてしまおう。
         </p>
 
-<p>さあ脱出は目前だ🦦</p>
-</div>
+        <p>さあ脱出は目前だ🦦</p>
+      </div>
 
-<div class="chapter">
-        <h2 id="chapter-7" class="chapter-title"><img src="images/07_gate.png" alt="" loading="lazy"><span>⑦ ゲート解放後の立ち回り</span></h2>
-        <div class="chapter-tip"><span>今回のポイント</span>逃げられるなら逃げちゃっていい！</div>
+      <div class="chapter">
         <h2 id="chapter-7" class="chapter-title">
           <img src="images/07_gate.png" alt="" loading="lazy">
           <span>⑦ ゲート解放後の立ち回り</span>
@@ -540,16 +1087,14 @@ gap: 2px;
           逃げられるなら逃げちゃっていい！
         </div>
 
-        <p>逃げれる状況になったらもう逃げちゃって良いよ。ここまで行けば自分の功績、逃げたって良いんだよ。実際に命がかかってたら…まあ逃げるよね🦦</p>
         <p>
           逃げれる状況になったらもう逃げちゃって良いよ。
           ここまで行けば自分の功績、逃げたって良いんだよ。
           実際に命がかかってたら…まあ逃げるよね🦦
         </p>
 
-<div class="image-placeholder">〈可哀想な味方がいた時の画像〉</div>
+        <div class="image-placeholder">〈可哀想な味方がいた時の画像〉</div>
 
-        <p>ここからはオマケだけど、逃げ遅れた可哀想の味方がいた時は、自分が代わりに死ぬ覚悟があるなら助けてあげても良いよ。無傷なら肉壁になってあげるとか、ゲート内に負傷した味方がいるなら回復してあげるとか、色々してあげたらいいよ。</p>
         <p>
           ここからはオマケだけど、逃げ遅れた可哀想の味方がいた時は、
           自分が代わりに死ぬ覚悟があるなら助けてあげても良いよ。
@@ -557,23 +1102,19 @@ gap: 2px;
           色々してあげたらいいよ。
         </p>
 
-        <p>これは別に「逃げラッコ式」とは違うから、好きに判断してやったら良いよ。</p>
         <p>
           これは別に「逃げラッコ式」とは違うから、好きに判断してやったら良いよ。
         </p>
 
-        <p>でもね、キラーのパークには「誰も死から逃れられない（ノーワン）」や「血の番人」っていう恐ろしいパークがあるんだ。今は知らなくても別に良いけど、とりあえずヤバいからゲートが開いたらすぐに逃げることをオススメするよ🦦</p>
         <p>
           でもね、キラーのパークには「誰も死から逃れられない（ノーワン）」や
           「血の番人」っていう恐ろしいパークがあるんだ。
           今は知らなくても別に良いけど、とりあえずヤバいから
           ゲートが開いたらすぐに逃げることをオススメするよ🦦
         </p>
-</div>
+      </div>
 
-<div class="chapter">
-        <h2 id="chapter-8" class="chapter-title"><img src="images/08_dasshutsu.png" alt="" loading="lazy"><span>⑧ 無事に脱出したら</span></h2>
-        <div class="chapter-tip"><span>今回のポイント</span>味方やキラーのパークを見てみよう！</div>
+      <div class="chapter">
         <h2 id="chapter-8" class="chapter-title">
           <img src="images/08_dasshutsu.png" alt="" loading="lazy">
           <span>⑧ 無事に脱出したら</span>
@@ -584,64 +1125,45 @@ gap: 2px;
           味方やキラーのパークを見てみよう！
         </div>
 
-<p>味方やキラーの使っていたパークを見てみよう。</p>
+        <p>味方やキラーの使っていたパークを見てみよう。</p>
 
-@@ -1037,83 +1133,65 @@ <h2 id="chapter-8" class="chapter-title"><img src="images/08_dasshutsu.png" alt=
-「あ、あの時のあれはこれかあ」
-</p>
+        <p>
+          「へえー、こんなパークがあるんだ」<br>
+          「なんかこのパーク使ってるキラー多いなあ」<br>
+          「あ、あの時のあれはこれかあ」
+        </p>
 
-        <p>とか、漠然とそんなこと考えながら感傷に浸ろう。一番ホッとできる時間だからね。</p>
         <p>
           とか、漠然とそんなこと考えながら感傷に浸ろう。
           一番ホッとできる時間だからね。
         </p>
 
-<p>脱出おめでとう🦦</p>
-</div>
+        <p>脱出おめでとう🦦</p>
+      </div>
 
-<div class="congrats-illustration">
-        <img src="images/dasshutsu_omedetou.png" alt="脱出おめでとう！と喜ぶラッコたち" loading="lazy">
+      <div class="congrats-illustration">
         <img
           src="images/dasshutsu_omedetou.png"
           alt="脱出おめでとう！と喜ぶラッコたち"
           loading="lazy"
         >
-</div>
+      </div>
 
-<div class="ending">
-逃げラッコ式DbD立ち回り 🦦
-</div>
-
-      <!-- =========================
-           コメント欄
-           ========================= -->
+      <div class="ending">
+        逃げラッコ式DbD立ち回り 🦦
+      </div>
 
       <!-- コメント欄 -->
-<section class="comments-section" aria-labelledby="comments-title">
+      <section class="comments-section" aria-labelledby="comments-title">
 
-        <h2 id="comments-title" class="comments-title">
-          💬 コメント
-        </h2>
         <h2 id="comments-title">💬 コメント</h2>
 
-<p class="comments-lead">
-          立ち回りについての感想や質問など、気軽に書いてね🦦
+        <p class="comments-lead">
           このページを読んだ感想や、実際にやってみた感想を書いてね🦦
-</p>
+        </p>
 
-<form id="comment-form" class="comment-form">
+        <form id="comment-form" class="comment-form">
 
-          <div class="comment-field">
-            <label for="comment-name">名前</label>
-            <input
-              type="text"
-              id="comment-name"
-              name="name"
-              maxlength="30"
-              placeholder="ラッコ"
-              required
-            >
-          </div>
           <label for="comment-name">名前</label>
           <input
             id="comment-name"
@@ -652,16 +1174,6 @@ gap: 2px;
             required
           >
 
-          <div class="comment-field">
-            <label for="comment-body">コメント</label>
-            <textarea
-              id="comment-body"
-              name="body"
-              maxlength="1000"
-              placeholder="立ち回りについて何かあればどうぞ🦦"
-              required
-            ></textarea>
-          </div>
           <label for="comment-body">コメント</label>
           <textarea
             id="comment-body"
@@ -671,195 +1183,98 @@ gap: 2px;
             required
           ></textarea>
 
-          <button
-            type="submit"
-            id="comment-submit"
-            class="comment-submit"
-          >
           <button id="comment-submit" class="comment-submit" type="submit">
-コメントを投稿する
-</button>
-
-          <p class="comment-note">
-            ※投稿したコメントは確認後に表示されます。
-          </p>
-
-          <div
-            id="comment-status"
-            class="comment-status"
-            role="status"
-            aria-live="polite"
-          ></div>
+            コメントを投稿する
+          </button>
 
           <p id="comment-status" class="comment-status" aria-live="polite"></p>
-</form>
+        </form>
 
-<div id="comment-list" class="comment-list">
-          <div class="comment-empty">
-            コメントを読み込んでいます🦦
-          </div>
+        <div id="comment-list" class="comment-list">
           <div class="comment-empty">コメントを読み込んでいます……🦦</div>
-</div>
+        </div>
 
-</section>
-@@ -1127,44 +1205,35 @@ <h2 id="comments-title" class="comments-title">
-逃げラッコ式DbD立ち回り 🦦
-</footer>
+      </section>
 
+    </div>
 
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <a class="back-link" href="index.html">トップページへ戻る</a>
+  </main>
 
-<script>
-    /* =========================================
-       Supabase設定
-       ========================================= */
+  <footer>
+    逃げラッコ式DbD立ち回り 🦦
+  </footer>
+
+  <script>
     const SUPABASE_URL = "https://goxuhivbgaextkhyobmw.supabase.co";
 
-    const SUPABASE_URL = "ここにパークページと同じSUPABASE_URL";
-    const SUPABASE_PUBLISHABLE_KEY = "ここにパークページと同じSUPABASE_PUBLISHABLE_KEY";
     // Supabase Dashboard の Publishable key
     const SUPABASE_PUBLISHABLE_KEY =
       "sb_publishable_81GtdIt16_VTgJq4bV3RNw_MoA7ZuPV";
 
-    const supabaseClient = supabase.createClient(
     const PAGE_SLUG = "playstyle";
 
     const supabaseClient = window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_PUBLISHABLE_KEY
-);
-
-    /* このページ専用の識別子 */
-    const PAGE_SLUG = "playstyle";
-
-
-    /* =========================================
-       コメント表示
-       ========================================= */
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
 
     const commentForm = document.getElementById("comment-form");
     const commentName = document.getElementById("comment-name");
     const commentBody = document.getElementById("comment-body");
     const commentSubmit = document.getElementById("comment-submit");
     const commentStatus = document.getElementById("comment-status");
-const commentList = document.getElementById("comment-list");
+    const commentList = document.getElementById("comment-list");
 
-function escapeHtml(value) {
-      return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+    function escapeHtml(value) {
       const div = document.createElement("div");
       div.textContent = value ?? "";
       return div.innerHTML;
-}
+    }
 
-    function formatCommentDate(dateString) {
-      const date = new Date(dateString);
     function formatDate(value) {
       const date = new Date(value);
 
-if (Number.isNaN(date.getTime())) {
-return "";
-@@ -1180,12 +1249,8 @@ <h2 id="comments-title" class="comments-title">
-}
+      if (Number.isNaN(date.getTime())) {
+        return "";
+      }
 
-async function loadComments() {
+      return date.toLocaleString("ja-JP", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
 
-      commentList.innerHTML = `
-        <div class="comment-empty">
-          コメントを読み込んでいます🦦
-        </div>
-      `;
+    async function loadComments() {
       commentList.innerHTML =
         '<div class="comment-empty">コメントを読み込んでいます……🦦</div>';
 
-const { data, error } = await supabaseClient
-.from("diary_comments")
-@@ -1195,128 +1260,48 @@ <h2 id="comments-title" class="comments-title">
-.order("created_at", { ascending: false });
+      const { data, error } = await supabaseClient
+        .from("diary_comments")
+        .select("display_name, body, created_at")
+        .eq("page_slug", PAGE_SLUG)
+        .eq("approved", true)
+        .order("created_at", { ascending: false });
 
-if (error) {
-        console.error("コメント取得エラー:", error);
+      if (error) {
         console.error("コメント読み込みエラー:", error);
 
-        commentList.innerHTML = `
-          <div class="comment-empty">
-            コメントを読み込めませんでした。
-          </div>
-        `;
         commentList.innerHTML =
           '<div class="comment-empty">コメントを読み込めませんでした。</div>';
 
-return;
-}
+        return;
+      }
 
-if (!data || data.length === 0) {
-        commentList.innerHTML = `
-          <div class="comment-empty">
-            まだコメントはありません。<br>
-            最初のコメントを書いてみてね🦦
-          </div>
-        `;
+      if (!data || data.length === 0) {
         commentList.innerHTML =
           '<div class="comment-empty">まだコメントはありません。最初のコメントを書いてね🦦</div>';
 
-return;
-}
+        return;
+      }
 
-      commentList.innerHTML = data.map(comment => {
-
-        const name = escapeHtml(
-          comment.display_name || "名無しのラッコ"
-        );
-
-        const body = escapeHtml(
-          comment.body || ""
-        );
-
-        const date = formatCommentDate(
-          comment.created_at
-        );
-
-        return `
-          <article class="comment-card">
-
-            <div class="comment-meta">
-              <span class="comment-name">
-                ${name}
-              </span>
-
-              <time class="comment-date">
-                ${escapeHtml(date)}
-              </time>
-            </div>
-
-            <p class="comment-body">${body}</p>
-
-          </article>
-        `;
-
-      }).join("");
-    }
-
-
-    /* =========================================
-       コメント投稿
-       ========================================= */
-
-    const commentForm = document.getElementById("comment-form");
-    const commentName = document.getElementById("comment-name");
-    const commentBody = document.getElementById("comment-body");
-    const commentSubmit = document.getElementById("comment-submit");
-    const commentStatus = document.getElementById("comment-status");
-
-
-    function showCommentStatus(message, type) {
-
-      commentStatus.textContent = message;
       commentList.innerHTML = data.map(comment => `
         <article class="comment-item">
           <div class="comment-meta">
@@ -869,111 +1284,56 @@ return;
             </time>
           </div>
 
-      commentStatus.className =
-        "comment-status show " + type;
           <p class="comment-body">${escapeHtml(comment.body)}</p>
         </article>
       `).join("");
-}
-
-
-    commentForm.addEventListener("submit", async function(event) {
+    }
 
     commentForm.addEventListener("submit", async (event) => {
-event.preventDefault();
+      event.preventDefault();
 
-const name = commentName.value.trim();
-const body = commentBody.value.trim();
+      const name = commentName.value.trim();
+      const body = commentBody.value.trim();
 
-if (!name || !body) {
-
-        showCommentStatus(
-          "名前とコメントを入力してね🦦",
-          "error"
-        );
-
+      if (!name || !body) {
         commentStatus.textContent = "名前とコメントを入力してね🦦";
-return;
-}
-
-      if (name.length > 30) {
-
-        showCommentStatus(
-          "名前は30文字以内で入力してね。",
-          "error"
-        );
-
         return;
       }
 
-      if (body.length > 1000) {
-
-        showCommentStatus(
-          "コメントは1000文字以内で入力してね。",
-          "error"
-        );
-
-        return;
-      }
-
-
-commentSubmit.disabled = true;
-      commentSubmit.textContent = "投稿中…";
-
-      commentStatus.className =
-        "comment-status";
-
+      commentSubmit.disabled = true;
       commentStatus.textContent = "送信中……🦦";
 
-const { error } = await supabaseClient
-.from("diary_comments")
-@@ -1329,44 +1314,27 @@ <h2 id="comments-title" class="comments-title">
-}
-]);
+      const { error } = await supabaseClient
+        .from("diary_comments")
+        .insert([
+          {
+            page_slug: PAGE_SLUG,
+            display_name: name,
+            body: body,
+            approved: false
+          }
+        ]);
 
+      if (error) {
+        console.error("コメント送信エラー:", error);
 
-if (error) {
-
-console.error("コメント送信エラー:", error);
-
-        showCommentStatus(
-          "コメントを送信できませんでした。",
-          "error"
-        );
         commentStatus.textContent =
           "コメントを送信できませんでした。もう一度試してね。";
 
-commentSubmit.disabled = false;
-        commentSubmit.textContent = "コメントを投稿する";
-
-return;
-}
+        commentSubmit.disabled = false;
+        return;
+      }
 
       commentForm.reset();
 
-      commentName.value = "";
-      commentBody.value = "";
-
-      showCommentStatus(
-        "コメントを送信したよ！確認後に表示されます🦦",
-        "success"
-      );
       commentStatus.textContent =
         "コメントを送信しました！承認されると表示されます🦦";
 
-commentSubmit.disabled = false;
-      commentSubmit.textContent = "コメントを投稿する";
+      commentSubmit.disabled = false;
+    });
 
-});
-
-
-    /* =========================================
-       初回読み込み
-       ========================================= */
-
-loadComments();
-
-</script>
+    loadComments();
+  </script>
 
 </body>
 </html>
