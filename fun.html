@@ -329,11 +329,91 @@
       font-size: .92rem;
     }
 
-    .comment-item {
+    .comment-thread {
       padding: 18px;
       background: #fbf7ef;
       border: 1px solid var(--border);
       border-radius: 12px;
+    }
+
+    .comment-item {
+      padding: 0;
+    }
+
+    .thread-replies {
+      margin-top: 14px;
+      padding-top: 2px;
+      border-top: 1px solid var(--border);
+    }
+
+    .thread-replies summary {
+      padding: 9px 2px 8px;
+      color: var(--teal);
+      font-size: .82rem;
+      font-weight: 900;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .thread-replies summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .thread-replies summary::before {
+      content: "＋ ";
+    }
+
+    .thread-replies[open] summary::before {
+      content: "− ";
+    }
+
+    .reply-list {
+      display: grid;
+      gap: 0;
+    }
+
+    .reply-list .comment-item {
+      padding: 14px 0 14px 18px;
+      border-left: 3px solid #d8e7e4;
+    }
+
+    .reply-list .comment-item + .comment-item {
+      border-top: 1px solid var(--border);
+    }
+
+    .older-comments {
+      margin-top: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8f3e9;
+      overflow: hidden;
+    }
+
+    .older-comments summary {
+      padding: 13px 16px;
+      color: var(--teal);
+      font-weight: 900;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .older-comments summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .older-comments summary::after {
+      content: "＋";
+      float: right;
+    }
+
+    .older-comments[open] summary::after {
+      content: "−";
+    }
+
+    .older-comments-list {
+      display: grid;
+      gap: 14px;
+      padding: 0 14px 14px;
     }
 
     .comment-meta {
@@ -947,8 +1027,8 @@
 
       /*
        * parent_id を使ってコメントを親子関係に整理する。
-       * parent_id がないコメントが親コメント、
-       * parent_id があるコメントがそのコメントへの返信。
+       * 親コメントごとにひとつの枠を作り、
+       * その中に返信を折りたたんでまとめて表示する。
        */
       const childrenMap = {};
 
@@ -962,29 +1042,119 @@
         childrenMap[parentId].push(comment);
       });
 
-      /*
-       * 親コメント → 返信 → さらに返信、という順番で表示。
-       * これなら管理人コメントや返信コメントにも
-       * 同じ返信ボタンを付けられる。
-       */
-      function renderComments(parentId, depth = 0) {
+      /* 親コメントは新しい順にして、最新3件を通常表示 */
+      const parentComments =
+        [...(childrenMap.root || [])]
+          .sort((a, b) =>
+            new Date(b.created_at) - new Date(a.created_at)
+          );
 
-        const children = childrenMap[parentId] || [];
+      const latestParents = parentComments.slice(0, 3);
+      const olderParents = parentComments.slice(3);
 
-        children.forEach(comment => {
+      /* 返信をひとつの折りたたみの中へまとめる */
+      function createReplyDetails(parentId) {
 
-          const item = createCommentElement(comment, depth);
+        const replies =
+          [...(childrenMap[parentId] || [])]
+            .sort((a, b) =>
+              new Date(a.created_at) - new Date(b.created_at)
+            );
 
-          commentsList.appendChild(item);
+        if (replies.length === 0) {
+          return null;
+        }
 
-          renderComments(comment.id, depth + 1);
+        const details = document.createElement("details");
+        details.className = "thread-replies";
 
-        });
+        const summary = document.createElement("summary");
+        summary.textContent = `返信を見る（${replies.length}件）`;
+
+        const replyList = document.createElement("div");
+        replyList.className = "reply-list";
+
+        function appendReplies(replyComments, depth = 1) {
+
+          replyComments.forEach(reply => {
+
+            const item = createCommentElement(reply, depth);
+            replyList.appendChild(item);
+
+            const nestedReplies =
+              [...(childrenMap[reply.id] || [])]
+                .sort((a, b) =>
+                  new Date(a.created_at) - new Date(b.created_at)
+                );
+
+            if (nestedReplies.length > 0) {
+              appendReplies(nestedReplies, depth + 1);
+            }
+          });
+        }
+
+        appendReplies(replies);
+
+        details.appendChild(summary);
+        details.appendChild(replyList);
+
+        return details;
       }
 
-      renderComments("root");
+      /* 親コメントと返信をひとつの枠にまとめる */
+      function createThread(comment) {
+
+        const thread = document.createElement("article");
+        thread.className = "comment-thread";
+
+        thread.appendChild(
+          createCommentElement(comment, 0)
+        );
+
+        const replyDetails =
+          createReplyDetails(comment.id);
+
+        if (replyDetails) {
+          thread.appendChild(replyDetails);
+        }
+
+        return thread;
+      }
+
+      /* 最新3件 */
+      latestParents.forEach(comment => {
+        commentsList.appendChild(
+          createThread(comment)
+        );
+      });
+
+      /* 4件目以降はまとめて折りたたむ */
+      if (olderParents.length > 0) {
+
+        const details = document.createElement("details");
+        details.className = "older-comments";
+
+        const summary = document.createElement("summary");
+        summary.textContent =
+          `過去のコメントを見る（${olderParents.length}件）`;
+
+        const olderList = document.createElement("div");
+        olderList.className = "older-comments-list";
+
+        olderParents.forEach(comment => {
+          olderList.appendChild(
+            createThread(comment)
+          );
+        });
+
+        details.appendChild(summary);
+        details.appendChild(olderList);
+
+        commentsList.appendChild(details);
+      }
 
     }
+
 
 
     /* ==========================================
