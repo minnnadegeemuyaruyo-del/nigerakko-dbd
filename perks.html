@@ -746,6 +746,7 @@
         </span>
       </a>
 
+
       <nav aria-label="メインメニュー">
         <a href="index.html">ホーム</a>
 
@@ -1928,7 +1929,7 @@
        * 管理人から「らこ」への返信も同じ親の直下に表示される。
        */
 
-      if (!isReply) {
+      if (!isReply || displayName === "管理人") {
 
         const actions =
           document.createElement(
