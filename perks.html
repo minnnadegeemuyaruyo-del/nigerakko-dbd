@@ -387,12 +387,24 @@
       opacity: .88;
     }
 
-    /* =========================
-       コメント
-    ========================= */
+    /* ========================= */
+    /* コメント欄 */
+    /* ========================= */
 
     .comments-section {
-      margin-top: 42px;
+      margin-top: 50px;
+      padding-top: 36px;
+      border-top: 2px solid var(--border);
+    }
+
+    .comments-section h2 {
+      margin-top: 0;
+    }
+
+    .comments-lead {
+      margin-bottom: 22px;
+      color: var(--muted);
+      font-size: .95rem;
     }
 
     .comment-form {
@@ -400,98 +412,242 @@
       background: #f8f3e9;
       border: 1px solid var(--border);
       border-radius: 14px;
-      margin-bottom: 30px;
+    }
+
+    .comment-form label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 800;
+      font-size: .92rem;
     }
 
     .comment-form input,
     .comment-form textarea {
+      display: block;
       width: 100%;
-      padding: 12px;
-      margin-bottom: 12px;
-      border: 1px solid #d8cec0;
-      border-radius: 8px;
-      box-sizing: border-box;
-      font: inherit;
-      background: white;
+      margin-bottom: 16px;
+      padding: 12px 14px;
+      background: #fff;
       color: var(--text);
-    }
-
-    .comment-form textarea {
-      min-height: 120px;
-      resize: vertical;
+      border: 1px solid #d7ccbd;
+      border-radius: 9px;
+      font: inherit;
+      outline: none;
     }
 
     .comment-form input:focus,
     .comment-form textarea:focus {
-      outline: 3px solid rgba(71, 127, 125, .2);
       border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(71, 127, 125, .12);
     }
 
-    .comment-form button {
+    .comment-form textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .comment-submit {
+      display: inline-block;
+      padding: 11px 24px;
       border: 0;
-      padding: 10px 18px;
-      border-radius: 20px;
+      border-radius: 24px;
       background: var(--teal);
-      color: white;
+      color: #fff;
       font: inherit;
-      font-weight: 900;
+      font-weight: 800;
+      cursor: pointer;
+      transition: opacity .2s;
+    }
+
+    .comment-submit:hover {
+      opacity: .85;
+    }
+
+    .comment-submit:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    .comment-status {
+      min-height: 1.6em;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .comment-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .comment-item {
+      position: relative;
+      padding: 18px 20px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .comment-item.reply {
+      margin-left: 38px;
+      background: #f8f5ef;
+      border-left: 5px solid var(--teal);
+    }
+
+    .comment-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .reply-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border: 1px solid #c9dcd9;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--teal);
+      font: inherit;
+      font-size: .85rem;
+      font-weight: 800;
       cursor: pointer;
     }
 
-    .comment-form button:hover {
-      opacity: .9;
+    .reply-button:hover {
+      background: var(--teal-light);
     }
 
-    .comment-form button:disabled {
-      opacity: .5;
-      cursor: default;
+    .reply-form {
+      display: none;
+      margin-top: 14px;
+      padding: 16px;
+      background: #f4f0e7;
+      border: 1px solid var(--border);
+      border-radius: 10px;
     }
 
-    .comment-message {
+    .reply-form.is-open {
+      display: block;
+    }
+
+    .reply-form-title {
+      margin: 0 0 12px;
+      font-weight: 800;
+      font-size: .9rem;
+    }
+
+    .reply-form input,
+    .reply-form textarea {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px 12px;
+      background: #fff;
+      color: var(--text);
+      border: 1px solid #d7ccbd;
+      border-radius: 8px;
+      font: inherit;
+      outline: none;
+    }
+
+    .reply-form input:focus,
+    .reply-form textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(71, 127, 125, .12);
+    }
+
+    .reply-form textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .reply-submit-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .reply-submit,
+    .reply-cancel {
+      padding: 8px 15px;
+      border-radius: 20px;
+      font: inherit;
+      font-size: .85rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .reply-submit {
+      border: 0;
+      background: var(--teal);
+      color: #fff;
+    }
+
+    .reply-cancel {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+    }
+
+    .reply-status {
+      margin: 0;
       color: var(--muted);
-      font-size: 14px;
+      font-size: .82rem;
     }
 
-    .comment-error {
-      color: #a24d4d;
-      font-size: 14px;
+    .comment-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
     }
 
-    .public-comment {
-      padding: 18px 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .public-comment-name {
+    .comment-name {
       font-weight: 900;
     }
 
-    .public-comment-date {
-      margin-left: 10px;
-      color: var(--muted);
-      font-size: 12px;
+    .comment-name.admin {
+      color: var(--teal);
     }
 
-    .public-comment-body {
-      margin-top: 8px;
+    .reply-label {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--teal);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 800;
+      vertical-align: 2px;
+    }
+
+    .comment-date {
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
+    .comment-body {
+      margin: 0;
       white-space: pre-wrap;
       overflow-wrap: anywhere;
     }
 
     footer {
-      padding: 22px 20px 30px;
-      background: #e9e2d6;
-      color: var(--muted);
+      padding: 20px;
       text-align: center;
+      background: #e9e2d6;
+      color: #6e6255;
       font-size: 13px;
     }
 
-    a:focus-visible {
-      outline: 3px solid var(--teal);
-      outline-offset: 4px;
-    }
-
-    @media (max-width: 900px) {
+    @media (max-width: 760px) {
       .header-inner {
         flex-wrap: wrap;
       }
@@ -503,35 +659,22 @@
       }
 
       .content-card {
-        padding: 24px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .dwight-photo {
-        width: 68px;
-        height: 68px;
+        padding: 22px;
       }
 
+      .dwight-intro,
       .unlock-intro {
         align-items: flex-start;
-        flex-direction: column;
       }
 
-      .unlock-portraits {
-        flex-wrap: wrap;
-      }
-
-      .unlock-portraits img {
-        width: 56px;
-        height: 56px;
+      .comment-item.reply {
+        margin-left: 18px;
       }
     }
 
     @media (max-width: 560px) {
       .header-inner {
         padding: 10px 15px;
-        gap: 8px;
       }
 
       .brand-icon {
@@ -543,83 +686,45 @@
       }
 
       nav {
-        gap: 20px;
+        gap: 15px;
       }
 
       nav a {
         font-size: 12px;
       }
 
-      .page-hero {
-        padding: 30px 16px;
-      }
-
-      .page-hero p {
-        font-size: 14px;
-      }
-
       main {
-        padding: 18px 12px 32px;
+        padding: 18px 13px 30px;
       }
 
       .content-card {
-        padding: 18px 13px;
-        border-radius: 13px;
-      }
-
-      .intro {
-        padding: 15px;
-        font-size: 14px;
-      }
-
-      .section-title {
-        margin-top: 32px;
-        padding: 11px 13px;
-      }
-
-      .perk-card {
-        padding: 16px 13px;
-        margin: 15px 0;
-      }
-
-      .perk-heading {
-        gap: 12px;
-        font-size: 20px;
-      }
-
-      .perk-icon {
-        width: 52px;
-        height: 52px;
-      }
-
-      .perk-owner {
-        font-size: 11px;
-      }
-
-      .perk-owner img {
-        width: 26px;
-        height: 26px;
-      }
-
-      .perk-card p,
-      .perk-card li {
-        font-size: 14px;
-      }
-
-      .note-card {
         padding: 16px;
       }
 
-      .next-step {
-        padding: 21px 17px;
+      .page-hero {
+        padding: 30px 15px;
       }
 
-      .next-step h2 {
-        font-size: 21px;
+      .perk-heading {
+        align-items: flex-start;
+      }
+
+      .dwight-photo {
+        width: 70px;
+        height: 70px;
+      }
+
+      .unlock-portraits img {
+        width: 50px;
+        height: 50px;
       }
 
       .comment-form {
         padding: 16px;
+      }
+
+      .comment-item {
+        padding: 15px;
       }
     }
 
@@ -627,1047 +732,992 @@
       html {
         scroll-behavior: auto;
       }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <div class="header-inner">
-
-      <a class="brand" href="index.html">
-        <span class="brand-icon" aria-hidden="true">🦦</span>
-
-        <span class="brand-name">
-          逃げラッコ式
-          <small>DbD立ち回りガイド</small>
-        </span>
-      </a>
-
-      <nav aria-label="メインメニュー">
-        <a href="index.html">ホーム</a>
-
-        <a
-          href="perks.html"
-          aria-current="page">
-          パーク紹介
-        </a>
-
-        <a href="playstyle.html?v=2">
-          立ち回り講座
-        </a>
-
-        <a href="index.html#beginner">
-          初心者ガイド
-        </a>
-
-        <a href="fun.html">
-          楽しみ方
-        </a>
-      </nav>
-
-    </div>
-  </header>
-
-
-  <section class="page-hero">
-
-    <p class="eyebrow">
-      DEAD BY DAYLIGHT SURVIVAL GUIDE
-    </p>
-
-    <h1>
-      おすすめパーク構成
-    </h1>
-
-    <p>
-      できないことは考えるな。0から始める逃亡生活 🦦
-    </p>
-
-  </section>
-
-
-  <main>
-
-    <div class="content-card">
-
-
-      <div class="intro dwight-intro">
-
-        <img
-          src="images/dwight.png"
-          alt="ドワイト"
-          class="dwight-photo"
-        >
-
-        <div>
-          <strong>
-            どのキャラから解放したらいいかわからない人
-          </strong>
-          は、まず【ドワイト】を選択してね。
-        </div>
-
-      </div>
-
-
-      <h2 class="section-title">
-        最初のパーク構成
-      </h2>
-
-
-      <article class="perk-card">
-
-        <h3 class="perk-heading">
-
-          <img
-            src="images/絆.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">1</span>
-              絆
-            </span>
-
-            <span class="perk-owner">
-
-              <img
-                src="images/dwight.png"
-                alt=""
-              >
-
-              ドワイトの固有パーク
-
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
-        </p>
-
-        <p>
-          (20・28・36)メートル以内にいる他の仲間のオーラがあなたに視える。
-        </p>
-
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          味方全員が何をしているかを想像する癖をつけるため。
-        </p>
-
-      </article>
-
-
-      <article class="perk-card">
-
-        <h3 class="perk-heading">
-
-          <img
-            src="images/有能の証明.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">2</span>
-              有能の証明
-            </span>
-
-            <span class="perk-owner">
-
-              <img
-                src="images/dwight.png"
-                alt=""
-              >
-
-              ドワイトの固有パーク
-
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
-        </p>
-
-        <p>
-          自分の4メートル以内では、範囲内にいる他の生存者1人につき、
-          全ての生存者の修理速度が(6・8・10)%上昇する。
-        </p>
-
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          ドワイトの固有パークだからすぐ使えるからってだけ。
-          でも発電機を回す速度が上がるから普通に強いよ。
-        </p>
-
-      </article>
-
-
-      <article class="perk-card">
-
-        <h3 class="perk-heading">
-
-          <img
-            src="images/リーダー.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">3</span>
-              リーダー
-            </span>
-
-            <span class="perk-owner">
-
-              <img
-                src="images/dwight.png"
-                alt=""
-              >
-
-              ドワイトの固有パーク
-
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
-        </p>
-
-        <p>
-          自分の10メートル以内にいる他の生存者は、
-          次の行動速度が(20・25・30)%上昇する。
-        </p>
-
-        <ul>
-          <li>トーテムを浄化する。</li>
-          <li>脱出ゲートを開ける。</li>
-          <li>治療を受ける。</li>
-          <li>フックを破壊する。</li>
-          <li>フックから救助する。</li>
-          <li>チェストを開錠する。</li>
-        </ul>
-
-        <p>
-          この効果は、生存者が範囲から出たあと15秒間持続する。
-        </p>
-
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          これもドワイトの固有パークだからすぐ使えるからってだけ。
-          ただ、味方が自分を回復してくれるスピードが上がるから、
-          味方の足を引っ張るリスクが軽減するよ。
-        </p>
-
-        <p>
-          初心者だから足を引っ張るのはしょうがないよ。
-          だからせめてこれで軽減してあげよう🦦
-        </p>
-
-      </article>
-
-
-      <article class="perk-card">
-
-        <h3 class="perk-heading">
-
-          <img
-            src="images/血族.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">4</span>
-              血族
-            </span>
-
-            <span class="perk-owner">
-              共有パーク
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
-        </p>
-
-        <p>
-          あなたがフックに吊るされているとき、
-          生存者全員にお互いのオーラが視える。
-          殺人鬼がフックの(14・15・16)メートル以内にいるとき、
-          殺人鬼のオーラが生存者全員に視える。
-        </p>
-
-        <p>
-          自分以外の生存者がフックに吊るされているとき、
-          他の生存者のオーラがあなたに視える。
-          殺人鬼がフックに吊るされた生存者の
-          (14・15・16)メートル以内にいるとき、
-          殺人鬼のオーラがあなたに視える。
-        </p>
-
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          これは初めから全キャラ共通で解放されてるパークだから入れてるよ。
-          でも自分が使っても味方からしてもこれを入れてるとすごくありがたいパークなんだ。
-        </p>
-
-        <p>
-          これがあると味方が吊られた後にキラーの動向を確認してから、
-          <strong>安全に動きやすくなる</strong>よ。
-          逆に自分が吊られた場合は、味方にその効果がつくんだよ。
-          とっても助かるよね🦦
-        </p>
-
-      </article>
-
-
-      <h2 class="section-title">
-        次に解放するキャラクター
-      </h2>
-
-
-      <div class="intro unlock-intro">
-
-        <div class="unlock-portraits">
-
-          <img
-            src="images/meg.png"
-            alt="メグ"
-          >
-
-          <img
-            src="images/feng-min.png"
-            alt="フェンミン"
-          >
-
-          <img
-            src="images/jake.png"
-            alt="ジェイク"
-          >
-
-        </div>
-
-
-        <div class="unlock-text">
-
-          <p>
-            BP（ブラッドポイント）が100万ポイント貯まるまでは、
-            しばらくこの構成を使っていくよ。
-          </p>
-
-          <p>
-            BPが100万溜まったら次はメグ、その次はフェンミン、その次はジェイクの順番に解放するよ。
-            解放したら使いたいキャラクターに、次に説明していくパークを一個ずつ装備させよう🦦
-          </p>
-
-          <p>
-            <strong>
-              ドワイト、メグ、フェンミン、ジェイク
-            </strong>
-            を解放した人は、
-            このパーク構成にするよ。
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <article class="perk-card">
-
-        <h3 class="perk-heading">
-
-          <img
-            src="images/絆.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">1</span>
-              絆
-            </span>
-
-            <span class="perk-owner">
-
-              <img
-                src="images/dwight.png"
-                alt=""
-              >
-
-              ドワイトの固有パーク
-
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
-        </p>
-
-        <p>
-          (20・28・36)メートル以内にいる他の仲間のオーラがあなたに視える。
-        </p>
-
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          これを使えば味方が近くでチェイスしてる、発電してる、セルフケアしてるが一目瞭然だよ。
-          その都度判断して行動しよう🦦
-        </p>
-
-
-        <p class="effect-label">
-          【注意点】
-        </p>
-
-        <p>
-          味方が発電機を回しているから一緒に回そう、回復してるから手伝ってあげよう等の行動は
-          まとめて襲われるリスクになったり、通電までが遅くなる原因になり得るから注意だよ。
-          基本的に味方とは離れて行動することが大事🦦
-        </p>
-
-      </article>
-
-
-      <article class="perk-card">
-
-        <h3 class="perk-heading">
-
-          <img
-            src="images/全力疾走.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">2</span>
-              全力疾走
-            </span>
-
-            <span class="perk-owner">
-
-              <img
-                src="images/meg.png"
-                alt=""
-              >
-
-              メグの固有パーク
-
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
-        </p>
-
-        <p>
-          あなたは走り出すと、迅速50%を2秒間得る。
-        </p>
-
-        <p>
-          その後、(60・50・40)秒間疲労状態になる。
-        </p>
-
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          自分が発電機を回している時にキラーが向かってきたら逃げるために使うよ。
-          それ以外のために使うことはほとんどないと思って良いよ。
-          大丈夫、その使い方が強いんだ🦦
-        </p>
-
-
-        <p class="effect-label">
-          【注意点】
-        </p>
-
-        <p>
-          疲労になることを避けて歩き移動する必要はないよ。
-          発電機を回している間に疲労は回復するから。
-          今回はあくまでキラーが来たときに発電機から素早く離れるためのパークという認識でいよう🦦
-        </p>
-
-      </article>
-
-
-      <article class="perk-card">
-
-        <h3 class="perk-heading">
-
-          <img
-            src="images/警戒.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">3</span>
-              警戒
-            </span>
-
-            <span class="perk-owner">
-
-              <img
-                src="images/feng-min.png"
-                alt=""
-              >
-
-              フェンミンの固有パーク
-
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
-        </p>
-
-        <p>
-          殺人鬼が破壊可能な壁やパレットを破壊するか、
-          発電機にダメージを与えたとき：
-        </p>
-
-        <ul>
-          <li>通知音が聞こえる。</li>
-          <li>殺人鬼のオーラが(3・4・5)秒間視える。</li>
-        </ul>
-
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          キラーが発電機を破壊した時にすぐに分かるよ。
-          発電機を壊されたということは味方が既に回していたということ。
-          だから自分の手が空いてるならできるだけその発電機を引き継いであげよう。
-          それしてくれるとすごい助かるなあ🦦
-        </p>
-
-
-        <p class="effect-label">
-          【注意点】
-        </p>
-
-        <p>
-          キラーから安全に隠れるため、自分の生存率を上げるために使うわけじゃないよ。
-          ビクビクして隠密ばっかりするような立ち回りにはならないように気をつけよう🦦
-        </p>
-
-      </article>
-
-
-      <article class="perk-card">
-
-        <h3 class="perk-heading">
-
-          <img
-            src="images/魂の平穏.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">4</span>
-              魂の平穏
-            </span>
-
-            <span class="perk-owner">
-
-              <img
-                src="images/jake.png"
-                alt=""
-              >
-
-              ジェイクの固有パーク
-
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
-        </p>
-
-        <p>
-          あなたはカラスを怖がらせず、叫び声を上げない。
-        </p>
-
-        <p>
-          チェストを開錠する音やトーテムを浄化または清める音がしなくなり、
-          その速度が(8・9・10)%上昇する。
-        </p>
-
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          叫び声を上げないからキラーに場所を特定するリスクを減らすことができるよ。
-          まあ正直言うと初期から使えるキャラで、ラッコが色々考えた結果
-          消去法でこのパークが無難だなと思ったから選んだって感じ。
-        </p>
-
-        <p>
-          全然変えても良いけど、セルフケアとかオポチュニティとか、
-          強力なパークを入れてないということにはそれなりの理由があるんだけど、
-          長くなるから<strong>楽しみ方</strong>のところで説明するね🦦
-        </p>
-
-
-        <p class="effect-label">
-          【注意点】
-        </p>
-
-        <p>
-          キラー側が叫ばせるパークを使ってなかったら完全に腐るパークってとこくらい。
-          でも逆に言えばキラーが叫ばせるパークを使っているなら、
-          そのパークを腐らせることができるからね。
-          ラッコはけっこう好きだよ🦦
-        </p>
-
-      </article>
-
-
-      <div class="note-card">
-
-        <p>
-          プレイ時間が100時間未満の人はこれでやっていくよ。
-          使い方は<strong>立ち回り</strong>のところで説明するよ🦦
-        </p>
-
-      </div>
-
-
-      <section class="next-step">
-
-        <h2>
-          次は立ち回りを見てみよう！
-        </h2>
-
-        <p>
-          パークを装備したら、次は試合中の動き方を覚えていこう。
-          パークを活かすための立ち回りは、こちらで説明するよ🦦
-        </p>
-
-        <a
-          class="next-link"
-          href="playstyle.html?v=2">
-          おすすめ立ち回りを見る →
-        </a>
-
-      </section>
-
-
-      <!-- =========================
-           コメント欄
-      ========================= -->
-
-      <section class="comments-section">
-
-        <h2 class="section-title">
-          みんなのコメント
-        </h2>
-
-
-        <div class="comment-form">
-
-          <input
-            id="comment-name"
-            type="text"
-            maxlength="30"
-            placeholder="名前（任意）"
-          >
-
-
-          <textarea
-            id="comment-body"
-            maxlength="500"
-            placeholder="このページについてコメントしてね🦦"
-          ></textarea>
-
-
-          <button
-            id="comment-submit">
-            コメントを送信
-          </button>
-
-
-          <p
-            id="comment-message"
-            class="comment-message">
-          </p>
-
-        </div>
-
-
-        <div id="comments-list">
-
-          <p class="comment-message">
-            コメントを読み込んでいます……
-          </p>
-
-        </div>
-
-      </section>
-
-    </div>
-
-
-    <a
-      class="back-link"
-      href="index.html">
-      ← トップページへ戻る
+<header>
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-icon" aria-hidden="true">🦦</span>
+      <span class="brand-name">逃げラッコ式<small>DbD立ち回りガイド</small></span>
     </a>
 
-  </main>
+    <nav aria-label="メインメニュー">
+      <a href="index.html">ホーム</a>
+      <a href="diary.html">ラッコの日記</a>
+      <a href="https://discord.gg/SP9GnQDS5f"
+         target="_blank"
+         rel="noopener noreferrer">Discordに参加 ↗</a>
+      <a href="https://www.twitch.tv/rakkowww"
+         target="_blank"
+         rel="noopener noreferrer">Twitchで配信中 ↗</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <p class="eyebrow">逃げラッコ式 DbD BEGINNER GUIDE</p>
+  <h1>🔰 おすすめパーク構成</h1>
+  <p>まずは「絆」を付けて遊んでみよう🦦</p>
+</section>
+
+<main>
+  <article class="content-card">
+
+    <section class="intro dwight-intro">
+      <img
+        class="dwight-photo"
+        src="images/dwight.png"
+        alt="ドワイト"
+      >
+      <div>
+        <strong>まずはドワイトで始めてみよう。</strong><br>
+        DbDを始めたばかりなら、まずは「絆」を付けて、仲間の位置を見ながら動いてみるのがおすすめ。
+      </div>
+    </section>
+
+    <h2 class="section-title">① まずは「絆」を付けよう</h2>
+
+    <p class="section-lead">
+      初心者のうちは、仲間がどこにいるのか分からないだけで、かなり動きにくく感じる。
+      「絆」があれば、それを見ながら次に何をするか考えられるようになる。
+    </p>
+
+    <section class="perk-card">
+      <h3 class="perk-heading">
+        <img
+          class="perk-icon"
+          src="images/perks/bond.png"
+          alt="絆"
+        >
+        <span class="perk-title">
+          <span>
+            <span class="perk-number">1</span>
+            絆
+          </span>
+          <span class="perk-owner">
+            ドワイト・フェアフィールド
+          </span>
+        </span>
+      </h3>
+
+      <p class="effect-label">効果</p>
+
+      <p>
+        一定範囲内にいる生存者のオーラが見えるようになる。
+      </p>
+
+      <p>
+        「誰かが発電している」「誰かがチェイスしている」「誰かが負傷している」など、
+        仲間の状況を見ながら動けるのが大きなメリット。
+      </p>
+
+      <p>
+        最初は「仲間のところへ行く」だけでもいい。
+        慣れてきたら、仲間が何をしているのかを見て、自分が次に何をするべきか考えてみよう。
+      </p>
+    </section>
+
+    <section class="note-card">
+      <p>
+        💡 <strong>ラッコポイント</strong><br>
+        初心者のうちは「自分が何をすればいいのか分からない」時間がかなりある。
+        絆は、その時間を減らしてくれるパークだよ。
+      </p>
+    </section>
+
+    <h2 class="section-title">② 次に「全力疾走」を付けてみよう</h2>
+
+    <p class="section-lead">
+      走っているときに発動するシンプルなパークだから、初心者でも使いやすい。
+    </p>
+
+    <section class="perk-card">
+      <h3 class="perk-heading">
+        <img
+          class="perk-icon"
+          src="images/perks/sprint-burst.png"
+          alt="全力疾走"
+        >
+        <span class="perk-title">
+          <span>
+            <span class="perk-number">2</span>
+            全力疾走
+          </span>
+          <span class="perk-owner">
+            メグ・トーマス
+          </span>
+        </span>
+      </h3>
+
+      <p class="effect-label">効果</p>
+
+      <p>
+        走り始めたときに、一時的に移動速度が上昇する。
+      </p>
+
+      <p>
+        キラーから逃げるときだけではなく、
+        発電機へ向かったり、救助へ向かったりするときにも使える。
+      </p>
+
+      <p>
+        ただし、走ると発動するので、常に走っていると必要なときに使えない。
+        「ここで使いたい」という場面まで温存することも大切。
+      </p>
+    </section>
+
+    <h2 class="section-title">③ 慣れてきたら「警戒」もおすすめ</h2>
+
+    <p class="section-lead">
+      キラーの位置を知ることができるので、次の行動を考えやすくなる。
+    </p>
+
+    <section class="perk-card">
+      <h3 class="perk-heading">
+        <img
+          class="perk-icon"
+          src="images/perks/alert.png"
+          alt="警戒"
+        >
+        <span class="perk-title">
+          <span>
+            <span class="perk-number">3</span>
+            警戒
+          </span>
+          <span class="perk-owner">
+            ミン・
+          </span>
+        </span>
+      </h3>
+
+      <p class="effect-label">効果</p>
+
+      <p>
+        キラーが板や発電機などを破壊したとき、そのキラーのオーラが見える。
+      </p>
+
+      <p>
+        「キラーがどこにいるのか」が分かれば、
+        安心して発電を続けたり、別の場所へ移動したりできる。
+      </p>
+    </section>
+
+    <h2 class="section-title">④ 最後は「魂の平穏」</h2>
+
+    <section class="perk-card">
+      <h3 class="perk-heading">
+        <img
+          class="perk-icon"
+          src="images/perks/calm-spirit.png"
+          alt="魂の平穏"
+        >
+        <span class="perk-title">
+          <span>
+            <span class="perk-number">4</span>
+            魂の平穏
+          </span>
+          <span class="perk-owner">
+            ジェイク・パーク
+          </span>
+        </span>
+      </h3>
+
+      <p class="effect-label">効果</p>
+
+      <p>
+        一部の通知や叫び声などを抑えることができる。
+      </p>
+
+      <p>
+        初心者のうちは、キラーに見つかったときに慌ててしまうことも多い。
+        そういうときに少しでも落ち着いて行動しやすくするための選択肢。
+      </p>
+    </section>
+
+    <section class="unlock-intro intro">
+      <div class="unlock-portraits">
+        <img src="images/characters/dwight.png" alt="ドワイト">
+        <img src="images/characters/meg.png" alt="メグ">
+      </div>
+
+      <div class="unlock-text">
+        <p>
+          <strong>この4つを使ってみて、ゲームに慣れてきたら少しずつ自分好みに変えていこう。</strong>
+        </p>
+        <p>
+          「このパーク好きだな」と思えるものが見つかったら、それを使い続けるのも立派な遊び方だよ。
+        </p>
+      </div>
+    </section>
+
+    <section class="next-step">
+      <h2>次は「立ち回り」を見てみよう🦦</h2>
+      <p>
+        パークを付けたら、次は実際にどう動けばいいのかを見てみよう。
+      </p>
+      <a class="next-link" href="playstyle.html">おすすめ立ち回りを見る →</a>
+    </section>
+
+    <a class="back-link" href="index.html">← ホームへ戻る</a>
+
+    <!-- ========================= -->
+    <!-- コメント欄 -->
+    <!-- ========================= -->
+
+    <section class="comments-section" id="comments">
+      <h2>みんなのコメント</h2>
+
+      <p class="comments-lead">
+        このページについてコメントしてね🦦
+      </p>
+
+      <form class="comment-form" id="comment-form">
+        <label for="comment-name">名前</label>
+        <input
+          id="comment-name"
+          name="name"
+          type="text"
+          maxlength="30"
+          placeholder="名前（任意）"
+        >
+
+        <label for="comment-body">コメント</label>
+        <textarea
+          id="comment-body"
+          name="comment"
+          maxlength="1000"
+          placeholder="このページについてコメントしてね🦦"
+          required
+        ></textarea>
+
+        <button
+          class="comment-submit"
+          id="comment-submit"
+          type="submit"
+        >
+          コメントを送信
+        </button>
+
+        <p
+          class="comment-status"
+          id="comment-status"
+          aria-live="polite"
+        ></p>
+      </form>
+
+      <div
+        class="comment-list"
+        id="comment-list"
+        aria-live="polite"
+      ></div>
+    </section>
+
+  </article>
+</main>
+
+<footer>
+  © 逃げラッコ
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  const SUPABASE_URL =
+    "https://YOUR-PROJECT.supabase.co";
+
+  const SUPABASE_ANON_KEY =
+    "YOUR-ANON-KEY";
+
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
+
+  const PAGE_SLUG =
+    "perks";
+
+  const commentForm =
+    document.getElementById(
+      "comment-form"
+    );
+
+  const commentName =
+    document.getElementById(
+      "comment-name"
+    );
+
+  const commentBody =
+    document.getElementById(
+      "comment-body"
+    );
+
+  const commentSubmit =
+    document.getElementById(
+      "comment-submit"
+    );
+
+  const commentStatus =
+    document.getElementById(
+      "comment-status"
+    );
+
+  const commentList =
+    document.getElementById(
+      "comment-list"
+    );
 
 
-  <footer>
-    逃げラッコ式DbD立ち回り 🦦
-  </footer>
+  /* =========================================
+     コメント読み込み
+     ========================================= */
+
+  async function loadComments() {
+
+    commentList.innerHTML =
+      "<p>コメントを読み込んでいます……</p>";
 
 
-  <!-- =========================
-       Supabase
-  ========================= -->
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        .from("diary_comments")
 
+        .select("*")
 
-  <script>
+        .eq(
+          "page_slug",
+          PAGE_SLUG
+        )
 
-    const SUPABASE_URL =
-      "https://goxuhivbgaextkhyobmw.supabase.co";
+        .eq(
+          "approved",
+          true
+        )
 
-
-    const SUPABASE_PUBLISHABLE_KEY =
-      "sb_publishable_81GtdIt16_VTgJq4bV3RNw_MoA7ZuPV";
-
-
-    const supabaseClient =
-      supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-      );
-
-
-    // =========================
-    // このページの識別子
-    // =========================
-
-    const PAGE_SLUG =
-      "perks";
-
-
-    // =========================
-    // 要素取得
-    // =========================
-
-    const commentName =
-      document.getElementById(
-        "comment-name"
-      );
-
-
-    const commentBody =
-      document.getElementById(
-        "comment-body"
-      );
-
-
-    const commentSubmit =
-      document.getElementById(
-        "comment-submit"
-      );
-
-
-    const commentMessage =
-      document.getElementById(
-        "comment-message"
-      );
-
-
-    const commentsList =
-      document.getElementById(
-        "comments-list"
-      );
-
-
-    // =========================
-    // コメント読み込み
-    // =========================
-
-    async function loadComments() {
-
-      commentsList.innerHTML =
-        '<p class="comment-message">コメントを読み込んでいます……</p>';
-
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient
-
-          .from("diary_comments")
-
-          .select(
-            "id, display_name, body, created_at"
-          )
-
-          .eq(
-            "page_slug",
-            PAGE_SLUG
-          )
-
-          .eq(
-            "approved",
-            true
-          )
-
-          .order(
-            "created_at",
-            {
-              ascending: false
-            }
-          );
-
-
-      if (error) {
-
-        console.error(
-          "コメント取得エラー:",
-          error
+        .order(
+          "created_at",
+          {
+            ascending: true
+          }
         );
 
 
-        commentsList.innerHTML =
-          '<p class="comment-error">コメントを読み込めませんでした。</p>';
+    if (error) {
+
+      console.error(
+        "コメント取得エラー:",
+        error
+      );
+
+      commentList.innerHTML =
+        "<p>コメントを読み込めませんでした。</p>";
+
+      return;
+
+    }
 
 
-        return;
-      }
+    commentList.innerHTML = "";
 
 
-      if (
-        !data ||
-        data.length === 0
-      ) {
+    if (
+      !data ||
+      data.length === 0
+    ) {
 
-        commentsList.innerHTML =
-          '<p class="comment-message">まだコメントはありません。</p>';
+      commentList.innerHTML =
+        "<p>まだコメントはありません。</p>";
 
+      return;
 
-        return;
-      }
-
-
-      commentsList.innerHTML =
-        "";
+    }
 
 
-      data.forEach(
-        comment => {
+    /*
+     * 親コメントと返信を分離
+     */
 
-          const item =
-            document.createElement(
-              "div"
-            );
-
-
-          item.className =
-            "public-comment";
+    const parentComments =
+      data.filter(
+        comment =>
+          !comment.parent_id
+      );
 
 
-          const name =
-            document.createElement(
-              "div"
-            );
+    const repliesByParent =
+      {};
 
 
-          name.className =
-            "public-comment-name";
-
-
-          name.textContent =
-            comment.display_name ||
-            "名無しのラッコ";
-
-
-          const date =
-            document.createElement(
-              "span"
-            );
-
-
-          date.className =
-            "public-comment-date";
-
+    data
+      .filter(
+        comment =>
+          comment.parent_id
+      )
+      .forEach(
+        reply => {
 
           if (
-            comment.created_at
+            !repliesByParent[
+              reply.parent_id
+            ]
           ) {
 
-            date.textContent =
-              new Date(
-                comment.created_at
-              ).toLocaleString(
-                "ja-JP",
-                {
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                  hour: "2-digit",
-                  minute: "2-digit"
-                }
-              );
+            repliesByParent[
+              reply.parent_id
+            ] = [];
 
           }
 
 
-          name.appendChild(
-            date
-          );
-
-
-          const body =
-            document.createElement(
-              "div"
-            );
-
-
-          body.className =
-            "public-comment-body";
-
-
-          body.textContent =
-            comment.body || "";
-
-
-          item.appendChild(
-            name
-          );
-
-
-          item.appendChild(
-            body
-          );
-
-
-          commentsList.appendChild(
-            item
+          repliesByParent[
+            reply.parent_id
+          ].push(
+            reply
           );
 
         }
+      );
+
+
+    /*
+     * 親コメントを表示
+     * その直後に返信を表示
+     */
+
+    parentComments.forEach(
+      comment => {
+
+        const commentElement =
+          createCommentElement(
+            comment,
+            false
+          );
+
+
+        commentList.appendChild(
+          commentElement
+        );
+
+
+        const replies =
+          repliesByParent[
+            comment.id
+          ] || [];
+
+
+        replies.forEach(
+          reply => {
+
+            const replyElement =
+              createCommentElement(
+                reply,
+                true
+              );
+
+
+            commentList.appendChild(
+              replyElement
+            );
+
+          }
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =========================================
+     コメント1件を作る
+     ========================================= */
+
+  function createCommentElement(
+    comment,
+    isReply
+  ) {
+
+    const item =
+      document.createElement(
+        "article"
+      );
+
+
+    item.className =
+      "comment-item";
+
+
+    if (isReply) {
+
+      item.classList.add(
+        "reply"
       );
 
     }
 
 
-    // =========================
-    // コメント送信
-    // =========================
+    /* =========================
+       メタ情報
+       ========================= */
 
-    commentSubmit.addEventListener(
+    const meta =
+      document.createElement(
+        "div"
+      );
+
+
+    meta.className =
+      "comment-meta";
+
+
+    const name =
+      document.createElement(
+        "div"
+      );
+
+
+    name.className =
+      "comment-name";
+
+
+    if (
+      comment.display_name ===
+      "管理人"
+    ) {
+
+      name.classList.add(
+        "admin"
+      );
+
+    }
+
+
+    name.textContent =
+      comment.display_name ||
+      "名無しのラッコ";
+
+
+    if (
+      comment.display_name ===
+      "管理人"
+    ) {
+
+      const adminLabel =
+        document.createElement(
+          "span"
+        );
+
+
+      adminLabel.className =
+        "reply-label";
+
+
+      adminLabel.textContent =
+        "管理人";
+
+
+      name.appendChild(
+        adminLabel
+      );
+
+    }
+
+
+    const date =
+      document.createElement(
+        "time"
+      );
+
+
+    date.className =
+      "comment-date";
+
+
+    if (
+      comment.created_at
+    ) {
+
+      const dateObject =
+        new Date(
+          comment.created_at
+        );
+
+
+      date.textContent =
+        dateObject.toLocaleString(
+          "ja-JP",
+          {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit"
+          }
+        );
+
+    }
+
+
+    meta.appendChild(
+      name
+    );
+
+
+    meta.appendChild(
+      date
+    );
+
+
+    /* =========================
+       本文
+       ========================= */
+
+    const body =
+      document.createElement(
+        "p"
+      );
+
+
+    body.className =
+      "comment-body";
+
+
+    body.textContent =
+      comment.body || "";
+
+
+    item.appendChild(
+      meta
+    );
+
+
+    item.appendChild(
+      body
+    );
+
+
+    /* =========================
+       返信ボタン
+       ========================= */
+
+    const actions =
+      document.createElement(
+        "div"
+      );
+
+
+    actions.className =
+      "comment-actions";
+
+
+    const replyButton =
+      document.createElement(
+        "button"
+      );
+
+
+    replyButton.type =
+      "button";
+
+
+    replyButton.className =
+      "reply-button";
+
+
+    replyButton.textContent =
+      "↩ 返信";
+
+
+    actions.appendChild(
+      replyButton
+    );
+
+
+    item.appendChild(
+      actions
+    );
+
+
+    /* =========================
+       返信フォーム
+       ========================= */
+
+    const replyForm =
+      document.createElement(
+        "form"
+      );
+
+
+    replyForm.className =
+      "reply-form";
+
+
+    const replyTitle =
+      document.createElement(
+        "p"
+      );
+
+
+    replyTitle.className =
+      "reply-form-title";
+
+
+    replyTitle.textContent =
+      `${comment.display_name || "名無しのラッコ"}さんへ返信`;
+
+
+    replyForm.appendChild(
+      replyTitle
+    );
+
+
+    const replyName =
+      document.createElement(
+        "input"
+      );
+
+
+    replyName.type =
+      "text";
+
+
+    replyName.maxLength =
+      30;
+
+
+    replyName.placeholder =
+      "名前";
+
+
+    replyName.required =
+      true;
+
+
+    replyForm.appendChild(
+      replyName
+    );
+
+
+    const replyTextarea =
+      document.createElement(
+        "textarea"
+      );
+
+
+    replyTextarea.maxLength =
+      1000;
+
+
+    replyTextarea.placeholder =
+      "返信を書いてね🦦";
+
+
+    replyTextarea.required =
+      true;
+
+
+    replyForm.appendChild(
+      replyTextarea
+    );
+
+
+    const replySubmitRow =
+      document.createElement(
+        "div"
+      );
+
+
+    replySubmitRow.className =
+      "reply-submit-row";
+
+
+    const replySubmit =
+      document.createElement(
+        "button"
+      );
+
+
+    replySubmit.type =
+      "submit";
+
+
+    replySubmit.className =
+      "reply-submit";
+
+
+    replySubmit.textContent =
+      "返信する";
+
+
+    const replyCancel =
+      document.createElement(
+        "button"
+      );
+
+
+    replyCancel.type =
+      "button";
+
+
+    replyCancel.className =
+      "reply-cancel";
+
+
+    replyCancel.textContent =
+      "閉じる";
+
+
+    const replyStatus =
+      document.createElement(
+        "p"
+      );
+
+
+    replyStatus.className =
+      "reply-status";
+
+
+    replySubmitRow.appendChild(
+      replySubmit
+    );
+
+
+    replySubmitRow.appendChild(
+      replyCancel
+    );
+
+
+    replySubmitRow.appendChild(
+      replyStatus
+    );
+
+
+    replyForm.appendChild(
+      replySubmitRow
+    );
+
+
+    item.appendChild(
+      replyForm
+    );
+
+
+    /* =========================
+       返信フォーム開閉
+       ========================= */
+
+    replyButton.addEventListener(
       "click",
-      async () => {
+      () => {
 
-        const name =
-          commentName.value.trim();
-
-
-        const body =
-          commentBody.value.trim();
+        const isOpen =
+          replyForm.classList.contains(
+            "is-open"
+          );
 
 
-        if (!body) {
+        if (isOpen) {
 
-          commentMessage.textContent =
-            "コメントを入力してね🦦";
+          replyForm.classList.remove(
+            "is-open"
+          );
 
+          replyButton.textContent =
+            "↩ 返信";
 
           return;
+
         }
 
 
-        commentSubmit.disabled =
+        replyForm.classList.add(
+          "is-open"
+        );
+
+
+        replyButton.textContent =
+          "↩ 返信を閉じる";
+
+
+        replyName.focus();
+
+      }
+    );
+
+
+    /* =========================
+       返信フォームを閉じる
+       ========================= */
+
+    replyCancel.addEventListener(
+      "click",
+      () => {
+
+        replyForm.classList.remove(
+          "is-open"
+        );
+
+
+        replyButton.textContent =
+          "↩ 返信";
+
+      }
+    );
+
+
+    /* =========================
+       返信送信
+       ========================= */
+
+    replyForm.addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+
+        const name =
+          replyName.value.trim();
+
+
+        const body =
+          replyTextarea.value.trim();
+
+
+        if (!name || !body) {
+
+          replyStatus.textContent =
+            "名前と返信を入力してね🦦";
+
+          return;
+
+        }
+
+
+        replySubmit.disabled =
           true;
 
 
-        commentMessage.textContent =
-          "送信しています……";
+        replyCancel.disabled =
+          true;
+
+
+        replyStatus.textContent =
+          "返信を投稿しています……";
 
 
         const {
@@ -1677,7 +1727,138 @@
 
             .from("diary_comments")
 
-            .insert({
+            .insert([
+
+              {
+
+                display_name:
+                  name,
+
+                body:
+                  body,
+
+                approved:
+                  true,
+
+                page_slug:
+                  PAGE_SLUG,
+
+                parent_id:
+                  comment.id
+
+              }
+
+            ]);
+
+
+        if (error) {
+
+          console.error(
+            "返信投稿エラー:",
+            error
+          );
+
+
+          replyStatus.textContent =
+            "返信を投稿できませんでした。";
+
+
+          replySubmit.disabled =
+            false;
+
+
+          replyCancel.disabled =
+            false;
+
+
+          return;
+
+        }
+
+
+        replyTextarea.value =
+          "";
+
+
+        replyStatus.textContent =
+          "返信しました！🦦";
+
+
+        replySubmit.disabled =
+          false;
+
+
+        replyCancel.disabled =
+          false;
+
+
+        replyForm.classList.remove(
+          "is-open"
+        );
+
+
+        replyButton.textContent =
+          "↩ 返信";
+
+
+        await loadComments();
+
+      }
+    );
+
+
+    return item;
+
+  }
+
+
+  /* =========================================
+     新規コメント投稿
+     ========================================= */
+
+  commentForm.addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+
+      const name =
+        commentName.value.trim();
+
+
+      const body =
+        commentBody.value.trim();
+
+
+      if (!body) {
+
+        commentStatus.textContent =
+          "コメントを入力してね🦦";
+
+        return;
+
+      }
+
+
+      commentSubmit.disabled =
+        true;
+
+
+      commentStatus.textContent =
+        "コメントを投稿しています……";
+
+
+      const {
+        error
+      } =
+        await supabaseClient
+
+          .from("diary_comments")
+
+          .insert([
+
+            {
 
               display_name:
                 name ||
@@ -1692,55 +1873,58 @@
               page_slug:
                 PAGE_SLUG
 
-            });
+            }
+
+          ]);
 
 
-        if (error) {
+      if (error) {
 
-          console.error(
-            "コメント送信エラー:",
-            error
-          );
-
-
-          commentMessage.textContent =
-            "コメントを送信できませんでした。";
+        console.error(
+          "コメント投稿エラー:",
+          error
+        );
 
 
-          commentSubmit.disabled =
-            false;
-
-
-          return;
-        }
-
-
-        commentName.value =
-          "";
-
-
-        commentBody.value =
-          "";
-
-
-        commentMessage.textContent =
-          "コメントを送信しました！承認されると表示されます🦦";
+        commentStatus.textContent =
+          "コメントを投稿できませんでした。";
 
 
         commentSubmit.disabled =
           false;
 
+
+        return;
+
       }
-    );
 
 
-    // =========================
-    // 初期処理
-    // =========================
+      commentName.value =
+        "";
 
-    loadComments();
 
-  </script>
+      commentBody.value =
+        "";
+
+
+      commentStatus.textContent =
+        "コメントを送信しました！承認されると表示されます🦦";
+
+
+      commentSubmit.disabled =
+        false;
+
+    }
+  );
+
+
+  /* =========================================
+     初期読み込み
+     ========================================= */
+
+  loadComments();
+
+</script>
 
 </body>
 </html>
