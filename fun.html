@@ -345,8 +345,27 @@
     }
 
     .comment-name {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px;
       font-weight: 900;
       color: var(--teal);
+    }
+
+    .comment-name.admin {
+      color: #b34d3d;
+    }
+
+    .admin-label {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #b34d3d;
+      color: #fff;
+      font-size: .7rem;
+      line-height: 1.4;
+      font-weight: 900;
     }
 
     .comment-date {
@@ -360,6 +379,113 @@
       white-space: pre-wrap;
       overflow-wrap: anywhere;
       line-height: 1.8;
+    }
+
+    .comment-actions {
+      margin-top: 12px;
+    }
+
+    .reply-button {
+      padding: 5px 11px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--teal);
+      font: inherit;
+      font-size: .8rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+
+    .reply-button:hover {
+      background: var(--teal-light);
+      transform: translateY(-1px);
+    }
+
+    .reply-form {
+      display: none;
+      margin-top: 12px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fffdf8;
+    }
+
+    .reply-form.is-open {
+      display: block;
+    }
+
+    .reply-form label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: .82rem;
+      font-weight: 800;
+    }
+
+    .reply-form input,
+    .reply-form textarea {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid #d7cdbf;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+      outline: none;
+    }
+
+    .reply-form input:focus,
+    .reply-form textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(71, 127, 125, .12);
+    }
+
+    .reply-form textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .reply-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .reply-submit,
+    .reply-cancel {
+      padding: 7px 13px;
+      border: 0;
+      border-radius: 999px;
+      font: inherit;
+      font-size: .8rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .reply-submit {
+      background: var(--teal);
+      color: #fff;
+    }
+
+    .reply-cancel {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+    }
+
+    .reply-submit:disabled,
+    .reply-cancel:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    .reply-status {
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 700;
     }
 
     .back-link {
@@ -465,6 +591,10 @@
         align-items: flex-start;
         flex-direction: column;
         gap: 2px;
+      }
+
+      .reply-form {
+        padding: 12px;
       }
     }
 
@@ -781,11 +911,11 @@
 
       const { data, error } = await supabaseClient
         .from("diary_comments")
-        .select("id, display_name, body, created_at")
+        .select("id, display_name, body, created_at, parent_id")
         .eq("page_slug", PAGE_SLUG)
         .eq("approved", true)
         .order("created_at", {
-          ascending: false
+          ascending: true
         });
 
       if (error) {
@@ -801,9 +931,6 @@
         return;
       }
 
-
-      /* コメントがまだない場合 */
-
       if (!data || data.length === 0) {
 
         commentsList.innerHTML = `
@@ -816,41 +943,110 @@
         return;
       }
 
-
-      /* コメント表示 */
-
       commentsList.innerHTML = "";
 
+      /*
+       * parent_id を使ってコメントを親子関係に整理する。
+       * parent_id がないコメントが親コメント、
+       * parent_id があるコメントがそのコメントへの返信。
+       */
+      const childrenMap = {};
+
       data.forEach(comment => {
+        const parentId = comment.parent_id || "root";
 
-        const item =
-          document.createElement("article");
+        if (!childrenMap[parentId]) {
+          childrenMap[parentId] = [];
+        }
 
-        item.className = "comment-item";
+        childrenMap[parentId].push(comment);
+      });
+
+      /*
+       * 親コメント → 返信 → さらに返信、という順番で表示。
+       * これなら管理人コメントや返信コメントにも
+       * 同じ返信ボタンを付けられる。
+       */
+      function renderComments(parentId, depth = 0) {
+
+        const children = childrenMap[parentId] || [];
+
+        children.forEach(comment => {
+
+          const item = createCommentElement(comment, depth);
+
+          commentsList.appendChild(item);
+
+          renderComments(comment.id, depth + 1);
+
+        });
+      }
+
+      renderComments("root");
+
+    }
 
 
-        const meta =
-          document.createElement("div");
+    /* ==========================================
+       コメント1件の表示
+       ========================================== */
 
-        meta.className = "comment-meta";
+    function createCommentElement(comment, depth) {
 
+      const item = document.createElement("article");
 
-        const name =
-          document.createElement("div");
+      item.className = "comment-item";
 
-        name.className = "comment-name";
+      /* 返信は元コメントの下にぶら下げて表示 */
+      if (depth > 0) {
+        item.style.marginLeft = `${Math.min(depth, 4) * 38}px`;
+      }
 
-        name.textContent =
-          comment.display_name || "名無しのラッコ";
+      /* 名前・日時 */
+      const meta = document.createElement("div");
+      meta.className = "comment-meta";
 
+      const name = document.createElement("div");
+      name.className = "comment-name";
 
-        const date =
-          document.createElement("time");
+      const displayName =
+        comment.display_name ||
+        "名無しのラッコ";
 
-        date.className = "comment-date";
+      name.textContent =
+        displayName;
+
+      /* 管理人コメント */
+      if (displayName === "管理人") {
+
+        name.classList.add("admin");
+
+        const adminLabel =
+          document.createElement("span");
+
+        adminLabel.className =
+          "admin-label";
+
+        adminLabel.textContent =
+          "管理人";
+
+        name.appendChild(
+          adminLabel
+        );
+      }
+
+      const date =
+        document.createElement("time");
+
+      date.className =
+        "comment-date";
+
+      if (comment.created_at) {
 
         const commentDate =
-          new Date(comment.created_at);
+          new Date(
+            comment.created_at
+          );
 
         date.textContent =
           commentDate.toLocaleString(
@@ -863,32 +1059,308 @@
               minute: "2-digit"
             }
           );
+      }
 
+      meta.appendChild(name);
+      meta.appendChild(date);
 
-        meta.appendChild(name);
-        meta.appendChild(date);
+      /* 本文 */
+      const body =
+        document.createElement("p");
 
+      body.className =
+        "comment-body";
 
-        const body =
-          document.createElement("p");
+      body.textContent =
+        comment.body || "";
 
-        body.className = "comment-body";
+      item.appendChild(meta);
+      item.appendChild(body);
 
-        /*
-          textContentを使用しているので、
-          HTMLタグなどを入力されても
-          そのまま文字として表示される。
-        */
-        body.textContent =
-          comment.body;
+      /* 返信ボタン */
+      const actions =
+        document.createElement("div");
 
+      actions.className =
+        "comment-actions";
 
-        item.appendChild(meta);
-        item.appendChild(body);
+      const replyButton =
+        document.createElement("button");
 
-        commentsList.appendChild(item);
+      replyButton.type =
+        "button";
 
-      });
+      replyButton.className =
+        "reply-button";
+
+      replyButton.textContent =
+        "↩ 返信";
+
+      actions.appendChild(
+        replyButton
+      );
+
+      item.appendChild(
+        actions
+      );
+
+      /* 返信フォーム */
+      const replyForm =
+        document.createElement("form");
+
+      replyForm.className =
+        "reply-form";
+
+      const replyNameLabel =
+        document.createElement("label");
+
+      replyNameLabel.textContent =
+        "名前";
+
+      const replyName =
+        document.createElement("input");
+
+      replyName.type =
+        "text";
+
+      replyName.maxLength =
+        30;
+
+      replyName.placeholder =
+        "名無しのラッコ";
+
+      replyName.autocomplete =
+        "nickname";
+
+      const replyBodyLabel =
+        document.createElement("label");
+
+      replyBodyLabel.textContent =
+        "返信";
+
+      const replyBody =
+        document.createElement("textarea");
+
+      replyBody.maxLength =
+        1000;
+
+      replyBody.placeholder =
+        "返信を書いてね🦦";
+
+      replyBody.required =
+        true;
+
+      const replyActions =
+        document.createElement("div");
+
+      replyActions.className =
+        "reply-actions";
+
+      const replySubmit =
+        document.createElement("button");
+
+      replySubmit.type =
+        "submit";
+
+      replySubmit.className =
+        "reply-submit";
+
+      replySubmit.textContent =
+        "返信を送信";
+
+      const replyCancel =
+        document.createElement("button");
+
+      replyCancel.type =
+        "button";
+
+      replyCancel.className =
+        "reply-cancel";
+
+      replyCancel.textContent =
+        "閉じる";
+
+      const replyStatus =
+        document.createElement("span");
+
+      replyStatus.className =
+        "reply-status";
+
+      replyActions.appendChild(
+        replySubmit
+      );
+
+      replyActions.appendChild(
+        replyCancel
+      );
+
+      replyActions.appendChild(
+        replyStatus
+      );
+
+      replyForm.appendChild(
+        replyNameLabel
+      );
+
+      replyForm.appendChild(
+        replyName
+      );
+
+      replyForm.appendChild(
+        replyBodyLabel
+      );
+
+      replyForm.appendChild(
+        replyBody
+      );
+
+      replyForm.appendChild(
+        replyActions
+      );
+
+      item.appendChild(
+        replyForm
+      );
+
+      /* 返信フォーム開閉 */
+      replyButton.addEventListener(
+        "click",
+        () => {
+
+          const isOpen =
+            replyForm.classList.contains(
+              "is-open"
+            );
+
+          if (isOpen) {
+
+            replyForm.classList.remove(
+              "is-open"
+            );
+
+            replyButton.textContent =
+              "↩ 返信";
+
+            return;
+          }
+
+          replyForm.classList.add(
+            "is-open"
+          );
+
+          replyButton.textContent =
+            "↩ 返信を閉じる";
+
+          replyName.focus();
+        }
+      );
+
+      replyCancel.addEventListener(
+        "click",
+        () => {
+
+          replyForm.classList.remove(
+            "is-open"
+          );
+
+          replyButton.textContent =
+            "↩ 返信";
+
+          replyStatus.textContent =
+            "";
+        }
+      );
+
+      /* 返信送信 */
+      replyForm.addEventListener(
+        "submit",
+        async event => {
+
+          event.preventDefault();
+
+          const displayName =
+            replyName.value.trim() ||
+            "名無しのラッコ";
+
+          const body =
+            replyBody.value.trim();
+
+          if (!body) {
+
+            replyStatus.textContent =
+              "返信を入力してね🦦";
+
+            return;
+          }
+
+          replySubmit.disabled =
+            true;
+
+          replyCancel.disabled =
+            true;
+
+          replyStatus.textContent =
+            "返信を送信しています……";
+
+          const { error } =
+            await supabaseClient
+              .from("diary_comments")
+              .insert([
+                {
+                  display_name:
+                    displayName,
+
+                  body:
+                    body,
+
+                  approved:
+                    false,
+
+                  page_slug:
+                    PAGE_SLUG,
+
+                  parent_id:
+                    comment.id
+                }
+              ]);
+
+          if (error) {
+
+            console.error(
+              "返信送信エラー:",
+              error
+            );
+
+            replyStatus.textContent =
+              "返信を送信できませんでした。もう一度試してみてね。";
+
+            replySubmit.disabled =
+              false;
+
+            replyCancel.disabled =
+              false;
+
+            return;
+          }
+
+          replyName.value =
+            "";
+
+          replyBody.value =
+            "";
+
+          replyStatus.textContent =
+            "返信を送信しました！確認後に表示されます🦦";
+
+          replySubmit.disabled =
+            false;
+
+          replyCancel.disabled =
+            false;
+        }
+      );
+
+      return item;
     }
 
 
