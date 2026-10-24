@@ -130,6 +130,11 @@ nav a.current {
   opacity: .9;
 }
 
+
+/* ============================================
+   ヒーロー
+============================================ */
+
 .hero {
   padding: 48px 20px;
   text-align: center;
@@ -159,6 +164,11 @@ nav a.current {
   margin: 12px 0 0;
   color: #4f625f;
 }
+
+
+/* ============================================
+   メイン
+============================================ */
 
 main {
   max-width: 900px;
@@ -364,11 +374,12 @@ main {
 ============================================ */
 
 .comment-thread {
-  padding: 18px;
-  margin-bottom: 14px;
+  padding: 20px;
+  margin-bottom: 16px;
   background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 14px;
+  border: 1px solid #ddd3c5;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(60, 45, 30, .04);
 }
 
 .comment-item {
@@ -380,39 +391,42 @@ main {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .comment-name {
-  font-weight: 800;
+  font-weight: 900;
+  font-size: 15px;
 }
 
 .comment-name.admin {
-  color: #b34d3d;
+  color: #a94b3c;
 }
 
 .admin-label {
   display: inline-block;
   margin-left: 7px;
-  padding: 2px 7px;
+  padding: 2px 8px;
   border-radius: 999px;
-  background: #b34d3d;
+  background: #a94b3c;
   color: white;
-  font-size: 11px;
-  line-height: 1.4;
+  font-size: 10px;
+  line-height: 1.5;
   vertical-align: 2px;
 }
 
 .comment-date {
-  color: var(--muted);
-  font-size: 12px;
+  color: #91877b;
+  font-size: 11px;
   white-space: nowrap;
 }
 
 .comment-text {
   margin: 0;
+  padding: 2px 0;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+  line-height: 1.85;
 }
 
 .comment-actions {
@@ -422,28 +436,37 @@ main {
 }
 
 .reply-button {
-  border: 1px solid #c9dcd9;
-  padding: 6px 12px;
+  border: 1px solid #c8d9d6;
+  padding: 6px 13px;
   border-radius: 20px;
-  background: white;
+  background: #fafdfc;
   color: var(--teal);
   font: inherit;
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 12px;
+  font-weight: 900;
   cursor: pointer;
+  transition:
+    background .15s ease,
+    transform .15s ease;
 }
 
 .reply-button:hover {
-  background: var(--teal-light);
+  background: #e8f1ef;
+  transform: translateY(-1px);
 }
+
+
+/* ============================================
+   返信フォーム
+============================================ */
 
 .reply-form {
   display: none;
-  margin-top: 12px;
-  padding: 15px;
-  background: #f4f0e7;
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  margin-top: 14px;
+  padding: 16px;
+  background: #f7f3eb;
+  border: 1px solid #e3d9ca;
+  border-radius: 12px;
 }
 
 .reply-form.is-open {
@@ -452,9 +475,10 @@ main {
 
 .reply-form label {
   display: block;
-  margin-bottom: 6px;
-  font-size: 13px;
-  font-weight: 800;
+  margin-bottom: 5px;
+  color: #655b51;
+  font-size: 12px;
+  font-weight: 900;
 }
 
 .reply-form input,
@@ -463,14 +487,14 @@ main {
   padding: 10px 12px;
   margin-bottom: 10px;
   border: 1px solid #d8cec0;
-  border-radius: 8px;
+  border-radius: 9px;
   background: white;
   color: var(--text);
   font: inherit;
 }
 
 .reply-form textarea {
-  min-height: 90px;
+  min-height: 85px;
   resize: vertical;
 }
 
@@ -484,11 +508,11 @@ main {
 
 .reply-submit,
 .reply-cancel {
-  padding: 7px 13px;
+  padding: 7px 14px;
   border-radius: 20px;
   font: inherit;
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 12px;
+  font-weight: 900;
   cursor: pointer;
 }
 
@@ -499,9 +523,14 @@ main {
 }
 
 .reply-cancel {
-  border: 1px solid var(--border);
+  border: 1px solid #d8cec0;
   background: white;
   color: var(--muted);
+}
+
+.reply-submit:hover,
+.reply-cancel:hover {
+  opacity: .88;
 }
 
 .reply-submit:disabled,
@@ -512,20 +541,27 @@ main {
 
 .reply-status {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
 }
 
+
+/* ============================================
+   返信一覧
+============================================ */
+
 .thread-replies {
-  margin-top: 14px;
-  padding-top: 2px;
-  border-top: 1px solid var(--border);
+  margin-top: 16px;
+  padding: 0 14px 0 16px;
+  border-left: 3px solid #d9e7e4;
+  background: #fafcfb;
+  border-radius: 0 12px 12px 0;
 }
 
 .thread-replies summary {
-  padding: 9px 2px 8px;
+  padding: 11px 4px;
   color: var(--teal);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 900;
   cursor: pointer;
   list-style: none;
@@ -537,6 +573,7 @@ main {
 
 .thread-replies summary::before {
   content: "＋ ";
+  font-size: 11px;
 }
 
 .thread-replies[open] summary::before {
@@ -549,11 +586,11 @@ main {
 }
 
 .reply-list .comment-item {
-  padding: 14px 0;
+  padding: 14px 4px;
 }
 
 .reply-list .comment-item + .comment-item {
-  border-top: 1px solid var(--border);
+  border-top: 1px dashed #e3ddd3;
 }
 
 
@@ -600,6 +637,10 @@ main {
 }
 
 
+/* ============================================
+   フッター
+============================================ */
+
 footer {
   padding: 20px;
   text-align: center;
@@ -609,6 +650,10 @@ footer {
 }
 
 
+/* ============================================
+   フォーカス
+============================================ */
+
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -617,6 +662,10 @@ textarea:focus-visible {
   outline-offset: 3px;
 }
 
+
+/* ============================================
+   タブレット
+============================================ */
 
 @media (max-width: 900px) {
 
@@ -633,6 +682,10 @@ textarea:focus-visible {
 
 }
 
+
+/* ============================================
+   スマホ
+============================================ */
 
 @media (max-width: 560px) {
 
@@ -682,6 +735,15 @@ textarea:focus-visible {
     font-size: 20px;
   }
 
+  .comment-thread {
+    padding: 16px;
+  }
+
+  .thread-replies {
+    padding-left: 12px;
+    padding-right: 10px;
+  }
+
   .comment-header {
     align-items: flex-start;
     flex-direction: column;
@@ -690,6 +752,10 @@ textarea:focus-visible {
 
 }
 
+
+/* ============================================
+   アニメーション軽減
+============================================ */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -704,19 +770,26 @@ textarea:focus-visible {
 
 <body>
 
+
 <header>
 
   <div class="header-inner">
 
-    <a class="brand" href="index.html">
+    <a
+      class="brand"
+      href="index.html">
 
-      <span class="brand-icon" aria-hidden="true">
+      <span
+        class="brand-icon"
+        aria-hidden="true">
         🦦
       </span>
 
       <span class="brand-name">
         逃げラッコ式
-        <small>DbD立ち回りガイド</small>
+        <small>
+          DbD立ち回りガイド
+        </small>
       </span>
 
     </a>
@@ -868,9 +941,9 @@ textarea:focus-visible {
   </article>
 
 
-  <!-- =========================
+  <!-- ======================================
        コメント欄
-       ========================= -->
+  ======================================= -->
 
   <section class="comments-card">
 
@@ -978,9 +1051,12 @@ textarea:focus-visible {
 </footer>
 
 
-<!-- Supabase -->
+<!-- ==========================================
+     Supabase
+=========================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
@@ -1204,9 +1280,9 @@ async function loadComments() {
       "comment-item";
 
 
-    /* -------------------------------
+    /* ----------------------------------------
        ヘッダー
-    ------------------------------- */
+    ---------------------------------------- */
 
     const header =
       document.createElement(
@@ -1320,9 +1396,9 @@ async function loadComments() {
     );
 
 
-    /* -------------------------------
+    /* ----------------------------------------
        本文
-    ------------------------------- */
+    ---------------------------------------- */
 
     const body =
       document.createElement(
@@ -1344,9 +1420,9 @@ async function loadComments() {
     );
 
 
-    /* -------------------------------
+    /* ----------------------------------------
        返信ボタン
-    ------------------------------- */
+    ---------------------------------------- */
 
     const actions =
       document.createElement(
@@ -1386,9 +1462,9 @@ async function loadComments() {
     );
 
 
-    /* -------------------------------
+    /* ----------------------------------------
        返信フォーム
-    ------------------------------- */
+    ---------------------------------------- */
 
     const replyForm =
       document.createElement(
@@ -1561,9 +1637,9 @@ async function loadComments() {
     );
 
 
-    /* -------------------------------
+    /* ----------------------------------------
        返信フォーム開閉
-    ------------------------------- */
+    ---------------------------------------- */
 
     replyButton.addEventListener(
       "click",
@@ -1628,9 +1704,9 @@ async function loadComments() {
     );
 
 
-    /* -------------------------------
+    /* ----------------------------------------
        返信送信
-    ------------------------------- */
+    ---------------------------------------- */
 
     replyForm.addEventListener(
       "submit",
@@ -1833,7 +1909,7 @@ async function loadComments() {
 
         /*
           返信への返信も同じスレッド内に入れる。
-          ただし新しい枠は作らない。
+          新しい外枠は作らない。
         */
 
         const nestedDetails =
@@ -2165,6 +2241,7 @@ commentForm.addEventListener(
 loadComments();
 
 </script>
+
 
 </body>
 </html>
