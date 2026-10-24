@@ -418,28 +418,33 @@
       color: var(--teal);
     }
 
-    /* ========================= */
     /* コメント欄 */
-    /* ========================= */
-
     .comments-section {
-      margin-top: 50px;
-      padding-top: 36px;
-      border-top: 2px solid var(--border);
+      margin-top: 42px;
+      padding: 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 5px 18px rgba(48, 39, 31, .04);
     }
 
-    .comments-section h2 {
-      margin-top: 0;
+    .comments-title {
+      margin: 0 0 8px;
+      padding: 0 0 12px;
+      border-bottom: 3px solid var(--teal);
+      font-size: clamp(22px, 3vw, 28px);
+      line-height: 1.5;
     }
 
     .comments-lead {
-      margin-bottom: 22px;
+      margin: 0 0 24px;
       color: var(--muted);
-      font-size: .95rem;
+      font-size: .92rem;
     }
 
     .comment-form {
-      padding: 22px;
+      margin-bottom: 30px;
+      padding: 20px;
       background: #f8f3e9;
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -448,20 +453,18 @@
     .comment-form label {
       display: block;
       margin-bottom: 7px;
+      font-size: .9rem;
       font-weight: 800;
-      font-size: .92rem;
     }
 
     .comment-form input,
     .comment-form textarea {
-      display: block;
       width: 100%;
-      margin-bottom: 16px;
-      padding: 12px 14px;
+      padding: 11px 13px;
+      border: 1px solid #d7cdbf;
+      border-radius: 9px;
       background: #fff;
       color: var(--text);
-      border: 1px solid #d7ccbd;
-      border-radius: 9px;
       font: inherit;
       outline: none;
     }
@@ -473,176 +476,145 @@
     }
 
     .comment-form textarea {
-      min-height: 130px;
+      min-height: 120px;
       resize: vertical;
+    }
+
+    .comment-field {
+      margin-bottom: 16px;
     }
 
     .comment-submit {
       display: inline-block;
-      padding: 11px 24px;
+      padding: 11px 22px;
       border: 0;
-      border-radius: 24px;
+      border-radius: 999px;
       background: var(--teal);
       color: #fff;
       font: inherit;
       font-weight: 800;
       cursor: pointer;
-      transition: opacity .2s;
+      transition: opacity .2s, transform .2s;
     }
 
     .comment-submit:hover {
-      opacity: .85;
+      opacity: .88;
+      transform: translateY(-1px);
     }
 
     .comment-submit:disabled {
       opacity: .55;
       cursor: not-allowed;
+      transform: none;
     }
 
-    .comment-status {
+    .comment-message {
       min-height: 1.6em;
-      margin: 12px 0 0;
-      color: var(--muted);
-      font-size: .9rem;
+      margin: 10px 0 0;
+      font-size: .88rem;
+      font-weight: 700;
     }
 
-    .comment-list {
+    .comments-list {
       display: grid;
       gap: 14px;
-      margin-top: 28px;
+    }
+
+    .comment-empty {
+      padding: 24px;
+      border: 1px dashed #c9bfae;
+      border-radius: 12px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .92rem;
+    }
+
+    .comment-thread {
+      padding: 18px;
+      background: #fbf7ef;
+      border: 1px solid var(--border);
+      border-radius: 12px;
     }
 
     .comment-item {
-      position: relative;
-      padding: 18px 20px;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      padding: 0;
     }
 
-    /* 返信コメント */
-
-    .comment-item.reply {
-      margin-left: 38px;
-      background: #f8f5ef;
-      border-left: 5px solid var(--teal);
-    }
-
-    .comment-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .thread-replies {
       margin-top: 14px;
+      padding-top: 2px;
+      border-top: 1px solid var(--border);
     }
 
-    .reply-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 6px 12px;
-      border: 1px solid #c9dcd9;
-      border-radius: 999px;
-      background: #fff;
+    .thread-replies summary {
+      padding: 9px 2px 8px;
       color: var(--teal);
-      font: inherit;
       font-size: .82rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: background .2s, opacity .2s;
-    }
-
-    .reply-button:hover {
-      background: var(--teal-light);
-    }
-
-    .reply-button:disabled {
-      opacity: .55;
-      cursor: not-allowed;
-    }
-
-    .reply-form {
-      display: none;
-      margin-top: 14px;
-      padding: 15px;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-    }
-
-    .reply-form.is-open {
-      display: block;
-    }
-
-    .reply-form-title {
-      margin: 0 0 10px;
-      color: var(--teal);
-      font-size: .88rem;
       font-weight: 900;
-    }
-
-    .reply-form input,
-    .reply-form textarea {
-      display: block;
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 9px 11px;
-      background: #fffdf8;
-      color: var(--text);
-      border: 1px solid #d7ccbd;
-      border-radius: 8px;
-      font: inherit;
-      box-sizing: border-box;
-      outline: none;
-    }
-
-    .reply-form input:focus,
-    .reply-form textarea:focus {
-      border-color: var(--teal);
-      box-shadow: 0 0 0 3px rgba(71, 127, 125, .10);
-    }
-
-    .reply-form textarea {
-      min-height: 90px;
-      resize: vertical;
-    }
-
-    .reply-submit-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .reply-submit {
-      padding: 8px 14px;
-      border: 0;
-      border-radius: 20px;
-      background: var(--teal);
-      color: #fff;
-      font: inherit;
-      font-size: .82rem;
-      font-weight: 800;
       cursor: pointer;
+      list-style: none;
     }
 
-    .reply-cancel {
-      padding: 8px 12px;
+    .thread-replies summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .thread-replies summary::before {
+      content: "＋ ";
+    }
+
+    .thread-replies[open] summary::before {
+      content: "− ";
+    }
+
+    .reply-list {
+      display: grid;
+      gap: 0;
+    }
+
+    .reply-list .comment-item {
+      padding: 14px 0;
+      border-left: 3px solid #d8e7e4;
+      padding-left: 18px;
+    }
+
+    .reply-list .comment-item + .comment-item {
+      border-top: 1px solid var(--border);
+    }
+
+    .older-comments {
+      margin-top: 14px;
       border: 1px solid var(--border);
-      border-radius: 20px;
-      background: #fff;
-      color: var(--muted);
-      font: inherit;
-      font-size: .82rem;
-      font-weight: 700;
-      cursor: pointer;
+      border-radius: 12px;
+      background: #f8f3e9;
+      overflow: hidden;
     }
 
-    .reply-status {
-      flex: 1 1 100%;
-      min-height: 1.4em;
-      margin: 0;
-      color: var(--muted);
-      font-size: .78rem;
+    .older-comments summary {
+      padding: 13px 16px;
+      color: var(--teal);
+      font-weight: 900;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .older-comments summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .older-comments summary::after {
+      content: "＋";
+      float: right;
+    }
+
+    .older-comments[open] summary::after {
+      content: "−";
+    }
+
+    .older-comments-list {
+      display: grid;
+      gap: 14px;
+      padding: 0 14px 14px;
     }
 
     .comment-meta {
@@ -654,44 +626,147 @@
     }
 
     .comment-name {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px;
       font-weight: 900;
       color: var(--teal);
     }
 
     .comment-name.admin {
-      color: #a06a38;
+      color: #b34d3d;
+    }
+
+    .admin-label {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #b34d3d;
+      color: #fff;
+      font-size: .7rem;
+      line-height: 1.4;
+      font-weight: 900;
     }
 
     .comment-date {
-      flex-shrink: 0;
       color: var(--muted);
       font-size: .78rem;
+      white-space: nowrap;
     }
 
     .comment-body {
       margin: 0;
       white-space: pre-wrap;
       overflow-wrap: anywhere;
+      line-height: 1.8;
     }
 
-    .reply-label {
-      display: inline-block;
-      margin-left: 7px;
-      padding: 2px 8px;
+    .comment-actions {
+      margin-top: 12px;
+    }
+
+    .reply-button {
+      padding: 5px 11px;
+      border: 1px solid var(--border);
       border-radius: 999px;
-      background: var(--teal-light);
+      background: #fff;
       color: var(--teal);
-      font-size: .72rem;
+      font: inherit;
+      font-size: .8rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+
+    .reply-button:hover {
+      background: var(--teal-light);
+      transform: translateY(-1px);
+    }
+
+    .reply-form {
+      display: none;
+      margin-top: 12px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fffdf8;
+    }
+
+    .reply-form.is-open {
+      display: block;
+    }
+
+    .reply-form label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: .82rem;
       font-weight: 800;
     }
 
-    .comment-empty {
-      padding: 22px;
-      background: #fbf7ef;
+    .reply-form input,
+    .reply-form textarea {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid #d7cdbf;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+      outline: none;
+    }
+
+    .reply-form input:focus,
+    .reply-form textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(71, 127, 125, .12);
+    }
+
+    .reply-form textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .reply-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .reply-submit,
+    .reply-cancel {
+      padding: 7px 13px;
+      border: 0;
+      border-radius: 999px;
+      font: inherit;
+      font-size: .8rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .reply-submit {
+      background: var(--teal);
+      color: #fff;
+    }
+
+    .reply-cancel {
       border: 1px solid var(--border);
-      border-radius: 12px;
+      background: #fff;
       color: var(--muted);
-      text-align: center;
+    }
+
+    .reply-submit:disabled,
+    .reply-cancel:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    .reply-status {
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 700;
     }
 
     .back-link {
@@ -871,8 +946,13 @@
         gap: 2px;
       }
 
-      .comment-item.reply {
-        margin-left: 14px;
+      .comments-section {
+        margin-top: 30px;
+        padding: 20px 16px;
+      }
+
+      .comment-form {
+        padding: 16px;
       }
 
       .reply-form {
@@ -922,6 +1002,7 @@
 </head>
 
 <body>
+
   <header>
     <div class="header-inner">
       <a class="brand" href="index.html">
@@ -962,6 +1043,7 @@
       </p>
 
       <nav class="chapter-toc" aria-label="立ち回り講座の目次">
+
         <div class="toc-illustration">
           <img src="images/mokuji.png" alt="看板から顔を出している手描きのラッコと「目次」の文字">
         </div>
@@ -1302,13 +1384,10 @@
         逃げラッコ式DbD立ち回り 🦦
       </div>
 
-      <!-- ========================= -->
       <!-- コメント欄 -->
-      <!-- ========================= -->
-
       <section class="comments-section" aria-labelledby="comments-title">
 
-        <h2 id="comments-title">
+        <h2 id="comments-title" class="comments-title">
           💬 コメント
         </h2>
 
@@ -1318,45 +1397,37 @@
 
         <form id="comment-form" class="comment-form">
 
-          <label for="comment-name">名前</label>
+          <div class="comment-field">
+            <label for="comment-name">名前</label>
+            <input
+              id="comment-name"
+              name="name"
+              type="text"
+              maxlength="30"
+              placeholder="ラッコ"
+              autocomplete="nickname">
+          </div>
 
-          <input
-            id="comment-name"
-            name="name"
-            type="text"
-            maxlength="30"
-            placeholder="ラッコ"
-            required
-          >
+          <div class="comment-field">
+            <label for="comment-body">コメント</label>
+            <textarea
+              id="comment-body"
+              name="comment"
+              maxlength="1000"
+              placeholder="感想を書いてね🦦"
+              required></textarea>
+          </div>
 
-          <label for="comment-body">コメント</label>
-
-          <textarea
-            id="comment-body"
-            name="comment"
-            maxlength="1000"
-            placeholder="感想を書いてね🦦"
-            required
-          ></textarea>
-
-          <button
-            id="comment-submit"
-            class="comment-submit"
-            type="submit">
+          <button id="comment-submit" class="comment-submit" type="submit">
             コメントを投稿する
           </button>
 
-          <p
-            id="comment-status"
-            class="comment-status"
-            aria-live="polite">
-          </p>
-
+          <p id="comment-message" class="comment-message" aria-live="polite"></p>
         </form>
 
-        <div id="comment-list" class="comment-list">
+        <div id="comments-list" class="comments-list" aria-live="polite">
           <div class="comment-empty">
-            コメントを読み込んでいます……🦦
+            コメントを読み込んでいます……
           </div>
         </div>
 
@@ -1364,9 +1435,7 @@
 
     </div>
 
-    <a class="back-link" href="index.html">
-      トップページへ戻る
-    </a>
+    <a class="back-link" href="index.html">トップページへ戻る</a>
   </main>
 
   <footer>
@@ -1374,610 +1443,415 @@
   </footer>
 
   <script>
-    /* =========================================
-       Supabase
-       ========================================= */
-
-    const SUPABASE_URL =
-      "https://goxuhivbgaextkhyobmw.supabase.co";
+    const SUPABASE_URL = "https://goxuhivbgaextkhyobmw.supabase.co";
 
     const SUPABASE_PUBLISHABLE_KEY =
       "sb_publishable_81GtdIt16_VTgJq4bV3RNw_MoA7ZuPV";
 
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-      );
+    const PAGE_SLUG = "playstyle";
 
-
-    /* =========================================
-       ページ情報
-       ========================================= */
-
-    const PAGE_SLUG =
-      "playstyle";
-
-
-    /* =========================================
-       要素取得
-       ========================================= */
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
 
     const commentForm =
-      document.getElementById(
-        "comment-form"
-      );
+      document.getElementById("comment-form");
 
     const commentName =
-      document.getElementById(
-        "comment-name"
-      );
+      document.getElementById("comment-name");
 
     const commentBody =
-      document.getElementById(
-        "comment-body"
-      );
+      document.getElementById("comment-body");
 
     const commentSubmit =
-      document.getElementById(
-        "comment-submit"
-      );
+      document.getElementById("comment-submit");
 
-    const commentStatus =
-      document.getElementById(
-        "comment-status"
-      );
+    const commentMessage =
+      document.getElementById("comment-message");
 
-    const commentList =
-      document.getElementById(
-        "comment-list"
-      );
-
-
-    /* =========================================
-       コメント読み込み
-       ========================================= */
+    const commentsList =
+      document.getElementById("comments-list");
 
     async function loadComments() {
 
-      commentList.innerHTML =
-        '<div class="comment-empty">コメントを読み込んでいます……🦦</div>';
+      commentsList.innerHTML = `
+        <div class="comment-empty">
+          コメントを読み込んでいます……
+        </div>
+      `;
 
-      const {
-        data,
-        error
-      } =
-        await supabaseClient
-          .from("diary_comments")
-          .select(
-            "id, display_name, body, approved, created_at, page_slug, parent_id"
-          )
-          .eq(
-            "page_slug",
-            PAGE_SLUG
-          )
-          .eq(
-            "approved",
-            true
-          )
-          .order(
-            "created_at",
-            {
-              ascending: true
-            }
-          );
-
+      const { data, error } = await supabaseClient
+        .from("diary_comments")
+        .select("id, display_name, body, created_at, parent_id")
+        .eq("page_slug", PAGE_SLUG)
+        .eq("approved", true)
+        .order("created_at", {
+          ascending: true
+        });
 
       if (error) {
 
-        console.error(
-          "コメント取得エラー:",
-          error
-        );
+        console.error("コメント読み込みエラー:", error);
 
-        commentList.innerHTML =
-          '<div class="comment-empty">コメントを読み込めませんでした。</div>';
-
-        return;
-      }
-
-
-      renderComments(
-        data || []
-      );
-    }
-
-
-    /* =========================================
-       コメント表示
-       ========================================= */
-
-    function renderComments(
-      comments
-    ) {
-
-      commentList.innerHTML =
-        "";
-
-
-      if (
-        !comments ||
-        comments.length === 0
-      ) {
-
-        commentList.innerHTML =
-          '<div class="comment-empty">まだコメントはありません。最初のコメントを書いてみよう🦦</div>';
+        commentsList.innerHTML = `
+          <div class="comment-empty">
+            コメントを読み込めませんでした。
+          </div>
+        `;
 
         return;
       }
 
+      if (!data || data.length === 0) {
 
-      /* 親コメント */
+        commentsList.innerHTML = `
+          <div class="comment-empty">
+            まだコメントはありません。<br>
+            最初のコメントを書いてね🦦
+          </div>
+        `;
+
+        return;
+      }
+
+      commentsList.innerHTML = "";
+
+      const childrenMap = {};
+
+      data.forEach(comment => {
+        const parentId = comment.parent_id || "root";
+
+        if (!childrenMap[parentId]) {
+          childrenMap[parentId] = [];
+        }
+
+        childrenMap[parentId].push(comment);
+      });
 
       const parentComments =
-        comments.filter(
-          comment =>
-            !comment.parent_id
-        );
-
-
-      /* 子コメント */
-
-      const repliesByParent =
-        {};
-
-
-      comments
-        .filter(
-          comment =>
-            comment.parent_id
-        )
-        .forEach(
-          reply => {
-
-            if (
-              !repliesByParent[
-                reply.parent_id
-              ]
-            ) {
-
-              repliesByParent[
-                reply.parent_id
-              ] = [];
-            }
-
-
-            repliesByParent[
-              reply.parent_id
-            ].push(
-              reply
-            );
-
-          }
-        );
-
-
-      parentComments.forEach(
-        comment => {
-
-          const commentElement =
-            createCommentElement(
-              comment,
-              false
-            );
-
-
-          commentList.appendChild(
-            commentElement
+        [...(childrenMap.root || [])]
+          .sort((a, b) =>
+            new Date(b.created_at) - new Date(a.created_at)
           );
 
+      const latestParents = parentComments.slice(0, 3);
+      const olderParents = parentComments.slice(3);
 
-          const replies =
-            repliesByParent[
-              comment.id
-            ] || [];
+      function createReplyDetails(parentId) {
 
+        const replies =
+          [...(childrenMap[parentId] || [])]
+            .sort((a, b) =>
+              new Date(a.created_at) - new Date(b.created_at)
+            );
 
-          replies.forEach(
-            reply => {
+        if (replies.length === 0) {
+          return null;
+        }
 
-              const replyElement =
-                createCommentElement(
-                  reply,
-                  true
+        const details = document.createElement("details");
+        details.className = "thread-replies";
+
+        const summary = document.createElement("summary");
+        summary.textContent = `返信を見る（${replies.length}件）`;
+
+        const replyList = document.createElement("div");
+        replyList.className = "reply-list";
+
+        function appendReplies(replyComments) {
+
+          replyComments.forEach(reply => {
+
+            const item = createCommentElement(reply);
+            replyList.appendChild(item);
+
+            const nestedReplies =
+              [...(childrenMap[reply.id] || [])]
+                .sort((a, b) =>
+                  new Date(a.created_at) - new Date(b.created_at)
                 );
 
-
-              commentList.appendChild(
-                replyElement
-              );
-
+            if (nestedReplies.length > 0) {
+              appendReplies(nestedReplies);
             }
-          );
-
+          });
         }
-      );
 
+        appendReplies(replies);
+
+        details.appendChild(summary);
+        details.appendChild(replyList);
+
+        return details;
+      }
+
+      function createThread(comment) {
+
+        const thread = document.createElement("article");
+        thread.className = "comment-thread";
+
+        thread.appendChild(
+          createCommentElement(comment)
+        );
+
+        const replyDetails =
+          createReplyDetails(comment.id);
+
+        if (replyDetails) {
+          thread.appendChild(replyDetails);
+        }
+
+        return thread;
+      }
+
+      latestParents.forEach(comment => {
+        commentsList.appendChild(
+          createThread(comment)
+        );
+      });
+
+      if (olderParents.length > 0) {
+
+        const details = document.createElement("details");
+        details.className = "older-comments";
+
+        const summary = document.createElement("summary");
+        summary.textContent =
+          `過去のコメントを見る（${olderParents.length}件）`;
+
+        const olderList = document.createElement("div");
+        olderList.className = "older-comments-list";
+
+        olderParents.forEach(comment => {
+          olderList.appendChild(
+            createThread(comment)
+          );
+        });
+
+        details.appendChild(summary);
+        details.appendChild(olderList);
+
+        commentsList.appendChild(details);
+      }
     }
 
+    function createCommentElement(comment) {
 
-    /* =========================================
-       コメント1件を作る
-       ========================================= */
+      const item = document.createElement("article");
+      item.className = "comment-item";
 
-    function createCommentElement(
-      comment,
-      isReply
-    ) {
+      const meta = document.createElement("div");
+      meta.className = "comment-meta";
 
-      const item =
-        document.createElement(
-          "article"
-        );
+      const name = document.createElement("div");
+      name.className = "comment-name";
 
-
-      item.className =
-        "comment-item";
-
-
-      if (isReply) {
-
-        item.classList.add(
-          "reply"
-        );
-
-      }
-
-
-      /* =========================
-         メタ情報
-         ========================= */
-
-      const meta =
-        document.createElement(
-          "div"
-        );
-
-
-      meta.className =
-        "comment-meta";
-
-
-      const name =
-        document.createElement(
-          "div"
-        );
-
-
-      name.className =
-        "comment-name";
-
-
-      if (
-        comment.display_name ===
-        "管理人"
-      ) {
-
-        name.classList.add(
-          "admin"
-        );
-
-      }
-
-
-      name.textContent =
+      const displayName =
         comment.display_name ||
         "名無しのラッコ";
 
+      name.textContent = displayName;
 
-      if (
-        comment.display_name ===
-        "管理人"
-      ) {
+      if (displayName === "管理人") {
+
+        name.classList.add("admin");
 
         const adminLabel =
-          document.createElement(
-            "span"
-          );
-
+          document.createElement("span");
 
         adminLabel.className =
-          "reply-label";
-
+          "admin-label";
 
         adminLabel.textContent =
           "管理人";
 
-
         name.appendChild(
           adminLabel
         );
-
       }
 
-
       const date =
-        document.createElement(
-          "time"
-        );
-
+        document.createElement("time");
 
       date.className =
         "comment-date";
 
+      if (comment.created_at) {
 
-      if (
-        comment.created_at
-      ) {
-
-        const dateObject =
-          new Date(
-            comment.created_at
-          );
-
+        const commentDate =
+          new Date(comment.created_at);
 
         date.textContent =
-          dateObject.toLocaleString(
+          commentDate.toLocaleString(
             "ja-JP",
             {
               year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
+              month: "numeric",
+              day: "numeric",
               hour: "2-digit",
               minute: "2-digit"
             }
           );
-
       }
 
-
-      meta.appendChild(
-        name
-      );
-
-
-      meta.appendChild(
-        date
-      );
-
-
-      /* =========================
-         本文
-         ========================= */
+      meta.appendChild(name);
+      meta.appendChild(date);
 
       const body =
-        document.createElement(
-          "p"
-        );
-
+        document.createElement("p");
 
       body.className =
         "comment-body";
 
-
       body.textContent =
         comment.body || "";
 
-
-      item.appendChild(
-        meta
-      );
-
-
-      item.appendChild(
-        body
-      );
-
-
-      /* =========================
-         返信ボタン
-         ========================= */
+      item.appendChild(meta);
+      item.appendChild(body);
 
       const actions =
-        document.createElement(
-          "div"
-        );
-
+        document.createElement("div");
 
       actions.className =
         "comment-actions";
 
-
       const replyButton =
-        document.createElement(
-          "button"
-        );
-
+        document.createElement("button");
 
       replyButton.type =
         "button";
 
-
       replyButton.className =
         "reply-button";
 
-
       replyButton.textContent =
         "↩ 返信";
-
 
       actions.appendChild(
         replyButton
       );
 
-
       item.appendChild(
         actions
       );
 
-
-      /* =========================
-         返信フォーム
-         ========================= */
-
       const replyForm =
-        document.createElement(
-          "form"
-        );
-
+        document.createElement("form");
 
       replyForm.className =
         "reply-form";
 
+      const replyNameLabel =
+        document.createElement("label");
 
-      const replyTitle =
-        document.createElement(
-          "p"
-        );
-
-
-      replyTitle.className =
-        "reply-form-title";
-
-
-      replyTitle.textContent =
-        `${comment.display_name || "名無しのラッコ"}さんへ返信`;
-
-
-      replyForm.appendChild(
-        replyTitle
-      );
-
+      replyNameLabel.textContent =
+        "名前";
 
       const replyName =
-        document.createElement(
-          "input"
-        );
-
+        document.createElement("input");
 
       replyName.type =
         "text";
 
-
       replyName.maxLength =
         30;
 
-
       replyName.placeholder =
-        "名前";
+        "名無しのラッコ";
 
+      replyName.autocomplete =
+        "nickname";
 
-      replyName.required =
+      const replyBodyLabel =
+        document.createElement("label");
+
+      replyBodyLabel.textContent =
+        "返信";
+
+      const replyBody =
+        document.createElement("textarea");
+
+      replyBody.maxLength =
+        1000;
+
+      replyBody.placeholder =
+        "返信を書いてね🦦";
+
+      replyBody.required =
         true;
 
+      const replyActions =
+        document.createElement("div");
+
+      replyActions.className =
+        "reply-actions";
+
+      const replySubmit =
+        document.createElement("button");
+
+      replySubmit.type =
+        "submit";
+
+      replySubmit.className =
+        "reply-submit";
+
+      replySubmit.textContent =
+        "返信を送信";
+
+      const replyCancel =
+        document.createElement("button");
+
+      replyCancel.type =
+        "button";
+
+      replyCancel.className =
+        "reply-cancel";
+
+      replyCancel.textContent =
+        "閉じる";
+
+      const replyStatus =
+        document.createElement("span");
+
+      replyStatus.className =
+        "reply-status";
+
+      replyActions.appendChild(
+        replySubmit
+      );
+
+      replyActions.appendChild(
+        replyCancel
+      );
+
+      replyActions.appendChild(
+        replyStatus
+      );
+
+      replyForm.appendChild(
+        replyNameLabel
+      );
 
       replyForm.appendChild(
         replyName
       );
 
-
-      const replyTextarea =
-        document.createElement(
-          "textarea"
-        );
-
-
-      replyTextarea.maxLength =
-        1000;
-
-
-      replyTextarea.placeholder =
-        "返信を書いてね🦦";
-
-
-      replyTextarea.required =
-        true;
-
+      replyForm.appendChild(
+        replyBodyLabel
+      );
 
       replyForm.appendChild(
-        replyTextarea
+        replyBody
       );
-
-
-      const replySubmitRow =
-        document.createElement(
-          "div"
-        );
-
-
-      replySubmitRow.className =
-        "reply-submit-row";
-
-
-      const replySubmit =
-        document.createElement(
-          "button"
-        );
-
-
-      replySubmit.type =
-        "submit";
-
-
-      replySubmit.className =
-        "reply-submit";
-
-
-      replySubmit.textContent =
-        "返信する";
-
-
-      const replyCancel =
-        document.createElement(
-          "button"
-        );
-
-
-      replyCancel.type =
-        "button";
-
-
-      replyCancel.className =
-        "reply-cancel";
-
-
-      replyCancel.textContent =
-        "閉じる";
-
-
-      const replyStatus =
-        document.createElement(
-          "p"
-        );
-
-
-      replyStatus.className =
-        "reply-status";
-
-
-      replySubmitRow.appendChild(
-        replySubmit
-      );
-
-
-      replySubmitRow.appendChild(
-        replyCancel
-      );
-
-
-      replySubmitRow.appendChild(
-        replyStatus
-      );
-
 
       replyForm.appendChild(
-        replySubmitRow
+        replyActions
       );
-
 
       item.appendChild(
         replyForm
       );
-
-
-      /* =========================
-         返信フォーム開閉
-         ========================= */
 
       replyButton.addEventListener(
         "click",
@@ -1987,7 +1861,6 @@
             replyForm.classList.contains(
               "is-open"
             );
-
 
           if (isOpen) {
 
@@ -2001,25 +1874,16 @@
             return;
           }
 
-
           replyForm.classList.add(
             "is-open"
           );
 
-
           replyButton.textContent =
             "↩ 返信を閉じる";
 
-
           replyName.focus();
-
         }
       );
-
-
-      /* =========================
-         返信フォームを閉じる
-         ========================= */
 
       replyCancel.addEventListener(
         "click",
@@ -2029,17 +1893,13 @@
             "is-open"
           );
 
-
           replyButton.textContent =
             "↩ 返信";
 
+          replyStatus.textContent =
+            "";
         }
       );
-
-
-      /* =========================
-         返信送信
-         ========================= */
 
       replyForm.addEventListener(
         "submit",
@@ -2047,53 +1907,43 @@
 
           event.preventDefault();
 
-
-          const name =
-            replyName.value.trim();
-
+          const displayName =
+            replyName.value.trim() ||
+            "名無しのラッコ";
 
           const body =
-            replyTextarea.value.trim();
+            replyBody.value.trim();
 
-
-          if (!name || !body) {
+          if (!body) {
 
             replyStatus.textContent =
-              "名前と返信を入力してね🦦";
+              "返信を入力してね🦦";
 
             return;
           }
 
-
           replySubmit.disabled =
             true;
-
 
           replyCancel.disabled =
             true;
 
-
           replyStatus.textContent =
-            "返信を投稿しています……";
+            "返信を送信しています……";
 
-
-          const {
-            error
-          } =
+          const { error } =
             await supabaseClient
-
               .from("diary_comments")
-
               .insert([
                 {
                   display_name:
-                    name,
+                    displayName,
 
                   body:
                     body,
 
                   approved:
-                    true,
+                    false,
 
                   page_slug:
                     PAGE_SLUG,
@@ -2103,171 +1953,110 @@
                 }
               ]);
 
-
           if (error) {
 
             console.error(
-              "返信投稿エラー:",
+              "返信送信エラー:",
               error
             );
 
-
             replyStatus.textContent =
-              "返信を投稿できませんでした。";
-
+              "返信を送信できませんでした。もう一度試してみてね。";
 
             replySubmit.disabled =
               false;
 
-
             replyCancel.disabled =
               false;
-
 
             return;
           }
 
-
-          replyTextarea.value =
+          replyName.value =
             "";
 
+          replyBody.value =
+            "";
 
           replyStatus.textContent =
-            "返信しました！🦦";
-
+            "返信を送信しました！確認後に表示されます🦦";
 
           replySubmit.disabled =
             false;
 
-
           replyCancel.disabled =
             false;
-
-
-          replyForm.classList.remove(
-            "is-open"
-          );
-
-
-          replyButton.textContent =
-            "↩ 返信";
-
-
-          await loadComments();
-
         }
       );
-
 
       return item;
     }
 
-
-    /* =========================================
-       新規コメント投稿
-       ========================================= */
-
     commentForm.addEventListener(
       "submit",
-      async event => {
+      async function(event) {
 
         event.preventDefault();
 
-
-        const name =
-          commentName.value.trim();
-
+        const displayName =
+          commentName.value.trim() ||
+          "名無しのラッコ";
 
         const body =
           commentBody.value.trim();
 
+        if (!body) {
 
-        if (!name || !body) {
-
-          commentStatus.textContent =
-            "名前とコメントを入力してね🦦";
+          commentMessage.textContent =
+            "コメントを入力してね🦦";
 
           return;
         }
 
+        commentSubmit.disabled = true;
 
-        commentSubmit.disabled =
-          true;
+        commentMessage.textContent =
+          "コメントを送信しています……";
 
-
-        commentStatus.textContent =
-          "コメントを投稿しています……";
-
-
-        const {
-          error
-        } =
+        const { error } =
           await supabaseClient
-
             .from("diary_comments")
-
             .insert([
               {
-                display_name:
-                  name,
-
-                body:
-                  body,
-
-                approved:
-                  false,
-
-                page_slug:
-                  PAGE_SLUG
+                display_name: displayName,
+                body: body,
+                approved: false,
+                page_slug: PAGE_SLUG
               }
             ]);
-
 
         if (error) {
 
           console.error(
-            "コメント投稿エラー:",
+            "コメント送信エラー:",
             error
           );
 
+          commentMessage.textContent =
+            "コメントを送信できませんでした。もう一度試してみてね。";
 
-          commentStatus.textContent =
-            "コメントを投稿できませんでした。";
-
-
-          commentSubmit.disabled =
-            false;
-
+          commentSubmit.disabled = false;
 
           return;
         }
 
+        commentName.value = "";
+        commentBody.value = "";
 
-        commentName.value =
-          "";
+        commentMessage.textContent =
+          "コメントを送信しました！確認後に表示されます🦦";
 
-
-        commentBody.value =
-          "";
-
-
-        commentStatus.textContent =
-          "コメントを送信しました！承認されると表示されます🦦";
-
-
-        commentSubmit.disabled =
-          false;
-
+        commentSubmit.disabled = false;
       }
     );
 
-
-    /* =========================================
-       初期読み込み
-       ========================================= */
-
     loadComments();
-
   </script>
+
 </body>
 </html>
