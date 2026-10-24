@@ -30,7 +30,13 @@ body {
   margin: 0;
   color: var(--text);
   background: var(--bg);
-  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Noto Sans JP",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
   line-height: 1.9;
 }
 
@@ -275,12 +281,6 @@ main {
   margin-bottom: 8px;
 }
 
-.login-box p {
-  margin-top: 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
 .email-input {
   width: 100%;
   padding: 13px 15px;
@@ -307,8 +307,8 @@ main {
 }
 
 .button:disabled {
-  opacity: .5;
-  cursor: default;
+  opacity: .55;
+  cursor: not-allowed;
 }
 
 .login-message {
@@ -388,7 +388,7 @@ main {
 }
 
 .comment-name.admin {
-  color: var(--teal);
+  color: #b34d3d;
 }
 
 .admin-label {
@@ -396,7 +396,7 @@ main {
   margin-left: 7px;
   padding: 2px 7px;
   border-radius: 999px;
-  background: var(--teal);
+  background: #b34d3d;
   color: white;
   font-size: 11px;
   line-height: 1.4;
@@ -450,6 +450,13 @@ main {
   display: block;
 }
 
+.reply-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
 .reply-form input,
 .reply-form textarea {
   width: 100%;
@@ -457,10 +464,9 @@ main {
   margin-bottom: 10px;
   border: 1px solid #d8cec0;
   border-radius: 8px;
-  box-sizing: border-box;
-  font: inherit;
   background: white;
   color: var(--text);
+  font: inherit;
 }
 
 .reply-form textarea {
@@ -468,35 +474,46 @@ main {
   resize: vertical;
 }
 
-.reply-form button {
-  border: 0;
-  padding: 8px 15px;
+.reply-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.reply-submit,
+.reply-cancel {
+  padding: 7px 13px;
   border-radius: 20px;
-  background: var(--teal);
-  color: white;
   font: inherit;
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 800;
   cursor: pointer;
 }
 
-.reply-form button:disabled {
-  opacity: .5;
-  cursor: default;
+.reply-submit {
+  border: 0;
+  background: var(--teal);
+  color: white;
 }
 
-.reply-form .reply-cancel {
-  margin-left: 6px;
-  background: white;
-  color: var(--text);
+.reply-cancel {
   border: 1px solid var(--border);
+  background: white;
+  color: var(--muted);
+}
+
+.reply-submit:disabled,
+.reply-cancel:disabled {
+  opacity: .55;
+  cursor: not-allowed;
 }
 
 .reply-status {
-  display: inline;
-  margin-left: 8px;
   color: var(--muted);
   font-size: 12px;
+  font-weight: 700;
 }
 
 .thread-replies {
@@ -532,13 +549,17 @@ main {
 }
 
 .reply-list .comment-item {
-  padding: 14px 0 14px 18px;
-  border-left: 3px solid #d8e7e4;
+  padding: 14px 0;
 }
 
 .reply-list .comment-item + .comment-item {
   border-top: 1px solid var(--border);
 }
+
+
+/* ============================================
+   過去のコメント
+============================================ */
 
 .older-comments {
   border: 1px solid var(--border);
@@ -578,6 +599,25 @@ main {
   margin-bottom: 0;
 }
 
+
+footer {
+  padding: 20px;
+  text-align: center;
+  background: #e9e2d6;
+  color: #6e6255;
+  font-size: 13px;
+}
+
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
+}
+
+
 @media (max-width: 900px) {
 
   .header-inner {
@@ -592,6 +632,7 @@ main {
   }
 
 }
+
 
 @media (max-width: 560px) {
 
@@ -647,11 +688,8 @@ main {
     gap: 2px;
   }
 
-  .comment-date {
-    white-space: normal;
-  }
-
 }
+
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -662,6 +700,7 @@ main {
 }
 </style>
 </head>
+
 
 <body>
 
@@ -689,7 +728,9 @@ main {
         ホーム
       </a>
 
-      <a href="diary.html" class="current">
+      <a
+        href="diary.html"
+        class="current">
         ラッコの日記
       </a>
 
@@ -765,7 +806,9 @@ main {
   </h2>
 
 
-  <article class="diary-entry" id="site-diary">
+  <article
+    class="diary-entry"
+    id="site-diary">
 
     <span class="category-label">
       サイト制作日記
@@ -794,7 +837,9 @@ main {
   </article>
 
 
-  <article class="diary-entry" id="server-diary">
+  <article
+    class="diary-entry"
+    id="server-diary">
 
     <span class="category-label server">
       サーバー運営日記
@@ -823,9 +868,9 @@ main {
   </article>
 
 
-  <!-- ========================= -->
-  <!-- コメント欄 -->
-  <!-- ========================= -->
+  <!-- =========================
+       コメント欄
+       ========================= -->
 
   <section class="comments-card">
 
@@ -840,7 +885,9 @@ main {
 
     <!-- 表示名＋コメント投稿 -->
 
-    <div id="login-section" class="login-box">
+    <div
+      id="login-section"
+      class="login-box">
 
       <h3>
         コメントを書く
@@ -853,7 +900,7 @@ main {
         type="text"
         placeholder="表示名（例：ラッコ）"
         maxlength="50"
-        autocomplete="off"
+        autocomplete="nickname"
       >
 
 
@@ -880,6 +927,12 @@ main {
         </div>
 
       </form>
+
+
+      <p
+        id="anonymous-message"
+        class="login-message">
+      </p>
 
 
       <p
@@ -931,6 +984,10 @@ main {
 
 <script>
 
+/* ==========================================
+   Supabase
+========================================== */
+
 const SUPABASE_URL =
   "https://goxuhivbgaextkhyobmw.supabase.co";
 
@@ -946,17 +1003,17 @@ const supabaseClient =
   );
 
 
-// ============================================
-// このページ専用の識別子
-// ============================================
+/* ==========================================
+   日記ページ
+========================================== */
 
 const PAGE_SLUG =
   "diary";
 
 
-// ============================================
-// 要素取得
-// ============================================
+/* ==========================================
+   HTML要素
+========================================== */
 
 const displayNameInput =
   document.getElementById(
@@ -988,9 +1045,9 @@ const commentsContainer =
   );
 
 
-// ============================================
-// コメント読み込み
-// ============================================
+/* ==========================================
+   コメント読み込み
+========================================== */
 
 async function loadComments() {
 
@@ -1031,7 +1088,7 @@ async function loadComments() {
   if (error) {
 
     console.error(
-      "コメント取得エラー:",
+      "コメント読み込みエラー:",
       error
     );
 
@@ -1063,11 +1120,12 @@ async function loadComments() {
     "";
 
 
-  // ==========================================
-  // 親コメントと返信を整理
-  // ==========================================
+  /* ========================================
+     親子関係を整理
+  ======================================== */
 
-  const childrenMap = {};
+  const childrenMap =
+    {};
 
 
   data.forEach(
@@ -1096,19 +1154,41 @@ async function loadComments() {
   );
 
 
+  /* ========================================
+     親コメントを新しい順にする
+  ======================================== */
+
   const parentComments =
     [
       ...(childrenMap.root || [])
-    ].sort(
-      (a, b) =>
-        new Date(b.created_at) -
-        new Date(a.created_at)
+    ]
+      .sort(
+        (a, b) =>
+          new Date(b.created_at) -
+          new Date(a.created_at)
+      );
+
+
+  /* ========================================
+     最新3件
+  ======================================== */
+
+  const latestParents =
+    parentComments.slice(
+      0,
+      3
     );
 
 
-  // ==========================================
-  // コメント1件を作成
-  // ==========================================
+  const olderParents =
+    parentComments.slice(
+      3
+    );
+
+
+  /* ========================================
+     コメント1件を作成
+  ======================================== */
 
   function createCommentElement(
     comment
@@ -1124,9 +1204,9 @@ async function loadComments() {
       "comment-item";
 
 
-    // ------------------------------
-    // ヘッダー
-    // ------------------------------
+    /* -------------------------------
+       ヘッダー
+    ------------------------------- */
 
     const header =
       document.createElement(
@@ -1156,6 +1236,8 @@ async function loadComments() {
     name.textContent =
       displayName;
 
+
+    /* 管理人 */
 
     if (
       displayName ===
@@ -1202,15 +1284,19 @@ async function loadComments() {
       comment.created_at
     ) {
 
-      date.textContent =
+      const commentDate =
         new Date(
           comment.created_at
-        ).toLocaleString(
+        );
+
+
+      date.textContent =
+        commentDate.toLocaleString(
           "ja-JP",
           {
             year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
+            month: "numeric",
+            day: "numeric",
             hour: "2-digit",
             minute: "2-digit"
           }
@@ -1234,9 +1320,9 @@ async function loadComments() {
     );
 
 
-    // ------------------------------
-    // 本文
-    // ------------------------------
+    /* -------------------------------
+       本文
+    ------------------------------- */
 
     const body =
       document.createElement(
@@ -1258,9 +1344,9 @@ async function loadComments() {
     );
 
 
-    // ------------------------------
-    // 返信ボタン
-    // ------------------------------
+    /* -------------------------------
+       返信ボタン
+    ------------------------------- */
 
     const actions =
       document.createElement(
@@ -1300,9 +1386,9 @@ async function loadComments() {
     );
 
 
-    // ------------------------------
-    // 返信フォーム
-    // ------------------------------
+    /* -------------------------------
+       返信フォーム
+    ------------------------------- */
 
     const replyForm =
       document.createElement(
@@ -1312,6 +1398,16 @@ async function loadComments() {
 
     replyForm.className =
       "reply-form";
+
+
+    const replyNameLabel =
+      document.createElement(
+        "label"
+      );
+
+
+    replyNameLabel.textContent =
+      "名前";
 
 
     const replyName =
@@ -1325,16 +1421,25 @@ async function loadComments() {
 
 
     replyName.maxLength =
-      50;
+      30;
 
 
     replyName.placeholder =
-      "名前（任意）";
+      "名無しのラッコ";
 
 
-    replyForm.appendChild(
-      replyName
-    );
+    replyName.autocomplete =
+      "nickname";
+
+
+    const replyBodyLabel =
+      document.createElement(
+        "label"
+      );
+
+
+    replyBodyLabel.textContent =
+      "返信";
 
 
     const replyBody =
@@ -1348,12 +1453,21 @@ async function loadComments() {
 
 
     replyBody.placeholder =
-      `${displayName}さんへの返信を書いてね🦦`;
+      "返信を書いてね🦦";
 
 
-    replyForm.appendChild(
-      replyBody
-    );
+    replyBody.required =
+      true;
+
+
+    const replyActions =
+      document.createElement(
+        "div"
+      );
+
+
+    replyActions.className =
+      "reply-actions";
 
 
     const replySubmit =
@@ -1366,13 +1480,12 @@ async function loadComments() {
       "submit";
 
 
+    replySubmit.className =
+      "reply-submit";
+
+
     replySubmit.textContent =
       "返信を送信";
-
-
-    replyForm.appendChild(
-      replySubmit
-    );
 
 
     const replyCancel =
@@ -1393,11 +1506,6 @@ async function loadComments() {
       "閉じる";
 
 
-    replyForm.appendChild(
-      replyCancel
-    );
-
-
     const replyStatus =
       document.createElement(
         "span"
@@ -1408,8 +1516,43 @@ async function loadComments() {
       "reply-status";
 
 
-    replyForm.appendChild(
+    replyActions.appendChild(
+      replySubmit
+    );
+
+
+    replyActions.appendChild(
+      replyCancel
+    );
+
+
+    replyActions.appendChild(
       replyStatus
+    );
+
+
+    replyForm.appendChild(
+      replyNameLabel
+    );
+
+
+    replyForm.appendChild(
+      replyName
+    );
+
+
+    replyForm.appendChild(
+      replyBodyLabel
+    );
+
+
+    replyForm.appendChild(
+      replyBody
+    );
+
+
+    replyForm.appendChild(
+      replyActions
     );
 
 
@@ -1418,9 +1561,9 @@ async function loadComments() {
     );
 
 
-    // ------------------------------
-    // 返信フォーム開閉
-    // ------------------------------
+    /* -------------------------------
+       返信フォーム開閉
+    ------------------------------- */
 
     replyButton.addEventListener(
       "click",
@@ -1432,7 +1575,9 @@ async function loadComments() {
           );
 
 
-        if (isOpen) {
+        if (
+          isOpen
+        ) {
 
           replyForm.classList.remove(
             "is-open"
@@ -1483,9 +1628,9 @@ async function loadComments() {
     );
 
 
-    // ------------------------------
-    // 返信送信
-    // ------------------------------
+    /* -------------------------------
+       返信送信
+    ------------------------------- */
 
     replyForm.addEventListener(
       "submit",
@@ -1494,15 +1639,18 @@ async function loadComments() {
         event.preventDefault();
 
 
-        const name =
-          replyName.value.trim();
+        const displayName =
+          replyName.value.trim() ||
+          "名無しのラッコ";
 
 
         const body =
           replyBody.value.trim();
 
 
-        if (!body) {
+        if (
+          !body
+        ) {
 
           replyStatus.textContent =
             "返信を入力してね🦦";
@@ -1522,7 +1670,7 @@ async function loadComments() {
 
 
         replyStatus.textContent =
-          "送信しています……";
+          "返信を送信しています……";
 
 
         const {
@@ -1534,28 +1682,31 @@ async function loadComments() {
               "diary_comments"
             )
 
-            .insert({
+            .insert([
+              {
 
-              display_name:
-                name ||
-                "名無しのラッコ",
+                display_name:
+                  displayName,
 
-              body:
-                body,
+                body:
+                  body,
 
-              approved:
-                false,
+                approved:
+                  false,
 
-              page_slug:
-                PAGE_SLUG,
+                page_slug:
+                  PAGE_SLUG,
 
-              parent_id:
-                comment.id
+                parent_id:
+                  comment.id
 
-            });
+              }
+            ]);
 
 
-        if (error) {
+        if (
+          error
+        ) {
 
           console.error(
             "返信送信エラー:",
@@ -1564,7 +1715,7 @@ async function loadComments() {
 
 
           replyStatus.textContent =
-            "返信を送信できませんでした。";
+            "返信を送信できませんでした。もう一度試してみてね。";
 
 
           replySubmit.disabled =
@@ -1589,7 +1740,7 @@ async function loadComments() {
 
 
         replyStatus.textContent =
-          "返信を送信しました！承認されると表示されます🦦";
+          "返信を送信しました！確認後に表示されます🦦";
 
 
         replySubmit.disabled =
@@ -1608,9 +1759,121 @@ async function loadComments() {
   }
 
 
-  // ==========================================
-  // スレッド作成
-  // ==========================================
+  /* ========================================
+     返信を折りたたむ
+  ======================================== */
+
+  function createReplyDetails(
+    parentId
+  ) {
+
+    const replies =
+      [
+        ...(childrenMap[parentId] || [])
+      ]
+        .sort(
+          (a, b) =>
+            new Date(a.created_at) -
+            new Date(b.created_at)
+        );
+
+
+    if (
+      replies.length === 0
+    ) {
+
+      return null;
+
+    }
+
+
+    const details =
+      document.createElement(
+        "details"
+      );
+
+
+    details.className =
+      "thread-replies";
+
+
+    const summary =
+      document.createElement(
+        "summary"
+      );
+
+
+    summary.textContent =
+      `返信を見る（${replies.length}件）`;
+
+
+    const replyList =
+      document.createElement(
+        "div"
+      );
+
+
+    replyList.className =
+      "reply-list";
+
+
+    replies.forEach(
+      reply => {
+
+        const replyItem =
+          createCommentElement(
+            reply
+          );
+
+
+        replyList.appendChild(
+          replyItem
+        );
+
+
+        /*
+          返信への返信も同じスレッド内に入れる。
+          ただし新しい枠は作らない。
+        */
+
+        const nestedDetails =
+          createReplyDetails(
+            reply.id
+          );
+
+
+        if (
+          nestedDetails
+        ) {
+
+          replyItem.appendChild(
+            nestedDetails
+          );
+
+        }
+
+      }
+    );
+
+
+    details.appendChild(
+      summary
+    );
+
+
+    details.appendChild(
+      replyList
+    );
+
+
+    return details;
+
+  }
+
+
+  /* ========================================
+     親コメント＋返信を1つの枠にする
+  ======================================== */
 
   function createThread(
     comment
@@ -1633,75 +1896,18 @@ async function loadComments() {
     );
 
 
-    const replies =
-      [
-        ...(childrenMap[comment.id] || [])
-      ].sort(
-        (a, b) =>
-          new Date(a.created_at) -
-          new Date(b.created_at)
+    const replyDetails =
+      createReplyDetails(
+        comment.id
       );
 
 
     if (
-      replies.length > 0
+      replyDetails
     ) {
 
-      const details =
-        document.createElement(
-          "details"
-        );
-
-
-      details.className =
-        "thread-replies";
-
-
-      const summary =
-        document.createElement(
-          "summary"
-        );
-
-
-      summary.textContent =
-        `返信を見る（${replies.length}件）`;
-
-
-      const replyList =
-        document.createElement(
-          "div"
-        );
-
-
-      replyList.className =
-        "reply-list";
-
-
-      replies.forEach(
-        reply => {
-
-          replyList.appendChild(
-            createCommentElement(
-              reply
-            )
-          );
-
-        }
-      );
-
-
-      details.appendChild(
-        summary
-      );
-
-
-      details.appendChild(
-        replyList
-      );
-
-
       thread.appendChild(
-        details
+        replyDetails
       );
 
     }
@@ -1712,22 +1918,9 @@ async function loadComments() {
   }
 
 
-  // ==========================================
-  // 最新3件
-  // ==========================================
-
-  const latestParents =
-    parentComments.slice(
-      0,
-      3
-    );
-
-
-  const olderParents =
-    parentComments.slice(
-      3
-    );
-
+  /* ========================================
+     最新3件を表示
+  ======================================== */
 
   latestParents.forEach(
     comment => {
@@ -1742,9 +1935,9 @@ async function loadComments() {
   );
 
 
-  // ==========================================
-  // 過去のコメント
-  // ==========================================
+  /* ========================================
+     4件目以降を折りたたむ
+  ======================================== */
 
   if (
     olderParents.length > 0
@@ -1812,9 +2005,9 @@ async function loadComments() {
 }
 
 
-// ============================================
-// コメント投稿
-// ============================================
+/* ==========================================
+   新規コメント投稿
+========================================== */
 
 commentForm.addEventListener(
   "submit",
@@ -1831,7 +2024,9 @@ commentForm.addEventListener(
       commentText.value.trim();
 
 
-    if (!displayName) {
+    if (
+      !displayName
+    ) {
 
       commentMessage.textContent =
         "表示名を入力してください。";
@@ -1845,7 +2040,9 @@ commentForm.addEventListener(
     }
 
 
-    if (!body) {
+    if (
+      !body
+    ) {
 
       commentMessage.textContent =
         "コメントを入力してください。";
@@ -1865,7 +2062,9 @@ commentForm.addEventListener(
       );
 
 
-    if (submitButton) {
+    if (
+      submitButton
+    ) {
 
       submitButton.disabled =
         true;
@@ -1882,26 +2081,32 @@ commentForm.addEventListener(
     } =
       await supabaseClient
 
-        .from("diary_comments")
+        .from(
+          "diary_comments"
+        )
 
-        .insert({
+        .insert([
+          {
 
-          display_name:
-            displayName,
+            display_name:
+              displayName,
 
-          body:
-            body,
+            body:
+              body,
 
-          approved:
-            false,
+            approved:
+              false,
 
-          page_slug:
-            PAGE_SLUG
+            page_slug:
+              PAGE_SLUG
 
-        });
+          }
+        ]);
 
 
-    if (error) {
+    if (
+      error
+    ) {
 
       console.error(
         "コメント投稿エラー:",
@@ -1913,7 +2118,9 @@ commentForm.addEventListener(
         "コメントを投稿できませんでした。";
 
 
-      if (submitButton) {
+      if (
+        submitButton
+      ) {
 
         submitButton.disabled =
           false;
@@ -1935,10 +2142,12 @@ commentForm.addEventListener(
 
 
     commentMessage.textContent =
-      "コメントしました！承認されると表示されます🦦";
+      "コメントしました！確認後に表示されます🦦";
 
 
-    if (submitButton) {
+    if (
+      submitButton
+    ) {
 
       submitButton.disabled =
         false;
@@ -1949,9 +2158,9 @@ commentForm.addEventListener(
 );
 
 
-// ============================================
-// 初期処理
-// ============================================
+/* ==========================================
+   初期処理
+========================================== */
 
 loadComments();
 
