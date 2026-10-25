@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="DbD初心者向けのおすすめパーク構成。ドワイトから始めるパーク選びと、逃げラッコが実際に使っているパークの目的や注意点を紹介。">
-  <title>おすすめパーク構成｜逃げラッコ式DbD立ち回り</title>
+  <meta name="description" content="逃げラッコ式DbD立ち回りガイド。プレイ時間100時間未満の初心者向けに、試合開始から脱出までの立ち回りを紹介。">
+  <title>100時間未満｜オススメの立ち回り</title>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root {
@@ -15,7 +18,7 @@
       --teal: #477f7d;
       --teal-light: #e7f0ee;
       --border: #e6ddd0;
-      --amber: #e7b86a;
+      --hero-blue: #c9dfe4;
     }
 
     * {
@@ -28,13 +31,14 @@
 
     body {
       margin: 0;
-      color: var(--text);
       background: var(--bg);
+      color: var(--text);
       font-family:
         -apple-system,
         BlinkMacSystemFont,
         "Noto Sans JP",
         "Yu Gothic",
+        "Hiragino Kaku Gothic ProN",
         Meiryo,
         sans-serif;
       line-height: 1.8;
@@ -86,25 +90,25 @@
       text-align: center;
     }
 
-    nav {
+    header nav {
       display: flex;
       align-items: center;
       gap: clamp(12px, 2vw, 28px);
     }
 
-    nav a {
+    header nav a {
       text-decoration: none;
       font-size: 13px;
       font-weight: 700;
       white-space: nowrap;
     }
 
-    nav a:hover,
-    nav a[aria-current="page"] {
+    header nav a:hover,
+    header nav a[aria-current="page"] {
       color: var(--teal);
     }
 
-    nav a[aria-current="page"] {
+    header nav a[aria-current="page"] {
       text-decoration: underline;
       text-decoration-thickness: 2px;
       text-underline-offset: 7px;
@@ -113,7 +117,7 @@
     .page-hero {
       padding: 40px 20px;
       text-align: center;
-      background: #c9dfe4;
+      background: var(--hero-blue);
       border-bottom: 1px solid var(--border);
     }
 
@@ -144,7 +148,7 @@
       padding: 30px 24px 50px;
     }
 
-    .content-card {
+    .content {
       padding: 30px;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -152,247 +156,283 @@
       box-shadow: 0 5px 18px rgba(48, 39, 31, .04);
     }
 
+    .bond-notice {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin: 0 0 24px;
+      padding: 22px 26px;
+      background: linear-gradient(135deg, #e8f2ef 0%, #dcebea 100%);
+      border: 2px solid var(--teal);
+      border-left: 9px solid var(--teal);
+      border-radius: 16px;
+      box-shadow: 0 5px 14px rgba(48, 39, 31, .09);
+    }
+
+    .bond-notice img {
+      display: block;
+      width: 112px;
+      height: 112px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .bond-notice-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .bond-notice-text strong {
+      display: block;
+      color: #30271f;
+      font-size: clamp(21px, 2.7vw, 29px);
+      font-weight: 900;
+      line-height: 1.55;
+    }
+
+    .chapter-tip {
+      margin: -8px 0 22px;
+      padding: 10px 15px;
+      background: var(--teal-light);
+      border-left: 4px solid var(--teal);
+      border-radius: 8px;
+      color: #376c6a;
+      font-weight: 800;
+      font-size: .98rem;
+      line-height: 1.6;
+    }
+
+    .chapter-tip span {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--muted);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+
+    .chapter-toc {
+      margin: 26px 0 34px;
+      padding: 20px;
+      background: #fbf7ef;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .toc-illustration {
+      text-align: center;
+      margin: -4px auto 12px;
+    }
+
+    .toc-illustration img {
+      display: block;
+      width: 100%;
+      max-width: 540px;
+      height: auto;
+      margin: 0 auto;
+      border-radius: 8px;
+    }
+
+    .toc-subtitle {
+      margin: -8px 0 18px;
+      text-align: center;
+      font-size: .86rem;
+      color: var(--muted);
+    }
+
+    .chapter-toc-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .chapter-toc-list li {
+      margin: 0;
+    }
+
+    .chapter-toc-list a {
+      display: block;
+      height: 100%;
+      padding: 10px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--text);
+      font-size: .92rem;
+      font-weight: 700;
+      line-height: 1.5;
+      text-decoration: none;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+
+    .chapter-toc-list a:hover {
+      background: var(--teal-light);
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    .chapter-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 112px;
+      padding: 12px 16px;
+    }
+
+    .chapter-title span {
+      display: block;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .chapter-title img {
+      display: block;
+      order: 2;
+      width: 142px;
+      height: 94px;
+      object-fit: contain;
+      flex-shrink: 0;
+      background: transparent;
+      border-radius: 8px;
+    }
+
+    .congrats-illustration {
+      margin: 34px auto 8px;
+      text-align: center;
+    }
+
+    .congrats-illustration img {
+      display: block;
+      width: 100%;
+      max-width: 760px;
+      height: auto;
+      margin: 0 auto;
+      border-radius: 10px;
+    }
+
+    .chapter {
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      scroll-margin-top: 20px;
+    }
+
     .intro {
-      margin: 0 0 28px;
+      margin: 0 0 18px;
       padding: 18px 20px;
       background: #f8f3e9;
       border: 1px solid var(--border);
       border-left: 5px solid var(--teal);
       border-radius: 12px;
-      font-size: 16px;
+      font-size: 1.02rem;
     }
 
-    .dwight-intro {
-      display: flex;
-      align-items: center;
-      gap: 16px;
+    .intro a {
+      color: var(--teal);
+      font-weight: 800;
+      text-underline-offset: 3px;
     }
 
-    .dwight-photo {
-      width: 88px;
-      height: 88px;
-      object-fit: cover;
-      object-position: center top;
-      border-radius: 12px;
-      border: 2px solid var(--border);
-      flex-shrink: 0;
-    }
-
-    .unlock-intro {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .unlock-portraits {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-
-    .unlock-portraits img {
-      width: 64px;
-      height: 64px;
-      object-fit: cover;
-      object-position: center top;
-      border-radius: 10px;
-      border: 2px solid var(--border);
-    }
-
-    .unlock-text p {
-      margin: 0 0 10px;
-    }
-
-    .unlock-text p:last-child {
-      margin-bottom: 0;
-    }
-
-    .section-title {
+    h2 {
       margin: 42px 0 22px;
       padding: 13px 18px;
       background: var(--teal-light);
       border-left: 5px solid var(--teal);
       border-radius: 8px;
-      font-size: clamp(22px, 3vw, 29px);
+      font-size: clamp(21px, 3vw, 29px);
       line-height: 1.5;
     }
 
-    .section-title:first-of-type {
-      margin-top: 0;
+    h2:first-of-type {
+      margin-top: 30px;
     }
 
-    .section-lead {
-      margin: -8px 0 22px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .perk-card {
-      margin: 20px 0;
-      padding: 22px;
-      background: #fff;
+    h3 {
+      margin: 32px 0 16px;
+      padding: 11px 15px;
+      background: #f8f3e9;
       border: 1px solid var(--border);
-      border-radius: 15px;
+      border-left: 4px solid var(--teal);
+      border-radius: 8px;
+      font-size: 1.08rem;
+      line-height: 1.6;
     }
 
-    .perk-heading {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin: 0 0 18px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid var(--border);
-      font-size: 23px;
-      line-height: 1.4;
-    }
-
-    .perk-icon {
-      display: block;
-      width: 64px;
-      height: 64px;
-      object-fit: contain;
-      flex-shrink: 0;
-    }
-
-    .perk-number {
-      display: inline-grid;
-      place-items: center;
-      width: 29px;
-      height: 29px;
-      margin-right: 8px;
-      border-radius: 50%;
-      background: var(--teal);
-      color: white;
-      font-size: 14px;
-      vertical-align: 3px;
-    }
-
-    .perk-title {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .perk-owner {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 9px 4px 4px;
-      background: var(--teal-light);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      color: var(--text);
-      font-size: 12px;
-      font-weight: 700;
-      line-height: 1.4;
-    }
-
-    .perk-owner img {
-      width: 30px;
-      height: 30px;
-      object-fit: cover;
-      object-position: center top;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .effect-label {
-      margin: 18px 0 8px;
-      color: var(--teal);
-      font-size: 14px;
-      font-weight: 900;
-    }
-
-    .perk-card p {
-      margin: 0 0 15px;
+    p {
+      margin: 0 0 20px;
       overflow-wrap: anywhere;
     }
 
-    .perk-card p:last-child {
-      margin-bottom: 0;
-    }
-
-    .perk-card ul {
-      margin: 0 0 16px;
+    ul {
+      margin: -5px 0 24px;
       padding-left: 1.5em;
     }
 
-    .perk-card li {
-      margin-bottom: 6px;
+    li {
+      margin-bottom: 7px;
     }
 
-    .note-card {
-      margin: 24px 0;
-      padding: 20px;
-      background: #f8f3e9;
+    strong {
+      font-weight: 800;
+    }
+
+    .video-wrap {
+      width: 100%;
+      margin: 24px 0 30px;
+      overflow: hidden;
       border: 1px solid var(--border);
       border-radius: 12px;
+      background: #000;
     }
 
-    .note-card p:last-child {
-      margin-bottom: 0;
-    }
-
-    .next-step {
-      margin-top: 34px;
-      padding: 25px;
-      background: linear-gradient(120deg, #273b3e, #4c675e);
-      border-radius: 15px;
-      color: white;
-    }
-
-    .next-step h2 {
-      margin: 0 0 14px;
-      font-size: 23px;
-    }
-
-    .next-step p {
-      margin: 0 0 14px;
-    }
-
-    .next-step p:last-of-type {
-      margin-bottom: 20px;
-    }
-
-    .next-step .next-link {
-      display: inline-block;
-      padding: 11px 19px;
-      color: white;
-      background: #246f78;
-      border: 2px solid #a9d5d1;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 900;
-    }
-
-    .next-step .next-link:hover {
-      opacity: .88;
-    }
-
-    .back-link {
+    .video-wrap video {
       display: block;
-      width: fit-content;
-      margin: 28px auto 0;
-      padding: 12px 23px;
-      color: white;
-      background: var(--teal);
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 900;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      background: #000;
     }
 
-    .back-link:hover {
-      opacity: .88;
+    .image-placeholder {
+      margin: 24px 0;
+      padding: 22px 18px;
+      background: #f8f3e9;
+      border: 2px dashed #c9bfae;
+      border-radius: 12px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .95rem;
     }
 
-    /* =========================
-       コメント
-    ========================= */
+    .ending {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--teal);
+    }
 
+    /* コメント欄 */
     .comments-section {
-      margin-top: 42px;
+      margin-top: 50px;
+      padding-top: 36px;
+      border-top: 2px solid var(--border);
+    }
+
+    .comments-section h2 {
+      margin-top: 0;
+    }
+
+    .comments-lead {
+      margin-bottom: 22px;
+      color: var(--muted);
+      font-size: .95rem;
     }
 
     .comment-form {
@@ -400,90 +440,139 @@
       background: #f8f3e9;
       border: 1px solid var(--border);
       border-radius: 14px;
-      margin-bottom: 30px;
+    }
+
+    .comment-form label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 800;
+      font-size: .92rem;
     }
 
     .comment-form input,
     .comment-form textarea {
+      display: block;
       width: 100%;
-      padding: 12px;
-      margin-bottom: 12px;
-      border: 1px solid #d8cec0;
-      border-radius: 8px;
-      box-sizing: border-box;
-      font: inherit;
-      background: white;
+      margin-bottom: 16px;
+      padding: 12px 14px;
+      background: #fff;
       color: var(--text);
-    }
-
-    .comment-form textarea {
-      min-height: 120px;
-      resize: vertical;
+      border: 1px solid #d7ccbd;
+      border-radius: 9px;
+      font: inherit;
+      outline: none;
     }
 
     .comment-form input:focus,
     .comment-form textarea:focus {
-      outline: 3px solid rgba(71, 127, 125, .2);
       border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(71, 127, 125, .12);
     }
 
-    .comment-form button {
+    .comment-form textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .comment-submit {
+      display: inline-block;
+      padding: 11px 24px;
       border: 0;
-      padding: 10px 18px;
-      border-radius: 20px;
+      border-radius: 24px;
       background: var(--teal);
-      color: white;
+      color: #fff;
       font: inherit;
-      font-weight: 900;
+      font-weight: 800;
       cursor: pointer;
+      transition: opacity .2s;
     }
 
-    .comment-form button:hover {
-      opacity: .9;
+    .comment-submit:hover {
+      opacity: .85;
     }
 
-    .comment-form button:disabled {
-      opacity: .5;
-      cursor: default;
+    .comment-submit:disabled {
+      opacity: .55;
+      cursor: not-allowed;
     }
 
-    .comment-message {
+    .comment-status {
+      min-height: 1.6em;
+      margin: 12px 0 0;
       color: var(--muted);
-      font-size: 14px;
+      font-size: .9rem;
     }
 
-    .comment-error {
-      color: #a24d4d;
-      font-size: 14px;
+    .comment-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 28px;
     }
 
-    .public-comment {
-      padding: 18px 0;
-      border-top: 1px solid var(--border);
+    .comment-item {
+      padding: 18px 20px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
     }
 
-    .public-comment-name {
+    .comment-meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .comment-name {
       font-weight: 900;
+      color: var(--teal);
     }
 
-    .public-comment-date {
-      margin-left: 10px;
+    .comment-date {
+      flex-shrink: 0;
       color: var(--muted);
-      font-size: 12px;
+      font-size: .78rem;
     }
 
-    .public-comment-body {
-      margin-top: 8px;
+    .comment-body {
+      margin: 0;
       white-space: pre-wrap;
       overflow-wrap: anywhere;
     }
 
-    footer {
-      padding: 22px 20px 30px;
-      background: #e9e2d6;
+    .comment-empty {
+      padding: 22px;
+      background: #fbf7ef;
+      border: 1px solid var(--border);
+      border-radius: 12px;
       color: var(--muted);
       text-align: center;
-      font-size: 13px;
+    }
+
+    .back-link {
+      display: block;
+      width: fit-content;
+      margin: 28px auto 0;
+      padding: 12px 24px;
+      background: var(--teal);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 800;
+      transition: opacity .2s;
+    }
+
+    .back-link:hover {
+      opacity: .85;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: .9rem;
+      padding: 22px 20px 30px;
+      background: #e9e2d6;
     }
 
     a:focus-visible {
@@ -496,39 +585,18 @@
         flex-wrap: wrap;
       }
 
-      nav {
+      header nav {
         width: 100%;
         overflow-x: auto;
         padding: 5px 0;
       }
 
-      .content-card {
+      .content {
         padding: 24px;
       }
     }
 
     @media (max-width: 600px) {
-      .dwight-photo {
-        width: 68px;
-        height: 68px;
-      }
-
-      .unlock-intro {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .unlock-portraits {
-        flex-wrap: wrap;
-      }
-
-      .unlock-portraits img {
-        width: 56px;
-        height: 56px;
-      }
-    }
-
-    @media (max-width: 560px) {
       .header-inner {
         padding: 10px 15px;
         gap: 8px;
@@ -542,11 +610,11 @@
         font-size: 16px;
       }
 
-      nav {
+      header nav {
         gap: 20px;
       }
 
-      nav a {
+      header nav a {
         font-size: 12px;
       }
 
@@ -559,73 +627,143 @@
       }
 
       main {
+        margin: 0 auto;
         padding: 18px 12px 32px;
       }
 
-      .content-card {
-        padding: 18px 13px;
+      .content {
+        padding: 18px 14px;
         border-radius: 13px;
+      }
+
+      .bond-notice {
+        gap: 14px;
+        padding: 16px;
+        border-left-width: 6px;
+      }
+
+      .bond-notice img {
+        width: 82px;
+        height: 82px;
+      }
+
+      .bond-notice-text strong {
+        font-size: 19px;
+      }
+
+      .chapter-toc {
+        padding: 14px 12px;
+      }
+
+      .toc-illustration {
+        margin-bottom: 8px;
+      }
+
+      .chapter-toc-list {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .chapter-toc-list a {
+        padding: 11px 12px;
+      }
+
+      .chapter-title {
+        gap: 10px;
+        min-height: 96px;
+        padding: 10px 12px;
+      }
+
+      .chapter-title img {
+        width: 112px;
+        height: 78px;
+      }
+
+      .congrats-illustration {
+        margin-top: 26px;
+      }
+
+      .chapter-tip {
+        padding: 10px 12px;
+        font-size: .94rem;
       }
 
       .intro {
         padding: 15px;
-        font-size: 14px;
+        font-size: .95rem;
       }
 
-      .section-title {
+      h2 {
         margin-top: 32px;
         padding: 11px 13px;
       }
 
-      .perk-card {
-        padding: 16px 13px;
-        margin: 15px 0;
+      h3 {
+        margin-top: 26px;
+        padding: 10px 12px;
+        font-size: 1rem;
       }
 
-      .perk-heading {
-        gap: 12px;
-        font-size: 20px;
+      body {
+        font-size: .95rem;
       }
 
-      .perk-icon {
-        width: 52px;
-        height: 52px;
+      .video-wrap {
+        margin: 20px 0 25px;
+        border-radius: 9px;
       }
 
-      .perk-owner {
-        font-size: 11px;
-      }
-
-      .perk-owner img {
-        width: 26px;
-        height: 26px;
-      }
-
-      .perk-card p,
-      .perk-card li {
-        font-size: 14px;
-      }
-
-      .note-card {
-        padding: 16px;
-      }
-
-      .next-step {
-        padding: 21px 17px;
-      }
-
-      .next-step h2 {
-        font-size: 21px;
+      .image-placeholder {
+        padding: 17px 12px;
       }
 
       .comment-form {
         padding: 16px;
+      }
+
+      .comment-meta {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 2px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .bond-notice {
+        gap: 10px;
+        padding: 12px;
+      }
+
+      .bond-notice img {
+        width: 68px;
+        height: 68px;
+      }
+
+      .bond-notice-text strong {
+        font-size: 17px;
+      }
+
+      .chapter-title {
+        gap: 7px;
+        min-height: 86px;
+        padding: 9px 10px;
+      }
+
+      .chapter-title img {
+        width: 88px;
+        height: 66px;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html {
         scroll-behavior: auto;
+      }
+
+      .back-link,
+      .chapter-toc-list a,
+      .comment-submit {
+        transition: none;
       }
     }
   </style>
@@ -635,1118 +773,570 @@
 
   <header>
     <div class="header-inner">
-
       <a class="brand" href="index.html">
         <span class="brand-icon" aria-hidden="true">🦦</span>
-
-        <span class="brand-name">
-          逃げラッコ式
-          <small>DbD立ち回りガイド</small>
-        </span>
+        <span class="brand-name">逃げラッコ式<small>DbD立ち回りガイド</small></span>
       </a>
 
       <nav aria-label="メインメニュー">
         <a href="index.html">ホーム</a>
-
-        <a
-          href="perks.html"
-          aria-current="page">
-          パーク紹介
-        </a>
-
-        <a href="playstyle.html?v=2">
-          立ち回り講座
-        </a>
-
-        <a href="index.html#beginner">
-          初心者ガイド
-        </a>
-
-        <a href="fun.html">
-          楽しみ方
-        </a>
+        <a href="perks.html">パーク紹介</a>
+        <a href="playstyle.html?v=2" aria-current="page">立ち回り講座</a>
+        <a href="index.html#beginner">初心者ガイド</a>
+        <a href="fun.html">楽しみ方</a>
       </nav>
-
     </div>
   </header>
 
-
   <section class="page-hero">
-
-    <p class="eyebrow">
-      DEAD BY DAYLIGHT SURVIVAL GUIDE
-    </p>
-
-    <h1>
-      おすすめパーク構成
-    </h1>
-
-    <p>
-      できないことは考えるな。0から始める逃亡生活 🦦
-    </p>
-
+    <p class="eyebrow">DEAD BY DAYLIGHT SURVIVAL GUIDE</p>
+    <h1>100時間未満｜オススメの立ち回り</h1>
+    <p>できないことは考えるな。0から始める逃亡生活 🦦</p>
   </section>
 
-
   <main>
+    <div class="content">
 
-    <div class="content-card">
+      <div class="bond-notice">
+        <img src="images/dwight.png" alt="ドワイト">
+        <div class="bond-notice-text">
+          <strong>パークの中に「絆」は必ず入れてね！</strong>
+        </div>
+      </div>
 
+      <p>
+        パーク構成がわからない人は
+        <strong><a href="perks.html">パーク構成へのリンク</a></strong>
+        を参考にしてね。じゃあいくよ🦦
+      </p>
 
-      <div class="intro dwight-intro">
+      <nav class="chapter-toc" aria-label="立ち回り講座の目次">
 
+        <div class="toc-illustration">
+          <img src="images/mokuji.png" alt="看板から顔を出している手描きのラッコと「目次」の文字">
+        </div>
+
+        <p class="toc-subtitle">読みたいところを押してね 🦦</p>
+
+        <ol class="chapter-toc-list">
+          <li><a href="#chapter-1">① 開始直後の立ち回り</a></li>
+          <li><a href="#chapter-2">② 発電機を回してる途中の立ち回り</a></li>
+          <li><a href="#chapter-3">③ キラーから逃げる時の立ち回り</a></li>
+          <li><a href="#chapter-4">④ 味方に救助してもらった後の立ち回り</a></li>
+          <li><a href="#chapter-5">⑤ 味方が吊られてしまった時の立ち回り</a></li>
+          <li><a href="#chapter-6">⑥ 発電機が5台上がった時の立ち回り</a></li>
+          <li><a href="#chapter-7">⑦ ゲート解放後の立ち回り</a></li>
+          <li><a href="#chapter-8">⑧ 無事に脱出したら</a></li>
+        </ol>
+      </nav>
+
+      <div class="chapter">
+        <h2 id="chapter-1" class="chapter-title">
+          <img src="images/01_kaishi.png" alt="" loading="lazy">
+          <span>① 開始直後の立ち回り</span>
+        </h2>
+
+        <div class="chapter-tip">
+          <span>今回のポイント</span>
+          まず走って発電機を探そう！
+        </div>
+
+        <div class="video-wrap">
+          <video controls playsinline preload="auto" muted onloadedmetadata="this.currentTime=0.1">
+            <source src="videos/nigerakko_new_01_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <p>
+          まず走って発電機を探す。全力疾走（スプバ）を入れててもまず走る。
+          キラーが何かよくわからんところからよくわからんことしてきてもまず走る。
+          これ「逃げラッコ式🦦」では鉄則。
+        </p>
+
+        <p>
+          このとき絆で近くの味方の動きを確認して、できるだけ自分は個別行動になるのが望ましいけど、
+          味方がついてきたり、同じ発電機を回そうとしてくるなら気にせず一緒に発電機を回そう。
+          それはそれで速いからね。とにかく目についた発電機に張りつこう🦦
+        </p>
+
+        <p>
+          <strong>【注意点】</strong>
+          明らかにマップの中央だと思われる場所には走らない！
+          中央がどこかわからないってんならしょうがないけど、
+          自分がマップの端っこにいるってわかったら端っこ沿いに走るのが良いよ！
+        </p>
+
+        <p>
+          なんかでっかい建築物があるなら真ん中らへんかもって思っても良いよ。
+          俺もそんな感覚でやってるからね🦦
+        </p>
+
+        <p>（違う場合ももちろんあるよ。でもそこまで頑張って覚えなくて良いよ。）</p>
+      </div>
+
+      <div class="chapter">
+        <h2 id="chapter-2" class="chapter-title">
+          <img src="images/02_hatsudenki.png" alt="" loading="lazy">
+          <span>② 発電機を回してる途中の立ち回り</span>
+        </h2>
+
+        <div class="chapter-tip">
+          <span>今回のポイント</span>
+          味方の動きを確認しながら発電しよう！
+        </div>
+
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="videos/1a11be20ccf56-master_playlist_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <p>
+          絆のオーラで見える範囲の人の行動を見てあの人何してるかなーってぼけーっと考えてみよう。
+          発電機を回してたり、トーテムを撫で撫でしてたりしてたりしたら左のアイコンで答え合わせできるぞ🦦
+        </p>
+
+        <div class="image-placeholder">〈心音がしてる時の画像〉</div>
+
+        <p>
+          キラーの心音が聞こえてきたら、まだ発電機から手は離さずに、周囲の様子と味方のアイコンをチラチラ見よう。
+          味方のアイコンがぴこぴこ動いていたらその人がチェイス中だから気にせず発電を続行だ。
+        </p>
+
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="videos/nigerakko_dbd_video_05_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <p>キラーがこっちに来るのが確認できたら速やかに逃げる！全力疾走（スプバ）があったら爆速だ。</p>
+      </div>
+
+      <div class="chapter">
+        <h2 id="chapter-3" class="chapter-title">
+          <img src="images/03_chase.png" alt="" loading="lazy">
+          <span>③ キラーから逃げる時の立ち回り</span>
+        </h2>
+
+        <div class="chapter-tip">
+          <span>今回のポイント</span>
+          とにかくまっすぐ逃げよう！
+        </div>
+
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="videos/nigerakko_new_02_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <p>
+          「逃げラッコ式」では長時間チェイスはしようとしないよ。
+          とにかくまっすぐ逃げるんだ。無傷のときは１回だけキラーに背中を押してもらえるよ。
+        </p>
+
+        <p>
+          ※キラーからもらう１発目の攻撃は攻撃と思わない。
+          攻撃をくらったら「背中押してくれてありがとう！」って言ってみよう。
+          それが「逃げラッコ式」だよ🦦
+        </p>
+
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="videos/nigerakko_new_03_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <p>
+          自分がチェイスしてから吊られるまでの間、何が起きたか振り返ってみよう。
+          残りの発電機がいつの間にか減っている、吊られていた味方が復帰している、
+          負傷してた味方が回復している、味方が遠くで全員発電作業に取り掛かっている…
+        </p>
+
+        <p>それが自分の成果だよ。あとは気長に救助が来るのを待とう🦦</p>
+      </div>
+
+      <div class="chapter">
+        <h2 id="chapter-4" class="chapter-title">
+          <img src="images/04_rescue.png" alt="" loading="lazy">
+          <span>④ 味方に救助してもらった後の立ち回り</span>
+        </h2>
+
+        <div class="chapter-tip">
+          <span>今回のポイント</span>
+          まずは安全な場所に逃げよう！
+        </div>
+
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="videos/nigerakko_dbd_video_06_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <p>
+          救助されたら回復のことは一旦考えない。
+          10秒間逃げる痕跡が消えるんだ。この10秒でとりあえず安全そうな場所に逃げ込もう。
+          ちょっとした隠密ってやつだよ。
+        </p>
+
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="videos/nigerakko_dbd_video_07_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <p>
+          動かずにじっと絆で味方の様子を見てみよう。
+          安全そうに発電機を回している味方がいたらその人のところに行ってあげるのが良いと思うよ、
+          回復してもらえるかもしれないしね🦦
+        </p>
+
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="videos/nigerakko_dbd_video_08_blur_names.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <p>
+          警戒を入れてる人はキラーが発電機を破壊したりした時に通知が来てオーラが見えるよ。
+          そこの発電機を引き継いであげることを頭の片隅に入れておこう。
+          誰かのチェイスが始まったらそこの発電機を回しに行くチャンスだよ🦦
+        </p>
+      </div>
+            <div class="chapter">
+        <h2 id="chapter-5" class="chapter-title">
+          <img src="images/05_soshu.png" alt="" loading="lazy">
+          <span>⑤ 味方が吊られてしまった時の立ち回り</span>
+        </h2>
+
+        <div class="chapter-tip">
+          <span>今回のポイント</span>
+          味方の状況を見て救助を判断しよう！
+        </div>
+
+        <p>ここはとっても大事！パターン化して、単純に考えよう🦦</p>
+
+        <h3>【自分が救助に行くパターン】</h3>
+
+        <ul>
+          <li>味方2人が別々の発電機を回している時</li>
+          <li>味方1人が発電機、味方1人がチェイスしている時</li>
+          <li>味方2人が2吊りでリーチの時（けっこうピンチ）</li>
+        </ul>
+
+        <p><strong>全部左のアイコンを見ればわかるよ</strong></p>
+
+        <p>
+          救助したあとは味方が走ったら味方とは反対方向に走る。
+          味方がその場でしゃがんだら回復してあげる
+          （キラーが近づいてきたら見捨てて逃げようね🦦）
+        </p>
+
+        <h3>【自分が救助に行かないパターン】</h3>
+
+        <p>
+          上のどれにも当てはまらない時。その時は全部他の人に任せよう。
+          救助に時間がかかって2吊に入ってしまった時は
+          「薄情な味方だなぁ」って他人事に思っとくよ、これが「逃げラッコ式」🦦
+        </p>
+      </div>
+
+      <div class="chapter">
+        <h2 id="chapter-6" class="chapter-title">
+          <img src="images/06_tsuden.png" alt="" loading="lazy">
+          <span>⑥ 発電機が5台上がった時の立ち回り</span>
+        </h2>
+
+        <div class="chapter-tip">
+          <span>今回のポイント</span>
+          ゲートを開けて逃げ道を確保しよう！
+        </div>
+
+        <div class="image-placeholder">〈通電した時の画像〉</div>
+
+        <p>
+          2箇所あるゲートの位置を確認して、近い方にまっすぐ最短距離を走っていくよ。
+          ただしそっちのゲートにキラーがいる時は反対のゲートに向かおう。
+        </p>
+
+        <p>
+          レバーを入れたら上げ切っちゃおう。
+          ここで寸止めしたりとか、敢えて半分で止めるとか色気付いたことはしない。
+          逃げ道を確保するのが最優先事項だよ！
+        </p>
+
+        <div class="image-placeholder">〈味方がレバーを入れてる時の画像〉</div>
+
+        <p>
+          味方が先にレバーを入れてる時は、近くの岩陰とかに隠れてじっと待っておこう。
+          キラーが来て味方が離れてしまった時は自分がすかさず引き継いで、ゲートを開けてしまおう。
+        </p>
+
+        <p>さあ脱出は目前だ🦦</p>
+      </div>
+
+      <div class="chapter">
+        <h2 id="chapter-7" class="chapter-title">
+          <img src="images/07_gate.png" alt="" loading="lazy">
+          <span>⑦ ゲート解放後の立ち回り</span>
+        </h2>
+
+        <div class="chapter-tip">
+          <span>今回のポイント</span>
+          逃げられるなら逃げちゃっていい！
+        </div>
+
+        <p>
+          逃げれる状況になったらもう逃げちゃって良いよ。
+          ここまで行けば自分の功績、逃げたって良いんだよ。
+          実際に命がかかってたら…まあ逃げるよね🦦
+        </p>
+
+        <div class="image-placeholder">〈可哀想な味方がいた時の画像〉</div>
+
+        <p>
+          ここからはオマケだけど、逃げ遅れた可哀想の味方がいた時は、
+          自分が代わりに死ぬ覚悟があるなら助けてあげても良いよ。
+          無傷なら肉壁になってあげるとか、ゲート内に負傷した味方がいるなら回復してあげるとか、
+          色々してあげたらいいよ。
+        </p>
+
+        <p>
+          これは別に「逃げラッコ式」とは違うから、好きに判断してやったら良いよ。
+        </p>
+
+        <p>
+          でもね、キラーのパークには「誰も死から逃れられない（ノーワン）」や
+          「血の番人」っていう恐ろしいパークがあるんだ。
+          今は知らなくても別に良いけど、とりあえずヤバいから
+          ゲートが開いたらすぐに逃げることをオススメするよ🦦
+        </p>
+      </div>
+
+      <div class="chapter">
+        <h2 id="chapter-8" class="chapter-title">
+          <img src="images/08_dasshutsu.png" alt="" loading="lazy">
+          <span>⑧ 無事に脱出したら</span>
+        </h2>
+
+        <div class="chapter-tip">
+          <span>今回のポイント</span>
+          味方やキラーのパークを見てみよう！
+        </div>
+
+        <p>味方やキラーの使っていたパークを見てみよう。</p>
+
+        <p>
+          「へえー、こんなパークがあるんだ」<br>
+          「なんかこのパーク使ってるキラー多いなあ」<br>
+          「あ、あの時のあれはこれかあ」
+        </p>
+
+        <p>
+          とか、漠然とそんなこと考えながら感傷に浸ろう。
+          一番ホッとできる時間だからね。
+        </p>
+
+        <p>脱出おめでとう🦦</p>
+      </div>
+
+      <p style="text-align: center;">
+        <strong>
+          <a href="fun.html">逃げラッコ式の楽しみ方も見てみてね🦦</a>
+        </strong>
+      </p>
+
+      <div class="congrats-illustration">
         <img
-          src="images/dwight.png"
-          alt="ドワイト"
-          class="dwight-photo"
+          src="images/dasshutsu_omedetou.png"
+          alt="脱出おめでとう！と喜ぶラッコたち"
+          loading="lazy"
         >
-
-        <div>
-          <strong>
-            どのキャラから解放したらいいかわからない人
-          </strong>
-          は、まず【ドワイト】を選択してね。
-        </div>
-
       </div>
 
-
-      <h2 class="section-title">
-        最初のパーク構成
-      </h2>
-
-
-      <article class="perk-card">
-
-        <h3 class="perk-heading">
-
-          <img
-            src="images/絆.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">1</span>
-              絆
-            </span>
-
-            <span class="perk-owner">
-
-              <img
-                src="images/dwight.png"
-                alt=""
-              >
-
-              ドワイトの固有パーク
-
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
-        </p>
-
-        <p>
-          (20・28・36)メートル以内にいる他の仲間のオーラがあなたに視える。
-        </p>
-
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          味方全員が何をしているかを想像する癖をつけるため。
-        </p>
-
-      </article>
-
-
-      <article class="perk-card">
-
-        <h3 class="perk-heading">
-
-          <img
-            src="images/有能の証明.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">2</span>
-              有能の証明
-            </span>
-
-            <span class="perk-owner">
-
-              <img
-                src="images/dwight.png"
-                alt=""
-              >
-
-              ドワイトの固有パーク
-
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
-        </p>
-
-        <p>
-          自分の4メートル以内では、範囲内にいる他の生存者1人につき、
-          全ての生存者の修理速度が(6・8・10)%上昇する。
-        </p>
-
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          ドワイトの固有パークだからすぐ使えるからってだけ。
-          でも発電機を回す速度が上がるから普通に強いよ。
-        </p>
-
-      </article>
-
-
-      <article class="perk-card">
-
-        <h3 class="perk-heading">
-
-          <img
-            src="images/リーダー.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">3</span>
-              リーダー
-            </span>
-
-            <span class="perk-owner">
-
-              <img
-                src="images/dwight.png"
-                alt=""
-              >
-
-              ドワイトの固有パーク
-
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
-        </p>
-
-        <p>
-          自分の10メートル以内にいる他の生存者は、
-          次の行動速度が(20・25・30)%上昇する。
-        </p>
-
-        <ul>
-          <li>トーテムを浄化する。</li>
-          <li>脱出ゲートを開ける。</li>
-          <li>治療を受ける。</li>
-          <li>フックを破壊する。</li>
-          <li>フックから救助する。</li>
-          <li>チェストを開錠する。</li>
-        </ul>
-
-        <p>
-          この効果は、生存者が範囲から出たあと15秒間持続する。
-        </p>
-
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          これもドワイトの固有パークだからすぐ使えるからってだけ。
-          ただ、味方が自分を回復してくれるスピードが上がるから、
-          味方の足を引っ張るリスクが軽減するよ。
-        </p>
-
-        <p>
-          初心者だから足を引っ張るのはしょうがないよ。
-          だからせめてこれで軽減してあげよう🦦
-        </p>
-
-      </article>
-
-
-      <article class="perk-card">
-
-        <h3 class="perk-heading">
-
-          <img
-            src="images/血族.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">4</span>
-              血族
-            </span>
-
-            <span class="perk-owner">
-              共有パーク
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
-        </p>
-
-        <p>
-          あなたがフックに吊るされているとき、
-          生存者全員にお互いのオーラが視える。
-          殺人鬼がフックの(14・15・16)メートル以内にいるとき、
-          殺人鬼のオーラが生存者全員に視える。
-        </p>
-
-        <p>
-          自分以外の生存者がフックに吊るされているとき、
-          他の生存者のオーラがあなたに視える。
-          殺人鬼がフックに吊るされた生存者の
-          (14・15・16)メートル以内にいるとき、
-          殺人鬼のオーラがあなたに視える。
-        </p>
-
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          これは初めから全キャラ共通で解放されてるパークだから入れてるよ。
-          でも自分が使っても味方からしてもこれを入れてるとすごくありがたいパークなんだ。
-        </p>
-
-        <p>
-          これがあると味方が吊られた後にキラーの動向を確認してから、
-          <strong>安全に動きやすくなる</strong>よ。
-          逆に自分が吊られた場合は、味方にその効果がつくんだよ。
-          とっても助かるよね🦦
-        </p>
-
-      </article>
-
-
-      <h2 class="section-title">
-        次に解放するキャラクター
-      </h2>
-
-
-      <div class="intro unlock-intro">
-
-        <div class="unlock-portraits">
-
-          <img
-            src="images/meg.png"
-            alt="メグ"
-          >
-
-          <img
-            src="images/feng-min.png"
-            alt="フェンミン"
-          >
-
-          <img
-            src="images/jake.png"
-            alt="ジェイク"
-          >
-
-        </div>
-
-
-        <div class="unlock-text">
-
-          <p>
-            BP（ブラッドポイント）が100万ポイント貯まるまでは、
-            しばらくこの構成を使っていくよ。
-          </p>
-
-          <p>
-            BPが100万溜まったら次はメグ、その次はフェンミン、その次はジェイクの順番に解放するよ。
-            解放したら使いたいキャラクターに、次に説明していくパークを一個ずつ装備させよう🦦
-          </p>
-
-          <p>
-            <strong>
-              ドワイト、メグ、フェンミン、ジェイク
-            </strong>
-            を解放した人は、
-            このパーク構成にするよ。
-          </p>
-
-        </div>
-
+      <div class="ending">
+        逃げラッコ式DbD立ち回り 🦦
       </div>
 
+      <!-- コメント欄 -->
+      <section class="comments-section" aria-labelledby="comments-title">
 
-      <article class="perk-card">
+        <h2 id="comments-title">💬 コメント</h2>
 
-        <h3 class="perk-heading">
-
-          <img
-            src="images/絆.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">1</span>
-              絆
-            </span>
-
-            <span class="perk-owner">
-
-              <img
-                src="images/dwight.png"
-                alt=""
-              >
-
-              ドワイトの固有パーク
-
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
+        <p class="comments-lead">
+          このページを読んだ感想や、実際にやってみた感想を書いてね🦦
         </p>
 
-        <p>
-          (20・28・36)メートル以内にいる他の仲間のオーラがあなたに視える。
-        </p>
+        <form id="comment-form" class="comment-form">
 
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          これを使えば味方が近くでチェイスしてる、発電してる、セルフケアしてるが一目瞭然だよ。
-          その都度判断して行動しよう🦦
-        </p>
-
-
-        <p class="effect-label">
-          【注意点】
-        </p>
-
-        <p>
-          味方が発電機を回しているから一緒に回そう、回復してるから手伝ってあげよう等の行動は
-          まとめて襲われるリスクになったり、通電までが遅くなる原因になり得るから注意だよ。
-          基本的に味方とは離れて行動することが大事🦦
-        </p>
-
-      </article>
-
-
-      <article class="perk-card">
-
-        <h3 class="perk-heading">
-
-          <img
-            src="images/全力疾走.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">2</span>
-              全力疾走
-            </span>
-
-            <span class="perk-owner">
-
-              <img
-                src="images/meg.png"
-                alt=""
-              >
-
-              メグの固有パーク
-
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
-        </p>
-
-        <p>
-          あなたは走り出すと、迅速50%を2秒間得る。
-        </p>
-
-        <p>
-          その後、(60・50・40)秒間疲労状態になる。
-        </p>
-
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          自分が発電機を回している時にキラーが向かってきたら逃げるために使うよ。
-          それ以外のために使うことはほとんどないと思って良いよ。
-          大丈夫、その使い方が強いんだ🦦
-        </p>
-
-
-        <p class="effect-label">
-          【注意点】
-        </p>
-
-        <p>
-          疲労になることを避けて歩き移動する必要はないよ。
-          発電機を回している間に疲労は回復するから。
-          今回はあくまでキラーが来たときに発電機から素早く離れるためのパークという認識でいよう🦦
-        </p>
-
-      </article>
-
-
-      <article class="perk-card">
-
-        <h3 class="perk-heading">
-
-          <img
-            src="images/警戒.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">3</span>
-              警戒
-            </span>
-
-            <span class="perk-owner">
-
-              <img
-                src="images/feng-min.png"
-                alt=""
-              >
-
-              フェンミンの固有パーク
-
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
-        </p>
-
-        <p>
-          殺人鬼が破壊可能な壁やパレットを破壊するか、
-          発電機にダメージを与えたとき：
-        </p>
-
-        <ul>
-          <li>通知音が聞こえる。</li>
-          <li>殺人鬼のオーラが(3・4・5)秒間視える。</li>
-        </ul>
-
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          キラーが発電機を破壊した時にすぐに分かるよ。
-          発電機を壊されたということは味方が既に回していたということ。
-          だから自分の手が空いてるならできるだけその発電機を引き継いであげよう。
-          それしてくれるとすごい助かるなあ🦦
-        </p>
-
-
-        <p class="effect-label">
-          【注意点】
-        </p>
-
-        <p>
-          キラーから安全に隠れるため、自分の生存率を上げるために使うわけじゃないよ。
-          ビクビクして隠密ばっかりするような立ち回りにはならないように気をつけよう🦦
-        </p>
-
-      </article>
-
-
-      <article class="perk-card">
-
-        <h3 class="perk-heading">
-
-          <img
-            src="images/魂の平穏.png"
-            alt=""
-            class="perk-icon"
-          >
-
-          <span class="perk-title">
-
-            <span>
-              <span class="perk-number">4</span>
-              魂の平穏
-            </span>
-
-            <span class="perk-owner">
-
-              <img
-                src="images/jake.png"
-                alt=""
-              >
-
-              ジェイクの固有パーク
-
-            </span>
-
-          </span>
-
-        </h3>
-
-
-        <p class="effect-label">
-          【効果】
-        </p>
-
-        <p>
-          あなたはカラスを怖がらせず、叫び声を上げない。
-        </p>
-
-        <p>
-          チェストを開錠する音やトーテムを浄化または清める音がしなくなり、
-          その速度が(8・9・10)%上昇する。
-        </p>
-
-
-        <p class="effect-label">
-          【このパークの目的】
-        </p>
-
-        <p>
-          叫び声を上げないからキラーに場所を特定するリスクを減らすことができるよ。
-          まあ正直言うと初期から使えるキャラで、ラッコが色々考えた結果
-          消去法でこのパークが無難だなと思ったから選んだって感じ。
-        </p>
-
-        <p>
-          全然変えても良いけど、セルフケアとかオポチュニティとか、
-          強力なパークを入れてないということにはそれなりの理由があるんだけど、
-          長くなるから<strong>楽しみ方</strong>のところで説明するね🦦
-        </p>
-
-
-        <p class="effect-label">
-          【注意点】
-        </p>
-
-        <p>
-          キラー側が叫ばせるパークを使ってなかったら完全に腐るパークってとこくらい。
-          でも逆に言えばキラーが叫ばせるパークを使っているなら、
-          そのパークを腐らせることができるからね。
-          ラッコはけっこう好きだよ🦦
-        </p>
-
-      </article>
-
-
-      <div class="note-card">
-
-        <p>
-          プレイ時間が100時間未満の人はこれでやっていくよ。
-          使い方は<strong>立ち回り</strong>のところで説明するよ🦦
-        </p>
-
-      </div>
-
-
-      <section class="next-step">
-
-        <h2>
-          次は立ち回りを見てみよう！
-        </h2>
-
-        <p>
-          パークを装備したら、次は試合中の動き方を覚えていこう。
-          パークを活かすための立ち回りは、こちらで説明するよ🦦
-        </p>
-
-        <a
-          class="next-link"
-          href="playstyle.html?v=2">
-          おすすめ立ち回りを見る →
-        </a>
-
-        <a
-          class="next-link"
-          href="fun.html"
-          style="font-size: 1.1rem; margin-left: 8px;">
-          次は逃げラッコ式DbD楽しみ方を見てみよう！🦦
-        </a>
-
-      </section>
-
-
-      <!-- =========================
-           コメント欄
-      ========================= -->
-
-      <section class="comments-section">
-
-        <h2 class="section-title">
-          みんなのコメント
-        </h2>
-
-
-        <div class="comment-form">
-
+          <label for="comment-name">名前</label>
           <input
             id="comment-name"
+            name="name"
             type="text"
             maxlength="30"
-            placeholder="名前（任意）"
+            placeholder="ラッコ"
+            required
           >
 
-
+          <label for="comment-body">コメント</label>
           <textarea
             id="comment-body"
-            maxlength="500"
-            placeholder="このページについてコメントしてね🦦"
+            name="comment"
+            maxlength="1000"
+            placeholder="感想を書いてね🦦"
+            required
           ></textarea>
 
-
-          <button
-            id="comment-submit">
-            コメントを送信
+          <button id="comment-submit" class="comment-submit" type="submit">
+            コメントを投稿する
           </button>
 
+          <p id="comment-status" class="comment-status" aria-live="polite"></p>
+        </form>
 
-          <p
-            id="comment-message"
-            class="comment-message">
-          </p>
-
-        </div>
-
-
-        <div id="comments-list">
-
-          <p class="comment-message">
-            コメントを読み込んでいます……
-          </p>
-
+        <div id="comment-list" class="comment-list">
+          <div class="comment-empty">コメントを読み込んでいます……🦦</div>
         </div>
 
       </section>
 
     </div>
 
-
-    <a
-      class="back-link"
-      href="index.html">
-      ← トップページへ戻る
-    </a>
-
+    <a class="back-link" href="index.html">トップページへ戻る</a>
   </main>
-
 
   <footer>
     逃げラッコ式DbD立ち回り 🦦
   </footer>
 
-
-  <!-- =========================
-       Supabase
-  ========================= -->
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
   <script>
+    const SUPABASE_URL = "https://goxuhivbgaextkhyobmw.supabase.co";
 
-    const SUPABASE_URL =
-      "https://goxuhivbgaextkhyobmw.supabase.co";
-
-
+    // Supabase Dashboard の Publishable key
     const SUPABASE_PUBLISHABLE_KEY =
-      "sb_publishable_81GtdIt16_VTgJtV3RNw_MoA7ZuPV";
+      "sb_publishable_81GtdIt16_VTgJq4bV3RNw_MoA7ZuPV";
 
+    const PAGE_SLUG = "playstyle";
 
-    const supabaseClient =
-      supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-      );
-
-
-    // =========================
-    // このページの識別子
-    // =========================
-
-    const PAGE_SLUG =
-      "perks";
-
-
-    // =========================
-    // 要素取得
-    // =========================
-
-    const commentName =
-      document.getElementById(
-        "comment-name"
-      );
-
-
-    const commentBody =
-      document.getElementById(
-        "comment-body"
-      );
-
-
-    const commentSubmit =
-      document.getElementById(
-        "comment-submit"
-      );
-
-
-    const commentMessage =
-      document.getElementById(
-        "comment-message"
-      );
-
-
-    const commentsList =
-      document.getElementById(
-        "comments-list"
-      );
-
-
-    // =========================
-    // コメント読み込み
-    // =========================
-
-    async function loadComments() {
-
-      commentsList.innerHTML =
-        '<p class="comment-message">コメントを読み込んでいます……</p>';
-
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient
-
-          .from("diary_comments")
-
-          .select(
-            "id, display_name, body, created_at"
-          )
-
-          .eq(
-            "page_slug",
-            PAGE_SLUG
-          )
-
-          .eq(
-            "approved",
-            true
-          )
-
-          .order(
-            "created_at",
-            {
-              ascending: false
-            }
-          );
-
-
-      if (error) {
-
-        console.error(
-          "コメント取得エラー:",
-          error
-        );
-
-
-        commentsList.innerHTML =
-          '<p class="comment-error">コメントを読み込めませんでした。</p>';
-
-
-        return;
-      }
-
-
-      if (
-        !data ||
-        data.length === 0
-      ) {
-
-        commentsList.innerHTML =
-          '<p class="comment-message">まだコメントはありません。</p>';
-
-
-        return;
-      }
-
-
-      commentsList.innerHTML =
-        "";
-
-
-      data.forEach(
-        comment => {
-
-          const item =
-            document.createElement(
-              "div"
-            );
-
-
-          item.className =
-            "public-comment";
-
-
-          const name =
-            document.createElement(
-              "div"
-            );
-
-
-          name.className =
-            "public-comment-name";
-
-
-          name.textContent =
-            comment.display_name ||
-            "名無しのラッコ";
-
-
-          const date =
-            document.createElement(
-              "span"
-            );
-
-
-          date.className =
-            "public-comment-date";
-
-
-          if (
-            comment.created_at
-          ) {
-
-            date.textContent =
-              new Date(
-                comment.created_at
-              ).toLocaleString(
-                "ja-JP",
-                {
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                  hour: "2-digit",
-                  minute: "2-digit"
-                }
-              );
-
-          }
-
-
-          name.appendChild(
-            date
-          );
-
-
-          const body =
-            document.createElement(
-              "div"
-            );
-
-
-          body.className =
-            "public-comment-body";
-
-
-          body.textContent =
-            comment.body || "";
-
-
-          item.appendChild(
-            name
-          );
-
-
-          item.appendChild(
-            body
-          );
-
-
-          commentsList.appendChild(
-            item
-          );
-
-        }
-      );
-
-    }
-
-
-    // =========================
-    // コメント送信
-    // =========================
-
-    commentSubmit.addEventListener(
-      "click",
-      async () => {
-
-        const name =
-          commentName.value.trim();
-
-
-        const body =
-          commentBody.value.trim();
-
-
-        if (!body) {
-
-          commentMessage.textContent =
-            "コメントを入力してね🦦";
-
-
-          return;
-        }
-
-
-        commentSubmit.disabled =
-          true;
-
-
-        commentMessage.textContent =
-          "送信しています……";
-
-
-        const {
-          error
-        } =
-          await supabaseClient
-
-            .from("diary_comments")
-
-            .insert({
-
-              display_name:
-                name ||
-                "名無しのラッコ",
-
-              body:
-                body,
-
-              approved:
-                false,
-
-              page_slug:
-                PAGE_SLUG
-
-            });
-
-
-        if (error) {
-
-          console.error(
-            "コメント送信エラー:",
-            error
-          );
-
-
-          commentMessage.textContent =
-            "コメントを送信できませんでした。";
-
-
-          commentSubmit.disabled =
-            false;
-
-
-          return;
-        }
-
-
-        commentName.value =
-          "";
-
-
-        commentBody.value =
-          "";
-
-
-        commentMessage.textContent =
-          "コメントを送信しました！承認されると表示されます🦦";
-
-
-        commentSubmit.disabled =
-          false;
-
-      }
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
     );
 
+    const commentForm = document.getElementById("comment-form");
+    const commentName = document.getElementById("comment-name");
+    const commentBody = document.getElementById("comment-body");
+    const commentSubmit = document.getElementById("comment-submit");
+    const commentStatus = document.getElementById("comment-status");
+    const commentList = document.getElementById("comment-list");
 
-    // =========================
-    // 初期処理
-    // =========================
+    function escapeHtml(value) {
+      const div = document.createElement("div");
+      div.textContent = value ?? "";
+      return div.innerHTML;
+    }
+
+    function formatDate(value) {
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return "";
+      }
+
+      return date.toLocaleString("ja-JP", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    async function loadComments() {
+      commentList.innerHTML =
+        '<div class="comment-empty">コメントを読み込んでいます……🦦</div>';
+
+      const { data, error } = await supabaseClient
+        .from("diary_comments")
+        .select("display_name, body, created_at")
+        .eq("page_slug", PAGE_SLUG)
+        .eq("approved", true)
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("コメント読み込みエラー:", error);
+
+        commentList.innerHTML =
+          '<div class="comment-empty">コメントを読み込めませんでした。</div>';
+
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        commentList.innerHTML =
+          '<div class="comment-empty">まだコメントはありません。最初のコメントを書いてね🦦</div>';
+
+        return;
+      }
+
+      commentList.innerHTML = data.map(comment => `
+        <article class="comment-item">
+          <div class="comment-meta">
+            <span class="comment-name">${escapeHtml(comment.display_name)}</span>
+            <time class="comment-date" datetime="${escapeHtml(comment.created_at)}">
+              ${escapeHtml(formatDate(comment.created_at))}
+            </time>
+          </div>
+
+          <p class="comment-body">${escapeHtml(comment.body)}</p>
+        </article>
+      `).join("");
+    }
+
+    commentForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const name = commentName.value.trim();
+      const body = commentBody.value.trim();
+
+      if (!name || !body) {
+        commentStatus.textContent = "名前とコメントを入力してね🦦";
+        return;
+      }
+
+      commentSubmit.disabled = true;
+      commentStatus.textContent = "送信中……🦦";
+
+      const { error } = await supabaseClient
+        .from("diary_comments")
+        .insert([
+          {
+            page_slug: PAGE_SLUG,
+            display_name: name,
+            body: body,
+            approved: false
+          }
+        ]);
+
+      if (error) {
+        console.error("コメント送信エラー:", error);
+
+        commentStatus.textContent =
+          "コメントを送信できませんでした。もう一度試してね。";
+
+        commentSubmit.disabled = false;
+        return;
+      }
+
+      commentForm.reset();
+
+      commentStatus.textContent =
+        "コメントを送信しました！承認されると表示されます🦦";
+
+      commentSubmit.disabled = false;
+    });
 
     loadComments();
-
   </script>
 
 </body>
