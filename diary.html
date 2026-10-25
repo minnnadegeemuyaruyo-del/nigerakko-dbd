@@ -3,19 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="逃げラッコのサイト制作日記やDiscordサーバー運営の日々を記録するページです。">
+
+<meta
+  name="description"
+  content="逃げラッコの日々を記録する日記ページ。DbD、サイト制作、Discord、Twitchなど、その時その時の出来事を書いていきます。"
+>
+
 <title>ラッコの日記｜逃げラッコ式DbD立ち回り</title>
 
 <style>
+
 :root {
   --bg: #f4f0e7;
   --surface: #fffdf8;
+  --surface-soft: #f8f3e9;
   --text: #30271f;
   --muted: #71685f;
   --teal: #477f7d;
+  --teal-dark: #356865;
   --teal-light: #e7f0ee;
   --border: #e6ddd0;
   --hero-blue: #c9dfe4;
+  --shadow: 0 4px 18px rgba(60, 45, 30, .06);
 }
 
 * {
@@ -30,6 +39,7 @@ body {
   margin: 0;
   color: var(--text);
   background: var(--bg);
+
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -37,12 +47,18 @@ body {
     "Yu Gothic",
     Meiryo,
     sans-serif;
-  line-height: 1.9;
+
+  line-height: 1.8;
 }
 
 a {
   color: inherit;
 }
+
+
+/* ============================================
+   ヘッダー
+============================================ */
 
 header {
   background: rgba(255,255,255,.97);
@@ -52,18 +68,23 @@ header {
 .header-inner {
   max-width: 1440px;
   min-height: 72px;
+
   margin: auto;
   padding: 10px 24px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 24px;
 }
 
 .brand {
   display: flex;
   align-items: center;
+
   gap: 10px;
+
   text-decoration: none;
   flex-shrink: 0;
 }
@@ -80,6 +101,7 @@ header {
 
 .brand-name small {
   display: block;
+
   font-size: 12px;
   text-align: center;
 }
@@ -87,14 +109,18 @@ header {
 nav {
   display: flex;
   align-items: center;
+
   gap: clamp(10px, 1.5vw, 22px);
+
   flex-wrap: wrap;
 }
 
 nav a {
   text-decoration: none;
+
   font-size: 13px;
   font-weight: 700;
+
   white-space: nowrap;
 }
 
@@ -109,7 +135,9 @@ nav a.current {
 .discord-link {
   background: #5865F2;
   color: white;
+
   padding: 10px 14px;
+
   border-radius: 30px;
 }
 
@@ -121,7 +149,9 @@ nav a.current {
 .twitch-link {
   background: #302b2a;
   color: white;
+
   padding: 10px 14px;
+
   border-radius: 30px;
 }
 
@@ -136,33 +166,43 @@ nav a.current {
 ============================================ */
 
 .hero {
-  padding: 48px 20px;
+  padding: 52px 20px;
+
   text-align: center;
+
   background: var(--hero-blue);
 }
 
 .hero-inner {
-  max-width: 760px;
+  max-width: 820px;
   margin: auto;
 }
 
 .hero-label {
   margin: 0 0 8px;
+
   color: var(--teal);
+
   font-size: 13px;
   font-weight: 900;
-  letter-spacing: .12em;
+
+  letter-spacing: .14em;
 }
 
 .hero h1 {
   margin: 0;
-  font-size: clamp(30px, 5vw, 46px);
-  line-height: 1.4;
+
+  font-size: clamp(32px, 5vw, 48px);
+
+  line-height: 1.35;
 }
 
 .hero p {
   margin: 12px 0 0;
+
   color: #4f625f;
+
+  font-size: 15px;
 }
 
 
@@ -171,24 +211,63 @@ nav a.current {
 ============================================ */
 
 main {
-  max-width: 900px;
+  max-width: 1180px;
+
   margin: auto;
-  padding: 36px 22px 60px;
+
+  padding: 42px 22px 70px;
 }
 
-.intro-card,
-.diary-entry,
-.comments-card {
-  padding: 26px;
-  margin-bottom: 24px;
+
+/* ============================================
+   日記レイアウト
+============================================ */
+
+.diary-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    250px;
+
+  gap: 30px;
+
+  align-items: start;
+}
+
+
+/* ============================================
+   日記一覧
+============================================ */
+
+.diary-main {
+  min-width: 0;
+}
+
+.intro-card {
+  padding: 28px;
+
+  margin-bottom: 28px;
+
   background: var(--surface);
+
   border: 1px solid var(--border);
+
   border-radius: 18px;
+
+  box-shadow: var(--shadow);
 }
 
 .intro-card h2 {
-  margin-top: 0;
+  margin: 0 0 12px;
+
+  font-size: 24px;
+
   line-height: 1.5;
+}
+
+.intro-card p {
+  margin: 8px 0;
 }
 
 .intro-card p:last-child {
@@ -196,66 +275,249 @@ main {
 }
 
 .section-title {
-  margin: 38px 0 18px;
-  font-size: 24px;
+  margin: 0 0 18px;
+
+  font-size: 25px;
+
   line-height: 1.5;
+}
+
+
+/* ============================================
+   日記カード
+============================================ */
+
+.diary-list {
+  display: grid;
+
+  gap: 16px;
+}
+
+.diary-card {
+  display: block;
+
+  padding: 23px 25px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: 17px;
+
+  box-shadow: 0 2px 10px rgba(60, 45, 30, .035);
+
+  text-decoration: none;
+
+  transition:
+    transform .15s ease,
+    box-shadow .15s ease,
+    border-color .15s ease;
+}
+
+.diary-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #c9d9d5;
+
+  box-shadow:
+    0 6px 20px rgba(60, 45, 30, .08);
+}
+
+.diary-card-top {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 8px;
 }
 
 .category-label {
   display: inline-block;
-  margin-bottom: 10px;
-  padding: 3px 12px;
-  border-radius: 20px;
-  background: #e4efeb;
-  color: #356865;
-  font-size: 12px;
-  font-weight: 800;
-}
 
-.category-label.server {
-  background: #eee6f6;
-  color: #71508d;
+  padding: 4px 11px;
+
+  border-radius: 999px;
+
+  background: var(--teal-light);
+
+  color: var(--teal-dark);
+
+  font-size: 11px;
+  font-weight: 900;
+
+  line-height: 1.4;
 }
 
 .entry-date {
-  display: block;
-  margin-bottom: 8px;
   color: var(--muted);
-  font-size: 13px;
+
+  font-size: 12px;
+
+  white-space: nowrap;
 }
 
 .entry-title {
-  margin: 0 0 14px;
-  font-size: 22px;
-  line-height: 1.6;
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 21px;
+
+  line-height: 1.5;
 }
 
-.entry-body {
-  overflow-wrap: anywhere;
-  white-space: pre-wrap;
-}
+.entry-summary {
+  margin: 9px 0 0;
 
-.entry-body p:first-child {
-  margin-top: 0;
-}
-
-.entry-body p:last-child {
-  margin-bottom: 0;
-}
-
-.draft-note {
-  margin: 18px 0 0;
-  padding-top: 12px;
-  border-top: 1px dashed var(--border);
   color: var(--muted);
-  font-size: 13px;
+
+  font-size: 14px;
+
+  line-height: 1.75;
 }
+
+.read-more {
+  display: inline-block;
+
+  margin-top: 12px;
+
+  color: var(--teal);
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+
+/* ============================================
+   サイドバー
+============================================ */
+
+.diary-sidebar {
+  position: sticky;
+
+  top: 20px;
+}
+
+.sidebar-card {
+  padding: 21px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: 17px;
+
+  box-shadow: var(--shadow);
+}
+
+.sidebar-card h2 {
+  margin: 0 0 15px;
+
+  font-size: 18px;
+
+  line-height: 1.5;
+}
+
+.category-list {
+  display: grid;
+
+  gap: 7px;
+}
+
+.category-button {
+  width: 100%;
+
+  padding: 10px 12px;
+
+  border: 1px solid transparent;
+
+  border-radius: 10px;
+
+  background: transparent;
+
+  color: var(--text);
+
+  font: inherit;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background .15s ease,
+    color .15s ease;
+}
+
+.category-button:hover {
+  background: var(--teal-light);
+
+  color: var(--teal-dark);
+}
+
+.category-button.active {
+  background: var(--teal);
+
+  color: white;
+}
+
+.category-count {
+  float: right;
+
+  opacity: .7;
+}
+
+
+/* ============================================
+   件数表示
+============================================ */
+
+.list-status {
+  margin: 0 0 14px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+
+/* ============================================
+   記事がない場合
+============================================ */
+
+.no-entry {
+  padding: 35px 20px;
+
+  background: var(--surface);
+
+  border: 1px dashed var(--border);
+
+  border-radius: 16px;
+
+  color: var(--muted);
+
+  text-align: center;
+}
+
+
+/* ============================================
+   戻るリンク
+============================================ */
 
 .back-link {
   display: inline-block;
-  margin-top: 10px;
+
+  margin-top: 28px;
+
   color: var(--teal);
-  font-weight: 800;
+
+  font-weight: 900;
+
   text-decoration: none;
 }
 
@@ -265,387 +527,18 @@ main {
 
 
 /* ============================================
-   コメント欄
-============================================ */
-
-.comments-card h2 {
-  margin-top: 0;
-  margin-bottom: 8px;
-}
-
-.comments-description {
-  margin-top: 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.login-box {
-  padding: 20px;
-  margin-top: 18px;
-  background: #f0eee8;
-  border-radius: 14px;
-}
-
-.login-box h3 {
-  margin-top: 0;
-  margin-bottom: 8px;
-}
-
-.email-input {
-  width: 100%;
-  padding: 13px 15px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: white;
-  font: inherit;
-  margin-bottom: 10px;
-}
-
-.button {
-  border: 0;
-  padding: 11px 18px;
-  border-radius: 25px;
-  background: var(--teal);
-  color: white;
-  font-weight: 800;
-  cursor: pointer;
-  font: inherit;
-}
-
-.button:hover {
-  opacity: .9;
-}
-
-.button:disabled {
-  opacity: .55;
-  cursor: not-allowed;
-}
-
-.login-message {
-  margin: 12px 0 0;
-  font-size: 14px;
-}
-
-.comment-form {
-  margin-top: 18px;
-}
-
-.comment-textarea {
-  width: 100%;
-  min-height: 120px;
-  resize: vertical;
-  padding: 13px 15px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: white;
-  font: inherit;
-  line-height: 1.7;
-}
-
-.comment-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.comments-list {
-  margin-top: 28px;
-}
-
-.comments-list h3 {
-  margin-bottom: 14px;
-}
-
-.loading {
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.error-message {
-  color: #a24d4d;
-  font-size: 14px;
-}
-
-
-/* ============================================
-   コメントスレッド
-============================================ */
-
-.comment-thread {
-  padding: 20px;
-  margin-bottom: 16px;
-  background: #fff;
-  border: 1px solid #ddd3c5;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(60, 45, 30, .04);
-}
-
-.comment-item {
-  padding: 0;
-}
-
-.comment-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-.comment-name {
-  font-weight: 900;
-  font-size: 15px;
-}
-
-.comment-name.admin {
-  color: #a94b3c;
-}
-
-.admin-label {
-  display: inline-block;
-  margin-left: 7px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: #a94b3c;
-  color: white;
-  font-size: 10px;
-  line-height: 1.5;
-  vertical-align: 2px;
-}
-
-.comment-date {
-  color: #91877b;
-  font-size: 11px;
-  white-space: nowrap;
-}
-
-.comment-text {
-  margin: 0;
-  padding: 2px 0;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  line-height: 1.85;
-}
-
-.comment-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-}
-
-.reply-button {
-  border: 1px solid #c8d9d6;
-  padding: 6px 13px;
-  border-radius: 20px;
-  background: #fafdfc;
-  color: var(--teal);
-  font: inherit;
-  font-size: 12px;
-  font-weight: 900;
-  cursor: pointer;
-  transition:
-    background .15s ease,
-    transform .15s ease;
-}
-
-.reply-button:hover {
-  background: #e8f1ef;
-  transform: translateY(-1px);
-}
-
-
-/* ============================================
-   返信フォーム
-============================================ */
-
-.reply-form {
-  display: none;
-  margin-top: 14px;
-  padding: 16px;
-  background: #f7f3eb;
-  border: 1px solid #e3d9ca;
-  border-radius: 12px;
-}
-
-.reply-form.is-open {
-  display: block;
-}
-
-.reply-form label {
-  display: block;
-  margin-bottom: 5px;
-  color: #655b51;
-  font-size: 12px;
-  font-weight: 900;
-}
-
-.reply-form input,
-.reply-form textarea {
-  width: 100%;
-  padding: 10px 12px;
-  margin-bottom: 10px;
-  border: 1px solid #d8cec0;
-  border-radius: 9px;
-  background: white;
-  color: var(--text);
-  font: inherit;
-}
-
-.reply-form textarea {
-  min-height: 85px;
-  resize: vertical;
-}
-
-.reply-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.reply-submit,
-.reply-cancel {
-  padding: 7px 14px;
-  border-radius: 20px;
-  font: inherit;
-  font-size: 12px;
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.reply-submit {
-  border: 0;
-  background: var(--teal);
-  color: white;
-}
-
-.reply-cancel {
-  border: 1px solid #d8cec0;
-  background: white;
-  color: var(--muted);
-}
-
-.reply-submit:hover,
-.reply-cancel:hover {
-  opacity: .88;
-}
-
-.reply-submit:disabled,
-.reply-cancel:disabled {
-  opacity: .55;
-  cursor: not-allowed;
-}
-
-.reply-status {
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 700;
-}
-
-
-/* ============================================
-   返信一覧
-============================================ */
-
-.thread-replies {
-  margin-top: 16px;
-  padding: 0 14px 0 16px;
-  border-left: 3px solid #d9e7e4;
-  background: #fafcfb;
-  border-radius: 0 12px 12px 0;
-}
-
-.thread-replies summary {
-  padding: 11px 4px;
-  color: var(--teal);
-  font-size: 12px;
-  font-weight: 900;
-  cursor: pointer;
-  list-style: none;
-}
-
-.thread-replies summary::-webkit-details-marker {
-  display: none;
-}
-
-.thread-replies summary::before {
-  content: "＋ ";
-  font-size: 11px;
-}
-
-.thread-replies[open] summary::before {
-  content: "− ";
-}
-
-.reply-list {
-  display: grid;
-  gap: 0;
-}
-
-.reply-list .comment-item {
-  padding: 14px 4px;
-}
-
-.reply-list .comment-item + .comment-item {
-  border-top: 1px dashed #e3ddd3;
-}
-
-
-/* ============================================
-   過去のコメント
-============================================ */
-
-.older-comments {
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: #f8f3e9;
-  overflow: hidden;
-}
-
-.older-comments summary {
-  padding: 13px 16px;
-  color: var(--teal);
-  font-weight: 900;
-  cursor: pointer;
-  list-style: none;
-}
-
-.older-comments summary::-webkit-details-marker {
-  display: none;
-}
-
-.older-comments summary::after {
-  content: "＋";
-  float: right;
-}
-
-.older-comments[open] summary::after {
-  content: "−";
-}
-
-.older-comments-list {
-  display: grid;
-  gap: 14px;
-  padding: 14px;
-}
-
-.older-comments-list .comment-thread {
-  margin-bottom: 0;
-}
-
-
-/* ============================================
    フッター
 ============================================ */
 
 footer {
   padding: 20px;
+
   text-align: center;
+
   background: #e9e2d6;
+
   color: #6e6255;
+
   font-size: 13px;
 }
 
@@ -655,10 +548,9 @@ footer {
 ============================================ */
 
 a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
+button:focus-visible {
   outline: 3px solid var(--teal);
+
   outline-offset: 3px;
 }
 
@@ -675,9 +567,46 @@ textarea:focus-visible {
 
   nav {
     width: 100%;
+
     overflow-x: auto;
+
     flex-wrap: nowrap;
+
     padding: 5px 0;
+  }
+
+  .diary-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .diary-sidebar {
+    position: static;
+
+    order: -1;
+  }
+
+  .sidebar-card {
+    padding: 18px;
+  }
+
+  .category-list {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+  }
+
+  .category-button {
+    width: auto;
+
+    white-space: nowrap;
+  }
+
+  .category-count {
+    float: none;
+
+    margin-left: 5px;
   }
 
 }
@@ -691,6 +620,7 @@ textarea:focus-visible {
 
   .header-inner {
     padding: 10px 15px;
+
     gap: 8px;
   }
 
@@ -713,41 +643,50 @@ textarea:focus-visible {
   .discord-link,
   .twitch-link {
     padding: 7px 10px;
+
     font-size: 12px;
   }
 
   .hero {
-    padding: 38px 18px;
+    padding: 40px 18px;
+  }
+
+  .hero p {
+    font-size: 14px;
   }
 
   main {
-    padding: 24px 15px 42px;
+    padding: 25px 15px 45px;
   }
 
-  .intro-card,
-  .diary-entry,
-  .comments-card {
-    padding: 20px;
+  .intro-card {
+    padding: 21px;
+
     border-radius: 15px;
   }
 
-  .entry-title {
-    font-size: 20px;
+  .intro-card h2 {
+    font-size: 21px;
   }
 
-  .comment-thread {
-    padding: 16px;
+  .section-title {
+    font-size: 22px;
   }
 
-  .thread-replies {
-    padding-left: 12px;
-    padding-right: 10px;
+  .diary-card {
+    padding: 20px;
   }
 
-  .comment-header {
+  .diary-card-top {
     align-items: flex-start;
+
     flex-direction: column;
-    gap: 2px;
+
+    gap: 6px;
+  }
+
+  .entry-title {
+    font-size: 19px;
   }
 
 }
@@ -763,7 +702,12 @@ textarea:focus-visible {
     scroll-behavior: auto;
   }
 
+  .diary-card {
+    transition: none;
+  }
+
 }
+
 </style>
 </head>
 
@@ -777,19 +721,24 @@ textarea:focus-visible {
 
     <a
       class="brand"
-      href="index.html">
+      href="index.html"
+    >
 
       <span
         class="brand-icon"
-        aria-hidden="true">
+        aria-hidden="true"
+      >
         🦦
       </span>
 
       <span class="brand-name">
+
         逃げラッコ式
+
         <small>
           DbD立ち回りガイド
         </small>
+
       </span>
 
     </a>
@@ -803,7 +752,8 @@ textarea:focus-visible {
 
       <a
         href="diary.html"
-        class="current">
+        class="current"
+      >
         ラッコの日記
       </a>
 
@@ -811,7 +761,8 @@ textarea:focus-visible {
         href="https://discord.gg/SP9GnQDS5f"
         class="discord-link"
         target="_blank"
-        rel="noopener noreferrer">
+        rel="noopener noreferrer"
+      >
         Discordに参加 ↗
       </a>
 
@@ -819,7 +770,8 @@ textarea:focus-visible {
         href="https://www.twitch.tv/rakkowww"
         class="twitch-link"
         target="_blank"
-        rel="noopener noreferrer">
+        rel="noopener noreferrer"
+      >
         Twitchで配信中 ↗
       </a>
 
@@ -843,8 +795,8 @@ textarea:focus-visible {
     </h1>
 
     <p>
-      サイト制作も、サーバー運営も。
-      ラッコの日々を記録していく場所。
+      その時その時で思いついたことを、
+      ラッコの言葉で残していく場所。
     </p>
 
   </div>
@@ -855,236 +807,91 @@ textarea:focus-visible {
 <main>
 
 
-  <section class="intro-card">
+  <div class="diary-layout">
 
-    <h2>
-      ここはラッコの日記帳。
-    </h2>
 
-    <p>
-      逃げラッコのサイトができていく記録や、
-      Discordサーバーで起きた出来事を残していくよ。
-    </p>
+    <!-- ======================================
+         日記本文
+    ======================================= -->
 
-    <p>
-      サイト制作のことも、サーバー運営のことも、
-      ラッコ自身の言葉で少しずつ書いていく場所だよ。
-    </p>
+    <section class="diary-main">
 
-  </section>
 
+      <section class="intro-card">
 
-  <h2 class="section-title">
-    日記一覧
-  </h2>
+        <h2>
+          ここはラッコの日記帳。
+        </h2>
 
-
-  <article
-    class="diary-entry"
-    id="site-diary">
-
-    <span class="category-label">
-      サイト制作日記
-    </span>
-
-    <time class="entry-date">
-      日付未設定
-    </time>
-
-    <h3 class="entry-title">
-      サイト制作日記 1日目
-    </h3>
-
-    <div class="entry-body">
-
-      <p>
-        ついにサイトを公開しました！
-      </p>
-
-      <p>
-        というわけで今日から日記をつけていくよ。ちょいちょい更新していくから楽しみにしてね。
-      </p>
-
-      <p>
-        このサイトを作ろうと思ったきっかけは、ラッコがDbDにハマって、攻略サイトを見て色々研究しようと思った時に、
-      </p>
-
-      <p>
-        「初心者向けの立ち回りとか、中級者になったらどう立ち回るとか、そういうの無いかなー。うーんここもなんか違うなー。そうだ、自分で作ればいいじゃん！」
-      </p>
-
-      <p>
-        そう思ったから作ってみたよ。サイトを作ったのは初めてだし、プログラミングとかネットの知識は全く無いから、一から全部チャッピー（チャットGPT）に聞きながら作ったよ。なかなか良いデキでしょ？w
-      </p>
-
-      <p>
-        これからラッコのプレイ時間が100時間ごとくらいに、サイトのページも更新していこうと思うから、楽しみにしててね。
-      </p>
-
-      <p>
-        今のプレイ時間500時間くらいなんだけど、当面の間は
-      </p>
-
-      <ul>
-        <li>100〜200時間のラッコ</li>
-        <li>200〜300時間のラッコ</li>
-        <li>300〜400時間のラッコ</li>
-        <li>400〜500時間のラッコ</li>
-      </ul>
-
-      <p>
-        をこれから書いていくよ。その間にもラッコのDbDのプレイ時間は増えていくからね。楽しみだけど忙しいな。
-      </p>
-
-      <p>
-        いつかすごいサイトになってるはずだから、みんな見てね。
-      </p>
-
-      <p>
-        あとこれからTwitchの配信もやっていこうと思うよ。ラッコのプレイを生で見たい時は見に来てね！
-      </p>
-
-      <p>
-        ほんじゃあ、これからよろしく🦦
-      </p>
-
-    </div>
-
-  </article>
-
-
-  <article
-    class="diary-entry"
-    id="server-diary">
-
-    <span class="category-label server">
-      サーバー運営日記
-    </span>
-
-    <time class="entry-date">
-      日付未設定
-    </time>
-
-    <h3 class="entry-title">
-      Discordサーバーの日記
-    </h3>
-
-    <div class="entry-body">
-
-      <p>
-        ここにラッコが書いたサーバー運営の日記を掲載するよ。
-      </p>
-
-    </div>
-
-    <p class="draft-note">
-      ※ 出来事や運営について考えたことを、ラッコの言葉で残していこう。
-    </p>
-
-  </article>
-
-
-  <!-- ======================================
-       コメント欄
-  ======================================= -->
-
-  <section class="comments-card">
-
-    <h2>
-      💬 コメント欄
-    </h2>
-
-    <p class="comments-description">
-      この日記について、自由にコメントしてね。
-    </p>
-
-
-    <!-- 表示名＋コメント投稿 -->
-
-    <div
-      id="login-section"
-      class="login-box">
-
-      <h3>
-        コメントを書く
-      </h3>
-
-
-      <input
-        id="display-name"
-        class="email-input"
-        type="text"
-        placeholder="表示名（例：ラッコ）"
-        maxlength="50"
-        autocomplete="nickname"
-      >
-
-
-      <form
-        id="comment-form"
-        class="comment-form">
-
-        <textarea
-          id="comment-text"
-          class="comment-textarea"
-          placeholder="コメントを書いてね。"
-          maxlength="1000"
-          required></textarea>
-
-
-        <div class="comment-actions">
-
-          <button
-            class="button"
-            type="submit">
-            コメントする
-          </button>
-
-        </div>
-
-      </form>
-
-
-      <p
-        id="anonymous-message"
-        class="login-message">
-      </p>
-
-
-      <p
-        id="comment-message"
-        class="login-message">
-      </p>
-
-    </div>
-
-
-    <!-- コメント一覧 -->
-
-    <div class="comments-list">
-
-      <h3>
-        みんなのコメント
-      </h3>
-
-      <div id="comments-container">
-
-        <p class="loading">
-          コメントを読み込んでいます……
+        <p>
+          DbDのこと、サイトのこと、ゲームのこと、
+          Discordのこと、Twitchのこと。
         </p>
+
+        <p>
+          その時その時でラッコが書きたいことを、
+          気ままに残していくよ🦦
+        </p>
+
+      </section>
+
+
+      <h2 class="section-title">
+        日記一覧
+      </h2>
+
+
+      <p
+        id="list-status"
+        class="list-status"
+      >
+        日記を読み込んでいます……
+      </p>
+
+
+      <div
+        id="diary-list"
+        class="diary-list"
+      >
+      </div>
+
+
+      <a
+        class="back-link"
+        href="index.html"
+      >
+        ← ホームに戻る
+      </a>
+
+
+    </section>
+
+
+    <!-- ======================================
+         カテゴリー
+    ======================================= -->
+
+    <aside class="diary-sidebar">
+
+      <div class="sidebar-card">
+
+        <h2>
+          📚 カテゴリー
+        </h2>
+
+        <div
+          id="category-list"
+          class="category-list"
+        >
+        </div>
 
       </div>
 
-    </div>
-
-  </section>
+    </aside>
 
 
-  <a
-    class="back-link"
-    href="index.html">
-    ← ホームに戻る
-  </a>
+  </div>
+
 
 </main>
 
@@ -1094,1194 +901,474 @@ textarea:focus-visible {
 </footer>
 
 
-<!-- ==========================================
-     Supabase
-=========================================== -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
 <script>
 
 /* ==========================================
-   Supabase
+   日記データ
+   ==========================================
+
+   新しい日記を書く時は、
+   ここに1件追加するだけ。
+
 ========================================== */
 
-const SUPABASE_URL =
-  "https://goxuhivbgaextkhyobmw.supabase.co";
+const diaryEntries = [
 
+  {
+    id: "day1",
 
-const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_81GtdIt16_VTgJq4bV3RNw_MoA7ZuPV";
+    title: "ついにサイトを公開しました！",
 
+    date: "2026-10-25",
 
-const supabaseClient =
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
+    dateLabel: "2026年10月25日",
+
+    categories: [
+      "サイト制作",
+      "DbD",
+      "Twitch"
+    ],
+
+    summary:
+      "今日からラッコの日記を始めます。DbDにハマったことをきっかけに、攻略サイトを自分で作ってみることにしました。",
+
+    url: "diary-day1.html"
+  }
+
+];
 
 
 /* ==========================================
-   日記ページ
+   カテゴリー定義
 ========================================== */
 
-const PAGE_SLUG =
-  "diary";
+const categories = [
+
+  {
+    id: "all",
+    name: "すべて"
+  },
+
+  {
+    id: "dbd",
+    name: "DbD",
+    match: "DbD"
+  },
+
+  {
+    id: "site",
+    name: "サイト制作",
+    match: "サイト制作"
+  },
+
+  {
+    id: "discord",
+    name: "Discord",
+    match: "Discord"
+  },
+
+  {
+    id: "twitch",
+    name: "Twitch",
+    match: "Twitch"
+  },
+
+  {
+    id: "game",
+    name: "ゲーム",
+    match: "ゲーム"
+  },
+
+  {
+    id: "other",
+    name: "その他",
+    match: "その他"
+  }
+
+];
 
 
 /* ==========================================
    HTML要素
 ========================================== */
 
-const displayNameInput =
+const diaryList =
   document.getElementById(
-    "display-name"
+    "diary-list"
   );
 
 
-const commentForm =
+const categoryList =
   document.getElementById(
-    "comment-form"
+    "category-list"
   );
 
 
-const commentText =
+const listStatus =
   document.getElementById(
-    "comment-text"
-  );
-
-
-const commentMessage =
-  document.getElementById(
-    "comment-message"
-  );
-
-
-const commentsContainer =
-  document.getElementById(
-    "comments-container"
+    "list-status"
   );
 
 
 /* ==========================================
-   コメント読み込み
+   現在のカテゴリー
 ========================================== */
 
-async function loadComments() {
-
-  commentsContainer.innerHTML =
-    '<p class="loading">コメントを読み込んでいます……</p>';
+let currentCategory =
+  "all";
 
 
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
+/* ==========================================
+   カテゴリー件数
+========================================== */
 
-      .from("diary_comments")
-
-      .select(
-        "id, display_name, body, created_at, parent_id"
-      )
-
-      .eq(
-        "page_slug",
-        PAGE_SLUG
-      )
-
-      .eq(
-        "approved",
-        true
-      )
-
-      .order(
-        "created_at",
-        {
-          ascending: true
-        }
-      );
-
-
-  if (error) {
-
-    console.error(
-      "コメント読み込みエラー:",
-      error
-    );
-
-
-    commentsContainer.innerHTML =
-      '<p class="error-message">コメントを読み込めませんでした。</p>';
-
-
-    return;
-
-  }
-
+function getCategoryCount(
+  category
+) {
 
   if (
-    !data ||
-    data.length === 0
+    category.id === "all"
   ) {
 
-    commentsContainer.innerHTML =
-      '<p class="loading">まだコメントはありません。最初のコメントを書いてみよう！</p>';
-
-
-    return;
+    return diaryEntries.length;
 
   }
 
 
-  commentsContainer.innerHTML =
-    "";
-
-
-  /* ========================================
-     親子関係を整理
-  ======================================== */
-
-  const childrenMap =
-    {};
-
-
-  data.forEach(
-    comment => {
-
-      const parentId =
-        comment.parent_id ||
-        "root";
-
-
-      if (
-        !childrenMap[parentId]
-      ) {
-
-        childrenMap[parentId] =
-          [];
-
-      }
-
-
-      childrenMap[parentId].push(
-        comment
-      );
-
-    }
-  );
-
-
-  /* ========================================
-     親コメントを新しい順にする
-  ======================================== */
-
-  const parentComments =
-    [
-      ...(childrenMap.root || [])
-    ]
-      .sort(
-        (a, b) =>
-          new Date(b.created_at) -
-          new Date(a.created_at)
-      );
-
-
-  /* ========================================
-     最新3件
-  ======================================== */
-
-  const latestParents =
-    parentComments.slice(
-      0,
-      3
-    );
-
-
-  const olderParents =
-    parentComments.slice(
-      3
-    );
-
-
-  /* ========================================
-     コメント1件を作成
-  ======================================== */
-
-  function createCommentElement(
-    comment
-  ) {
-
-    const item =
-      document.createElement(
-        "div"
-      );
-
-
-    item.className =
-      "comment-item";
-
-
-    /* ----------------------------------------
-       ヘッダー
-    ---------------------------------------- */
-
-    const header =
-      document.createElement(
-        "div"
-      );
-
-
-    header.className =
-      "comment-header";
-
-
-    const name =
-      document.createElement(
-        "span"
-      );
-
-
-    name.className =
-      "comment-name";
-
-
-    const displayName =
-      comment.display_name ||
-      "名無しのラッコ";
-
-
-    name.textContent =
-      displayName;
-
-
-    /* 管理人 */
-
-    if (
-      displayName ===
-      "管理人"
-    ) {
-
-      name.classList.add(
-        "admin"
-      );
-
-
-      const adminLabel =
-        document.createElement(
-          "span"
-        );
-
-
-      adminLabel.className =
-        "admin-label";
-
-
-      adminLabel.textContent =
-        "管理人";
-
-
-      name.appendChild(
-        adminLabel
-      );
-
-    }
-
-
-    const date =
-      document.createElement(
-        "time"
-      );
-
-
-    date.className =
-      "comment-date";
-
-
-    if (
-      comment.created_at
-    ) {
-
-      const commentDate =
-        new Date(
-          comment.created_at
-        );
-
-
-      date.textContent =
-        commentDate.toLocaleString(
-          "ja-JP",
-          {
-            year: "numeric",
-            month: "numeric",
-            day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
-          }
-        );
-
-    }
-
-
-    header.appendChild(
-      name
-    );
-
-
-    header.appendChild(
-      date
-    );
-
-
-    item.appendChild(
-      header
-    );
-
-
-    /* ----------------------------------------
-       本文
-    ---------------------------------------- */
-
-    const body =
-      document.createElement(
-        "p"
-      );
-
-
-    body.className =
-      "comment-text";
-
-
-    body.textContent =
-      comment.body ||
-      "";
-
-
-    item.appendChild(
-      body
-    );
-
-
-    /* ----------------------------------------
-       返信ボタン
-    ---------------------------------------- */
-
-    const actions =
-      document.createElement(
-        "div"
-      );
-
-
-    actions.className =
-      "comment-actions";
-
-
-    const replyButton =
-      document.createElement(
-        "button"
-      );
-
-
-    replyButton.type =
-      "button";
-
-
-    replyButton.className =
-      "reply-button";
-
-
-    replyButton.textContent =
-      "↩ 返信";
-
-
-    actions.appendChild(
-      replyButton
-    );
-
-
-    item.appendChild(
-      actions
-    );
-
-
-    /* ----------------------------------------
-       返信フォーム
-    ---------------------------------------- */
-
-    const replyForm =
-      document.createElement(
-        "form"
-      );
-
-
-    replyForm.className =
-      "reply-form";
-
-
-    const replyNameLabel =
-      document.createElement(
-        "label"
-      );
-
-
-    replyNameLabel.textContent =
-      "名前";
-
-
-    const replyName =
-      document.createElement(
-        "input"
-      );
-
-
-    replyName.type =
-      "text";
-
-
-    replyName.maxLength =
-      30;
-
-
-    replyName.placeholder =
-      "名無しのラッコ";
-
-
-    replyName.autocomplete =
-      "nickname";
-
-
-    const replyBodyLabel =
-      document.createElement(
-        "label"
-      );
-
-
-    replyBodyLabel.textContent =
-      "返信";
-
-
-    const replyBody =
-      document.createElement(
-        "textarea"
-      );
-
-
-    replyBody.maxLength =
-      1000;
-
-
-    replyBody.placeholder =
-      "返信を書いてね🦦";
-
-
-    replyBody.required =
-      true;
-
-
-    const replyActions =
-      document.createElement(
-        "div"
-      );
-
-
-    replyActions.className =
-      "reply-actions";
-
-
-    const replySubmit =
-      document.createElement(
-        "button"
-      );
-
-
-    replySubmit.type =
-      "submit";
-
-
-    replySubmit.className =
-      "reply-submit";
-
-
-    replySubmit.textContent =
-      "返信を送信";
-
-
-    const replyCancel =
-      document.createElement(
-        "button"
-      );
-
-
-    replyCancel.type =
-      "button";
-
-
-    replyCancel.className =
-      "reply-cancel";
-
-
-    replyCancel.textContent =
-      "閉じる";
-
-
-    const replyStatus =
-      document.createElement(
-        "span"
-      );
-
-
-    replyStatus.className =
-      "reply-status";
-
-
-    replyActions.appendChild(
-      replySubmit
-    );
-
-
-    replyActions.appendChild(
-      replyCancel
-    );
-
-
-    replyActions.appendChild(
-      replyStatus
-    );
-
-
-    replyForm.appendChild(
-      replyNameLabel
-    );
-
-
-    replyForm.appendChild(
-      replyName
-    );
-
-
-    replyForm.appendChild(
-      replyBodyLabel
-    );
-
-
-    replyForm.appendChild(
-      replyBody
-    );
-
-
-    replyForm.appendChild(
-      replyActions
-    );
-
-
-    item.appendChild(
-      replyForm
-    );
-
-
-    /* ----------------------------------------
-       返信フォーム開閉
-    ---------------------------------------- */
-
-    replyButton.addEventListener(
-      "click",
-      () => {
-
-        const isOpen =
-          replyForm.classList.contains(
-            "is-open"
-          );
-
-
-        if (
-          isOpen
-        ) {
-
-          replyForm.classList.remove(
-            "is-open"
-          );
-
-
-          replyButton.textContent =
-            "↩ 返信";
-
-
-          return;
-
-        }
-
-
-        replyForm.classList.add(
-          "is-open"
-        );
-
-
-        replyButton.textContent =
-          "↩ 返信を閉じる";
-
-
-        replyName.focus();
-
-      }
-    );
-
-
-    replyCancel.addEventListener(
-      "click",
-      () => {
-
-        replyForm.classList.remove(
-          "is-open"
-        );
-
-
-        replyButton.textContent =
-          "↩ 返信";
-
-
-        replyStatus.textContent =
-          "";
-
-      }
-    );
-
-
-    /* ----------------------------------------
-       返信送信
-    ---------------------------------------- */
-
-    replyForm.addEventListener(
-      "submit",
-      async event => {
-
-        event.preventDefault();
-
-
-        const displayName =
-          replyName.value.trim() ||
-          "名無しのラッコ";
-
-
-        const body =
-          replyBody.value.trim();
-
-
-        if (
-          !body
-        ) {
-
-          replyStatus.textContent =
-            "返信を入力してね🦦";
-
-
-          return;
-
-        }
-
-
-        replySubmit.disabled =
-          true;
-
-
-        replyCancel.disabled =
-          true;
-
-
-        replyStatus.textContent =
-          "返信を送信しています……";
-
-
-        const {
-          error
-        } =
-          await supabaseClient
-
-            .from(
-              "diary_comments"
-            )
-
-            .insert([
-              {
-
-                display_name:
-                  displayName,
-
-                body:
-                  body,
-
-                approved:
-                  false,
-
-                page_slug:
-                  PAGE_SLUG,
-
-                parent_id:
-                  comment.id
-
-              }
-            ]);
-
-
-        if (
-          error
-        ) {
-
-          console.error(
-            "返信送信エラー:",
-            error
-          );
-
-
-          replyStatus.textContent =
-            "返信を送信できませんでした。もう一度試してみてね。";
-
-
-          replySubmit.disabled =
-            false;
-
-
-          replyCancel.disabled =
-            false;
-
-
-          return;
-
-        }
-
-
-        replyName.value =
-          "";
-
-
-        replyBody.value =
-          "";
-
-
-        replyStatus.textContent =
-          "返信を送信しました！確認後に表示されます🦦";
-
-
-        replySubmit.disabled =
-          false;
-
-
-        replyCancel.disabled =
-          false;
-
-      }
-    );
-
-
-    return item;
-
-  }
-
-
-  /* ========================================
-     返信を折りたたむ
-  ======================================== */
-
-  function createReplyDetails(
-    parentId
-  ) {
-
-    const replies =
-      [
-        ...(childrenMap[parentId] || [])
-      ]
-        .sort(
-          (a, b) =>
-            new Date(a.created_at) -
-            new Date(b.created_at)
-        );
-
-
-    if (
-      replies.length === 0
-    ) {
-
-      return null;
-
-    }
-
-
-    const details =
-      document.createElement(
-        "details"
-      );
-
-
-    details.className =
-      "thread-replies";
-
-
-    const summary =
-      document.createElement(
-        "summary"
-      );
-
-
-    summary.textContent =
-      `返信を見る（${replies.length}件）`;
-
-
-    const replyList =
-      document.createElement(
-        "div"
-      );
-
-
-    replyList.className =
-      "reply-list";
-
-
-    replies.forEach(
-      reply => {
-
-        const replyItem =
-          createCommentElement(
-            reply
-          );
-
-
-        replyList.appendChild(
-          replyItem
-        );
-
-
-        /*
-          返信への返信も同じスレッド内に入れる。
-          新しい外枠は作らない。
-        */
-
-        const nestedDetails =
-          createReplyDetails(
-            reply.id
-          );
-
-
-        if (
-          nestedDetails
-        ) {
-
-          replyItem.appendChild(
-            nestedDetails
-          );
-
-        }
-
-      }
-    );
-
-
-    details.appendChild(
-      summary
-    );
-
-
-    details.appendChild(
-      replyList
-    );
-
-
-    return details;
-
-  }
-
-
-  /* ========================================
-     親コメント＋返信を1つの枠にする
-  ======================================== */
-
-  function createThread(
-    comment
-  ) {
-
-    const thread =
-      document.createElement(
-        "article"
-      );
-
-
-    thread.className =
-      "comment-thread";
-
-
-    thread.appendChild(
-      createCommentElement(
-        comment
+  return diaryEntries.filter(
+    entry =>
+      entry.categories.includes(
+        category.match
       )
-    );
-
-
-    const replyDetails =
-      createReplyDetails(
-        comment.id
-      );
-
-
-    if (
-      replyDetails
-    ) {
-
-      thread.appendChild(
-        replyDetails
-      );
-
-    }
-
-
-    return thread;
-
-  }
-
-
-  /* ========================================
-     最新3件を表示
-  ======================================== */
-
-  latestParents.forEach(
-    comment => {
-
-      commentsContainer.appendChild(
-        createThread(
-          comment
-        )
-      );
-
-    }
-  );
-
-
-  /* ========================================
-     4件目以降を折りたたむ
-  ======================================== */
-
-  if (
-    olderParents.length > 0
-  ) {
-
-    const details =
-      document.createElement(
-        "details"
-      );
-
-
-    details.className =
-      "older-comments";
-
-
-    const summary =
-      document.createElement(
-        "summary"
-      );
-
-
-    summary.textContent =
-      `過去のコメントを見る（${olderParents.length}件）`;
-
-
-    const olderList =
-      document.createElement(
-        "div"
-      );
-
-
-    olderList.className =
-      "older-comments-list";
-
-
-    olderParents.forEach(
-      comment => {
-
-        olderList.appendChild(
-          createThread(
-            comment
-          )
-        );
-
-      }
-    );
-
-
-    details.appendChild(
-      summary
-    );
-
-
-    details.appendChild(
-      olderList
-    );
-
-
-    commentsContainer.appendChild(
-      details
-    );
-
-  }
+  ).length;
 
 }
 
 
 /* ==========================================
-   新規コメント投稿
+   カテゴリー一覧表示
 ========================================== */
 
-commentForm.addEventListener(
-  "submit",
-  async event => {
+function renderCategories() {
 
-    event.preventDefault();
+  categoryList.innerHTML = "";
 
 
-    const displayName =
-      displayNameInput.value.trim();
+  categories.forEach(
+    category => {
+
+      const button =
+        document.createElement(
+          "button"
+        );
 
 
-    const body =
-      commentText.value.trim();
+      button.type =
+        "button";
 
 
-    if (
-      !displayName
-    ) {
-
-      commentMessage.textContent =
-        "表示名を入力してください。";
-
-
-      displayNameInput.focus();
-
-
-      return;
-
-    }
-
-
-    if (
-      !body
-    ) {
-
-      commentMessage.textContent =
-        "コメントを入力してください。";
-
-
-      commentText.focus();
-
-
-      return;
-
-    }
-
-
-    const submitButton =
-      commentForm.querySelector(
-        'button[type="submit"]'
-      );
-
-
-    if (
-      submitButton
-    ) {
-
-      submitButton.disabled =
-        true;
-
-    }
-
-
-    commentMessage.textContent =
-      "コメントを投稿しています……";
-
-
-    const {
-      error
-    } =
-      await supabaseClient
-
-        .from(
-          "diary_comments"
-        )
-
-        .insert([
-          {
-
-            display_name:
-              displayName,
-
-            body:
-              body,
-
-            approved:
-              false,
-
-            page_slug:
-              PAGE_SLUG
-
-          }
-        ]);
-
-
-    if (
-      error
-    ) {
-
-      console.error(
-        "コメント投稿エラー:",
-        error
-      );
-
-
-      commentMessage.textContent =
-        "コメントを投稿できませんでした。";
+      button.className =
+        "category-button";
 
 
       if (
-        submitButton
+        currentCategory ===
+        category.id
       ) {
 
-        submitButton.disabled =
-          false;
+        button.classList.add(
+          "active"
+        );
 
       }
 
 
-      return;
+      const name =
+        document.createElement(
+          "span"
+        );
+
+
+      name.textContent =
+        category.name;
+
+
+      const count =
+        document.createElement(
+          "span"
+        );
+
+
+      count.className =
+        "category-count";
+
+
+      count.textContent =
+        getCategoryCount(
+          category
+        );
+
+
+      button.appendChild(
+        name
+      );
+
+
+      button.appendChild(
+        count
+      );
+
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          currentCategory =
+            category.id;
+
+          renderCategories();
+
+          renderDiaryList();
+
+        }
+      );
+
+
+      categoryList.appendChild(
+        button
+      );
 
     }
+  );
+
+}
 
 
-    displayNameInput.value =
-      "";
+/* ==========================================
+   日記一覧表示
+========================================== */
+
+function renderDiaryList() {
+
+  diaryList.innerHTML = "";
 
 
-    commentText.value =
-      "";
+  let entries =
+    diaryEntries;
 
 
-    commentMessage.textContent =
-      "コメントしました！確認後に表示されます🦦";
+  if (
+    currentCategory !==
+    "all"
+  ) {
+
+    const category =
+      categories.find(
+        item =>
+          item.id ===
+          currentCategory
+      );
 
 
     if (
-      submitButton
+      category &&
+      category.match
     ) {
 
-      submitButton.disabled =
-        false;
+      entries =
+        diaryEntries.filter(
+          entry =>
+            entry.categories.includes(
+              category.match
+            )
+        );
 
     }
 
   }
-);
+
+
+  listStatus.textContent =
+    `${entries.length}件の日記`;
+
+
+  if (
+    entries.length === 0
+  ) {
+
+    diaryList.innerHTML = `
+      <div class="no-entry">
+        このカテゴリーの日記はまだありません🦦
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  entries.forEach(
+    entry => {
+
+      const article =
+        document.createElement(
+          "a"
+        );
+
+
+      article.className =
+        "diary-card";
+
+
+      article.href =
+        entry.url;
+
+
+      /* ====================================
+         上段
+      ==================================== */
+
+      const top =
+        document.createElement(
+          "div"
+        );
+
+
+      top.className =
+        "diary-card-top";
+
+
+      const category =
+        document.createElement(
+          "span"
+        );
+
+
+      category.className =
+        "category-label";
+
+
+      category.textContent =
+        entry.categories[0];
+
+
+      const date =
+        document.createElement(
+          "time"
+        );
+
+
+      date.className =
+        "entry-date";
+
+
+      date.textContent =
+        entry.dateLabel;
+
+
+      top.appendChild(
+        category
+      );
+
+
+      top.appendChild(
+        date
+      );
+
+
+      /* ====================================
+         タイトル
+      ==================================== */
+
+      const title =
+        document.createElement(
+          "h3"
+        );
+
+
+      title.className =
+        "entry-title";
+
+
+      title.textContent =
+        entry.title;
+
+
+      /* ====================================
+         概要
+      ==================================== */
+
+      const summary =
+        document.createElement(
+          "p"
+        );
+
+
+      summary.className =
+        "entry-summary";
+
+
+      summary.textContent =
+        entry.summary;
+
+
+      /* ====================================
+         続きを読む
+      ==================================== */
+
+      const readMore =
+        document.createElement(
+          "span"
+        );
+
+
+      readMore.className =
+        "read-more";
+
+
+      readMore.textContent =
+        "続きを読む →";
+
+
+      /* ====================================
+         組み立て
+      ==================================== */
+
+      article.appendChild(
+        top
+      );
+
+      article.appendChild(
+        title
+      );
+
+      article.appendChild(
+        summary
+      );
+
+      article.appendChild(
+        readMore
+      );
+
+
+      diaryList.appendChild(
+        article
+      );
+
+    }
+  );
+
+}
 
 
 /* ==========================================
-   初期処理
+   初期表示
 ========================================== */
 
-loadComments();
+renderCategories();
+
+renderDiaryList();
+
 
 </script>
 
