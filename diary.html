@@ -334,6 +334,13 @@ main {
   margin-bottom: 8px;
 }
 
+.category-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+
 .category-label {
   display: inline-block;
 
@@ -905,7 +912,7 @@ button:focus-visible {
 
 /* ==========================================
    日記データ
-   ==========================================
+==========================================
 
    新しい日記を書く時は、
    ここに1件追加するだけ。
@@ -925,12 +932,13 @@ const diaryEntries = [
 
     categories: [
       "サイト制作",
-      "DbD",
+      "Dead by Daylight",
       "Twitch"
     ],
 
-summary:
-  "というわけで今日から日記をつけていくよ。ちょいちょい更新していくから楽しみにしてね。このサイトを作ろうと思ったきっかけは、ラッコがDbDにハマって、攻略サイトを見て色々研究しようと思った時に……",
+    summary:
+      "というわけで今日から日記をつけていくよ。ちょいちょい更新していくから楽しみにしてね。このサイトを作ろうと思ったきっかけは、ラッコがDbDにハマって、攻略サイトを見て色々研究しようと思った時に……",
+
     url: "diary-day1.html"
   }
 
@@ -950,8 +958,8 @@ const categories = [
 
   {
     id: "dbd",
-    name: "DbD",
-    match: "DbD"
+    name: "Dead by Daylight",
+    match: "Dead by Daylight"
   },
 
   {
@@ -1237,18 +1245,39 @@ function renderDiaryList() {
         "diary-card-top";
 
 
-      const category =
+      const categoryLabels =
         document.createElement(
-          "span"
+          "div"
         );
 
 
-      category.className =
-        "category-label";
+      categoryLabels.className =
+        "category-labels";
 
 
-      category.textContent =
-        entry.categories[0];
+      entry.categories.forEach(
+        categoryName => {
+
+          const categoryLabel =
+            document.createElement(
+              "span"
+            );
+
+
+          categoryLabel.className =
+            "category-label";
+
+
+          categoryLabel.textContent =
+            categoryName;
+
+
+          categoryLabels.appendChild(
+            categoryLabel
+          );
+
+        }
+      );
 
 
       const date =
@@ -1266,7 +1295,7 @@ function renderDiaryList() {
 
 
       top.appendChild(
-        category
+        categoryLabels
       );
 
 
@@ -1337,13 +1366,16 @@ function renderDiaryList() {
         top
       );
 
+
       article.appendChild(
         title
       );
 
+
       article.appendChild(
         summary
       );
+
 
       article.appendChild(
         readMore
