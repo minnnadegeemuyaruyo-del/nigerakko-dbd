@@ -623,6 +623,12 @@
         font-size: 12px;
       }
 
+      .discord-link,
+      .twitch-link {
+        padding: 7px 10px;
+        font-size: 12px;
+      }
+
       .page-hero {
         padding: 30px 18px 34px;
       }
@@ -696,6 +702,30 @@
         font-size: 17px;
       }
     }
+
+    .discord-link {
+      background: #5865F2;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 30px;
+    }
+
+    .discord-link:hover {
+      color: white;
+      opacity: .9;
+    }
+
+    .twitch-link {
+      background: #302b2a;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 30px;
+    }
+
+    .twitch-link:hover {
+      color: white;
+      opacity: .9;
+    }
   </style>
 </head>
 
@@ -710,10 +740,15 @@
 
       <nav aria-label="メインメニュー">
         <a href="index.html">ホーム</a>
-        <a href="perks.html">パーク紹介</a>
-        <a href="playstyle.html?v=2">立ち回り講座</a>
-        <a href="index.html#beginner">初心者ガイド</a>
-        <a href="fun.html" aria-current="page">楽しみ方</a>
+        <a href="diary.html">ラッコの日記</a>
+        <a href="https://discord.gg/SP9GnQDS5f"
+           class="discord-link"
+           target="_blank"
+           rel="noopener noreferrer">Discordに参加 ↗</a>
+        <a href="https://www.twitch.tv/rakkowww"
+           class="twitch-link"
+           target="_blank"
+           rel="noopener noreferrer">Twitchで配信中 ↗</a>
       </nav>
     </div>
   </header>
