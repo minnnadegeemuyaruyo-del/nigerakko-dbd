@@ -307,10 +307,19 @@
     }
 
 
-    .entry-category {
-      display: inline-block;
+    .entry-categories {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 6px;
 
       margin-bottom: 14px;
+    }
+
+
+    .entry-category {
+      display: inline-block;
 
       padding:
         5px 12px;
@@ -1197,7 +1206,7 @@
 
 
     <h1>
-      ついにサイトを公開しました！ 🦦
+      ラッコの日記
     </h1>
 
 
@@ -1221,9 +1230,11 @@
   <article class="diary-entry">
 
 
-    <span class="entry-category">
-      サイト制作
-    </span>
+    <div class="entry-categories">
+      <span class="entry-category">サイト制作</span>
+      <span class="entry-category">Dead by Daylight</span>
+      <span class="entry-category">Twitch</span>
+    </div>
 
 
     <h2 class="entry-title">
@@ -1235,7 +1246,6 @@
 
 
       <p>
-        ついにサイトを公開しました！
         というわけで今日から日記をつけていくよ。
         ちょいちょい更新していくから楽しみにしてね。
       </p>
