@@ -1327,7 +1327,6 @@
         .from("diary_comments")
         .select("display_name, body, created_at")
         .eq("page_slug", PAGE_SLUG)
-        .eq("approved", true)
         .order("created_at", { ascending: false });
 
       if (error) {
@@ -1381,7 +1380,7 @@
             page_slug: PAGE_SLUG,
             display_name: name,
             body: body,
-            approved: false
+            approved: true
           }
         ]);
 
@@ -1398,9 +1397,10 @@
       commentForm.reset();
 
       commentStatus.textContent =
-        "コメントを送信しました！承認されると表示されます🦦";
+        "コメントを投稿しました！すぐに表示されます🦦";
 
       commentSubmit.disabled = false;
+      await loadComments();
     });
 
     loadComments();
