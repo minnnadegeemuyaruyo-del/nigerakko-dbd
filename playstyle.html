@@ -1333,7 +1333,7 @@
         console.error("コメント読み込みエラー:", error);
 
         commentList.innerHTML =
-          '<div class="comment-empty">コメントを読み込めませんでした。</div>';
+          `<div class="comment-empty">コメントを読み込めませんでした。<br><small>${escapeHtml(error.message || "詳細不明")}</small></div>`;
 
         return;
       }
@@ -1388,7 +1388,7 @@
         console.error("コメント送信エラー:", error);
 
         commentStatus.textContent =
-          "コメントを送信できませんでした。もう一度試してね。";
+          "コメントを送信できませんでした: " + (error.message || "詳細不明");
 
         commentSubmit.disabled = false;
         return;
